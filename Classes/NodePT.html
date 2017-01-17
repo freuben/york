@@ -1,0 +1,353 @@
+<html><head><title>NodePT</title><link rel='stylesheet' href='./../scdoc.css' type='text/css' /><link rel='stylesheet' href='./../frontend.css' type='text/css' /><link rel='stylesheet' href='./../custom.css' type='text/css' /><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /><script src='./../scdoc.js' type='text/javascript'></script><script src='./../docmap.js' type='text/javascript'></script><script src='./../prettify.js' type='text/javascript'></script><script src='./../lang-sc.js' type='text/javascript'></script><script src='./../MathJax/MathJax.js?config=TeX-AMS_HTML,scmathjax' type='text/javascript'></script><script type='text/javascript'>var helpRoot='./..';</script></head><ul id='menubar'></ul><body onload='fixTOC();prettyPrint()'><div class='contents'><div class='header'><div id='label'>SuperCollider CLASSES (extension)</div><div id='categories'><a href='./../Browse.html#Undocumented classes'>Undocumented classes</a></div><h1>NodePT</h1><div id='summary'>(not documented)</div></div><div class='subheader'>
+<div id='filename'>Source: /Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Instruments/<a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Instruments/NodePT.sc'>NodePT.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div></div><div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#*new'>new</a> </li>
+<li class='toc3'><a href='#*initClass'>initClass</a> </li>
+<li class='toc2'><a href='#inherited_class_methods'>Inherited class methods</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#-window'>window</a> </li>
+<li class='toc3'><a href='#-time'>time</a> </li>
+<li class='toc3'><a href='#-mag'>mag</a> </li>
+<li class='toc3'><a href='#-freq'>freq</a> </li>
+<li class='toc3'><a href='#-number'>number</a> </li>
+<li class='toc3'><a href='#-audioIn'>audioIn</a> </li>
+<li class='toc3'><a href='#-magnitudes'>magnitudes</a> </li>
+<li class='toc3'><a href='#-freqs'>freqs</a> </li>
+<li class='toc3'><a href='#-magThresh'>magThresh</a> </li>
+<li class='toc3'><a href='#-m'>m</a> </li>
+<li class='toc3'><a href='#-a'>a</a> </li>
+<li class='toc3'><a href='#-b'>b</a> </li>
+<li class='toc3'><a href='#-c'>c</a> </li>
+<li class='toc3'><a href='#-f'>f</a> </li>
+<li class='toc3'><a href='#-j'>j</a> </li>
+<li class='toc3'><a href='#-y'>y</a> </li>
+<li class='toc3'><a href='#-o'>o</a> </li>
+<li class='toc3'><a href='#-t'>t</a> </li>
+<li class='toc3'><a href='#-z'>z</a> </li>
+<li class='toc3'><a href='#-initNodePT'>initNodePT</a> </li>
+<li class='toc3'><a href='#-playNode'>playNode</a> </li>
+<li class='toc3'><a href='#-stopNode'>stopNode</a> </li>
+<li class='toc3'><a href='#-clearNode'>clearNode</a> </li>
+<li class='toc3'><a href='#-startsynth'>startsynth</a> </li>
+<li class='toc3'><a href='#-startsynth2'>startsynth2</a> </li>
+<li class='toc3'><a href='#-numpartials'>numpartials</a> </li>
+<li class='toc3'><a href='#-thresh'>thresh</a> </li>
+<li class='toc3'><a href='#-getarrays'>getarrays</a> </li>
+<li class='toc3'><a href='#-stoptask'>stoptask</a> </li>
+<li class='toc3'><a href='#-resume'>resume</a> </li>
+<li class='toc3'><a href='#-stop'>stop</a> </li>
+<li class='toc3'><a href='#-list'>list</a> </li>
+<li class='toc3'><a href='#-setBus'>setBus</a> </li>
+<li class='toc3'><a href='#-micVolume'>micVolume</a> </li>
+<li class='toc3'><a href='#-free'>free</a> </li>
+<li class='toc3'><a href='#-setDelay'>setDelay</a> </li>
+<li class='toc3'><a href='#-frequencies'>frequencies</a> </li>
+<li class='toc2'><a href='#inherited_instance_methods'>Inherited instance methods</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#help_template'>Help Template</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
+
+<p>This class is missing documentation. See the <a href="#help_template">generated help template</a><h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./../Overviews/Methods.html#new'>new</a> (<span class='argstr'>window = 256</span>, <span class='argstr'>number = 20</span>)</h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*initClass' href='./../Overviews/Methods.html#initClass'>initClass</a> </h3>
+<h3><a class='anchor' name='inherited_class_methods'>Inherited class methods</a></h3>
+<div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-window' href='./../Overviews/Methods.html#window'>window</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-time' href='./../Overviews/Methods.html#time'>time</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-mag' href='./../Overviews/Methods.html#mag'>mag</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-freq' href='./../Overviews/Methods.html#freq'>freq</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-number' href='./../Overviews/Methods.html#number'>number</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-audioIn' href='./../Overviews/Methods.html#audioIn'>audioIn</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-magnitudes' href='./../Overviews/Methods.html#magnitudes'>magnitudes</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-freqs' href='./../Overviews/Methods.html#freqs'>freqs</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-magThresh' href='./../Overviews/Methods.html#magThresh'>magThresh</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-m' href='./../Overviews/Methods.html#m'>m</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-a' href='./../Overviews/Methods.html#a'>a</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-b' href='./../Overviews/Methods.html#b'>b</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-c' href='./../Overviews/Methods.html#c'>c</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-f' href='./../Overviews/Methods.html#f'>f</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-j' href='./../Overviews/Methods.html#j'>j</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-y' href='./../Overviews/Methods.html#y'>y</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-o' href='./../Overviews/Methods.html#o'>o</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-t' href='./../Overviews/Methods.html#t'>t</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-z' href='./../Overviews/Methods.html#z'>z</a> [= value]</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-initNodePT' href='./../Overviews/Methods.html#initNodePT'>initNodePT</a> (<span class='argstr'>windowSize = 256</span>, <span class='argstr'>numberPartials = 20</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-playNode' href='./../Overviews/Methods.html#playNode'>playNode</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-stopNode' href='./../Overviews/Methods.html#stopNode'>stopNode</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-clearNode' href='./../Overviews/Methods.html#clearNode'>clearNode</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-startsynth' href='./../Overviews/Methods.html#startsynth'>startsynth</a> (<span class='argstr'>witchIn = 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-startsynth2' href='./../Overviews/Methods.html#startsynth2'>startsynth2</a> (<span class='argstr'>witchIn = 1</span>, <span class='argstr'>thresh = 0</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-numpartials' href='./../Overviews/Methods.html#numpartials'>numpartials</a> (<span class='argstr'>numberPartials = 20</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-thresh' href='./../Overviews/Methods.html#thresh'>thresh</a> (<span class='argstr'>thresh = 0</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-getarrays' href='./../Overviews/Methods.html#getarrays'>getarrays</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-stoptask' href='./../Overviews/Methods.html#stoptask'>stoptask</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-resume' href='./../Overviews/Methods.html#resume'>resume</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-stop' href='./../Overviews/Methods.html#stop'>stop</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-list' href='./../Overviews/Methods.html#list'>list</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-setBus' href='./../Overviews/Methods.html#setBus'>setBus</a> (<span class='argstr'>newBus = 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-micVolume' href='./../Overviews/Methods.html#micVolume'>micVolume</a> (<span class='argstr'>vol = 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-free' href='./../Overviews/Methods.html#free'>free</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-setDelay' href='./../Overviews/Methods.html#setDelay'>setDelay</a> (<span class='argstr'>del = 0</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-frequencies' href='./../Overviews/Methods.html#frequencies'>frequencies</a> (<span class='argstr'>func</span>)</h3>
+<h3><a class='anchor' name='inherited_instance_methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h2><a class='anchor' name='help_template'>Help Template</a></h2>
+
+<p>Copy the template below or run<pre class='code prettyprint lang-sc'><a class='clslnk' href='./../Classes/Document.html'>Document</a>.new(string:<a class='clslnk' href='./../Classes/SCDoc.html'>SCDoc</a>.makeClassTemplate(\<a class='clslnk' href='./../Classes/NodePT.html'>NodePT</a>))</pre>
+
+<p>to open a new Document with the template.
+Save it to HelpSource/Classes/NodePT.schelp<pre class='code prettyprint lang-sc'>CLASS:: <a class='clslnk' href='./../Classes/NodePT.html'>NodePT</a>
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+argument:: window
+(describe argument here)
+
+argument:: number
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: initClass
+(describe method here)
+
+returns:: (returnvalue)
+
+
+INSTANCEMETHODS::
+
+METHOD:: window
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: time
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: mag
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: freq
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: number
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: audioIn
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: magnitudes
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: freqs
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: magThresh
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: m
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: a
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: b
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: c
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: f
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: j
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: y
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: o
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: t
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: z
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: initNodePT
+(describe method here)
+
+argument:: windowSize
+(describe argument here)
+
+argument:: numberPartials
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: playNode
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: stopNode
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: clearNode
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: startsynth
+(describe method here)
+
+argument:: witchIn
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: startsynth2
+(describe method here)
+
+argument:: witchIn
+(describe argument here)
+
+argument:: thresh
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: numpartials
+(describe method here)
+
+argument:: numberPartials
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: thresh
+(describe method here)
+
+argument:: thresh
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: getarrays
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: stoptask
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: resume
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: stop
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: list
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: setBus
+(describe method here)
+
+argument:: newBus
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: micVolume
+(describe method here)
+
+argument:: vol
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: free
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: setDelay
+(describe method here)
+
+argument:: del
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: frequencies
+(describe method here)
+
+argument:: func
+(describe argument here)
+
+returns:: (returnvalue)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::
+</pre>
+</div></body></html>

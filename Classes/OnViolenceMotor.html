@@ -1,0 +1,428 @@
+<html><head><title>OnViolenceMotor</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script src='./../MathJax/MathJax.js?config=TeX-AMS_HTML,scmathjax' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider CLASSES (extension)</div>
+<div id='categories'><a href='./../Browse.html#Undocumented classes'>Undocumented classes</a></div>
+<h1>OnViolenceMotor</h1>
+<div id='summary'>(Undocumented class)</div>
+</div>
+<div class='subheader'>
+<div id='filename'>Source: /Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/OnViolence/Classes/<a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/OnViolence/Classes/OnViolenceMotor.sc'>OnViolenceMotor.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Undocumented class methods'>Undocumented class methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#*initClass'>initClass</a> </li>
+<li class='toc3'><a href='#*new'>new</a> </li>
+</ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#-bend1'>bend1</a> </li>
+<li class='toc3'><a href='#-bend2'>bend2</a> </li>
+<li class='toc3'><a href='#-closeWin'>closeWin</a> </li>
+<li class='toc3'><a href='#-direction1'>direction1</a> </li>
+<li class='toc3'><a href='#-direction2'>direction2</a> </li>
+<li class='toc3'><a href='#-findPivot1'>findPivot1</a> </li>
+<li class='toc3'><a href='#-findPivot2'>findPivot2</a> </li>
+<li class='toc3'><a href='#-hideWin'>hideWin</a> </li>
+<li class='toc3'><a href='#-highVal'>highVal</a> </li>
+<li class='toc3'><a href='#-initOnViolenceMotor'>initOnViolenceMotor</a> </li>
+<li class='toc3'><a href='#-leftVal'>leftVal</a> </li>
+<li class='toc3'><a href='#-lowVal'>lowVal</a> </li>
+<li class='toc3'><a href='#-motor'>motor</a> </li>
+<li class='toc3'><a href='#-oscRespNode'>oscRespNode</a> </li>
+<li class='toc3'><a href='#-out'>out</a> </li>
+<li class='toc3'><a href='#-panMotor'>panMotor</a> </li>
+<li class='toc3'><a href='#-pedalLag'>pedalLag</a> </li>
+<li class='toc3'><a href='#-pedalOff'>pedalOff</a> </li>
+<li class='toc3'><a href='#-pedalOn'>pedalOn</a> </li>
+<li class='toc3'><a href='#-readyToStart'>readyToStart</a> </li>
+<li class='toc3'><a href='#-rightVal'>rightVal</a> </li>
+<li class='toc3'><a href='#-sensor1'>sensor1</a> </li>
+<li class='toc3'><a href='#-sensor2'>sensor2</a> </li>
+<li class='toc3'><a href='#-sensorLag1'>sensorLag1</a> </li>
+<li class='toc3'><a href='#-sensorLag2'>sensorLag2</a> </li>
+<li class='toc3'><a href='#-sensorWin'>sensorWin</a> </li>
+<li class='toc3'><a href='#-showWin'>showWin</a> </li>
+<li class='toc3'><a href='#-slider'>slider</a> </li>
+<li class='toc3'><a href='#-sliderPivot'>sliderPivot</a> </li>
+<li class='toc3'><a href='#-synth1'>synth1</a> </li>
+<li class='toc3'><a href='#-synth2'>synth2</a> </li>
+<li class='toc3'><a href='#-vol'>vol</a> </li>
+<li class='toc3'><a href='#-volMotor'>volMotor</a> </li>
+<li class='toc3'><a href='#-window'>window</a> </li>
+</ul></ul><li class='toc1'><a href='#Help template'>Help template</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
+
+<p>This class is missing documentation.<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
+<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented class methods'>Undocumented class methods</a></h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*initClass' href='./../Overviews/Methods.html#initClass'>initClass</a> </h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./../Overviews/Methods.html#new'>new</a> (<span class='argstr'>outBus: 0</span>, <span class='argstr'>vol: 1</span>, <span class='argstr'>panMotor: 0</span>, <span class='argstr'>lowVal: 0</span>, <span class='argstr'>highVal: 127</span>, <span class='argstr'>leftVal: 0</span>, <span class='argstr'>rightVal: 127</span>, <span class='argstr'>pathName</span>, <span class='argstr'>rectArr</span>, <span class='argstr'>playNode: true</span>, <span class='argstr'>extraWin</span>)</h3>
+<h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
+<h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-bend1' href='./../Overviews/Methods.html#bend1'>bend1</a> (<span class='argstr'>val</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-bend2' href='./../Overviews/Methods.html#bend2'>bend2</a> (<span class='argstr'>val</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-closeWin' href='./../Overviews/Methods.html#closeWin'>closeWin</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-direction1' href='./../Overviews/Methods.html#direction1'>direction1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-direction1' href='./../Overviews/Methods.html#direction1'>direction1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-direction2' href='./../Overviews/Methods.html#direction2'>direction2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-direction2' href='./../Overviews/Methods.html#direction2'>direction2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-findPivot1' href='./../Overviews/Methods.html#findPivot1'>findPivot1</a> (<span class='argstr'>count</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-findPivot2' href='./../Overviews/Methods.html#findPivot2'>findPivot2</a> (<span class='argstr'>count</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-hideWin' href='./../Overviews/Methods.html#hideWin'>hideWin</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-highVal' href='./../Overviews/Methods.html#highVal'>highVal</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-highVal' href='./../Overviews/Methods.html#highVal'>highVal</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-initOnViolenceMotor' href='./../Overviews/Methods.html#initOnViolenceMotor'>initOnViolenceMotor</a> (<span class='argstr'>outBus</span>, <span class='argstr'>vol</span>, <span class='argstr'>pan</span>, <span class='argstr'>valLow</span>, <span class='argstr'>valHigh</span>, <span class='argstr'>valLeft</span>, <span class='argstr'>valRight</span>, <span class='argstr'>pathName</span>, <span class='argstr'>rectArr</span>, <span class='argstr'>playNode</span>, <span class='argstr'>otherWindow</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-leftVal' href='./../Overviews/Methods.html#leftVal'>leftVal</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-leftVal' href='./../Overviews/Methods.html#leftVal'>leftVal</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-lowVal' href='./../Overviews/Methods.html#lowVal'>lowVal</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-lowVal' href='./../Overviews/Methods.html#lowVal'>lowVal</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-motor' href='./../Overviews/Methods.html#motor'>motor</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-motor' href='./../Overviews/Methods.html#motor'>motor</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-oscRespNode' href='./../Overviews/Methods.html#oscRespNode'>oscRespNode</a> (<span class='argstr'>rectArr</span>, <span class='argstr'>extraWindow</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-out' href='./../Overviews/Methods.html#out'>out</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-panMotor' href='./../Overviews/Methods.html#panMotor'>panMotor</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-panMotor' href='./../Overviews/Methods.html#panMotor'>panMotor</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalLag' href='./../Overviews/Methods.html#pedalLag'>pedalLag</a> (<span class='argstr'>numPedal: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOff' href='./../Overviews/Methods.html#pedalOff'>pedalOff</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOn' href='./../Overviews/Methods.html#pedalOn'>pedalOn</a> (<span class='argstr'>num: 0</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-readyToStart' href='./../Overviews/Methods.html#readyToStart'>readyToStart</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rightVal' href='./../Overviews/Methods.html#rightVal'>rightVal</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rightVal' href='./../Overviews/Methods.html#rightVal'>rightVal</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensor1' href='./../Overviews/Methods.html#sensor1'>sensor1</a> (<span class='argstr'>val</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensor2' href='./../Overviews/Methods.html#sensor2'>sensor2</a> (<span class='argstr'>val</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorLag1' href='./../Overviews/Methods.html#sensorLag1'>sensorLag1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorLag1' href='./../Overviews/Methods.html#sensorLag1'>sensorLag1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorLag2' href='./../Overviews/Methods.html#sensorLag2'>sensorLag2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorLag2' href='./../Overviews/Methods.html#sensorLag2'>sensorLag2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorWin' href='./../Overviews/Methods.html#sensorWin'>sensorWin</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorWin' href='./../Overviews/Methods.html#sensorWin'>sensorWin</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-showWin' href='./../Overviews/Methods.html#showWin'>showWin</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-slider' href='./../Overviews/Methods.html#slider'>slider</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sliderPivot' href='./../Overviews/Methods.html#sliderPivot'>sliderPivot</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-synth1' href='./../Overviews/Methods.html#synth1'>synth1</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-synth2' href='./../Overviews/Methods.html#synth2'>synth2</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-vol' href='./../Overviews/Methods.html#vol'>vol</a> (<span class='argstr'>amp: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volMotor' href='./../Overviews/Methods.html#volMotor'>volMotor</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volMotor' href='./../Overviews/Methods.html#volMotor'>volMotor</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-window' href='./../Overviews/Methods.html#window'>window</a> </h3>
+<h2><a class='anchor' name='Help template'>Help template</a></h2>
+
+<p>Copy and paste the text below and save to HelpSource/Classes/OnViolenceMotor.schelp<pre class='code prettyprint lang-sc'>TITLE:: OnViolenceMotor
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+ARGUMENT:: outBus
+(describe argument here)
+
+ARGUMENT:: vol
+(describe argument here)
+
+ARGUMENT:: panMotor
+(describe argument here)
+
+ARGUMENT:: lowVal
+(describe argument here)
+
+ARGUMENT:: highVal
+(describe argument here)
+
+ARGUMENT:: leftVal
+(describe argument here)
+
+ARGUMENT:: rightVal
+(describe argument here)
+
+ARGUMENT:: pathName
+(describe argument here)
+
+ARGUMENT:: rectArr
+(describe argument here)
+
+ARGUMENT:: playNode
+(describe argument here)
+
+ARGUMENT:: extraWin
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initClass
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: hideWin
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: findPivot1
+(describe method here)
+
+ARGUMENT:: count
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: leftVal
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: window
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensor1
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: vol
+(describe method here)
+
+ARGUMENT:: amp
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: readyToStart
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: slider
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: closeWin
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensorLag2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalOff
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sliderPivot
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: direction2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: findPivot2
+(describe method here)
+
+ARGUMENT:: count
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalLag
+(describe method here)
+
+ARGUMENT:: numPedal
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bend2
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: synth2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensor2
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: motor
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: volMotor
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: out
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: panMotor
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensorLag1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: lowVal
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensorWin
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: showWin
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: synth1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: direction1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bend1
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: oscRespNode
+(describe method here)
+
+ARGUMENT:: rectArr
+(describe argument here)
+
+ARGUMENT:: extraWindow
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: rightVal
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initOnViolenceMotor
+(describe method here)
+
+ARGUMENT:: outBus
+(describe argument here)
+
+ARGUMENT:: vol
+(describe argument here)
+
+ARGUMENT:: pan
+(describe argument here)
+
+ARGUMENT:: valLow
+(describe argument here)
+
+ARGUMENT:: valHigh
+(describe argument here)
+
+ARGUMENT:: valLeft
+(describe argument here)
+
+ARGUMENT:: valRight
+(describe argument here)
+
+ARGUMENT:: pathName
+(describe argument here)
+
+ARGUMENT:: rectArr
+(describe argument here)
+
+ARGUMENT:: playNode
+(describe argument here)
+
+ARGUMENT:: otherWindow
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalOn
+(describe method here)
+
+ARGUMENT:: num
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: highVal
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::
+</pre>
+<div class='doclink'>link::Classes/OnViolenceMotor::<br>sc version: 3.6.5</div></div></body></html>

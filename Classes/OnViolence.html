@@ -1,0 +1,1056 @@
+<html><head><title>OnViolence</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script src='./../MathJax/MathJax.js?config=TeX-AMS_HTML,scmathjax' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider CLASSES (extension)</div>
+<div id='categories'><a href='./../Browse.html#Undocumented classes'>Undocumented classes</a></div>
+<h1>OnViolence</h1>
+<div id='summary'>(Undocumented class)</div>
+</div>
+<div class='subheader'>
+<div id='filename'>Source: /Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/OnViolence/<a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/OnViolence/OnViolence.sc'>OnViolence.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Undocumented class methods'>Undocumented class methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#*initClass'>initClass</a> </li>
+<li class='toc3'><a href='#*new'>new</a> </li>
+</ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#-algoVersion'>algoVersion</a> </li>
+<li class='toc3'><a href='#-ampIn'>ampIn</a> </li>
+<li class='toc3'><a href='#-amplitude'>amplitude</a> </li>
+<li class='toc3'><a href='#-ampPar'>ampPar</a> </li>
+<li class='toc3'><a href='#-arrayTimes'>arrayTimes</a> </li>
+<li class='toc3'><a href='#-audioIn'>audioIn</a> </li>
+<li class='toc3'><a href='#-bufferArr'>bufferArr</a> </li>
+<li class='toc3'><a href='#-buxsynthAdjTime'>buxsynthAdjTime</a> </li>
+<li class='toc3'><a href='#-buxtahude'>buxtahude</a> </li>
+<li class='toc3'><a href='#-buxtaSynthPlayer'>buxtaSynthPlayer</a> </li>
+<li class='toc3'><a href='#-buxtasynths'>buxtasynths</a> </li>
+<li class='toc3'><a href='#-chunkPlayer'>chunkPlayer</a> </li>
+<li class='toc3'><a href='#-chunks'>chunks</a> </li>
+<li class='toc3'><a href='#-chunksAdjDur'>chunksAdjDur</a> </li>
+<li class='toc3'><a href='#-chunksEqTrans'>chunksEqTrans</a> </li>
+<li class='toc3'><a href='#-chunksTransp'>chunksTransp</a> </li>
+<li class='toc3'><a href='#-chunksVolAdj'>chunksVolAdj</a> </li>
+<li class='toc3'><a href='#-chunksVolArr'>chunksVolArr</a> </li>
+<li class='toc3'><a href='#-connect'>connect</a> </li>
+<li class='toc3'><a href='#-countGlob'>countGlob</a> </li>
+<li class='toc3'><a href='#-currentTempo'>currentTempo</a> </li>
+<li class='toc3'><a href='#-differ'>differ</a> </li>
+<li class='toc3'><a href='#-funcNotes'>funcNotes</a> </li>
+<li class='toc3'><a href='#-funcPlay'>funcPlay</a> </li>
+<li class='toc3'><a href='#-grito1'>grito1</a> </li>
+<li class='toc3'><a href='#-grito2'>grito2</a> </li>
+<li class='toc3'><a href='#-grito3'>grito3</a> </li>
+<li class='toc3'><a href='#-grito4'>grito4</a> </li>
+<li class='toc3'><a href='#-initOnViolence'>initOnViolence</a> </li>
+<li class='toc3'><a href='#-instArr'>instArr</a> </li>
+<li class='toc3'><a href='#-instr'>instr</a> </li>
+<li class='toc3'><a href='#-lastSection'>lastSection</a> </li>
+<li class='toc3'><a href='#-lastSecVol'>lastSecVol</a> </li>
+<li class='toc3'><a href='#-master1'>master1</a> </li>
+<li class='toc3'><a href='#-master2'>master2</a> </li>
+<li class='toc3'><a href='#-metal'>metal</a> </li>
+<li class='toc3'><a href='#-metalOn'>metalOn</a> </li>
+<li class='toc3'><a href='#-mixer'>mixer</a> </li>
+<li class='toc3'><a href='#-mixer2'>mixer2</a> </li>
+<li class='toc3'><a href='#-motor'>motor</a> </li>
+<li class='toc3'><a href='#-network'>network</a> </li>
+<li class='toc3'><a href='#-notes'>notes</a> </li>
+<li class='toc3'><a href='#-oscRespond'>oscRespond</a> </li>
+<li class='toc3'><a href='#-pan'>pan</a> </li>
+<li class='toc3'><a href='#-panArr'>panArr</a> </li>
+<li class='toc3'><a href='#-parsifal'>parsifal</a> </li>
+<li class='toc3'><a href='#-partials'>partials</a> </li>
+<li class='toc3'><a href='#-pedalOffFunc'>pedalOffFunc</a> </li>
+<li class='toc3'><a href='#-pedalOffGlob'>pedalOffGlob</a> </li>
+<li class='toc3'><a href='#-pedalOnFunc'>pedalOnFunc</a> </li>
+<li class='toc3'><a href='#-pedalOnGlob'>pedalOnGlob</a> </li>
+<li class='toc3'><a href='#-piano'>piano</a> </li>
+<li class='toc3'><a href='#-pnosoloAdjVol'>pnosoloAdjVol</a> </li>
+<li class='toc3'><a href='#-pnosoloProb'>pnosoloProb</a> </li>
+<li class='toc3'><a href='#-pnosoloStart'>pnosoloStart</a> </li>
+<li class='toc3'><a href='#-pnosoloStop'>pnosoloStop</a> </li>
+<li class='toc3'><a href='#-pnosoloTranspAdj'>pnosoloTranspAdj</a> </li>
+<li class='toc3'><a href='#-pnosoloVelGate'>pnosoloVelGate</a> </li>
+<li class='toc3'><a href='#-pnosoloVol'>pnosoloVol</a> </li>
+<li class='toc3'><a href='#-prepare'>prepare</a> </li>
+<li class='toc3'><a href='#-randBuffArr'>randBuffArr</a> </li>
+<li class='toc3'><a href='#-readyToStart'>readyToStart</a> </li>
+<li class='toc3'><a href='#-remove'>remove</a> </li>
+<li class='toc3'><a href='#-resetNodeProxies'>resetNodeProxies</a> </li>
+<li class='toc3'><a href='#-rrandArray'>rrandArray</a> </li>
+<li class='toc3'><a href='#-selectFiles'>selectFiles</a> </li>
+<li class='toc3'><a href='#-sendArray'>sendArray</a> </li>
+<li class='toc3'><a href='#-sensorVal1'>sensorVal1</a> </li>
+<li class='toc3'><a href='#-sensorVal2'>sensorVal2</a> </li>
+<li class='toc3'><a href='#-setInstSources'>setInstSources</a> </li>
+<li class='toc3'><a href='#-silenceGritos'>silenceGritos</a> </li>
+<li class='toc3'><a href='#-silenceNodeProxies'>silenceNodeProxies</a> </li>
+<li class='toc3'><a href='#-silenceWagnerNodes'>silenceWagnerNodes</a> </li>
+<li class='toc3'><a href='#-startMIDI'>startMIDI</a> </li>
+<li class='toc3'><a href='#-startNodes'>startNodes</a> </li>
+<li class='toc3'><a href='#-startOSC'>startOSC</a> </li>
+<li class='toc3'><a href='#-stepGlob'>stepGlob</a> </li>
+<li class='toc3'><a href='#-tempo'>tempo</a> </li>
+<li class='toc3'><a href='#-tempoTrack'>tempoTrack</a> </li>
+<li class='toc3'><a href='#-thresh'>thresh</a> </li>
+<li class='toc3'><a href='#-trackingTempo'>trackingTempo</a> </li>
+<li class='toc3'><a href='#-trackTempo'>trackTempo</a> </li>
+<li class='toc3'><a href='#-trigBang1'>trigBang1</a> </li>
+<li class='toc3'><a href='#-trigBang2'>trigBang2</a> </li>
+<li class='toc3'><a href='#-volArr'>volArr</a> </li>
+<li class='toc3'><a href='#-volArr1'>volArr1</a> </li>
+<li class='toc3'><a href='#-volArr2'>volArr2</a> </li>
+<li class='toc3'><a href='#-wagner1'>wagner1</a> </li>
+<li class='toc3'><a href='#-wagner2'>wagner2</a> </li>
+<li class='toc3'><a href='#-wagner3'>wagner3</a> </li>
+<li class='toc3'><a href='#-wagner4'>wagner4</a> </li>
+<li class='toc3'><a href='#-wagnerAlgo'>wagnerAlgo</a> </li>
+</ul></ul><li class='toc1'><a href='#Help template'>Help template</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
+
+<p>This class is missing documentation.<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
+<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented class methods'>Undocumented class methods</a></h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*initClass' href='./../Overviews/Methods.html#initClass'>initClass</a> </h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./../Overviews/Methods.html#new'>new</a> (<span class='argstr'>audioIn: 0</span>, <span class='argstr'>volArr</span>, <span class='argstr'>panArr</span>)</h3>
+<h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
+<h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-algoVersion' href='./../Overviews/Methods.html#algoVersion'>algoVersion</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-algoVersion' href='./../Overviews/Methods.html#algoVersion'>algoVersion</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-ampIn' href='./../Overviews/Methods.html#ampIn'>ampIn</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-ampIn' href='./../Overviews/Methods.html#ampIn'>ampIn</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-amplitude' href='./../Overviews/Methods.html#amplitude'>amplitude</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-amplitude' href='./../Overviews/Methods.html#amplitude'>amplitude</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-ampPar' href='./../Overviews/Methods.html#ampPar'>ampPar</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-ampPar' href='./../Overviews/Methods.html#ampPar'>ampPar</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-arrayTimes' href='./../Overviews/Methods.html#arrayTimes'>arrayTimes</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-audioIn' href='./../Overviews/Methods.html#audioIn'>audioIn</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-audioIn' href='./../Overviews/Methods.html#audioIn'>audioIn</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-bufferArr' href='./../Overviews/Methods.html#bufferArr'>bufferArr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-bufferArr' href='./../Overviews/Methods.html#bufferArr'>bufferArr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxsynthAdjTime' href='./../Overviews/Methods.html#buxsynthAdjTime'>buxsynthAdjTime</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxsynthAdjTime' href='./../Overviews/Methods.html#buxsynthAdjTime'>buxsynthAdjTime</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxtahude' href='./../Overviews/Methods.html#buxtahude'>buxtahude</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxtahude' href='./../Overviews/Methods.html#buxtahude'>buxtahude</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxtaSynthPlayer' href='./../Overviews/Methods.html#buxtaSynthPlayer'>buxtaSynthPlayer</a> (<span class='argstr'>indexBusta: 0</span>, <span class='argstr'>initVol: 0.4</span>, <span class='argstr'>initVol2: 1.5</span>, <span class='argstr'>prob: 0</span>, <span class='argstr'>initAdjTime: 1</span>, <span class='argstr'>transAdj: 0</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxtasynths' href='./../Overviews/Methods.html#buxtasynths'>buxtasynths</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-buxtasynths' href='./../Overviews/Methods.html#buxtasynths'>buxtasynths</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunkPlayer' href='./../Overviews/Methods.html#chunkPlayer'>chunkPlayer</a> (<span class='argstr'>whichChunk: 'chunk1'</span>, <span class='argstr'>initVol: 1</span>, <span class='argstr'>initDur: 1</span>, <span class='argstr'>chunksMatch: true</span>, <span class='argstr'>dbdif: 10</span>, <span class='argstr'>jitter: 0.25</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunks' href='./../Overviews/Methods.html#chunks'>chunks</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunks' href='./../Overviews/Methods.html#chunks'>chunks</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksAdjDur' href='./../Overviews/Methods.html#chunksAdjDur'>chunksAdjDur</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksAdjDur' href='./../Overviews/Methods.html#chunksAdjDur'>chunksAdjDur</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksEqTrans' href='./../Overviews/Methods.html#chunksEqTrans'>chunksEqTrans</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksEqTrans' href='./../Overviews/Methods.html#chunksEqTrans'>chunksEqTrans</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksTransp' href='./../Overviews/Methods.html#chunksTransp'>chunksTransp</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksTransp' href='./../Overviews/Methods.html#chunksTransp'>chunksTransp</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksVolAdj' href='./../Overviews/Methods.html#chunksVolAdj'>chunksVolAdj</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksVolAdj' href='./../Overviews/Methods.html#chunksVolAdj'>chunksVolAdj</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksVolArr' href='./../Overviews/Methods.html#chunksVolArr'>chunksVolArr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-chunksVolArr' href='./../Overviews/Methods.html#chunksVolArr'>chunksVolArr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-connect' href='./../Overviews/Methods.html#connect'>connect</a> (<span class='argstr'>hostcomputer: "127.0.0.1"</span>, <span class='argstr'>port</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-countGlob' href='./../Overviews/Methods.html#countGlob'>countGlob</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-countGlob' href='./../Overviews/Methods.html#countGlob'>countGlob</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-currentTempo' href='./../Overviews/Methods.html#currentTempo'>currentTempo</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-differ' href='./../Overviews/Methods.html#differ'>differ</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-differ' href='./../Overviews/Methods.html#differ'>differ</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-funcNotes' href='./../Overviews/Methods.html#funcNotes'>funcNotes</a> (<span class='argstr'>instNum: 1</span>, <span class='argstr'>id: 0</span>, <span class='argstr'>note: 60</span>, <span class='argstr'>vel: 127</span>, <span class='argstr'>bend: 0</span>, <span class='argstr'>rateThis: 1</span>, <span class='argstr'>mulRate: 1</span>, <span class='argstr'>volumeThis: 0</span>, <span class='argstr'>adjMainThis: 1</span>, <span class='argstr'>adjVolThis: 0</span>, <span class='argstr'>noteThis: 0</span>, <span class='argstr'>mulTransp: 0</span>, <span class='argstr'>del: 0</span>, <span class='argstr'>atk: 0</span>, <span class='argstr'>rel: 0</span>, <span class='argstr'>mulDur: 1</span>, <span class='argstr'>durationMul: 1</span>, <span class='argstr'>pause: 0</span>, <span class='argstr'>curve: 0</span>, <span class='argstr'>noteType: 'pitch'</span>, <span class='argstr'>prob: 1</span>, <span class='argstr'>globProb: 1</span>, <span class='argstr'>dis: 1</span>, <span class='argstr'>mulDis: 1</span>, <span class='argstr'>dbdif: 2</span>, <span class='argstr'>cutfreq: 1000</span>, <span class='argstr'>highRange: 1000</span>, <span class='argstr'>lowRange: 0</span>, <span class='argstr'>eqtemp: 0</span>, <span class='argstr'>match: false</span>, <span class='argstr'>arrange: 'norm'</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-funcPlay' href='./../Overviews/Methods.html#funcPlay'>funcPlay</a> (<span class='argstr'>soundFile: 1</span>, <span class='argstr'>time: 0.1</span>, <span class='argstr'>rate: 1</span>, <span class='argstr'>amp: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito1' href='./../Overviews/Methods.html#grito1'>grito1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito1' href='./../Overviews/Methods.html#grito1'>grito1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito2' href='./../Overviews/Methods.html#grito2'>grito2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito2' href='./../Overviews/Methods.html#grito2'>grito2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito3' href='./../Overviews/Methods.html#grito3'>grito3</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito3' href='./../Overviews/Methods.html#grito3'>grito3</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito4' href='./../Overviews/Methods.html#grito4'>grito4</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-grito4' href='./../Overviews/Methods.html#grito4'>grito4</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-initOnViolence' href='./../Overviews/Methods.html#initOnViolence'>initOnViolence</a> (<span class='argstr'>in</span>, <span class='argstr'>arrVol</span>, <span class='argstr'>arrPan</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-instArr' href='./../Overviews/Methods.html#instArr'>instArr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-instArr' href='./../Overviews/Methods.html#instArr'>instArr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-instr' href='./../Overviews/Methods.html#instr'>instr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-instr' href='./../Overviews/Methods.html#instr'>instr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-lastSection' href='./../Overviews/Methods.html#lastSection'>lastSection</a> (<span class='argstr'>secNum: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-lastSecVol' href='./../Overviews/Methods.html#lastSecVol'>lastSecVol</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-lastSecVol' href='./../Overviews/Methods.html#lastSecVol'>lastSecVol</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-master1' href='./../Overviews/Methods.html#master1'>master1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-master1' href='./../Overviews/Methods.html#master1'>master1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-master2' href='./../Overviews/Methods.html#master2'>master2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-master2' href='./../Overviews/Methods.html#master2'>master2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-metal' href='./../Overviews/Methods.html#metal'>metal</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-metal' href='./../Overviews/Methods.html#metal'>metal</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-metalOn' href='./../Overviews/Methods.html#metalOn'>metalOn</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-metalOn' href='./../Overviews/Methods.html#metalOn'>metalOn</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-mixer' href='./../Overviews/Methods.html#mixer'>mixer</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-mixer2' href='./../Overviews/Methods.html#mixer2'>mixer2</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-motor' href='./../Overviews/Methods.html#motor'>motor</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-motor' href='./../Overviews/Methods.html#motor'>motor</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-network' href='./../Overviews/Methods.html#network'>network</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-network' href='./../Overviews/Methods.html#network'>network</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-notes' href='./../Overviews/Methods.html#notes'>notes</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-notes' href='./../Overviews/Methods.html#notes'>notes</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-oscRespond' href='./../Overviews/Methods.html#oscRespond'>oscRespond</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pan' href='./../Overviews/Methods.html#pan'>pan</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pan' href='./../Overviews/Methods.html#pan'>pan</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-panArr' href='./../Overviews/Methods.html#panArr'>panArr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-panArr' href='./../Overviews/Methods.html#panArr'>panArr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-parsifal' href='./../Overviews/Methods.html#parsifal'>parsifal</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-parsifal' href='./../Overviews/Methods.html#parsifal'>parsifal</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-partials' href='./../Overviews/Methods.html#partials'>partials</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-partials' href='./../Overviews/Methods.html#partials'>partials</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOffFunc' href='./../Overviews/Methods.html#pedalOffFunc'>pedalOffFunc</a> (<span class='argstr'>pedalOff: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOffGlob' href='./../Overviews/Methods.html#pedalOffGlob'>pedalOffGlob</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOffGlob' href='./../Overviews/Methods.html#pedalOffGlob'>pedalOffGlob</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOnFunc' href='./../Overviews/Methods.html#pedalOnFunc'>pedalOnFunc</a> (<span class='argstr'>pedalOn: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOnGlob' href='./../Overviews/Methods.html#pedalOnGlob'>pedalOnGlob</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pedalOnGlob' href='./../Overviews/Methods.html#pedalOnGlob'>pedalOnGlob</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-piano' href='./../Overviews/Methods.html#piano'>piano</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-piano' href='./../Overviews/Methods.html#piano'>piano</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloAdjVol' href='./../Overviews/Methods.html#pnosoloAdjVol'>pnosoloAdjVol</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloAdjVol' href='./../Overviews/Methods.html#pnosoloAdjVol'>pnosoloAdjVol</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloProb' href='./../Overviews/Methods.html#pnosoloProb'>pnosoloProb</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloProb' href='./../Overviews/Methods.html#pnosoloProb'>pnosoloProb</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloStart' href='./../Overviews/Methods.html#pnosoloStart'>pnosoloStart</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloStop' href='./../Overviews/Methods.html#pnosoloStop'>pnosoloStop</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloTranspAdj' href='./../Overviews/Methods.html#pnosoloTranspAdj'>pnosoloTranspAdj</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloTranspAdj' href='./../Overviews/Methods.html#pnosoloTranspAdj'>pnosoloTranspAdj</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloVelGate' href='./../Overviews/Methods.html#pnosoloVelGate'>pnosoloVelGate</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloVelGate' href='./../Overviews/Methods.html#pnosoloVelGate'>pnosoloVelGate</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloVol' href='./../Overviews/Methods.html#pnosoloVol'>pnosoloVol</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pnosoloVol' href='./../Overviews/Methods.html#pnosoloVol'>pnosoloVol</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-prepare' href='./../Overviews/Methods.html#prepare'>prepare</a> (<span class='argstr'>pianoOut: 0</span>, <span class='argstr'>metalOut: 0</span>, <span class='argstr'>grito1Out: 2</span>, <span class='argstr'>grito2Out: 3</span>, <span class='argstr'>grito3Out: 4</span>, <span class='argstr'>grito4Out: 5</span>, <span class='argstr'>motorOut: 5</span>, <span class='argstr'>wagner1Out: 4</span>, <span class='argstr'>wagner2Out: 4</span>, <span class='argstr'>wagner3Out: 4</span>, <span class='argstr'>wagner4Out: 4</span>, <span class='argstr'>buxtaOut: 4</span>, <span class='argstr'>parsifalOut: 4</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-randBuffArr' href='./../Overviews/Methods.html#randBuffArr'>randBuffArr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-randBuffArr' href='./../Overviews/Methods.html#randBuffArr'>randBuffArr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-readyToStart' href='./../Overviews/Methods.html#readyToStart'>readyToStart</a> (<span class='argstr'>firstTempo: 176</span>, <span class='argstr'>onsetThresh: 0.13</span>, <span class='argstr'>page: 1</span>, <span class='argstr'>pedalDown: 1</span>, <span class='argstr'>pedalUp: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-remove' href='./../Overviews/Methods.html#remove'>remove</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-resetNodeProxies' href='./../Overviews/Methods.html#resetNodeProxies'>resetNodeProxies</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rrandArray' href='./../Overviews/Methods.html#rrandArray'>rrandArray</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rrandArray' href='./../Overviews/Methods.html#rrandArray'>rrandArray</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-selectFiles' href='./../Overviews/Methods.html#selectFiles'>selectFiles</a> (<span class='argstr'>arrayVersion</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sendArray' href='./../Overviews/Methods.html#sendArray'>sendArray</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorVal1' href='./../Overviews/Methods.html#sensorVal1'>sensorVal1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorVal1' href='./../Overviews/Methods.html#sensorVal1'>sensorVal1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorVal2' href='./../Overviews/Methods.html#sensorVal2'>sensorVal2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sensorVal2' href='./../Overviews/Methods.html#sensorVal2'>sensorVal2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-setInstSources' href='./../Overviews/Methods.html#setInstSources'>setInstSources</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-silenceGritos' href='./../Overviews/Methods.html#silenceGritos'>silenceGritos</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-silenceGritos' href='./../Overviews/Methods.html#silenceGritos'>silenceGritos</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-silenceNodeProxies' href='./../Overviews/Methods.html#silenceNodeProxies'>silenceNodeProxies</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-silenceWagnerNodes' href='./../Overviews/Methods.html#silenceWagnerNodes'>silenceWagnerNodes</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-startMIDI' href='./../Overviews/Methods.html#startMIDI'>startMIDI</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-startNodes' href='./../Overviews/Methods.html#startNodes'>startNodes</a> (<span class='argstr'>out1: 0</span>, <span class='argstr'>out2: 2</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-startOSC' href='./../Overviews/Methods.html#startOSC'>startOSC</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-stepGlob' href='./../Overviews/Methods.html#stepGlob'>stepGlob</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-stepGlob' href='./../Overviews/Methods.html#stepGlob'>stepGlob</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-tempo' href='./../Overviews/Methods.html#tempo'>tempo</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-tempo' href='./../Overviews/Methods.html#tempo'>tempo</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-tempoTrack' href='./../Overviews/Methods.html#tempoTrack'>tempoTrack</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-tempoTrack' href='./../Overviews/Methods.html#tempoTrack'>tempoTrack</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-thresh' href='./../Overviews/Methods.html#thresh'>thresh</a> (<span class='argstr'>setThresh: 0.3</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackingTempo' href='./../Overviews/Methods.html#trackingTempo'>trackingTempo</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackingTempo' href='./../Overviews/Methods.html#trackingTempo'>trackingTempo</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackTempo' href='./../Overviews/Methods.html#trackTempo'>trackTempo</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackTempo' href='./../Overviews/Methods.html#trackTempo'>trackTempo</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trigBang1' href='./../Overviews/Methods.html#trigBang1'>trigBang1</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trigBang2' href='./../Overviews/Methods.html#trigBang2'>trigBang2</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volArr' href='./../Overviews/Methods.html#volArr'>volArr</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volArr' href='./../Overviews/Methods.html#volArr'>volArr</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volArr1' href='./../Overviews/Methods.html#volArr1'>volArr1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volArr1' href='./../Overviews/Methods.html#volArr1'>volArr1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volArr2' href='./../Overviews/Methods.html#volArr2'>volArr2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-volArr2' href='./../Overviews/Methods.html#volArr2'>volArr2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner1' href='./../Overviews/Methods.html#wagner1'>wagner1</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner1' href='./../Overviews/Methods.html#wagner1'>wagner1</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner2' href='./../Overviews/Methods.html#wagner2'>wagner2</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner2' href='./../Overviews/Methods.html#wagner2'>wagner2</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner3' href='./../Overviews/Methods.html#wagner3'>wagner3</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner3' href='./../Overviews/Methods.html#wagner3'>wagner3</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner4' href='./../Overviews/Methods.html#wagner4'>wagner4</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagner4' href='./../Overviews/Methods.html#wagner4'>wagner4</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wagnerAlgo' href='./../Overviews/Methods.html#wagnerAlgo'>wagnerAlgo</a> (<span class='argstr'>wagnerSynth</span>, <span class='argstr'>wagnerBuffer</span>, <span class='argstr'>wagnerPan</span>, <span class='argstr'>wagnerTimes</span>, <span class='argstr'>wagnerNotes</span>, <span class='argstr'>wagnerVelocity</span>, <span class='argstr'>wagnerEnd</span>, <span class='argstr'>wagnerMult</span>, <span class='argstr'>wagnerOffset: 0</span>, <span class='argstr'>wagnerMidiOff: 0</span>, <span class='argstr'>ampWagner: 1</span>)</h3>
+<h2><a class='anchor' name='Help template'>Help template</a></h2>
+
+<p>Copy and paste the text below and save to HelpSource/Classes/OnViolence.schelp<pre class='code prettyprint lang-sc'>TITLE:: OnViolence
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+ARGUMENT:: audioIn
+(describe argument here)
+
+ARGUMENT:: volArr
+(describe argument here)
+
+ARGUMENT:: panArr
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initClass
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: oscRespond
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: buxtasynths
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: connect
+(describe method here)
+
+ARGUMENT:: hostcomputer
+(describe argument here)
+
+ARGUMENT:: port
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: notes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: instr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloStart
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: countGlob
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: audioIn
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunkPlayer
+(describe method here)
+
+ARGUMENT:: whichChunk
+(describe argument here)
+
+ARGUMENT:: initVol
+(describe argument here)
+
+ARGUMENT:: initDur
+(describe argument here)
+
+ARGUMENT:: chunksMatch
+(describe argument here)
+
+ARGUMENT:: dbdif
+(describe argument here)
+
+ARGUMENT:: jitter
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: mixer
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: resetNodeProxies
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: grito3
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloVol
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloProb
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: master2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunksVolArr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunksEqTrans
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloAdjVol
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: metal
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: trackingTempo
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: funcNotes
+(describe method here)
+
+ARGUMENT:: instNum
+(describe argument here)
+
+ARGUMENT:: id
+(describe argument here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: vel
+(describe argument here)
+
+ARGUMENT:: bend
+(describe argument here)
+
+ARGUMENT:: rateThis
+(describe argument here)
+
+ARGUMENT:: mulRate
+(describe argument here)
+
+ARGUMENT:: volumeThis
+(describe argument here)
+
+ARGUMENT:: adjMainThis
+(describe argument here)
+
+ARGUMENT:: adjVolThis
+(describe argument here)
+
+ARGUMENT:: noteThis
+(describe argument here)
+
+ARGUMENT:: mulTransp
+(describe argument here)
+
+ARGUMENT:: del
+(describe argument here)
+
+ARGUMENT:: atk
+(describe argument here)
+
+ARGUMENT:: rel
+(describe argument here)
+
+ARGUMENT:: mulDur
+(describe argument here)
+
+ARGUMENT:: durationMul
+(describe argument here)
+
+ARGUMENT:: pause
+(describe argument here)
+
+ARGUMENT:: curve
+(describe argument here)
+
+ARGUMENT:: noteType
+(describe argument here)
+
+ARGUMENT:: prob
+(describe argument here)
+
+ARGUMENT:: globProb
+(describe argument here)
+
+ARGUMENT:: dis
+(describe argument here)
+
+ARGUMENT:: mulDis
+(describe argument here)
+
+ARGUMENT:: dbdif
+(describe argument here)
+
+ARGUMENT:: cutfreq
+(describe argument here)
+
+ARGUMENT:: highRange
+(describe argument here)
+
+ARGUMENT:: lowRange
+(describe argument here)
+
+ARGUMENT:: eqtemp
+(describe argument here)
+
+ARGUMENT:: match
+(describe argument here)
+
+ARGUMENT:: arrange
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: trigBang1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunksVolAdj
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: motor
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pan
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: tempoTrack
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: lastSection
+(describe method here)
+
+ARGUMENT:: secNum
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: silenceNodeProxies
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: silenceWagnerNodes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalOffGlob
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: grito4
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: wagner3
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: thresh
+(describe method here)
+
+ARGUMENT:: setThresh
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: buxsynthAdjTime
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: volArr2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: trigBang2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: stepGlob
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: remove
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: wagnerAlgo
+(describe method here)
+
+ARGUMENT:: wagnerSynth
+(describe argument here)
+
+ARGUMENT:: wagnerBuffer
+(describe argument here)
+
+ARGUMENT:: wagnerPan
+(describe argument here)
+
+ARGUMENT:: wagnerTimes
+(describe argument here)
+
+ARGUMENT:: wagnerNotes
+(describe argument here)
+
+ARGUMENT:: wagnerVelocity
+(describe argument here)
+
+ARGUMENT:: wagnerEnd
+(describe argument here)
+
+ARGUMENT:: wagnerMult
+(describe argument here)
+
+ARGUMENT:: wagnerOffset
+(describe argument here)
+
+ARGUMENT:: wagnerMidiOff
+(describe argument here)
+
+ARGUMENT:: ampWagner
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: parsifal
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bufferArr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: arrayTimes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: tempo
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: startOSC
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: buxtahude
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: funcPlay
+(describe method here)
+
+ARGUMENT:: soundFile
+(describe argument here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: rate
+(describe argument here)
+
+ARGUMENT:: amp
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: buxtaSynthPlayer
+(describe method here)
+
+ARGUMENT:: indexBusta
+(describe argument here)
+
+ARGUMENT:: initVol
+(describe argument here)
+
+ARGUMENT:: initVol2
+(describe argument here)
+
+ARGUMENT:: prob
+(describe argument here)
+
+ARGUMENT:: initAdjTime
+(describe argument here)
+
+ARGUMENT:: transAdj
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initOnViolence
+(describe method here)
+
+ARGUMENT:: in
+(describe argument here)
+
+ARGUMENT:: arrVol
+(describe argument here)
+
+ARGUMENT:: arrPan
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloStop
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalOnGlob
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: wagner2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: randBuffArr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: network
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: partials
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: panArr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: differ
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalOnFunc
+(describe method here)
+
+ARGUMENT:: pedalOn
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: silenceGritos
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloVelGate
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: grito1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: selectFiles
+(describe method here)
+
+ARGUMENT:: arrayVersion
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pnosoloTranspAdj
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensorVal1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: wagner4
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sendArray
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: amplitude
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: volArr1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: metalOn
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: ampPar
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: trackTempo
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prepare
+(describe method here)
+
+ARGUMENT:: pianoOut
+(describe argument here)
+
+ARGUMENT:: metalOut
+(describe argument here)
+
+ARGUMENT:: grito1Out
+(describe argument here)
+
+ARGUMENT:: grito2Out
+(describe argument here)
+
+ARGUMENT:: grito3Out
+(describe argument here)
+
+ARGUMENT:: grito4Out
+(describe argument here)
+
+ARGUMENT:: motorOut
+(describe argument here)
+
+ARGUMENT:: wagner1Out
+(describe argument here)
+
+ARGUMENT:: wagner2Out
+(describe argument here)
+
+ARGUMENT:: wagner3Out
+(describe argument here)
+
+ARGUMENT:: wagner4Out
+(describe argument here)
+
+ARGUMENT:: buxtaOut
+(describe argument here)
+
+ARGUMENT:: parsifalOut
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: sensorVal2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: startNodes
+(describe method here)
+
+ARGUMENT:: out1
+(describe argument here)
+
+ARGUMENT:: out2
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: readyToStart
+(describe method here)
+
+ARGUMENT:: firstTempo
+(describe argument here)
+
+ARGUMENT:: onsetThresh
+(describe argument here)
+
+ARGUMENT:: page
+(describe argument here)
+
+ARGUMENT:: pedalDown
+(describe argument here)
+
+ARGUMENT:: pedalUp
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: rrandArray
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunksTransp
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: currentTempo
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: mixer2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pedalOffFunc
+(describe method here)
+
+ARGUMENT:: pedalOff
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: lastSecVol
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: ampIn
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setInstSources
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: chunksAdjDur
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: piano
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: startMIDI
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: algoVersion
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: master1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: instArr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: grito2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: wagner1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: volArr
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::
+</pre>
+<div class='doclink'>link::Classes/OnViolence::<br>sc version: 3.5.5</div></div></body></html>

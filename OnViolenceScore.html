@@ -1,0 +1,176 @@
+<html><head><title>OnViolenceScore</title>
+<link rel='stylesheet' href='./scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./frontend.css' type='text/css' />
+<link rel='stylesheet' href='./custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./scdoc.js' type='text/javascript'></script>
+<script src='./docmap.js' type='text/javascript'></script>
+<script src='./prettify.js' type='text/javascript'></script>
+<script src='./lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='.';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider  (extension)</div>
+<div id='categories'><a href='./Browse.html#GUI>Views'>GUI>Views</a></div>
+<h1>OnViolenceScore</h1>
+<div id='summary'>On Violence Score Class</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./Classes/OnViolence Classes/AlgorithmicScore">AlgorithmicScore</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#*new'>new</a> </li>
+</ul><li class='toc1'><a href='#examples'>Examples</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
+
+<p>Score class for On Violence (2012) for piano, live elec­tron­ics, com­puter dis­play and sen­sors<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./Overviews/Methods.html#new'>new</a> </h3>
+<div class='method'>
+<p>Create a new OnViolenceScore</div><h2><a class='anchor' name='examples'>Examples</a></h2>
+<pre class='code prettyprint lang-sc'>GigSetup.perform; //script for performance
+
+s.bootAndMIDI;
+
+MIDIClient.getUid({arg uid;
+  ~srcID = uid.postln;
+});
+
+//practice mode:
+a = OnViolenceScore.score(0,0,2,0,55,71,31,49, ~srcID, \macBookAir11Sim, true, "tremmac56150", NetAddr.langPort); //start Score. arg: outHead, outMotor, volMotor, panMotor, lowVal, highVal, leftVal, rightVal, srcID, scoreType, connect, hostcomputer, port;
+
+a.muteMovie = true; //mute movies
+a.rrandArray; //print array from other computer
+//a.tempo = (156/176); //changeTempo
+
+a = OnViolenceScore.score(0,0,2,0,55,71,31,49, scoreType: \macBookPro15);
+
+
+a = OnViolenceScore.score(0,0,2,0,55,71,31,49, -1927836118, \macBookAir11Sim, false, "federicoreuben", NetAddr.langPort); //start Score. arg: outHead, outMotor, volMotor, panMotor, lowVal, highVal, leftVal, rightVal, srcID, scoreType, connect, hostcomputer, port;
+
+
+a.show; //show score if you hide it with "h"
+
+a.connect("Rei-Nakamuras-MacBook-Air", NetAddr.langPort);
+
+//spoofs for testing motor
+MIDIIn.doControlAction(-1927836118, 1, 4, 127);
+MIDIIn.doControlAction(-1927836118, 1, 4, 0);
+MIDIIn.doControlAction(-1927836118, 1, 5, 127);
+MIDIIn.doControlAction(-1927836118, 1, 5, 0);
+
+
+NetAddr.langPort;
+//while practicing:
+//keys: "d" pedal down, "u", pedal up, "f" page forward, "b" page backward, "p" go to page
+a.displayPage(12); //go to page 12
+a.displayPage(30); //go to page 30
+a.displayPage(26);
+
+a.motorSound.pedalOff;
+
+~tempo = 176;
+//this are the algo sections:
+a.funcAlgoScoreMIDI(1,18,~tempo);
+a.funcAlgoScoreMIDI(2,19,~tempo);
+a.funcAlgoScoreMIDI(3,20,~tempo,2);
+
+a.funcAlgoScoreMIDI(5,21,~tempo);
+a.funcAlgoScoreMIDI(6,22,~tempo, 2);
+a.funcAlgoScoreMIDI(8,23,~tempo);
+a.funcAlgoScoreMIDI(9,24,~tempo);
+a.funcAlgoScoreMIDI(10,25,~tempo, 2);
+
+a.funcAlgoScoreMIDI(12,26,~tempo,3);
+a.funcAlgoScoreMIDI(15,27,~tempo,2);
+a.funcAlgoScoreMIDI(17,28,~tempo,1);
+a.funcAlgoScoreMIDI(18,29,~tempo,2);
+a.funcAlgoScoreMIDI(20,30,~tempo,2);
+a.funcAlgoScoreMIDI(22,31,~tempo,1);
+a.funcAlgoScoreMIDI(23,31,~tempo,1);
+
+
+
+a.displayPage(1);
+a.funcPage(2);
+
+//midi realization
+a.midiout.latency = 0.0;
+
+~tempo = 176;
+a.funcAlgoScoreMIDI(1,18,~tempo);
+a.funcAlgoScoreMIDI(2,19,~tempo);
+a.funcAlgoScoreMIDI(3,20,~tempo,2);
+
+a.funcAlgoScoreMIDI(5,21,~tempo);
+a.funcAlgoScoreMIDI(6,22,~tempo, 2);
+a.funcAlgoScoreMIDI(8,23,~tempo);
+a.funcAlgoScoreMIDI(9,24,~tempo);
+a.funcAlgoScoreMIDI(10,25,~tempo, 2);
+
+a.funcAlgoScoreMIDI(12,26,~tempo,3);
+a.funcAlgoScoreMIDI(15,27,~tempo,2);
+a.funcAlgoScoreMIDI(17,28,~tempo,1);
+a.funcAlgoScoreMIDI(18,29,~tempo,2);
+a.funcAlgoScoreMIDI(20,30,~tempo,2);
+a.funcAlgoScoreMIDI(22,31,~tempo,1);
+a.funcAlgoScoreMIDI(23,31,~tempo,1);
+
+a.funcAlgoScoreMIDI(24,31,~tempo,1);
+a.funcAlgoScoreMIDI(25,31,~tempo,1);
+a.funcAlgoScoreMIDI(26,31,~tempo,1);
+
+a.remove;
+
+"finish".myScript.appleScript; //script after performance
+
+//concert version
+
+a = OnViolenceScore.score(0,1,1.5,0,55,71,49,31); //start Score. args: perfMode, headOut, adjScore
+
+//starts MIDI pedals and comunication with other computer
+a.startPedals;
+
+//ones message is recived:
+a.readyToStart;
+
+//at the end of performance - remove score and comunication
+a.remove
+
+//reset MIDI:
+
+MIDIdef.all
+MIDIdef.freeAll;
+
+MIDIdef.cc(\test, {arg ...args; args.postln});
+
+(
+MIDIdef.cc(\pedal1, {arg ...args;
+    a.pedalDown;
+    }, 74);
+
+MIDIdef.cc(\pedal2, {arg ...args;
+    a.pedalUp;
+    }, 66);
+
+MIDIdef.cc(\sensorY, {arg ...args;
+    a.sensorY(args[0], a.lowSen, a.highSen);
+    }, 82);
+
+MIDIdef.cc(\sensorX, {arg ...args;
+    a.sensorX(args[0].postln, a.leftSen, a.rightSen);
+    }, 83);
+
+)
+
+a.lowSen = 0;
+a.highSen = 127;
+
+a.leftSen = 0;
+a.rightSen = 127;</pre>
+
+<p><div class='doclink'>source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/OnViolence/HelpSource/OnViolenceScore.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/OnViolence/HelpSource/OnViolenceScore.schelp</a><br>link::OnViolenceScore::<br>sc version: 3.7.2</div></div></body></html>
