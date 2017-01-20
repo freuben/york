@@ -1,4 +1,4 @@
-<html><head><title>Playing with UGens 1</title>
+<html><head><title>Playing with UGens</title>
 <link rel='stylesheet' href='./../scdoc.css' type='text/css' />
 <link rel='stylesheet' href='./../frontend.css' type='text/css' />
 <link rel='stylesheet' href='./../custom.css' type='text/css' />
@@ -15,7 +15,7 @@
 <div class='header'>
 <div id='label'>SuperCollider WORKSHOPS (extension)</div>
 <div id='categories'><a href='./../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
-<h1>Playing with UGens 1</h1>
+<h1>Playing with UGens</h1>
 <div id='summary'>Computer.play(Music, Creativity &amp; Code)</div>
 </div>
 <div class='subheader'>
@@ -43,7 +43,8 @@
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Server'>Server</a></li>
 <ul class='toc'><li class='toc2'><a href='#SynthDef'>SynthDef</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Karplus-Strong%20as%20SynthDef'>Karplus-Strong as SynthDef</a></li>
-<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='UGens'>UGens</a></h2>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Quick%20Intro%20to%20Routines'>Quick Intro to Routines</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='UGens'>UGens</a></h2>
 
 <p>Unit Generators or UGens are objects that generate numbers very fast and run in a lower level programming language (C++) for efficiency purposes. The numbers run at a sample level and are used for synthesis/analysis of audio. To see the available UGens (unit generators) evaluate the following:<pre class='code prettyprint lang-sc'>      UGen.dumpClassSubtree</pre>
 
@@ -441,7 +442,7 @@ Klank.ar(
     delayTime = MouseX.kr(36,74, lag: 0).midicps.reciprocal;
     burstEnv = EnvGen.kr(Env.perc(att, dec), gate: MouseButton.kr(0,1,0));
     Pan2.ar(CombL.ar(WhiteNoise.ar(burstEnv), delayTime, delayTime, decayTime),
-            MouseX.kr(1,-1))
+        MouseX.kr(1,-1))
 }.scope
 )</pre>
 
@@ -457,8 +458,8 @@ signal + (y * 0.0) // dry signal + signal with reverb
     var delayTime, decayTime = 10;
     delayTime = MouseX.kr(36,74, lag: 0).midicps.reciprocal;
     burstEnv = EnvGen.kr(Env.perc(att, dec), gate: MouseButton.kr(0,1,0));
-    panned = Pan2.ar(CombL.ar(WhiteNoise.ar(burstEnv), delayTime, delayTime, decayTime),
-            MouseX.kr(1,-1));
+    panned = Pan2.ar(CombL.ar(WhiteNoise.ar(burstEnv), delayTime, delayTime,
+        decayTime), MouseX.kr(1,-1));
     y = panned;
     Mix.fill(5, { y = AllpassN.ar(y, 0.05,0.05.rand, 1)});
     panned + (y * 0.4)
@@ -488,7 +489,7 @@ c.free;</pre>
 <p><code class='code prettyprint lang-sc'>"name"</code> can also be written as <code class='code prettyprint lang-sc'>\name</code><pre class='code prettyprint lang-sc'>(
 SynthDef("sines",{ |freq = 440,bus = 0|
     Out.ar(bus,SinOsc.ar(freq,0,0.1));
-    }).load(s);   // save definition and loaded to server (s)
+}).load(s);   // save definition and loaded to server (s)
 )</pre>
 
 <p>SynthDefs can be written to a file for later use, or written and loaded, or just loaded.
@@ -518,7 +519,7 @@ z.set("freq",300, "bus",0);</pre>
 <p>Another SynthDef:<pre class='code prettyprint lang-sc'>(
 SynthDef("filterNoise", {arg center = 2000;
     Out.ar(0,Resonz.ar(WhiteNoise.ar(0.5), center,0.1));
-    }).load(s);
+}).load(s);
 )
 
 a = Synth("filterNoise",[\center,500]);
@@ -532,8 +533,7 @@ SynthDescLib.global.browse;
 )</pre>
 <h3><a class='anchor' name='Karplus-Strong%20as%20SynthDef'>Karplus-Strong as SynthDef</a></h3>
 <pre class='code prettyprint lang-sc'>(
-SynthDef("Karplus",
-{
+SynthDef("Karplus", {
     arg midiPitch = 69, decayTime = 2.0;
     var burstEnv, att = 0, dec = 0.001, signalOut, delayTime;
     delayTime = midiPitch.midicps.reciprocal;
@@ -553,4 +553,73 @@ a = Synth("Karplus"); //the synth turns off because we use DetectSilence
 a.set(\midiPitch, 60);   // if we want to change the value, we have to do it very fast, before DetectSilence turns the synth off
 
 Synth("Karplus", [\midiPitch, rrand(50,80), \decayTime, 3.0]); //evaluate several times!</pre>
-<div class='note'><span class='notelabel'>NOTE:</span> Various examples, ideas, etc. have been taken or derived from the SC documentation, Paul Berg, David Cottle, Nick Collins, and probably lots of other people in the SuperCollider community.</div><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens 1.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens 1.schelp</a><br>link::Workshops/Playing with UGens 1::<br>sc version: 3.8.0</div></div></body></html>
+<h2><a class='anchor' name='Quick%20Intro%20to%20Routines'>Quick Intro to Routines</a></h2>
+
+<p>In SC to schedule events, we use Routines.
+<p><code class='code prettyprint lang-sc'>Routine</code> is a series of events, values or messages that are executed in a sequence. It’s a function that can be stopped, reset and restarted ones it is started.
+<p>The yield or wait (wait just accepts simple numbers) messages waits a specitic amount of time between events.
+<p>The simplest way to define a <code class='code prettyprint lang-sc'>Routine</code> is with the message <code class='code prettyprint lang-sc'>.fork</code> at the end of a function:<pre class='code prettyprint lang-sc'>(
+    {"hi".postln;
+        1.yield;
+        "bye".postln;
+    }.fork
+)</pre>
+
+<p>We can specify how many times we want to repeat the routine with another function within the routine:<pre class='code prettyprint lang-sc'>(
+    {
+        3.do{
+            "hi".postln;
+            0.2.yield;
+            "bye".postln;
+            0.3.yield;
+        }
+    }.fork
+)</pre>
+
+<p>We can ask the routine to repeat an infinate amount of time<pre class='code prettyprint lang-sc'>(
+    a = {
+        inf.do{
+            "hi".postln;
+            0.2.yield;
+            "bye".postln;
+            0.3.yield;
+        }
+    }.fork
+)</pre>
+
+<p><div class='note'><span class='notelabel'>NOTE:</span> Stop the sound with <em>cmd + .</em></div>
+<p>We can use the <code class='code prettyprint lang-sc'>.loop</code> message instead of <code class='code prettyprint lang-sc'>inf.do</code>. We can assign the routine to a global variable, to stop and restart<pre class='code prettyprint lang-sc'>(
+    a = {
+        {
+            "hi".postln;
+            0.2.yield;
+            "bye".postln;
+            0.3.yield;
+        }.loop
+    }.fork
+)
+
+a.stop; //stop
+a.reset.play; //reset and play again</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> We will come back to Routines and Scheduling later on.</div>
+<p>Now, let's try a routine with the Karplus SynthDef:<pre class='code prettyprint lang-sc'>(
+a = {
+    inf.do{
+        4.do{
+            Synth("Karplus", [\midiPitch, rrand(40,80)]);
+            0.1.yield;
+            Synth("Karplus", [\midiPitch, rrand(40,80)]);
+            0.4.yield;
+            Synth("Karplus", [\midiPitch, rrand(40,80)]);
+            0.1.yield;
+        };
+        20.do{
+            Synth("Karplus", [\midiPitch, 100]);
+            0.05.yield;
+        }
+    }
+}.fork
+)
+a.stop;
+a.reset.play;</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> Various examples, ideas, etc. have been taken or derived from the SC documentation, Paul Berg, David Cottle, Nick Collins, and probably lots of other people in the SuperCollider community.</div><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens.schelp</a><br>link::Workshops/Playing with UGens::<br>sc version: 3.8.0</div></div></body></html>
