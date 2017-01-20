@@ -1,0 +1,185 @@
+<html><head><title>Digital Audio</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider STUDY GUIDES (extension)</div>
+<div id='categories'><a href='./../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>Digital Audio</h1>
+<div id='summary'>Computer.play(Music, Creativity &amp; Code)</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../Computer.html">Computer.play</a>, <a href="./../Workshops/Playing with UGens 1.html">Playing with UGens 1</a>, <a href="./../Workshops/Playing with UGens 2.html">Playing with UGens 2</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Digital%20Audio'>Digital Audio</a></li>
+<ul class='toc'><li class='toc2'><a href='#Analog-to-Digital%20Conversion'>Analog-to-Digital Conversion</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Audio%20Sampling'>Audio Sampling</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Sampling%20Rate'>Sampling Rate</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Sampling%20Theorem'>Sampling Theorem</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Aliasing'>Aliasing</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Filtering%20and%20Aliasing'>Filtering and Aliasing</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Digital-to-Analog%20Conversion'>Digital-to-Analog Conversion</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Quantising'>Quantising</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Binary%20for%20Beginners'>Binary for Beginners</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Bit-depth'>Bit-depth</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Digital%20Dynamic%20Range'>Digital Dynamic Range</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Quantising%20Resolution'>Quantising Resolution</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#A%20little%20bit%20of%20bits'>A little bit of bits</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#A%20bit%20of%20music'>A bit of music</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#A%20bit%20of%20calculations'>A bit of calculations</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Digital%20Audio'>Digital Audio</a></h2>
+
+<p>Digital vs Analogue = Continuous vs Discrete signals<h3><a class='anchor' name='Analog-to-Digital%20Conversion'>Analog-to-Digital Conversion</a></h3>
+
+<p>A/D is not chopped audio! A/D conversion:<ul>
+<li>Analog signal (mic for example) passes through A/D convertor<li>Convertor measures signal many times per second<li>Each time it’s measured, a binary number is generated (representing voltage/amplitude of signal)<li>Stored as modulated square wave</ul>
+
+<p>D/A conversion is the opposite:<ul>
+<li>Convertor translates numbers into analog signal made of voltage steps<li>An anti-imaging filter (lowpass filter, smoothing filter) smooths the steps into an analog signal<li>Nothing is lost!!</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure1.png'/><br><b>Fig. 1: A/D to D/A chain</b></div>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure2.png'/><br><b>Fig. 2: Digital sampling</b></div>
+<h3><a class='anchor' name='Audio%20Sampling'>Audio Sampling</a></h3>
+<ul>
+<li>Analog signal is a time-continuous electrical waveform<li>A/D converter turns signal into time-discrete sequence of binary numbers<li>Pulse code modulation (PCM) is the method to digitally represent analog signals<li>Audio sampling is the process were the A/D converter measures the analog waveform at regular intervals<li>Samples are like “still frames” in a film, which give impression of continuous movement</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure3.png'/><br><b>Fig. 3: Waveform to sample pulses</b></div>
+<h3><a class='anchor' name='Sampling%20Rate'>Sampling Rate</a></h3>
+<ul>
+<li>Rate at which a/d converter samples a signal.<li>Higher sampling rate - higher frequency response<li>Also remember: higher sampling rate = more memory space in your hard drive<li>44.100 Hz or 44.1 khz is the CD sampling freq<li>48 khz is the ‘professional’ rate (DVD, blu-ray)</ul>
+<h3><a class='anchor' name='Sampling%20Theorem'>Sampling Theorem</a></h3>
+<ul>
+<li>The <em>sampling theorem</em> or the <em>nyquist-shannon theorem</em> states:<li>To well represent an audio signal, the sampling rate needs to be at least twice the highest frequency contained in the sound of the signal<li>This frequency is called the <em>nyquist frequency</em><li>Therefore, at least two samples must be taken by audio cycle so that no information is lost<li>If too few samples are taken by cycle, samples may produce wave other than original</ul>
+<h3><a class='anchor' name='Aliasing'>Aliasing</a></h3>
+<ul>
+<li>Phenomenon where ‘alias’ unwanted representation of sampled signal constructed through d/a conversion<li>Sidebands produced by under-sampling signal<li>Frequencies above nyquist frequency are reproduced as lower sidebands<li>Spectral repetition (mirror image of original)</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure4.png'/><br><b>Fig. 4: Undersampling produces sidebands</b></div>
+
+<p><strong>Examples</strong>:
+<p>A sine wave with sample and hold demonstrate principle:<pre class='code prettyprint lang-sc'>{Latch.ar(SinOsc.ar(440,0,0.25), Impulse.ar(MouseX.kr(440,22000)))}.scope;</pre>
+
+<p>Load soundfile in buffer:<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;</pre>
+
+<p>Play buffer:<pre class='code prettyprint lang-sc'>{PlayBuf.ar(2, b)}.scope;</pre>
+
+<p>Use Sample and Hold (<code class='code prettyprint lang-sc'>Latch</code>) to change of sampling rate:<pre class='code prettyprint lang-sc'>{Latch.ar(PlayBuf.ar(2, b), Impulse.ar(MouseX.kr(20,22000)))}.scope;</pre>
+
+<p>Sample and hold using <code class='code prettyprint lang-sc'>Dust</code>:<pre class='code prettyprint lang-sc'>{Latch.ar(PlayBuf.ar(2, b), Dust.ar(MouseX.kr(20,22000)))}.scope;</pre>
+<h3><a class='anchor' name='Filtering%20and%20Aliasing'>Filtering and Aliasing</a></h3>
+<ul>
+<li>If analog signal is not filtered, aliasing occurs:<ul>
+<li>High frequencies above nyquist freqency appear as lower frequencies (sidebands).<li>Ultrasonic frequencies may be converted to audible tones</ul>
+
+<p><li>Anti-aliasing filter:<ul>
+<li>We need to filter frequencies above the nyquist frequency to avoid aliasing.<li>Anti aliasing filter (lowpass filter) is used in original analog signal before a/D conversion</ul>
+</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure5.png'/><br><b>Fig. 5: Anti-aliasing filter</b></div>
+
+<p><strong>Examples</strong>: Now let's reduce the sample rate but with smoothing. Your can still hear aliasing!<pre class='code prettyprint lang-sc'>{SmoothDecimator.ar(Decimator.ar(PlayBuf.ar(2, b), MouseX.kr(20,22000)), MouseX.kr(20,22000), smoothing: 1)}.scope;</pre>
+<h3><a class='anchor' name='Digital-to-Analog%20Conversion'>Digital-to-Analog Conversion</a></h3>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure6.png'/><br><b>Fig. 6: D/A conversion</b></div>
+<h3><a class='anchor' name='Quantising'>Quantising</a></h3>
+<ul>
+<li>After sampling the modulated pule chain is quantised<li>Amplitude is mapped onto a scale of stepped binary values<li>Each sample amplitude is represented by unique binary number<li>Binary numbers are represented as power of two (only two options, 1 or 2)<li>Binary (base2), Hexadecimal (base16), decimal(BASE10)</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure7.png'/><br><b>Fig. 7: 3-bit quantizing</b></div>
+<h3><a class='anchor' name='Binary%20for%20Beginners'>Binary for Beginners</a></h3>
+<ul>
+<li>A binary word or ‘byte’ (8-bits):<li><code class='code prettyprint lang-sc'>0 1 1 1 0 0 1 0</code> - one number is 1 bit - or 1 'switch'.</ul>
+
+<p><table>
+<tr><td>Binary<td>0<td>1<td>1<td>1<td>0<td>0<td>1<td>0<tr><td>Decimal weighting<td>128<td>64<td>32<td>16<td>8<td>4<td>2<td>1<tr><td>Decimal equivalent<td>0 +<td>64 +<td>32 +<td>16 +<td>0 +<td>0 +<td>2 +<td>0 = 114</table>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure8.png'/><br><b>Fig. 8: Binary/Hexadecimal/Decimal</b></div>
+<h3><a class='anchor' name='Bit-depth'>Bit-depth</a></h3>
+
+<p>Bit-depth dictates the number of discrete volume levels that create the dynamic range available in digital audio bit words and bit resolution:<ul>
+<li>2-bit = <code class='code prettyprint lang-sc'>2**2</code> (4 steps)<li>3-bit = <code class='code prettyprint lang-sc'>2**3</code> (8 steps)<li>4-bit = <code class='code prettyprint lang-sc'>2**4</code> (16 steps)<li>8-bit = <code class='code prettyprint lang-sc'>2**8</code> (256 steps)<li>16-bit = <code class='code prettyprint lang-sc'>2**16</code> (65536 steps)</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure9.png'/><br><b>Fig. 9: 4-bit quantizing</b></div>
+<h3><a class='anchor' name='Digital%20Dynamic%20Range'>Digital Dynamic Range</a></h3>
+<ul>
+<li><em>Dynamic range</em>: range of volume between loudest and softest audible sounds - the greater dynamic range, the more detailed representation of sound.<li><em>Signal-to-noise ratio</em>: difference in volume between what you want to hear (signal) and what you don’t want to hear (noise)<li><em>Digital dynamic range</em>: volume range in digital audio file go between -infinity (silence) to zero (loudest) decibels (DB). sounds above zero produce distortion</ul>
+<h3><a class='anchor' name='Quantising%20Resolution'>Quantising Resolution</a></h3>
+<table>
+<tr><td>Bit Depth<td>Numeric Range<td>Noise Floor<tr><td>8 bits<td>-127 to 128<td>-48 dB<tr><td>16 bits<td>-32,768 to 32,767<td>-96 dB<tr><td>24 bits<td>-8,388,608 to -8,388,607<td>-144 dB<tr><td>32 bits<td>+/-3.4*2**38<td>-192 dB</table>
+<h3><a class='anchor' name='A%20little%20bit%20of%20bits'>A little bit of bits</a></h3>
+<div class='warning'><span class='warninglabel'>WARNING:</span> Digital - bits!</div>
+<p>4-bit example:<pre class='code prettyprint lang-sc'>0.asInteger.asBinaryString(4)
+1.asInteger.asBinaryString(4)
+0.asInteger.asBinaryString(4)
+-1.asInteger.asBinaryString(4)
+-2.asInteger.asBinaryString(4)
+14.asInteger.asBinaryString(4)
+2.asInteger.asBinaryString(4)
+-3.asInteger.asBinaryString(4)</pre>
+
+<p>16-bit example:<pre class='code prettyprint lang-sc'>(2**16-1).asInteger.asBinaryString(16)
+0.asInteger.asBinaryString(16)</pre>
+
+<p>Hexadecimal:<pre class='code prettyprint lang-sc'>0.asInteger.asHexString(4)
+(2**16-1).asInteger.asHexString(4)</pre>
+
+<p>Sting to hexadecimal:<pre class='code prettyprint lang-sc'>"how are you?".ascii.collect{|item| item.asHexString(2); }</pre>
+
+<p>Sting to binary:<pre class='code prettyprint lang-sc'>"how are you?".ascii.collect{|item| item.asBinaryString(2); }</pre>
+
+<p>Human vs bit words:<pre class='code prettyprint lang-sc'>a = "how are you?";
+b = a.ascii.collect{|item| item.asBinaryString; };
+
+a.speak; //human
+b.asString.replace("[").replace("]").replace(",").speak //computer</pre>
+
+<p>Bit calculator: 16 bit:<pre class='code prettyprint lang-sc'>2**16</pre>
+
+<p>24 bit:<pre class='code prettyprint lang-sc'>2**24</pre>
+
+<p>Bit crushing<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog; //load soundfile into buffer
+{Decimator.ar(PlayBuf.ar(2, b), 44100, 8)}.scope; //8-bit
+{Decimator.ar(PlayBuf.ar(2, b), 44100, 4)}.scope; //4-bit
+{Decimator.ar(PlayBuf.ar(2, b), 44100, 2)}.scope; //2-bit</pre>
+
+<p>Smoother, 4-bit<pre class='code prettyprint lang-sc'>{Decimator.ar(SinOsc.ar(440,0,0.5), 44100, 4)}.scope</pre>
+
+<p>Filter to smooth signal (Mouse controls smoothing)<pre class='code prettyprint lang-sc'>{SmoothDecimator.ar(Decimator.ar(SinOsc.ar(440,0,0.5), 44100, 4), 440*4,MouseX.kr(0,1))}.scope</pre>
+
+<p>Undersampling and bit-crushing:<pre class='code prettyprint lang-sc'>{Decimator.ar(PlayBuf.ar(2, b), MouseX.kr(250,44100,1).poll, MouseY.kr(1,16).round(1).poll)}.scope;
+
+{Decimator.ar(PlayBuf.ar(2, b), MouseX.kr(250,44100,1).poll, MouseY.kr(1,16).round(1).poll).lag(MouseY.kr(1,16).round(1).poll/MouseX.kr(250,44100,1).poll)}.scope;</pre>
+
+<p>4-bit:<pre class='code prettyprint lang-sc'>{Decimator.ar(PlayBuf.ar(2, b), 2000, 4)}.scope;</pre>
+
+<p>Smooth signal (with smoothing filter):<pre class='code prettyprint lang-sc'>{SmoothDecimator.ar(Decimator.ar(PlayBuf.ar(2, b), 2000, 4), 2000, smoothing: 1)}.scope;</pre>
+<h3><a class='anchor' name='A%20bit%20of%20music'>A bit of music</a></h3>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide1/figure10.png'/><br><b>Fig. 10: Mario</b></div>
+<pre class='code prettyprint lang-sc'>Ndef(\sound).play;
+
+~bitdepth = 4;
+
+~synth = {var sig; Pan2.ar(Decimator.ar(SinOsc.ar((Scale.major.degrees+60).midicps.choose,0,0.25), 44100, ~bitdepth), 0)*EnvGen.kr(Env.perc(0.01,0.4), doneAction:2);};
+
+{{Ndef(\sound, ~synth); [0.4,0.2].choose.yield}.loop}.fork
+
+~synth = {var sig; Pan2.ar(Decimator.ar(Saw.ar((Scale.major.degrees+60).midicps.choose,0.5), 44100, ~bitdepth), 0)*EnvGen.kr(Env.perc(0.01,0.4), doneAction:2);};
+
+~synth = {var sig; Pan2.ar(Decimator.ar(Blip.ar((Scale.major.degrees+60).midicps.choose,10,0.5), 44100, ~bitdepth), 0)*EnvGen.kr(Env.perc(0.01,0.4), doneAction:2);};</pre>
+<h3><a class='anchor' name='A%20bit%20of%20calculations'>A bit of calculations</a></h3>
+
+<p>File size calculator File Size = Sample Rate * Sample Resolution * Number of Channels * Lengh of Sound (in bits)<pre class='code prettyprint lang-sc'>~sampleRate = 44100;
+~bitDepth = 16;
+~numChan = 2;
+~duration = 180;
+
+~bits = ~sampleRate * ~bitDepth * ~numChan * ~duration
+~bytes = ~bits/8
+~kiloBytes = ~bytes / 1024;
+~megaBytes = ~kiloBytes / 1024;
+~gigaBytes = ~megaBytes / 1024;</pre>
+
+<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Digital Audio.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Digital Audio.schelp</a><br>link::Study Guides/Digital Audio::<br>sc version: 3.8.0</div></div></body></html>
