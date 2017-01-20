@@ -126,9 +126,9 @@
 <p>Hexadecimal:<pre class='code prettyprint lang-sc'>0.asInteger.asHexString(4)
 (2**16-1).asInteger.asHexString(4)</pre>
 
-<p>Sting to hexadecimal:<pre class='code prettyprint lang-sc'>"how are you?".ascii.collect{|item| item.asHexString(2); }</pre>
+<p>String to hexadecimal:<pre class='code prettyprint lang-sc'>"how are you?".ascii.collect{|item| item.asHexString(2); }</pre>
 
-<p>Sting to binary:<pre class='code prettyprint lang-sc'>"how are you?".ascii.collect{|item| item.asBinaryString(2); }</pre>
+<p>String to binary:<pre class='code prettyprint lang-sc'>"how are you?".ascii.collect{|item| item.asBinaryString(2); }</pre>
 
 <p>Human vs bit words:<pre class='code prettyprint lang-sc'>a = "how are you?";
 b = a.ascii.collect{|item| item.asBinaryString; };

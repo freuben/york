@@ -604,7 +604,7 @@ Synth(\wavestack1, [\freq, 880]);
 <p>In RM, high frequency causes sidebands:<pre class='code prettyprint lang-sc'>{PlayBuf.ar(1, b.bufnum)*SinOsc.ar(440)}.play</pre>
 <h3><a class='anchor' name='Frequency%20modulation'>Frequency modulation</a></h3>
 
-<p>Can be done (with out envelope) in the following way:<pre class='code prettyprint lang-sc'>(
+<p>Can be done (without envelope) in the following way:<pre class='code prettyprint lang-sc'>(
 var carrierFreq = 400, modFreq = 50, deviation = 100;
 {    SinOsc.ar(carrierFreq + SinOsc.ar(modFreq, mul: deviation),
     mul: 0.3);
@@ -835,4 +835,4 @@ a=Array.fill(width*height,{arg i;
 b.sendCollection(a);
 )
 b.plot;</pre>
-<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens 2.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens 2.schelp</a><br>link::Workshops/Playing with UGens 2::<br>sc version: 3.8.0</div></div></body></html>
+<div class='note'><span class='notelabel'>NOTE:</span> Various examples, ideas, etc. have been taken or derived from the SC documentation, Paul Berg, David Cottle, Nick Collins, and probably lots of other people in the SuperCollider community.</div><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens 2.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Playing with UGens 2.schelp</a><br>link::Workshops/Playing with UGens 2::<br>sc version: 3.8.0</div></div></body></html>
