@@ -19,7 +19,7 @@
 <div id='summary'>Computer.play(Music, Creativity &amp; Code)</div>
 </div>
 <div class='subheader'>
-<div id='related'>See also: <a href="./../Computer.html">Computer.play</a>, <a href="./../Workshops/Playing with UGens 1.html">Playing with UGens 1</a></div>
+<div id='related'>See also: <a href="./../Computer.html">Computer.play</a>, <a href="./../Workshops/Playing with UGens 1">Playing with UGens 1</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#Playing%20with%20UGens%202'>Playing with UGens 2</a></li>
@@ -28,7 +28,6 @@
 <ul class='toc'></ul><li class='toc2'><a href='#Buffer%20class'>Buffer class</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#DiskIn'>DiskIn</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Delays'>Delays</a></li>
-<ul class='toc'></ul><li class='toc1'><a href='#Quick%20Intro%20to%20Routines'>Quick Intro to Routines</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#Additive%20Synthesis'>Additive Synthesis</a></li>
 <ul class='toc'><li class='toc2'><a href='#Envelopes:'>Envelopes:</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Wavetable%20synthesis'>Wavetable synthesis</a></li>
@@ -45,7 +44,7 @@
 <ul class='toc'></ul><li class='toc1'><a href='#WaveTerrain%20Synthesis.'>WaveTerrain Synthesis.</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='Playing%20with%20UGens%202'>Playing with UGens 2</a></h2>
 
-<p>Fist, let's boot the server:<pre class='code prettyprint lang-sc'>s.boot;</pre>
+<p>First, let's boot the server:<pre class='code prettyprint lang-sc'>s.boot;</pre>
 
 <p>Now let's kill it, just for fun:<pre class='code prettyprint lang-sc'>s.free;</pre>
 
@@ -194,43 +193,7 @@ x.free; b.close; b.free;    // close and free</pre>
     [input, delay];
 }.play //left
 )</pre>
-<h2><a class='anchor' name='Quick%20Intro%20to%20Routines'>Quick Intro to Routines</a></h2>
-
-<p>In SC to schedule events, we use Routines.
-<p><code class='code prettyprint lang-sc'>Routine</code> is a series of events, values or messages that are executed in a sequence. It’s a function that can be stopped, reset and restarted ones it is started.
-<p>The yield or wait (wait just accepts simple numbers) messages waits a specitic amount of time.
-<p>The simplest way to define a <code class='code prettyprint lang-sc'>Routine</code> is with the message <code class='code prettyprint lang-sc'>.fork</code> at the end of a function:<pre class='code prettyprint lang-sc'>(
-{"hi".postln;
-1.wait;
-"bye".postln;
-}.fork
-)</pre>
-
-<p>We can specify how many times we want to repeat the routine with another function within the routine:<pre class='code prettyprint lang-sc'>(
-{
-    3.do{
-    "hi".postln;
-0.2.wait;
-        "bye".postln;
-0.3.wait;
-    }
-}.fork
-)</pre>
-
-<p>We can loop a routine and assign it to a global variable, to stop and restart<pre class='code prettyprint lang-sc'>(
-a = {
-    {
-    "hi".postln;
-0.2.wait;
-        "bye".postln;
-0.3.wait;
-    }.loop
-}.fork
-)
-
-a.stop; //stop
-a.reset.play; //reset and play again</pre>
-<div class='note'><span class='notelabel'>NOTE:</span> We will come back to Routines and Scheduling later on.</div><h2><a class='anchor' name='Additive%20Synthesis'>Additive Synthesis</a></h2>
+<h2><a class='anchor' name='Additive%20Synthesis'>Additive Synthesis</a></h2>
 <h3><a class='anchor' name='Envelopes:'>Envelopes:</a></h3>
 <pre class='code prettyprint lang-sc'>Env.new([0,1,0], [1,9]).plot; //values, time</pre>
 
