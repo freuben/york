@@ -1,0 +1,677 @@
+<html><head><title>Digital Synthesis</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider STUDY GUIDES (extension)</div>
+<div id='categories'><a href='./../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>Digital Synthesis</h1>
+<div id='summary'>Computer.play(Music, Creativity &amp; Code)</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../Computer.html">Computer.play</a>, <a href="./../Guides/Digital Audio">Digital Audio</a>, <a href="./../Workshops/Playing with UGens.html">Playing with UGens</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Digital%20Synthesis'>Digital Synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Some%20Synthesis%20Techniques'>Some Synthesis Techniques</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Sample-based%20synthesis'>Sample-based synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Digital%20Playback'>Digital Playback</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Buffers'>Buffers</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Buffers%20in%20SC'>Buffers in SC</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Types%20of%20Digital%20Playback'>Types of Digital Playback</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#PlayBuf'>PlayBuf</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Buffer%20class'>Buffer class</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#DiskIn'>DiskIn</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Chipmunk%20conclusions:'>Chipmunk conclusions:</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Signals%20and%20Fixed%20Waveforms'>Signals and Fixed Waveforms</a></li>
+<ul class='toc'><li class='toc2'><a href='#Basic%20arithmetic%20operations%20on%20signals'>Basic arithmetic operations on signals</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Common%20periodic%20waveforms'>Common periodic waveforms</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Fixed-Waveform%20Table-lookup%20Synthesis'>Fixed-Waveform Table-lookup Synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Wavetable-lookup%20Synthesis:'>Wavetable-lookup Synthesis:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Wavetable%20synthesis%20in%20SC'>Wavetable synthesis in SC</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Time-varying%20Waveform%20Synthesis'>Time-varying Waveform Synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Envelopes'>Envelopes</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Substractive%20Synthesis'>Substractive Synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Filters'>Filters</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Pass%20Filters'>Pass Filters</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Resonant%20Filters'>Resonant Filters</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Equalisation'>Equalisation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Resonance%20and%20ringing'>Resonance and ringing</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Noise'>Noise</a></li>
+<ul class='toc'><li class='toc2'><a href='#Coloured%20Noise'>Coloured Noise</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Multiple%20Wavetable%20Synthesis'>Multiple Wavetable Synthesis</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Modulation%20Synthesis'>Modulation Synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Ring%20modulation'>Ring modulation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Amplitude%20modulation:'>Amplitude modulation:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Frequency%20modulation'>Frequency modulation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Phase%20modulation'>Phase modulation</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Digital%20Synthesis'>Digital Synthesis</a></h2>
+
+<p>Digital Synthesis is the generation of waveforms with untis (values) usually generated digitally and then transfered through a D/A converter to produce sound. Waveforms can be generated through mathematical formulae, A/D conversion, analysis and resynthesis of recorded sound, and other non-standard techniques.<h3><a class='anchor' name='Some%20Synthesis%20Techniques'>Some Synthesis Techniques</a></h3>
+<ul>
+<li>Sample-based synthesis<li>Additive synthesis<li>Subtractive synthesis<li>Amplitude Modulation (AM)<li>Frequency Modulation (FM)<li>Ring Modulation (RM)<li>Wavetable synthesis<li>Granular synthesis<li>Spectral Modelling<li>Physical Modelling<li>Non-standard synthesis</ul>
+<h2><a class='anchor' name='Sample-based%20synthesis'>Sample-based synthesis</a></h2>
+
+<p>Sample-based synthesis is based on recorded sounds and the manipulation of this information.<h3><a class='anchor' name='Digital%20Playback'>Digital Playback</a></h3>
+
+<p>Digital playback uses stored samples from a recording of a signal that has been digitalised through an A/D converter.<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/playback.png'/><br><b>Revox Studer Reel-to-Reel Tape Machine - old style playback!</b></div>
+<h3><a class='anchor' name='Buffers'>Buffers</a></h3>
+
+<p>Digital playback requires <strong>Buffers</strong>.<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/buffers.png'/><br><b>Buffers are like containers of digital floating point values</b></div>
+<ul>
+<li>A buffer is a container of data loaded into the computer memory<li>Often used to hold sampled audio<li>Can be used to hold other types of data as well<li>Available as an array of floating-point numbers<li>There are different ways in which we can use buffers including playback, envelope, wavetable</ul>
+<h3><a class='anchor' name='Buffers%20in%20SC'>Buffers in SC</a></h3>
+<ul>
+<li><code class='code prettyprint lang-sc'>Buffers</code> are arrays of 32-bit floating point values.<li><code class='code prettyprint lang-sc'>Buffers</code> are on the server so that they can be used by synths.<li><code class='code prettyprint lang-sc'>Buffers</code> need to be allocated, filled, and at some point freed.<li><code class='code prettyprint lang-sc'>Buffers</code> can be allocated, loaded and freed while synthesis is running.<li><code class='code prettyprint lang-sc'>Buffers</code> can be used for wave tables, sample buffers, delay lines, ...</ul>
+
+<p>The number of buffers on a server is set at boot time.<pre class='code prettyprint lang-sc'>o = ServerOptions.new;
+o.numBuffers;</pre>
+<h3><a class='anchor' name='Types%20of%20Digital%20Playback'>Types of Digital Playback</a></h3>
+
+<p>2 main types:<ol>
+<li>Load sound file in its entirety into a buffer and then use a sample playback oscillator. This allows substantial playback manipulation.<ul>
+<li>In SC this is done with the <code class='code prettyprint lang-sc'>PlayBuf</code> UGen.</ul>
+
+<p><li>Read directly from hard drive. Not as much playback manipulation. Uses a smaller buffer, which refreshes itself.<ul>
+<li>In SC this is done with the <code class='code prettyprint lang-sc'>DiskIn</code> UGen.</ul>
+</ol>
+<h3><a class='anchor' name='PlayBuf'>PlayBuf</a></h3>
+
+<p><code class='code prettyprint lang-sc'>PlayBuf</code> is a UGen to listen/manipulate sound files.
+<p><code class='code prettyprint lang-sc'>PlayBuf</code> - sample playback oscillator (numChannels, bufnum, rate, trigger, startPos, loop)<ul>
+<li><em>rate</em>: 1.0 is the server's sample rate, 2.0 is one octave up, 0.5 is one octave down<li><em>loop</em> = 1 is true, 0 is false</ul>
+<h3><a class='anchor' name='Buffer%20class'>Buffer class</a></h3>
+
+<p>Buffers can also be accessed with the <code class='code prettyprint lang-sc'>Buffer</code> class (which may be more convenient than the messaging style)
+<p><code class='code prettyprint lang-sc'>Buffer.read</code> allocates a buffer and reads a sound file into it.<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "/Users/federicoreuben/Music/MastersExamples/11 Debra.aiff"); //change to your soundfile path
+
+{ PlayBuf.ar(2, b.bufnum, 1, loop: 1) }.scope</pre>
+
+<p>Mouse control of rate (transposition)<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(1, b.bufnum, MouseX.kr(0.5,2), loop: 1) }.scope
+
+b.bufnum   // returns buffer number
+b.numChannels   // returns the number of channels in the buffer
+
+b.free  // return the memory and free buffer ID, IMPORTANT</pre>
+
+<p><code class='code prettyprint lang-sc'>BufRateScale</code>
+<p>File being read into a buffer may have a different sample than SC is using
+<p><code class='code prettyprint lang-sc'>BufRateScale.kr(bufnum)</code> returns a ratio to adjust the playback of the soundfile (for example with different sampling rates).<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "/Users/federicoreuben/Music/MastersExamples/04 4 bit 9d api+e+6 [126.26].wav"); //change to your soundfile path</pre>
+
+<p>to scale the playback:<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1) }.scope
+
+b.free</pre>
+
+<p><code class='code prettyprint lang-sc'>BufFrames</code>
+<p><code class='code prettyprint lang-sc'>BufFrames.kr(bufnum)</code> returns the current number of allocated frames
+<p>it can be used to specify starting halfway through the buffer or some place else<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog; //choose sound file
+(
+var start = 1/2;
+{ PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum),
+    startPos: BufFrames.kr(b.bufnum) * start, loop: 1)
+}.scope
+)</pre>
+
+<p>note that loop returns to the beginning in the above example
+<p>a trigger (&lt;= 0 to &gt; 0) causes the playback to start from startPos
+<p>using a trigger without looping
+<p><code class='code prettyprint lang-sc'>Impulse.kr</code> produces a trigger with a certain frequency<pre class='code prettyprint lang-sc'>(
+    var start = 1/2;
+    { PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum),
+        Impulse.kr(1/3),
+        startPos: BufFrames.kr(b.bufnum) * start, loop: 0)
+    }.scope
+)</pre>
+
+<p>Using a trigger with looping:
+<p>the trigger should occur with a frequency that is
+<p>(serverSampleRate / numberOfFrames) * rateScale
+<p>Server's sample rate:<pre class='code prettyprint lang-sc'>s.sampleRate</pre>
+<pre class='code prettyprint lang-sc'>(
+var start = 1/2;
+{ PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum),
+    Impulse.kr(s.sampleRate / (BufFrames.kr(b.bufnum) * start) *
+        BufRateScale.kr(b.bufnum)),
+    startPos: BufFrames.kr(b.bufnum) * start, loop: 1)
+}.scope
+)
+
+b.free</pre>
+
+<p><strong>Exercise</strong>:<ol>
+<li>Play with <code class='code prettyprint lang-sc'>PlayBuf</code> loading sound files (uncompressed) and changing the rate with different values.<li>Use another UGen to modulate the rate.<li>Add an envelopte to PlayBuf with different random starting points.</ol>
+<h3><a class='anchor' name='DiskIn'>DiskIn</a></h3>
+
+<p>To continuously play longer sound file from disk. One buffer must be preloaded.
+<p>using <code class='code prettyprint lang-sc'>Buffer object</code>
+<p>(server, path, startFrame, numChannels)<pre class='code prettyprint lang-sc'>b = Buffer.cueSoundFile(s, "/Users/federicoreuben/Music/MastersExamples/05 180db_ [130].wav", 0, 2); //or your own path
+
+x = { DiskIn.ar(2, b.bufnum) }.play;
+
+b.close;    // close file
+
+//try another file:
+
+code::
+b.cueSoundFile("/Users/federicoreuben/Music/MastersExamples/7 Broken Train.aiff", 0, 2); //or your own path
+
+x.free; b.close; b.free;    // close and free</pre>
+<h3><a class='anchor' name='Chipmunk%20conclusions:'>Chipmunk conclusions:</a></h3>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/chipmunks.png'/><br><b>Playback synthesis can sound like chipmunks!</b></div>
+<ul>
+<li>Playing with different rates of playback can be fun<li>Modulating rate with other UGens<li>Cutting, reversing, randomising playback, gains<li>Might introduce amplitude distortion, aliasing and spectral envelope shifting<li>Not the same as pitch shifting<li>‘munkchkinisation’ - chipmunk sounds</ul>
+<h2><a class='anchor' name='Signals%20and%20Fixed%20Waveforms'>Signals and Fixed Waveforms</a></h2>
+<h3><a class='anchor' name='Basic%20arithmetic%20operations%20on%20signals'>Basic arithmetic operations on signals</a></h3>
+<ul>
+<li>When we <em>multiply</em> a signal by a number, we change its <em>amplitude</em><li>When we <em>add</em> a number, we change its <em>axis</em></ul>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/signalaxis.png'/><br><b>sine wave plot</b></div>
+<ul>
+<li>We can use a signal to modulate another signal<li>We can modulate any parameter of a given signal (frequency, amplitude, phase, etc.)<li>We can also add two signals together (additive synthesis)<li>We can also multiply two signals (ring modulation)</ul>
+<h3><a class='anchor' name='Common%20periodic%20waveforms'>Common periodic waveforms</a></h3>
+
+<p>The most common periodic fixed (waveform doesn't change in time) waveforms in classic synthesis are:<ul>
+<li>Sine Wave<li>Square Wave<li>Saw Wave<li>Triangle Wave</ul>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/common waves.png'/><br><b>Common waveforms in synthesis</b></div>
+
+<p>They have differnet characteristics and complex waves (Square, Saw, Triangle).
+<p><strong>Square Wave</strong><ul>
+<li>Odd harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum</em></ul>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/squarewave.png'/><br><b>Square Wave</b></div>
+<pre class='code prettyprint lang-sc'>(
+{var sinArr, size, freq, array;
+sinArr = [];
+size = 100;
+freq = 100;
+array = Array.series(size,1,2); //odd harmonics
+array.do{|item|
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,0.5*(1/item))); // 1/harmonicNum
+};
+sinArr.sum;
+}.scope;
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> This approach is for demonstration purposes. Use the <code class='code prettyprint lang-sc'>UGen</code> below if you just want to use a square wave</div>
+<p>SC has a square wave <code class='code prettyprint lang-sc'>UGen</code>:<pre class='code prettyprint lang-sc'>{Pulse.ar(100, 0.5, 1, 0)}.scope//args: freq, width, mul, add</pre>
+
+<p><strong>Saw Wave</strong><ul>
+<li>Odd and even harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum/2</em></ul>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/sawwave.png'/><br><b>Saw Wave</b></div>
+<pre class='code prettyprint lang-sc'>(
+{var sinArr, size, freq;
+sinArr = [];
+size = 100;
+freq = 100;
+(Array.series(size,1,1)).do{|item|
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,0.5*(1/item/2)));
+};
+sinArr.sum;
+}.scope;
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> This approach is for demonstration purposes. Use the UGen below if you just want to use a saw wave</div>
+<p>SC has a saw wave <code class='code prettyprint lang-sc'>UGen</code>:<pre class='code prettyprint lang-sc'>{Saw.ar(100, 1, 0)}.scope//args: freq, mul, add</pre>
+
+<p><strong>Triangle Wave</strong><ul>
+<li>Odd harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum/harmonicNum</em><li>Polarity switches from positive to negative amplitude from harmonic to harmonic</ul>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/trianglewave.png'/><br><b>Triangle Wave</b></div>
+<pre class='code prettyprint lang-sc'>(
+{var sinArr, size, freq;
+sinArr = [];
+size = 100;
+freq = 100;
+(Array.series(size,1,2)).do{|item, index|
+if(index.even, {
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,0.5*(1/item/item)));
+}, {
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,(0.5*(1/item/item)).neg));
+});
+};
+sinArr.sum;
+}.scope;
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> This approach is for demonstration purposes. Use the <code class='code prettyprint lang-sc'>UGen</code> below if you just want to use a trinagle wave</div>
+<p>SC has a triangle wave <code class='code prettyprint lang-sc'>UGen</code>:<pre class='code prettyprint lang-sc'>{LFTri.ar(100, 0, 1, 0)}.scope//args: freq, iphase, mul, add</pre>
+<h2><a class='anchor' name='Fixed-Waveform%20Table-lookup%20Synthesis'>Fixed-Waveform Table-lookup Synthesis</a></h2>
+<h3><a class='anchor' name='Wavetable-lookup%20Synthesis:'>Wavetable-lookup Synthesis:</a></h3>
+<ul>
+<li>Digital Sound Synthesis by sending samples through digital-to-analog converter<li>For periodic sound, computer simply reads through a table of just one cycle of waveform in a list stored in memory (wavetable) again and again</ul>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/fixed waveform table-lookup.png'/><br><b>A Wavetable!</b></div>
+<ul>
+<li>Algorithm for Digital Oscillator<li>Oscillator has to resample the wavetable in order to generate different frequencies</ul>
+<h3><a class='anchor' name='Wavetable%20synthesis%20in%20SC'>Wavetable synthesis in SC</a></h3>
+
+<p><code class='code prettyprint lang-sc'>Osc</code> is a table-lookup oscillator.<pre class='code prettyprint lang-sc'>b = Buffer.alloc(s, 4096, 1); //buffer with 4096 values
+b.sine1(1.0!6, true, true, true); //add 6 harmonics
+b.plot
+
+{Osc.ar(b.bufnum, [80,80.2], 0, 0.2)}.play;
+
+b.sine1(1.0/[1,2,3,4,5,6], true, true, true); //add 6 harmonics with decaying amplitudes
+
+b.sine1(Array.rand(32,0,1), true, true, true); //change wavetable with random selction of partials
+b.plot
+
+b.sine1(Array.rand(16,0,1.0).postln, true, true, true); //change wavetable with random amplitude in partials
+
+{Osc.ar(b.bufnum, MouseX.kr(100,1000), 0, 0.2)}.play;
+
+{Osc.ar(b.bufnum, [80,80.2], 0, 0.2)}.play;
+
+b.sine1(1.0/(1..10), true, true, true);
+b.plot;
+
+b.sine1(1.0/(1..100), true, true, true);
+
+b.sine1(Array.fill(50,{[0,1].choose}), true, true, true); //evaluate serveral times
+b.plot;
+
+b.sine1([1,1,1,0,0,0,1,1,1,0,0,0,0,0,0.5,0.5,0.5], true, true, true);
+b.plot;
+//and now this
+(
+{50.do{b.sine1(Array.rand(32,0,1.0), true, true, true);
+    0.25.wait;
+}}.fork;
+)</pre>
+<h2><a class='anchor' name='Time-varying%20Waveform%20Synthesis'>Time-varying Waveform Synthesis</a></h2>
+
+<p>Changing amplitude of a signal in time is important to make it interesting!  For this, we need:<ul>
+<li>Signals to create time-varying waveforms<li>Envelopes - functions of time (generates a line through a table specifying time and amplitude points)<li>Amplitude envelopes need to be multiplied with the “sounding” signal<li>Introducing time-varying UGens in a patch both in amplitude and frequency for more interesting results<li>Table-look up oscillators have 3 different inputs: amplitude, frequency and waveform</ul>
+<h3><a class='anchor' name='Envelopes'>Envelopes</a></h3>
+<ul>
+<li>An envelope is a function in time that describes a line or curve<li>Commercial synthesisers amplitude envelopes in 4 stages<li>Attack, Decay, Sustain and Release (ADSR)<li>We still need a way of using the envelope to modify the amplitude of the “constant sounding” oscillator</ul>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/adsr.png'/><br><b>ADSR Envelope</b></div>
+<div class='note'><span class='notelabel'>NOTE:</span> It's imporant to understand that in the digital domain, an Envelope specifies a wavetable</div>
+<p>In SC we can make envelopes with the <code class='code prettyprint lang-sc'>Env</code> specification.<pre class='code prettyprint lang-sc'>Env.new([0,1,0], [1,9]).plot; //values, time
+Env.adsr.plot;
+Env.adsr(0.1,1,0.01).plot;</pre>
+
+<p>Another more complex curved envelope:<pre class='code prettyprint lang-sc'>a = Array.fill(29, {rrand(0.0,1)});
+d = Array.fill(29, {rrand(0.1,0.5)}).sort;
+a = a ++ [0];
+c = Env.new(a,d, curve:'sin');
+c.test.plot;</pre>
+
+<p><strong>Envelopes Generators</strong>
+<p>In order to playback envelopes in synthesis patches, we need to use an <strong>envelope generator</strong>, which reads the breakpoints we create with an Env.<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/envgen.png'/><br><b>A synthesis patch with an envelope generator</b></div>
+
+<p>In SC, we use the <code class='code prettyprint lang-sc'>EnvGen</code> UGen for this purpose.<pre class='code prettyprint lang-sc'>a = Array.fill(29, {rrand(0.0,1)});
+d = Array.fill(29, {rrand(0.1,0.5)}).sort;
+a = a ++ [0];
+c = Env.new(a,d, curve:'sin');
+{PinkNoise.ar(1)*EnvGen.kr(c, doneAction: 2);}.play;</pre>
+
+<p>Now use envelope to control frequency:<pre class='code prettyprint lang-sc'>{LFTri.ar(EnvGen.kr(c, doneAction: 2, levelScale: 200, levelBias: 300))*EnvGen.kr(c, doneAction: 2);}.play;</pre>
+<h2><a class='anchor' name='Substractive%20Synthesis'>Substractive Synthesis</a></h2>
+<ul>
+<li>Method of Sound Synthesis<li>Frequencies are attenuated by using digital filters<li>Usually source rich in frequency content/partials/harmonics<li>Sources may include: Complex waves (such as saw (<code class='code prettyprint lang-sc'>Saw.ar</code>), square (<code class='code prettyprint lang-sc'>Pulse.ar</code>), triangle (<code class='code prettyprint lang-sc'>LFTri.ar</code>)), noise, pulses, etc.<li>Resonance can be used to create interesting effects like ringing<li>Subtract and add methods</ul>
+<h3><a class='anchor' name='Filters'>Filters</a></h3>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/filters.png'/><br><b>Filters remove stuff!</b></div>
+<ul>
+<li>“A digital filter is a computational process or algorithm by which a digital signal or sequence of numbers (acting as input) is transformed into a second sequence of numbers termed the output digital signal” (Rabiner et al. 1972)<li>Any digital device with an input and an output is a filter!<li>Commonly referred to devices that boost or attenuate regions of the frequency spectrum<li>Not only frequency domain, but also time domain (reverbs, delays, etc.)</ul>
+<h3><a class='anchor' name='Pass%20Filters'>Pass Filters</a></h3>
+
+<p><code class='code prettyprint lang-sc'>WhiteNoise</code> as source.<pre class='code prettyprint lang-sc'>{WhiteNoise.ar(1)!2}.scope;
+
+FreqScope.new(400, 200, 0); //frequency scope</pre>
+
+<p><strong>Hi-pass filter</strong>: Just passes high frequencies.<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/hpf.png'/><br><b>High-pass Filter</b></div>
+<pre class='code prettyprint lang-sc'>{HPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000))}.scope</pre>
+
+<p><strong>Low pass filter</strong>: Just passes low frequencies.<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/lpf.png'/><br><b>Low-pass Filter</b></div>
+<pre class='code prettyprint lang-sc'>{LPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000))}.scope //args: in, freq, rq</pre>
+
+<p><strong>Band pass filter</strong>: Just Passes Band<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/bpf.png'/><br><b>Band-pass Filter</b></div>
+<pre class='code prettyprint lang-sc'>{BPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(440,17600), MouseY.kr(0.001,0.9))}.scope //args: in, freq, rq</pre>
+
+<p><strong>Band reject filter</strong>: Rejects band<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/brf.png'/><br><b>Band-reject Filter</b></div>
+<pre class='code prettyprint lang-sc'>{BRF.ar(WhiteNoise.ar(0.5)!2, 11000, MouseY.kr(0.01,1.9))}.scope</pre>
+<h3><a class='anchor' name='Resonant%20Filters'>Resonant Filters</a></h3>
+<ul>
+<li>Resonance provides a boost around cut-off frequency<li>Sometimes you find the reciprocal of Q (1/Q) instead of Q<li>RHPF (Resonant High Pass Filter)<li>RLPF (Resonant Low Pass Filter)</ul>
+
+<p><strong>Resonant low pass filter</strong>:<pre class='code prettyprint lang-sc'>{RLPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope</pre>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/rlpf.png'/><br><b>Resonant Low-pass Filter</b></div>
+
+<p><strong>Resonant high pass filter</strong>:<pre class='code prettyprint lang-sc'>{RHPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope</pre>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/rhpf.png'/><br><b>Resonant High-pass Filter</b></div>
+<h3><a class='anchor' name='Equalisation'>Equalisation</a></h3>
+
+<p>B EQ Filters in SC:
+<p><strong>High-pass</strong>:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiPass.ar(WhiteNoise.ar(0.5), MouseX.kr(20,22000)),0)}.scope</pre>
+
+<p><strong>Low-pass</strong>:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowPass.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000)),0)}.scope</pre>
+
+<p><strong>Shelf Filters</strong>:<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/shelf.png'/><br><b>Low and High Shelf Filters</b></div>
+
+<p><strong>Low-shelf</strong>:
+<p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -20), 0)}.scope //arg: in, freq. reciprocal of s (slope) = 1/s</pre>
+
+<p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowShelf.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 20), 0)}.scope //reciprocal of s (slope) = 1/s</pre>
+
+<p><strong>Hi-shelf</strong>:
+<p>Cut -10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -10), 0)}.scope //reciprocal of s (slope) = 1/s</pre>
+
+<p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -20),0)}.scope</pre>
+
+<p>Boost 10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.25)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 10),0)}.scope</pre>
+
+<p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 20), 0)}.scope</pre>
+
+<p><strong>Parametric</strong>:<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/parametric.png'/><br><b>Parametric Filter - Boost and Cut</b></div>
+
+<p>Cut -10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), -10),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), -20),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p>Boost 10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.25)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), 10),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), 20),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p><strong>Multiband EQ</strong><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/multiband.png'/><br><b>Multiband Filter by fabfilter</b></div>
+
+<p>By combining different filters, you can produce a multiband EQ.<pre class='code prettyprint lang-sc'>(
+a = {arg lag=10, hpfreq=100,hpq=0.71,lsfreq=80,lsdb=10,lss=1.1,p1freq=43,p1db=0,
+    p1q=6,p2freq=86,p2db=0,p2q=6,p3freq=129,p3db=0,p3q=6,p4freq=172,p4db=0,
+    p4q=6,hsfreq=2000,hsdb=0,hss=0.1,lpfreq=20000,lpq=0.71,byp1=0,byp2=0,
+    byp3=0,byp4=0,byp5=0,byp6=0,byp7=0,byp8=0,vol=0.5;
+    var signal;
+    signal = WhiteNoise.ar(0.25);
+    signal = BHiPass.ar(signal,hpfreq.lag(lag),(1/hpq.lag(lag)))*byp1.linlin(0,1,1,0) + (signal*byp1);
+    signal = BLowShelf.ar(signal,lsfreq.lag(lag),(1/lss.lag(lag)), lsdb.lag(lag))*byp2.linlin(0,1,1,0)
+    + (signal*byp2);
+    signal = BPeakEQ.ar(signal,p1freq.lag(lag),(1/p1q.lag(lag)), p1db.lag(lag))*byp3.linlin(0,1,1,0)
+    + (signal*byp3);
+    signal = BPeakEQ.ar(signal,p2freq.lag(lag),(1/p2q.lag(lag)),p2db.lag(lag))*byp4.linlin(0,1,1,0)
+    + (signal*byp4);
+    signal = BPeakEQ.ar(signal,p3freq.lag(lag),(1/p3q.lag(lag)),p3db.lag(lag))*byp5.linlin(0,1,1,0)
+    + (signal*byp5);
+    signal = BPeakEQ.ar(signal,p4freq.lag(lag),(1/p4q.lag(lag)),p4db.lag(lag))*byp6.linlin(0,1,1,0)
+    + (signal*byp6);
+    signal = BHiShelf.ar(signal,hsfreq.lag(lag),(1/hss.lag(lag)), hsdb.lag(lag))*byp7.linlin(0,1,1,0)
+    + (signal*byp7);
+    signal = BLowPass.ar(signal,lpfreq.lag(lag),(1/lpq.lag(lag)))*byp8.linlin(0,1,1,0)
+    + (signal*byp8);
+    Pan2.ar(signal,0)*vol;
+}.scope;
+)
+
+//lag produces a ramp between values at a given duration
+a.set(\p1db,20, \p1q,10.0, \p1freq, 800);
+a.set(\p2db,20, \p2q,10.0, \p2freq, 800*2);
+a.set(\p3db,20, \p3q,10.0, \p3freq, 800*3);
+a.set(\p4db,20, \p4q,10.0, \p4freq, 800*4);
+
+a.set(\byp1, 1, \lsfreq, 82,\lsdb,10,\lss,0.2,\p1freq,220,\p1db, -10);
+
+a.set(\hpfreq, 440, \hpq, 6)</pre>
+<h3><a class='anchor' name='Resonance%20and%20ringing'>Resonance and ringing</a></h3>
+
+<p>Resonance exhibits ringing.<pre class='code prettyprint lang-sc'>{Resonz.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope //resonant high
+
+{Impulse.ar(MouseX.kr(0.5,10))!2*0.5}.scope
+
+{Resonz.ar(Impulse.ar(1,0,20), MouseX.kr(440,10000), MouseY.kr(0.0001,0.01))!2*10}.scope //resonant filter ringing
+
+{Ringz.ar(Impulse.ar(1,0,1), MouseX.kr(440,10000), 0.5)!2 }.scope //same but specify ring times</pre>
+
+<p><code class='code prettyprint lang-sc'>Klank</code> and <code class='code prettyprint lang-sc'>DynKlank</code> are banks of resonators in SC.<pre class='code prettyprint lang-sc'>(
+{
+Klank.ar([ // the multichannel-expansion
+        `[[500, 1078, 1201.5, 1723], nil, [1, 1, 0.5, 0.3]], // left channel
+        `[[700, 1071, 1053, 1723], nil, [1, 1, 1, 1]] // right channel
+    ], Impulse.ar([1.5, 1.875], 0, 0.1))
+}.play
+)</pre>
+
+<p>With <code class='code prettyprint lang-sc'>DynKlank</code> you can change parameters dynamically.<pre class='code prettyprint lang-sc'>(
+// change freqs and ringtimes with mouse
+{    var freqs, ringtimes;
+    freqs = [800, 1071, 1153, 1723] * MouseX.kr(0.5, 2, 1);
+    ringtimes = [1, 1, 1, 1] * MouseY.kr(0.1, 10, 1);
+    DynKlank.ar(`[freqs, nil, ringtimes ], Impulse.ar(2, 0, 0.1))
+}.play;
+)
+
+(
+// set them from outside later:
+SynthDef('help-dynKlank', {
+    var freqs, ringtimes, signal;
+    freqs = Control.names([\freqs]).kr([800, 1071, 1153, 1723]);
+    ringtimes = Control.names([\ringtimes]).kr([1, 1, 1, 1]);
+    signal = DynKlank.ar(`[freqs, nil, ringtimes ], Impulse.ar(2, 0, 0.1));
+    Out.ar(0, signal);
+}).add;
+)
+
+a = Synth('help-dynKlank');
+
+a.setn(\freqs, Array.rand(4, 500, 2000));
+a.setn(\ringtimes, Array.rand(4, 0.2, 4) );</pre>
+<h2><a class='anchor' name='Noise'>Noise</a></h2>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/noise.png'/><br><b>NOISE!!!</b></div>
+<ul>
+<li>Noise in signal processing may refer to two things:<li>Unwanted modification of signal (unwanted sounds)<li>Or (what we are interested now):<li>Aperiodic signals<li>Random signals<li>However with predictable spectral density<li>Predictably unpredictable...</ul>
+<h3><a class='anchor' name='Coloured%20Noise'>Coloured Noise</a></h3>
+
+<p>Noise with different spectral characteristics.
+<p><strong>White Noise</strong><ul>
+<li>Flat frequency spectrum<li>Equal power in any band of a given bandwidth (power spectral density)</ul>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/whitenoise.png'/><br><b>White Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{WhiteNoise.ar(0.5)!2}.scope;</pre>
+
+<p><strong>Pink Noise</strong><ul>
+<li>Flat frequency spectrum<li>Equal power in any band of a given bandwidth (power spectral density)</ul>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/pinknoise.png'/><br><b>Pink Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{PinkNoise.ar(0.5)!2}.scope</pre>
+
+<p><strong>Brown Noise</strong><ul>
+<li>Brownian motion<li>Random walk<li>Power density decreases 6dB per octave with increasing frequency<li>More power in lower frequencies</ul>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/brownnoise.png'/><br><b>Brown Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{BrownNoise.ar(0.5)!2}.scope</pre>
+
+<p><strong>Grey Noise</strong><ul>
+<li>White noise subjected to psychoacoustic equal loudness curve<li>Closer to how we hear</ul>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/old materials/lectures/sc_synthesis/pictures/greynoise.png'/><br><b>Grey Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{GrayNoise.ar(0.5)!2}.scope</pre>
+<h2><a class='anchor' name='Multiple%20Wavetable%20Synthesis'>Multiple Wavetable Synthesis</a></h2>
+
+<p><strong>Wavetable crossfading</strong><pre class='code prettyprint lang-sc'>(
+SynthDef(\wavecross1, {arg freq=440, attack=0.01, dec=0.4, sus=0.3, sus2=0.4, rel=2, vol=0.5;
+    var wave1, wave2, wave3, wave4;
+    var env1,env2,env3,env4, globalEnv;
+    env1 = EnvGen.kr(Env.new([0,1,0],[attack,dec]));
+    env2 = EnvGen.kr(Env.new([0,0,1,0],[attack,dec,sus]));
+    env3 = EnvGen.kr(Env.new([0,0,1,0],[attack+dec,sus,sus2]));
+    env4 = EnvGen.kr(Env.new([0,0,1,0],[attack+dec+sus,sus2,rel]));
+    globalEnv = EnvGen.kr(Env.new([0,1,0.5,0.5,0.4,0],[attack,dec,sus,sus2,rel]));
+
+    wave1 = Pulse.ar(freq)*env1;
+    wave2 = Formant.ar(freq)*env2;
+    wave3 = Saw.ar(freq)*env3;
+    wave4 = SinOsc.ar(freq)*env4;
+
+    ////noise instead
+    //wave1 = WhiteNoise.ar*env1;
+    //wave2 = GrayNoise.ar*env2;
+    //wave3 = PinkNoise.ar*env3;
+    //wave4 = BrownNoise.ar*env4;
+
+    Out.ar(0, Pan2.ar((wave1 + wave2 + wave3 + wave4))*globalEnv*vol);
+}).send(s);
+)
+
+Synth(\wavecross1, [\freq, 440]);
+Synth(\wavecross1, [\freq, 880]);
+
+
+(
+{12.do{
+    Synth(\wavecross1, [\freq, (Scale.major.degrees+[60,72].choose).choose.midicps]);
+    0.8.yield;
+}}.fork;
+)
+
+(//detuned synths
+{24.do{
+    Synth(\wavecross1, [\freq, rrand(200,800), \attack, rrand(0.01,0.05), \dec, rrand(0.2,0.4), \sus,rrand(0.1,0.3), \sus2, rrand(0.1,0.3), \rel, rrand(0.4,2.1), \vol, rrand(0.1,0.5)]);
+    0.2.yield;
+}}.fork;
+)</pre>
+
+<p><strong>Wavestacking</strong><pre class='code prettyprint lang-sc'>(
+SynthDef(\wavestack1, {arg freq=440, attack=0.1, sus=0.3, rel=2, vol=0.5;
+    var globalEnv, harm, signal, envArr;
+    var wave1, wave2, wave3, wave4;
+    globalEnv = EnvGen.kr(Env.linen(attack,sus,rel), doneAction:2);
+    [attack,sus,rel].sum*[[0.3,0.6,0.1],[0.1,0.5,0.4],[0.01,0.3,0.69],[0.8,0.1,0.1]].do{|item| envArr = envArr.add(Env.linen(item[0], item[1], item[2]))};
+    harm = [1,2,3,4];
+    wave1 = Pulse.ar(freq*harm[3])*EnvGen.kr(envArr[0]);
+    wave2 = Formant.ar(freq*harm[1])*EnvGen.kr(envArr[1]);
+    wave3 = Saw.ar(freq*harm[2])*EnvGen.kr(envArr[2]);
+    wave4 = SinOsc.ar(freq*harm[0])*EnvGen.kr(envArr[3]);
+    signal = ((wave1 + wave2 + wave3 + wave4)/4)*globalEnv;
+    Out.ar(0, Pan2.ar(signal*vol*2));
+}).send(s);
+)
+
+Synth(\wavestack1, [\freq, 440]);
+Synth(\wavestack1, [\freq, 880]);
+
+(
+{12.do{
+    Synth(\wavestack1, [\freq, (Scale.major.degrees+[60,72].choose).choose.midicps]);
+    0.8.yield;
+}}.fork;
+)
+
+(//detuned synths
+{24.do{
+    Synth(\wavestack1, [\freq, rrand(200,800), \attack, rrand(0.01,0.05), \dec, rrand(0.2,0.4), \sus,rrand(0.1,0.3), \sus2, rrand(0.1,0.3), \rel, rrand(0.4,2.1), \vol, rrand(0.1,0.5)]);
+    0.2.yield;
+}}.fork;
+)</pre>
+<h2><a class='anchor' name='Modulation%20Synthesis'>Modulation Synthesis</a></h2>
+<h3><a class='anchor' name='Ring%20modulation'>Ring modulation</a></h3>
+
+<p>Create a frequency analyzer:<pre class='code prettyprint lang-sc'>FreqScope.new(400, 200, 0);</pre>
+
+<p>Simple ring modulation:<pre class='code prettyprint lang-sc'>{SinOsc.ar(440,0,SinOsc.ar(Line.kr(1,10,20)))*0.5}.scope; //low freq ring modulation causes tremolo</pre>
+
+<p>This is the same (a multiplication of two bipolar signals):<pre class='code prettyprint lang-sc'>{SinOsc.ar(440,0,0.5)*SinOsc.ar(Line.kr(1,10,20))}.scope; //low freq ring modulation causes tremolo</pre>
+
+<p>With a sound file:<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
+
+{PlayBuf.ar(1, b.bufnum)*SinOsc.ar(10)}.play //low freq causes tremolo
+
+{PlayBuf.ar(1, b.bufnum)*SinOsc.ar(440)}.play //high freq causes sidebands
+
+(
+{var carrier, modulator;
+    carrier = 1000;
+    modulator = 400;
+    SinOsc.ar(carrier,0,SinOsc.ar(modulator));
+}.scope;
+)</pre>
+
+<p>Side bands result in: <em>sum of C and M (1000+400=1400) and difference of C and M (1000-400=600)</em><pre class='code prettyprint lang-sc'>(
+{var carrier, modulator;
+    carrier = 100;
+    modulator = 400;
+    SinOsc.ar(carrier,0,SinOsc.ar(modulator));
+}.scope;
+)</pre>
+
+<p>Side bands result in: <em>sum of C and M (100+400=500) and difference of C and M (100-400=-300) - negative frequencies change the sign of the phase of signal</em><pre class='code prettyprint lang-sc'>(
+{var carrier, modulator;
+    carrier = 100;
+    modulator = 400;
+    SinOsc.ar(carrier,0,SinOsc.ar(modulator))+SinOsc.ar(300,MouseX.kr(0,-0.5pi));
+}.scope;
+)</pre>
+
+<p>Harmonic sidebands:<pre class='code prettyprint lang-sc'>{(SinOsc.ar(220,0,0.25)+SinOsc.ar(440,0,0.25))*SinOsc.ar(880)}.scope; C and M are within harmonic ratios</pre>
+
+<p>Inharmonic sidebands:<pre class='code prettyprint lang-sc'>{(SinOsc.ar(100,0,0.25)+SinOsc.ar(380,0,0.25))*SinOsc.ar(775)}.scope;</pre>
+
+<p><h3><a class='anchor' name='Amplitude%20modulation:'>Amplitude modulation:</a></h3>
+<pre class='code prettyprint lang-sc'>(
+{var carrier, modulator;
+    carrier = 500;
+    modulator = 50;
+    SinOsc.ar(carrier,0,SinOsc.ar(modulator, add:1, mul:0.5))*0.5;
+}.scope;
+)</pre>
+
+<p>Side bands result in: <em>sum of C and M (1000+400=1400) and difference of C and M (1000-400=600) + C (1000)</em><pre class='code prettyprint lang-sc'>(
+{var carrier, modulator;
+    carrier = 1000;
+    modulator = 400;
+    SinOsc.ar(carrier,0,SinOsc.ar(modulator, add:1, mul:0.5))*0.5;
+}.scope;
+)</pre>
+
+<p>In AM, high frequency causes sidebands but also mantains carrier frequency:<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
+{PlayBuf.ar(1, b.bufnum)*SinOsc.ar(440, add:1, mul:0.5)}.play</pre>
+
+<p>In RM, high frequency causes sidebands:<pre class='code prettyprint lang-sc'>{PlayBuf.ar(1, b.bufnum)*SinOsc.ar(440)}.play</pre>
+<h3><a class='anchor' name='Frequency%20modulation'>Frequency modulation</a></h3>
+
+<p>Can be done (without envelope) in the following way:<pre class='code prettyprint lang-sc'>(
+var carrierFreq = 400, modFreq = 50, deviation = 100;
+{    SinOsc.ar(carrierFreq + SinOsc.ar(modFreq, mul: deviation),
+    mul: 0.3);
+}.scope
+)</pre>
+
+<p>the same can be expressed:<pre class='code prettyprint lang-sc'>(
+var carrierFreq = 400, modFreq = 50, deviation = 100;
+{SinOsc.ar(SinOsc.ar(modFreq,mul: deviation, add: carrierFreq),
+    mul: 0.3);
+}.scope
+)</pre>
+<h3><a class='anchor' name='Phase%20modulation'>Phase modulation</a></h3>
+
+<p>is similar, but we modulate the phase instead of the frequency:
+<p><code class='code prettyprint lang-sc'>PMOsc.ar(carfreq, modfreq, index, modphase, mul, add)</code><ul>
+<li><em>carfreq</em> - carrier frequency in cycles per second.<li><em>modfreq</em> - modulator frequency in cycles per second.<li><em>index</em> is modulation index in radians<li><em>modphase</em> a modulation input for the modulator phase in radians</ul>
+
+<p><pre class='code prettyprint lang-sc'>{ PMOsc.ar(Line.kr(600, 900, 5), 600, 3, 0, 0.1) }.play; // modulates carfreq
+
+{ PMOsc.ar(300, Line.kr(600, 900, 5), 3, 0, 0.1) }.play; // modulates modfreq
+
+{ PMOsc.ar(300, 550, Line.ar(0,20,8), 0, 0.1) }.play; // modulates index
+
+(
+var carrierFreq = 400, modFreq = 50, index = 3, decayTime = 5;
+{ EnvGen.kr(Env.perc(0.001,decayTime,0.2),1,doneAction: 2) *
+    PMOsc.ar(carrierFreq, modFreq, index,0);
+}.scope
+)
+
+(
+var carrierFreq = 400, modFreq,cmRatio = 1.5, index = 3, decayTime = 5;
+modFreq = (carrierFreq * cmRatio.reciprocal).postln;
+{ EnvGen.kr(Env.perc(0.001,decayTime,0.2),1,doneAction: 2) *
+    PMOsc.ar(carrierFreq, modFreq, index,0);
+}.scope
+)</pre>
+
+<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Digital Synthesis.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Digital Synthesis.schelp</a><br>link::Study Guides/Digital Synthesis::<br>sc version: 3.8.0</div></div></body></html>
