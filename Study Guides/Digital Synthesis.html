@@ -156,6 +156,22 @@ b.free</pre>
 
 <p><strong>Exercise</strong>:<ol>
 <li>Play with <code class='code prettyprint lang-sc'>PlayBuf</code> loading sound files (uncompressed) and changing the rate with different values.<li>Use another UGen to modulate the rate.<li>Add an envelopte to PlayBuf with different random starting points.</ol>
+<pre class='code prettyprint lang-sc'>//granular example
+b = Buffer.loadDialog; //choose sound file
+
+SynthDef("envPlay", {arg freqMod=1;
+    var signal, env;
+    signal = PlayBuf.ar(2,b.bufnum, Rand(0.5,4), startPos: BufFrames.kr(b.bufnum)*Rand(0,1));
+    env = EnvGen.kr(Env.perc(0.01,0.1), doneAction:2);
+    Out.ar([0,1], signal * env * 0.2);
+}).send(s);
+
+{
+    inf.do{
+Synth("envPlay");
+    rrand(0.1,0.01).yield;
+}
+}.fork</pre>
 <h3><a class='anchor' name='DiskIn'>DiskIn</a></h3>
 
 <p>To continuously play longer sound file from disk. One buffer must be preloaded.
