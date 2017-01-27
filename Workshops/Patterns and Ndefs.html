@@ -52,7 +52,7 @@ a = Pseq([60,64,67,69], 2).asStream;
 <p>Previously we have seen how we can schedule a sequence of events through a <strong>Routine</strong>. This can be simplified using a <code class='code prettyprint lang-sc'>Pattern</code>.<pre class='code prettyprint lang-sc'>//synthdef
 (
     SynthDef( "perkysine", {
-    | freq, amp|
+    | freq=400, amp=1|
     var osc;
     osc = SinOsc.ar( [freq,freq+0.05.rand] ) * EnvGen.ar(
     Env.perc, doneAction: 2) * 0.2;
@@ -338,7 +338,7 @@ p = Prand((48 ..72), inf).asStream;
 q = p.reject({|item| item.even});
 q.nextN(10);
 )
-rejects only the event Midi note numbers:
+rejects only the event Midi note numbers
 code::
 (
 p = Prand((60 ..72), inf).asStream;
@@ -505,6 +505,7 @@ a.play;
 a.stop;</pre>
 
 <p>You can use Pset, to set a different parmeter of another pattern.<pre class='code prettyprint lang-sc'>Pset(name, value, pattern)
+
 (
 ~notepat = Pseq([60,64,66,69,67,64,60,57], inf);
 ~melodypat = Pbind(\midinote, ~notepat);
@@ -512,8 +513,15 @@ a.stop;</pre>
 Pset(\amp, 1, ~modpat).play;
 )</pre>
 
-<p>You can modify a Pbind with a Pbindf.
-<p><code class='code prettyprint lang-sc'>Pbindf(pattern, pairs) ( ~melodypat = Pbind(\midinote, Pseq([60,64,66,69,67,64,60,57], inf)); Pbindf(~melodypat, \dur, Pseq([0.75,0.5,0.5,0.25,0.75,0.5,0.5,0.25].scramble, inf)*0.3,     \instrument, \perkysine).play; )</code>Now, let's start to do some pattern live coding (changing patterns on the fly). This is a lot of fun and can be useful for your projects! For this, we need a class called <code class='code prettyprint lang-sc'>Pdef</code>
+<p>You can modify a Pbind with a Pbindf.<pre class='code prettyprint lang-sc'>Pbindf(pattern, pairs)
+
+(
+~melodypat = Pbind(\midinote, Pseq([60,64,66,69,67,64,60,57], inf));
+
+Pbindf(~melodypat, \dur, Pseq([0.75,0.5,0.5,0.25,0.75,0.5,0.5,0.25].scramble, inf)*0.3, \instrument, \perkysine).play;
+)</pre>
+
+<p>Now, let's start to do some pattern live coding (changing patterns on the fly). This is a lot of fun and can be useful for your projects! For this, we need a class called <code class='code prettyprint lang-sc'>Pdef</code>
 <p><code class='code prettyprint lang-sc'>Pdef(key, pat)</code>
 <p>Creates a pattern definition that you can change. When you change the content of Pdef, the pattern definition propagets through all streams.<pre class='code prettyprint lang-sc'>(
 ~melodypat = Pbind(
