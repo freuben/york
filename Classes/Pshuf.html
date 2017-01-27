@@ -1,4 +1,4 @@
-<html><head><title>Prand</title>
+<html><head><title>Pshuf</title>
 <link rel='stylesheet' href='./../scdoc.css' type='text/css' />
 <link rel='stylesheet' href='./../frontend.css' type='text/css' />
 <link rel='stylesheet' href='./../custom.css' type='text/css' />
@@ -15,12 +15,12 @@
 <div class='header'>
 <div id='label'>SuperCollider CLASSES</div>
 <div id='categories'><a href='./../Browse.html#Streams-Patterns-Events>Patterns>List'>Streams-Patterns-Events>Patterns>List</a></div>
-<h1>Prand</h1>
-<div id='summary'>embed values randomly chosen from a list</div>
+<h1>Pshuf</h1>
+<div id='summary'>sequentially embed values in a list in constant, but random order</div>
 </div>
 <div class='subheader'>
 <div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Streams/ListPatterns.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Streams/ListPatterns.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/ListPattern.html">ListPattern</a> : <a href="../Classes/Pattern.html">Pattern</a> : <a href="../Classes/AbstractFunction.html">AbstractFunction</a> : <a href="../Classes/Object.html">Object</a></div>
-<div id='related'>See also: <a href="./../Classes/Pxrand.html">Pxrand</a>, <a href="./../Classes/Pwrand.html">Pwrand</a></div>
+<div id='related'>See also: <a href="./../Classes/Prand.html">Prand</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
@@ -33,7 +33,7 @@
 </ul></ul><li class='toc1'><a href='#examples'>Examples</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
-<p>Embed one item from the list at random for each repeat.<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<p>Returns a shuffled version of the <strong>list</strong> item by item, with n <strong>repeats</strong>.<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
 <h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
 <h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
@@ -42,20 +42,12 @@
 <h2><a class='anchor' name='examples'>Examples</a></h2>
 <pre class='code prettyprint lang-sc'>(
 var a, b;
-a = Prand([1, 2, 3, 4, 5], 6);    // return 6 items
+a = Pshuf([1, 2, 3, 4, 5], 3);    // repeat 3 times
 b = a.asStream;
-7.do({ b.next.postln; });
+16.do({ b.next.postln; });
 )
 
-// return also a subpattern:
-(
-var a, b;
-a = Prand([1, Pseq([10, 20, 30]), 2, 3, 4, 5], 6);    // return 6 items
-b = a.asStream;
-7.do({ b.next.postln; });
-)
-
-//Prand used as a sequence of pitches:
+//Pshuf used as a sequence of pitches:
 
 (
 SynthDef(\help_sinegrain,
@@ -67,13 +59,13 @@ SynthDef(\help_sinegrain,
 )
 
 (
-a = Prand(#[60, 61, 63, 65, 72], inf).asStream;
+a = Pn(Pshuf(#[60, 60, 60, 61, 63, 65, 72], 4), inf).asStream;
 Routine({
     loop({
-        Synth(\help_sinegrain, [\freq, a.next.midicps]);
-        0.2.wait;
+    Synth(\help_sinegrain, [\freq, a.next.midicps]);
+    0.15.wait;
     })
 }).play;
 )</pre>
 
-<p><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Prand.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Prand.schelp</a><br>link::Classes/Prand::<br>sc version: 3.8.0</div></div></body></html>
+<p><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Pshuf.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Pshuf.schelp</a><br>link::Classes/Pshuf::<br>sc version: 3.8.0</div></div></body></html>

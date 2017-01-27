@@ -19,7 +19,7 @@
 <div id='summary'>represents a musical tuning</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Collections/<a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Collections/Scale.sc'>Scale.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/Scale.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/Scale.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
 <div id='related'>See also: <a href="./../Classes/Scale.html">Scale</a></div>
 </div>
 <div id='toc'>
@@ -29,8 +29,8 @@
 <ul class='toc'><li class='toc3'><a href='#*et'>et</a> </li>
 <li class='toc3'><a href='#*choose'>choose</a> </li>
 <li class='toc3'><a href='#*new'>new</a> </li>
-<li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
-<li class='toc2'><a href='#Undocumented class methods'>Undocumented class methods</a></li>
+<li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Undocumented%20class%20methods'>Undocumented class methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#*all'>all</a> </li>
 <li class='toc3'><a href='#*at'>at</a> </li>
 <li class='toc3'><a href='#*calcET'>calcET</a> </li>
@@ -45,8 +45,8 @@
 <ul class='toc'><li class='toc3'><a href='#-semitones'>semitones</a> </li>
 <li class='toc3'><a href='#-cents'>cents</a> </li>
 <li class='toc3'><a href='#-ratios'>ratios</a> </li>
-<li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
-<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+<li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented%20instance%20methods'>Undocumented instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-=='>==</a> </li>
 <li class='toc3'><a href='#-as'>as</a> </li>
 <li class='toc3'><a href='#-asTuning'>asTuning</a> </li>
@@ -76,7 +76,7 @@ Pbind(\scale, Scale.major(t), \degree, Pseq((0..7) ++ (6..0) ++ [\rest], 1), \du
 <h3><a class='anchor' name='Creation'>Creation</a></h3>
 
 <p><strong>just, pythagorean, werckmeister, johnston, partch, wcAlpha, bp, etc.</strong>
-<p>Creates a tuning from the library stored in <a href="./../Classes/TuningInfo.html">TuningInfo</a>. For a complete list of available tunings, execute<pre class='code prettyprint lang-sc'>Tuning.directory</pre>
+<p>Creates a tuning from the library stored in <a href="./../Classes/TuningInfo">TuningInfo</a>. For a complete list of available tunings, execute<pre class='code prettyprint lang-sc'>Tuning.directory</pre>
 <h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*et' href='./../Overviews/Methods.html#et'>et</a> (<span class='argstr'>pitchesPerOctave: 12</span>)</h3>
 <div class='method'>
@@ -89,8 +89,8 @@ Pbind(\scale, Scale.major(t), \degree, Pseq((0..7) ++ (6..0) ++ [\rest], 1), \du
 // custom tuning
 Tuning.new(#[ 0, 0.795, 2.251, 3.251, 4.036, 4.680, 5.915, 7.221, 8.013, 9.29, 9.930, 11.032 ]);
 Tuning.new((0..11).collect(_ * (2.08 ** (1/12))), 2.08, "Stretched ET12");</pre>
-</div><h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
-<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented class methods'>Undocumented class methods</a></h3>
+</div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
+<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented%20class%20methods'>Undocumented class methods</a></h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*all' href='./../Overviews/Methods.html#all'>all</a> </h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*at' href='./../Overviews/Methods.html#at'>at</a> (<span class='argstr'>key</span>)</h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*calcET' href='./../Overviews/Methods.html#calcET'>calcET</a> (<span class='argstr'>pitchesPerOctave</span>)</h3>
@@ -108,8 +108,8 @@ Tuning.new((0..11).collect(_ * (2.08 ** (1/12))), 2.08, "Stretched ET12");</pre>
 <div class='method'>
 <p>Returns a array of cent values for the pitch set.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-ratios' href='./../Overviews/Methods.html#ratios'>ratios</a> </h3>
 <div class='method'>
-<p>Returns a tuned array of ratios for the pitch set.</div><h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
-<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+<p>Returns a tuned array of ratios for the pitch set.</div><h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented%20instance%20methods'>Undocumented instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-==' href='./../Overviews/Methods.html#=='>==</a> (<span class='argstr'>argTuning</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-as' href='./../Overviews/Methods.html#as'>as</a> (<span class='argstr'>class</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asTuning' href='./../Overviews/Methods.html#asTuning'>asTuning</a> </h3>
@@ -124,4 +124,4 @@ Tuning.new((0..11).collect(_ * (2.08 ** (1/12))), 2.08, "Stretched ET12");</pre>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-wrapAt' href='./../Overviews/Methods.html#wrapAt'>wrapAt</a> (<span class='argstr'>index</span>)</h3>
 <h2><a class='anchor' name='examples'>Examples</a></h2>
 
-<p>For examples of use, see the <a href="./../Classes/Scale.html">Scale</a> help file.<div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/Tuning.schelp'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/Tuning.schelp</a><br>link::Classes/Tuning::<br>sc version: 3.7.2</div></div></body></html>
+<p>For examples of use, see the <a href="./../Classes/Scale.html">Scale</a> help file.<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Tuning.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Tuning.schelp</a><br>link::Classes/Tuning::<br>sc version: 3.8.0</div></div></body></html>

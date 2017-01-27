@@ -20,7 +20,8 @@
 <div id='summary'>Rectangle</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Applications/SuperCollider 3.6.5/SuperCollider 3.6.5.app/Contents/Resources/SCClassLibrary/Common/Geometry/<a href='file:///Applications/SuperCollider 3.6.5/SuperCollider 3.6.5.app/Contents/Resources/SCClassLibrary/Common/Geometry/Rect.sc'>Rect.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: /Applications/SuperCollider 3.5.5/SuperCollider 3.5.5.app/Contents/Resources/SCClassLibrary/Common/Geometry/<a href='file:///Applications/SuperCollider 3.5.5/SuperCollider 3.5.5.app/Contents/Resources/SCClassLibrary/Common/Geometry/Rect.sc'>Rect.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+<div id='subclasses'>Subclasses: <a href="../Classes/RoundedRect.html">RoundedRect</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#classmethods'>Class methods</a></li>
@@ -32,6 +33,9 @@
 <ul class='toc'><li class='toc3'><a href='#*aboutPoint'>aboutPoint</a> </li>
 <li class='toc3'><a href='#*fromArray'>fromArray</a> </li>
 <li class='toc3'><a href='#*fromRect'>fromRect</a> </li>
+<li class='toc3'><a href='#*multiNew'>multiNew</a> </li>
+<li class='toc3'><a href='#*rand'>rand</a> </li>
+<li class='toc3'><a href='#*rand2'>rand2</a> </li>
 </ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-left'>left</a> </li>
 <li class='toc3'><a href='#-top'>top</a> </li>
@@ -64,20 +68,33 @@
 <li class='toc3'><a href='#-=='>==</a> </li>
 <li class='toc3'><a href='#-asArray'>asArray</a> </li>
 <li class='toc3'><a href='#-asRect'>asRect</a> </li>
+<li class='toc3'><a href='#-blend'>blend</a> </li>
 <li class='toc3'><a href='#-bounds'>bounds</a> </li>
 <li class='toc3'><a href='#-center'>center</a> </li>
 <li class='toc3'><a href='#-centerIn'>centerIn</a> </li>
 <li class='toc3'><a href='#-centerSquare'>centerSquare</a> </li>
 <li class='toc3'><a href='#-containsPoint'>containsPoint</a> </li>
 <li class='toc3'><a href='#-containsRect'>containsRect</a> </li>
+<li class='toc3'><a href='#-corners'>corners</a> </li>
 <li class='toc3'><a href='#-draw'>draw</a> </li>
 <li class='toc3'><a href='#-hash'>hash</a> </li>
 <li class='toc3'><a href='#-insetByRect'>insetByRect</a> </li>
 <li class='toc3'><a href='#-intersects'>intersects</a> </li>
 <li class='toc3'><a href='#-layout'>layout</a> </li>
+<li class='toc3'><a href='#-max'>max</a> </li>
+<li class='toc3'><a href='#-min'>min</a> </li>
 <li class='toc3'><a href='#-outsetBy'>outsetBy</a> </li>
 <li class='toc3'><a href='#-performBinaryOpOnSomething'>performBinaryOpOnSomething</a> </li>
+<li class='toc3'><a href='#-rotate'>rotate</a> </li>
+<li class='toc3'><a href='#-rotatedCorners'>rotatedCorners</a> </li>
+<li class='toc3'><a href='#-scale'>scale</a> </li>
+<li class='toc3'><a href='#-scaleCenteredIn'>scaleCenteredIn</a> </li>
+<li class='toc3'><a href='#-scaleTranslate'>scaleTranslate</a> </li>
 <li class='toc3'><a href='#-size'>size</a> </li>
+<li class='toc3'><a href='#-transformFromRect'>transformFromRect</a> </li>
+<li class='toc3'><a href='#-transformToRect'>transformToRect</a> </li>
+<li class='toc3'><a href='#-translate'>translate</a> </li>
+<li class='toc3'><a href='#-translateScale'>translateScale</a> </li>
 </ul></ul></ul></div><h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./../Overviews/Methods.html#new'>new</a> (<span class='argstr'>left: 0</span>, <span class='argstr'>top: 0</span>, <span class='argstr'>width: 0</span>, <span class='argstr'>height: 0</span>)</h3>
 <div class='method'>
@@ -90,6 +107,12 @@
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*aboutPoint' href='./../Overviews/Methods.html#aboutPoint'>aboutPoint</a> (<span class='argstr'>point</span>, <span class='argstr'>dx</span>, <span class='argstr'>dy</span>)</h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*fromArray' href='./../Overviews/Methods.html#fromArray'>fromArray</a> (<span class='argstr'>array</span>)</h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*fromRect' href='./../Overviews/Methods.html#fromRect'>fromRect</a> (<span class='argstr'>rect</span>)</h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*multiNew' href='./../Overviews/Methods.html#multiNew'>multiNew</a> ( <span class='argstr'>... args</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Extensions/extSCView-multiNew.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Extensions/extSCView-multiNew.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*rand' href='./../Overviews/Methods.html#rand'>rand</a> (<span class='argstr'>x: 1</span>, <span class='argstr'>y: 1</span>, <span class='argstr'>w: 1</span>, <span class='argstr'>h: 1</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*rand2' href='./../Overviews/Methods.html#rand2'>rand2</a> (<span class='argstr'>x: 1</span>, <span class='argstr'>y: 1</span>, <span class='argstr'>w: 1</span>, <span class='argstr'>h: 1</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
 <h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-left' href='./../Overviews/Methods.html#left'>left</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-left' href='./../Overviews/Methods.html#left'>left</a> = value</h3>
@@ -156,6 +179,8 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-==' href='./../Overviews/Methods.html#=='>==</a> (<span class='argstr'>that</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asArray' href='./../Overviews/Methods.html#asArray'>asArray</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asRect' href='./../Overviews/Methods.html#asRect'>asRect</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-blend' href='./../Overviews/Methods.html#blend'>blend</a> (<span class='argstr'>that</span>, <span class='argstr'>blendfrac: 0.5</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SVGFile/extPoint-blend.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SVGFile/extPoint-blend.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-bounds' href='./../Overviews/Methods.html#bounds'>bounds</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-center' href='./../Overviews/Methods.html#center'>center</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-center' href='./../Overviews/Methods.html#center'>center</a> = <span class='argstr'>center</span></h3>
@@ -163,14 +188,38 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-centerSquare' href='./../Overviews/Methods.html#centerSquare'>centerSquare</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-containsPoint' href='./../Overviews/Methods.html#containsPoint'>containsPoint</a> (<span class='argstr'>aPoint</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-containsRect' href='./../Overviews/Methods.html#containsRect'>containsRect</a> (<span class='argstr'>aRect</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-corners' href='./../Overviews/Methods.html#corners'>corners</a> </h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-rotate.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-rotate.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-draw' href='./../Overviews/Methods.html#draw'>draw</a> (<span class='argstr'>color</span>, <span class='argstr'>operation: 2</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-hash' href='./../Overviews/Methods.html#hash'>hash</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-insetByRect' href='./../Overviews/Methods.html#insetByRect'>insetByRect</a> (<span class='argstr'>r</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-intersects' href='./../Overviews/Methods.html#intersects'>intersects</a> (<span class='argstr'>aRect</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-layout' href='./../Overviews/Methods.html#layout'>layout</a> (<span class='argstr'>argBounds</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-max' href='./../Overviews/Methods.html#max'>max</a> (<span class='argstr'>aRect</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-min' href='./../Overviews/Methods.html#min'>min</a> (<span class='argstr'>aRect</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-outsetBy' href='./../Overviews/Methods.html#outsetBy'>outsetBy</a> (<span class='argstr'>h</span>, <span class='argstr'>v</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.6.5/SuperCollider 3.6.5.app/Contents/Resources/SCClassLibrary/Common/GUI/osx/scide_scapp/SCImage.sc'>/Applications/SuperCollider 3.6.5/SuperCollider 3.6.5.app/Contents/Resources/SCClassLibrary/Common/GUI/osx/scide_scapp/SCImage.sc</a></div>
+<div class='extmethod'>From extension in <a href='/Applications/SuperCollider 3.5.5/SuperCollider 3.5.5.app/Contents/Resources/SCClassLibrary/Common/GUI/osx/scide_scapp/SCImage.sc'>/Applications/SuperCollider 3.5.5/SuperCollider 3.5.5.app/Contents/Resources/SCClassLibrary/Common/GUI/osx/scide_scapp/SCImage.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnSomething' href='./../Overviews/Methods.html#performBinaryOpOnSomething'>performBinaryOpOnSomething</a> (<span class='argstr'>aSelector</span>, <span class='argstr'>thing</span>, <span class='argstr'>adverb</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rotate' href='./../Overviews/Methods.html#rotate'>rotate</a> (<span class='argstr'>amt</span>, <span class='argstr'>x</span>, <span class='argstr'>y</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-rotate.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-rotate.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rotatedCorners' href='./../Overviews/Methods.html#rotatedCorners'>rotatedCorners</a> (<span class='argstr'>amt: 0</span>, <span class='argstr'>x</span>, <span class='argstr'>y</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-rotate.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-rotate.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-scale' href='./../Overviews/Methods.html#scale'>scale</a> (<span class='argstr'>scalePoint</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-scaleCenteredIn' href='./../Overviews/Methods.html#scaleCenteredIn'>scaleCenteredIn</a> (<span class='argstr'>toRect</span>, <span class='argstr'>keepRatio: false</span>, <span class='argstr'>ratio: 1</span>, <span class='argstr'>move: 0.5</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extPen-transformToRect.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extPen-transformToRect.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-scaleTranslate' href='./../Overviews/Methods.html#scaleTranslate'>scaleTranslate</a> (<span class='argstr'>scalePoint</span>, <span class='argstr'>deltaPoint</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-size' href='./../Overviews/Methods.html#size'>size</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-size' href='./../Overviews/Methods.html#size'>size</a> = <span class='argstr'>sz</span></h3>
-<div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.6.5/SuperCollider 3.6.5.app/Contents/Resources/HelpSource/Classes/Rect.schelp'>/Applications/SuperCollider 3.6.5/SuperCollider 3.6.5.app/Contents/Resources/HelpSource/Classes/Rect.schelp</a><br>link::Classes/Rect::<br>sc version: 3.6.5</div></div></body></html>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-transformFromRect' href='./../Overviews/Methods.html#transformFromRect'>transformFromRect</a> (<span class='argstr'>rect</span>, <span class='argstr'>fromRect</span>, <span class='argstr'>keepRatio: false</span>, <span class='argstr'>ratio: 1</span>, <span class='argstr'>move: 0.5</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extPen-transformToRect.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extPen-transformToRect.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-transformToRect' href='./../Overviews/Methods.html#transformToRect'>transformToRect</a> (<span class='argstr'>rect</span>, <span class='argstr'>fromRect</span>, <span class='argstr'>keepRatio: false</span>, <span class='argstr'>ratio: 1</span>, <span class='argstr'>move: 0.5</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extPen-transformToRect.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extPen-transformToRect.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-translate' href='./../Overviews/Methods.html#translate'>translate</a> (<span class='argstr'>deltaPoint</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-translateScale' href='./../Overviews/Methods.html#translateScale'>translateScale</a> (<span class='argstr'>deltaPoint</span>, <span class='argstr'>scalePoint</span>)</h3>
+<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/GUI/Drawing/extRect-transformations.sc</a></div>
+<div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.5.5/SuperCollider 3.5.5.app/Contents/Resources/HelpSource/Classes/Rect.schelp'>/Applications/SuperCollider 3.5.5/SuperCollider 3.5.5.app/Contents/Resources/HelpSource/Classes/Rect.schelp</a><br>link::Classes/Rect::<br>sc version: 3.5.5</div></div></body></html>
