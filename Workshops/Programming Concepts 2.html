@@ -33,7 +33,7 @@
 <ul class='toc'></ul><li class='toc2'><a href='#for'>for</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Creating%20and%20Manipulating%20Collections'>Creating and Manipulating Collections</a></li>
 <ul class='toc'><li class='toc2'><a href='#Creating%20Collections'>Creating Collections</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Data%20Anaylsis%20and%20Manipulation%20with%20Collections'>Data Anaylsis and Manipulation with Collections</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Data%20Analysis%20and%20Manipulation%20with%20Collections'>Data Analysis and Manipulation with Collections</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Working%20with%20MIDIOut'>Working with MIDIOut</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#Extensions%20and%20Quarks'>Extensions and Quarks</a></li>
 <ul class='toc'><li class='toc2'><a href='#sc3-plugins'>sc3-plugins</a></li>
@@ -52,7 +52,7 @@
 <p>scaling values:<ul>
 <li><code class='code prettyprint lang-sc'>linlin(inMin, inMax, outMin, outMax)</code> - lineal to lineal<li><code class='code prettyprint lang-sc'>linexp(inMin, inMax, outMin, outMax)</code> - lineal to exponential<li><code class='code prettyprint lang-sc'>explin(inMin, inMax, outMin, outMax)</code> - exponential to lineal<li><code class='code prettyprint lang-sc'>expexp(inMin, inMax, outMin, outMax)</code> - exponential to exponential</ul>
 <pre class='code prettyprint lang-sc'>0.5.linlin(0,1,0,100)</pre>
-<div class='note'><span class='notelabel'>NOTE:</span> Exponential mapping shouldn’t use ceros!</div>
+<div class='note'><span class='notelabel'>NOTE:</span> Exponential mapping shouldn’t use zeros!</div>
 <p><pre class='code prettyprint lang-sc'>0.5.linexp(0,1,0,100)   // posts nan (not a number)
 0.5.linexp(0.000001,1,0.000001,100)</pre>
 <h3><a class='anchor' name='ControlSpec'>ControlSpec</a></h3>
@@ -89,11 +89,11 @@ c.map(0);
 c.map(1);</pre>
 <h2><a class='anchor' name='Control%20Structures'>Control Structures</a></h2>
 
-<p>Control Structures in programming are parts of code that determine the <em>flow</em> or direction the program might take. There are initial conditions and parameters in a control stucture - based on these preconditions the computer determines what should happen. This process leads to particular results based on the preconditions.<h3><a class='anchor' name='if'>if</a></h3>
+<p>Control Structures in programming are parts of code that determine the <em>flow</em> or direction the program might take. There are initial conditions and parameters in a control structure - based on these preconditions the computer determines what should happen. This process leads to particular results based on the preconditions.<h3><a class='anchor' name='if'>if</a></h3>
 
-<p>The most common Control Structure is the <em>if-then</em> statment.
-<p>An <em>if</em> statment determines what to do based on an expression that must return a <code class='code prettyprint lang-sc'>Boolean</code> value: <code class='code prettyprint lang-sc'>true</code> or <code class='code prettyprint lang-sc'>false</code>.
-<p>This is how we write an <em>if</em> statment in SC:<ul>
+<p>The most common Control Structure is the <em>if-then</em> statement.
+<p>An <em>if</em> statement determines what to do based on an expression that must return a <code class='code prettyprint lang-sc'>Boolean</code> value: <code class='code prettyprint lang-sc'>true</code> or <code class='code prettyprint lang-sc'>false</code>.
+<p>This is how we write an <em>if</em> statement in SC:<ul>
 <li>if (boolean, {true function}, {false function});</ul>
 <pre class='code prettyprint lang-sc'>if (4.notNil, {"yes"}, {"no"});
 if (nil.notNil, {"yes"}, {"no"});</pre>
@@ -202,7 +202,7 @@ Array.fib(5, 2, 32); // start from 32 with step 2.</pre>
 
 <p><strong>interpolation(size, start: 0, end: 1)</strong>
 <p>Fill a SequenceableCollection with the interpolated values between the <strong>start</strong> and <strong>end</strong> values.<pre class='code prettyprint lang-sc'>Array.interpolation(5, 3.2, 20.5);</pre>
-<h3><a class='anchor' name='Data%20Anaylsis%20and%20Manipulation%20with%20Collections'>Data Anaylsis and Manipulation with Collections</a></h3>
+<h3><a class='anchor' name='Data%20Analysis%20and%20Manipulation%20with%20Collections'>Data Analysis and Manipulation with Collections</a></h3>
 
 <p>We can find out various things about a collection and we can also change a collection's content as we wish.
 <p>Now, let's look at some methods that are useful for analysing and manipulating the contents of collections.
@@ -237,7 +237,7 @@ a;
 <p>Removes the contents of a given collection from the list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].removeAll([2, 3]);</pre>
 
 <p><strong>atAll</strong>
-<p>Return a collection of all the items from a list of indeces.<pre class='code prettyprint lang-sc'>y = (12..30);
+<p>Return a collection of all the items from a list of indexes.<pre class='code prettyprint lang-sc'>y = (12..30);
 y.atAll([0, 2]);</pre>
 
 <p><strong>includes(item)</strong>
@@ -254,10 +254,10 @@ y.atAll([0, 2]);</pre>
 <p>Answer a new collection which consists of all items for which function answers <code class='code prettyprint lang-sc'>false</code>. The function is passed two arguments, the item and an integer index.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].reject({ arg item, i; item.even });</pre>
 
 <p><strong>occurrencesOf</strong>
-<p>Answer the number of occurrance of an item in a list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 3, 4, 3, 4, 3].occurrencesOf(3);</pre>
+<p>Answer the number of occurrence of an item in a list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 3, 4, 3, 4, 3].occurrencesOf(3);</pre>
 
 <p><strong>sum</strong>
-<p>Answer the sum fo the list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].sum;</pre>
+<p>Answers the sum of the list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].sum;</pre>
 
 <p><strong>maxItem</strong>
 <p>Returns maximum item in a list.<pre class='code prettyprint lang-sc'>a = Array.rand(10,2.0,14);
@@ -295,7 +295,7 @@ y.postln;
 <p><strong>choose</strong>
 <p>Choose an element from the collection at random.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].choose;</pre>
 
-<p><strong>wchoose(weigths)</strong>
+<p><strong>wchoose(weights)</strong>
 <p>Choose an element from the collection at random using a list of probabilities or weights. The weights must sum to 1.0.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].wchoose([0.1, 0.2, 0.3, 0.4]);</pre>
 
 <p><strong>sort(function)</strong>
@@ -309,16 +309,16 @@ y.postln;
 <p>Returns a collection with the pairwise difference between all elements.<pre class='code prettyprint lang-sc'>[3, 4, 1, 1].differentiate;</pre>
 <div class='note'><span class='notelabel'>NOTE:</span> For handling <strong>multidimensional</strong> arrays, there are specific methods which are covered in the helpfile <a href="./../Guides/J-concepts-in-SC.html">J concepts in SC</a>.</div><h2><a class='anchor' name='Working%20with%20MIDIOut'>Working with MIDIOut</a></h2>
 
-<p>MIDI support in SuperCollider is fairly thorough and all MIDI devices accessivle to your OS are accessible to SC.
+<p>MIDI support in SuperCollider is fairly thorough and all MIDI devices accessible to your OS are accessible to SC.
 <p>There are several classes the are used to directly work with MIDI: <code class='code prettyprint lang-sc'>MIDIClient, MIDIFunc, MIDIdef, MIDIOut, MIDIEndPoint</code> and <code class='code prettyprint lang-sc'>MIDIIn</code>.
 <p>For the moment, we are going to only look at how to send MIDI messages out. We will look at how to receive MIDI messages in the next class.
 <p>But first, we need to turn MIDI on in SC. We always need to do this through the following piece of code:<pre class='code prettyprint lang-sc'>MIDIIn.connectAll; //starts MIDI</pre>
 
-<p>When you evaluted that piece of code, you probabilly noticed that in the post window a list was printed of your MIDI devices - MIDI Sources and Destinations. We can ask SC what they are again with the <code class='code prettyprint lang-sc'>MIDIClient</code> class:<pre class='code prettyprint lang-sc'>MIDIClient.sources;
+<p>When you evaluated that piece of code, you probably noticed that in the post window a list was printed of your MIDI devices - MIDI Sources and Destinations. We can ask SC what they are again with the <code class='code prettyprint lang-sc'>MIDIClient</code> class:<pre class='code prettyprint lang-sc'>MIDIClient.sources;
 MIDIClient.destinations;</pre>
 
 <p>This retuns a list of several <code class='code prettyprint lang-sc'>MIDIEndPoint</code> classes. <code class='code prettyprint lang-sc'>MIDIEndPoint</code> tells us the device and port names of the MIDI devices that are connected to your computer.
-<p>Now we are interested only in our MIDI destinations as we are sending MIDI messeges out.<pre class='code prettyprint lang-sc'>MIDIClient.destinations;</pre>
+<p>Now we are interested only in our MIDI destinations as we are sending MIDI messages out.<pre class='code prettyprint lang-sc'>MIDIClient.destinations;</pre>
 
 <p>We send MIDI messages out with the <code class='code prettyprint lang-sc'>MIDIOut</code> class.
 <p>First, we need to initiate the class and tell the computer to which MIDI device we want to send messages to. We can do this either by specifying the index of <code class='code prettyprint lang-sc'>MIDIClient.destinations</code> containing the device we would like to use.<pre class='code prettyprint lang-sc'>~midiOut = MIDIOut(0); //index of MIDIClient with device</pre>
@@ -414,7 +414,7 @@ Pdef(\x, Ppar([Pdef(\y),Pdef(\z)],inf));
 <p>It is possible to read and write MIDI Files in SuperCollider. SC has very good MIDI File support through SimpleMIDIFile, a class that comes in the wslib <code class='code prettyprint lang-sc'>Quark</code>.
 <p>First we need to install a Quark that contains the class that handles MIDIFiles in SuperCollider. The Quark is called wslib.<pre class='code prettyprint lang-sc'>Quarks.gui //install wslib</pre>
 
-<p>Once you install the Quark, remember to recompile the libary with <em>cmd +shift + l</em>.
+<p>Once you install the Quark, remember to recompile the library with <em>cmd +shift + l</em>.
 <p><code class='code prettyprint lang-sc'>SimpleMIDIFile</code> is a MIDI file implementation capable of reading and writing all types of MIDI data (except sysex messages).<h3><a class='anchor' name='Creating%20a%20MIDI%20File'>Creating a MIDI File</a></h3>
 
 <p>Example of how to create a MIDI File:<pre class='code prettyprint lang-sc'>(
@@ -473,7 +473,7 @@ SynthDef( "organ", { |freq = 440, sustain = 1, amp = 0.1, out|
 x = m.p( \organ ).play;
 x.stop;</pre>
 
-<p>Now, let's add more synth defs and try to do a bit of Wendy Carlos:<pre class='code prettyprint lang-sc'>(
+<p>Now, let's add more SynthDefs and try to do a bit of Wendy Carlos:<pre class='code prettyprint lang-sc'>(
 SynthDef( "triangle", { |freq = 440, sustain = 1, amp = 0.1, out|
         var sig;
         sig = LFTri.ar( freq * [1,2,3,5], 0, amp/[2,4,5,7] );
@@ -531,7 +531,7 @@ Ndef(\reverb, {var sig;
 )</pre>
 
 <p>Let's start having fun with Patterns and the MIDI File content:
-<p>Use Pxrand to randomize the order of the file.<pre class='code prettyprint lang-sc'>(
+<p>Use Pxrand to randomise the order of the file.<pre class='code prettyprint lang-sc'>(
 ~soprano = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[1], inf););
 ~alto = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[2], inf););
 ~tenor = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[3], inf););
@@ -621,7 +621,7 @@ m.write; // when writing to file note numbers are rounded (MIDI file format does
 <strong>metaEvents</strong>
 <p>an array containing all META events as arrays. Format:
 <p><strong>[ trackNumber, absTime, type, [values] / value / string ]</strong>
-<p>The absTime represents the abslute time at which the event takes place. In the Standard MIDI file format time values are always relative to the previous event. For convenience reasons the <code class='code prettyprint lang-sc'>SimpleMIDIFile</code> class converts these to absolute times when reading a file.
+<p>The absTime represents the absolute time at which the event takes place. In the Standard MIDI file format time values are always relative to the previous event. For convenience reasons the <code class='code prettyprint lang-sc'>SimpleMIDIFile</code> class converts these to absolute times when reading a file.
 <p>The format of last item in the array above depends on the type of the event:
 <p>types of which the last item is a string<pre class='code prettyprint lang-sc'>\text
 \copyright
