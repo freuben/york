@@ -7,7 +7,6 @@
 <script src='./../docmap.js' type='text/javascript'></script>
 <script src='./../prettify.js' type='text/javascript'></script>
 <script src='./../lang-sc.js' type='text/javascript'></script>
-<script src='./../MathJax/MathJax.js?config=TeX-AMS_HTML,scmathjax' type='text/javascript'></script>
 <script type='text/javascript'>var helpRoot='./..';</script>
 </head>
 <ul id='menubar'></ul>
@@ -20,29 +19,28 @@
 <div id='summary'>(Undocumented class)</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/<a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/SimpleMIDIFile.sc'>SimpleMIDIFile.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
-<div id='subclasses'>Subclasses: <a href="../Classes/PlaySimpleMIDI.html">PlaySimpleMIDI</a></div>
+<div id='filename'>Source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/SimpleMIDIFile.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/SimpleMIDIFile.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
-<ul class='toc'><li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
-<li class='toc2'><a href='#Undocumented class methods'>Undocumented class methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Undocumented%20class%20methods'>Undocumented class methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#*fromPattern'>fromPattern</a> </li>
 <li class='toc3'><a href='#*new'>new</a> </li>
 <li class='toc3'><a href='#*read'>read</a> </li>
 <li class='toc3'><a href='#*tempoScale'>tempoScale</a> </li>
 </ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
-<ul class='toc'><li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
-<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented%20instance%20methods'>Undocumented instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-addAllMIDIEvents'>addAllMIDIEvents</a> </li>
 <li class='toc3'><a href='#-addAllMIDIEventsToTrack'>addAllMIDIEventsToTrack</a> </li>
 <li class='toc3'><a href='#-addAllMIDITypeEvents'>addAllMIDITypeEvents</a> </li>
 <li class='toc3'><a href='#-addCC'>addCC</a> </li>
-<li class='toc3'><a href='#-addMetaEvent'>addMetaEvent</a> </li>
 <li class='toc3'><a href='#-addMIDIEvent'>addMIDIEvent</a> </li>
 <li class='toc3'><a href='#-addMIDIEventToTrack'>addMIDIEventToTrack</a> </li>
 <li class='toc3'><a href='#-addMIDITypeEvent'>addMIDITypeEvent</a> </li>
+<li class='toc3'><a href='#-addMetaEvent'>addMetaEvent</a> </li>
 <li class='toc3'><a href='#-addNote'>addNote</a> </li>
 <li class='toc3'><a href='#-addTempo'>addTempo</a> </li>
 <li class='toc3'><a href='#-addTimeSignature'>addTimeSignature</a> </li>
@@ -61,16 +59,14 @@
 <li class='toc3'><a href='#-analyzeUsedChannels'>analyzeUsedChannels</a> </li>
 <li class='toc3'><a href='#-analyzeUsedEvents'>analyzeUsedEvents</a> </li>
 <li class='toc3'><a href='#-analyzeUsedTracks'>analyzeUsedTracks</a> </li>
-<li class='toc3'><a href='#-arr'>arr</a> </li>
-<li class='toc3'><a href='#-arrInfo'>arrInfo</a> </li>
 <li class='toc3'><a href='#-asChunks'>asChunks</a> </li>
 <li class='toc3'><a href='#-asDeltaChunks'>asDeltaChunks</a> </li>
 <li class='toc3'><a href='#-asDicts'>asDicts</a> </li>
-<li class='toc3'><a href='#-asMetaChunks'>asMetaChunks</a> </li>
-<li class='toc3'><a href='#-asMetaDeltaChunks'>asMetaDeltaChunks</a> </li>
 <li class='toc3'><a href='#-asMIDIChunks'>asMIDIChunks</a> </li>
 <li class='toc3'><a href='#-asMIDIDeltaChunks'>asMIDIDeltaChunks</a> </li>
 <li class='toc3'><a href='#-asMIDIFileChunks'>asMIDIFileChunks</a> </li>
+<li class='toc3'><a href='#-asMetaChunks'>asMetaChunks</a> </li>
+<li class='toc3'><a href='#-asMetaDeltaChunks'>asMetaDeltaChunks</a> </li>
 <li class='toc3'><a href='#-asNoteDicts'>asNoteDicts</a> </li>
 <li class='toc3'><a href='#-asPenFunction'>asPenFunction</a> </li>
 <li class='toc3'><a href='#-beatAtMeasure'>beatAtMeasure</a> </li>
@@ -91,23 +87,20 @@
 <li class='toc3'><a href='#-curTime'>curTime</a> </li>
 <li class='toc3'><a href='#-damperEvents'>damperEvents</a> </li>
 <li class='toc3'><a href='#-division'>division</a> </li>
-<li class='toc3'><a href='#-eggCut'>eggCut</a> </li>
 <li class='toc3'><a href='#-endOfTrack'>endOfTrack</a> </li>
 <li class='toc3'><a href='#-envFromCC'>envFromCC</a> </li>
 <li class='toc3'><a href='#-envFromType'>envFromType</a> </li>
-<li class='toc3'><a href='#-equalCutArray'>equalCutArray</a> </li>
 <li class='toc3'><a href='#-expressionEvents'>expressionEvents</a> </li>
 <li class='toc3'><a href='#-firstNote'>firstNote</a> </li>
 <li class='toc3'><a href='#-firstNoteOnTrack'>firstNoteOnTrack</a> </li>
 <li class='toc3'><a href='#-format'>format</a> </li>
 <li class='toc3'><a href='#-fromPattern'>fromPattern</a> </li>
 <li class='toc3'><a href='#-generatePatternSeqs'>generatePatternSeqs</a> </li>
-<li class='toc3'><a href='#-getStartIndex'>getStartIndex</a> </li>
 <li class='toc3'><a href='#-getTempo'>getTempo</a> </li>
 <li class='toc3'><a href='#-getTime'>getTime</a> </li>
 <li class='toc3'><a href='#-getVl'>getVl</a> </li>
-<li class='toc3'><a href='#-handleMeta'>handleMeta</a> </li>
 <li class='toc3'><a href='#-handleMIDI'>handleMIDI</a> </li>
+<li class='toc3'><a href='#-handleMeta'>handleMeta</a> </li>
 <li class='toc3'><a href='#-handleRunningStatus'>handleRunningStatus</a> </li>
 <li class='toc3'><a href='#-handleSysex'>handleSysex</a> </li>
 <li class='toc3'><a href='#-info'>info</a> </li>
@@ -119,7 +112,6 @@
 <li class='toc3'><a href='#-keySignatureEvents'>keySignatureEvents</a> </li>
 <li class='toc3'><a href='#-keySignatures'>keySignatures</a> </li>
 <li class='toc3'><a href='#-length'>length</a> </li>
-<li class='toc3'><a href='#-linearShotgun'>linearShotgun</a> </li>
 <li class='toc3'><a href='#-measureAtBeat'>measureAtBeat</a> </li>
 <li class='toc3'><a href='#-measureAtTime'>measureAtTime</a> </li>
 <li class='toc3'><a href='#-metaEvents'>metaEvents</a> </li>
@@ -130,33 +122,22 @@
 <li class='toc3'><a href='#-midiDeltaEvents'>midiDeltaEvents</a> </li>
 <li class='toc3'><a href='#-midiEvents'>midiEvents</a> </li>
 <li class='toc3'><a href='#-midiTrackEvents'>midiTrackEvents</a> </li>
-<li class='toc3'><a href='#-midiTrackNotesBetween'>midiTrackNotesBetween</a> </li>
-<li class='toc3'><a href='#-midiTrackNotesBetweenCut'>midiTrackNotesBetweenCut</a> </li>
-<li class='toc3'><a href='#-midiTracks'>midiTracks</a> </li>
 <li class='toc3'><a href='#-midiTrackTypeEvents'>midiTrackTypeEvents</a> </li>
-<li class='toc3'><a href='#-midiTrackTypeEventsBetween'>midiTrackTypeEventsBetween</a> </li>
+<li class='toc3'><a href='#-midiTracks'>midiTracks</a> </li>
 <li class='toc3'><a href='#-midiTypeEvents'>midiTypeEvents</a> </li>
 <li class='toc3'><a href='#-modulationEvents'>modulationEvents</a> </li>
-<li class='toc3'><a href='#-noNoteRepeats'>noNoteRepeats</a> </li>
 <li class='toc3'><a href='#-noteEvents'>noteEvents</a> </li>
 <li class='toc3'><a href='#-noteOffEvents'>noteOffEvents</a> </li>
 <li class='toc3'><a href='#-noteOnEvents'>noteOnEvents</a> </li>
-<li class='toc3'><a href='#-noteSustain'>noteSustain</a> </li>
 <li class='toc3'><a href='#-noteSustainEvents'>noteSustainEvents</a> </li>
-<li class='toc3'><a href='#-noteValues'>noteValues</a> </li>
 <li class='toc3'><a href='#-numbytes'>numbytes</a> </li>
 <li class='toc3'><a href='#-p'>p</a> </li>
 <li class='toc3'><a href='#-panEvents'>panEvents</a> </li>
 <li class='toc3'><a href='#-pathName'>pathName</a> </li>
-<li class='toc3'><a href='#-phrasePlay'>phrasePlay</a> </li>
-<li class='toc3'><a href='#-phraseStructure'>phraseStructure</a> </li>
 <li class='toc3'><a href='#-pitchBendEvents'>pitchBendEvents</a> </li>
 <li class='toc3'><a href='#-pitchBendMode'>pitchBendMode</a> </li>
 <li class='toc3'><a href='#-play'>play</a> </li>
 <li class='toc3'><a href='#-playNotesWithFunction'>playNotesWithFunction</a> </li>
-<li class='toc3'><a href='#-playSustain'>playSustain</a> </li>
-<li class='toc3'><a href='#-playTrackNotes'>playTrackNotes</a> </li>
-<li class='toc3'><a href='#-playTrackType'>playTrackType</a> </li>
 <li class='toc3'><a href='#-playWithSynth'>playWithSynth</a> </li>
 <li class='toc3'><a href='#-plot'>plot</a> </li>
 <li class='toc3'><a href='#-prAdjustEndOfTrack'>prAdjustEndOfTrack</a> </li>
@@ -169,15 +150,14 @@
 <li class='toc3'><a href='#-removeTempo'>removeTempo</a> </li>
 <li class='toc3'><a href='#-removeTimeSignature'>removeTimeSignature</a> </li>
 <li class='toc3'><a href='#-renderPattern'>renderPattern</a> </li>
-<li class='toc3'><a href='#-sectionPlay'>sectionPlay</a> </li>
 <li class='toc3'><a href='#-setInstName'>setInstName</a> </li>
 <li class='toc3'><a href='#-setTempo'>setTempo</a> </li>
 <li class='toc3'><a href='#-setTrackName'>setTrackName</a> </li>
 <li class='toc3'><a href='#-shiftTime'>shiftTime</a> </li>
 <li class='toc3'><a href='#-smpteOffset'>smpteOffset</a> </li>
 <li class='toc3'><a href='#-smpteOffsetEvents'>smpteOffsetEvents</a> </li>
-<li class='toc3'><a href='#-sortMetaEvents'>sortMetaEvents</a> </li>
 <li class='toc3'><a href='#-sortMIDIEvents'>sortMIDIEvents</a> </li>
+<li class='toc3'><a href='#-sortMetaEvents'>sortMetaEvents</a> </li>
 <li class='toc3'><a href='#-sysexEvents'>sysexEvents</a> </li>
 <li class='toc3'><a href='#-tempi'>tempi</a> </li>
 <li class='toc3'><a href='#-tempo'>tempo</a> </li>
@@ -196,41 +176,37 @@
 <li class='toc3'><a href='#-timeSignatureAsArray'>timeSignatureAsArray</a> </li>
 <li class='toc3'><a href='#-timeSignatureEvents'>timeSignatureEvents</a> </li>
 <li class='toc3'><a href='#-timeSignatures'>timeSignatures</a> </li>
-<li class='toc3'><a href='#-trackArrMetaEvents'>trackArrMetaEvents</a> </li>
-<li class='toc3'><a href='#-trackArrMIDIEvents'>trackArrMIDIEvents</a> </li>
 <li class='toc3'><a href='#-trackName'>trackName</a> </li>
 <li class='toc3'><a href='#-trackNames'>trackNames</a> </li>
 <li class='toc3'><a href='#-tracks'>tracks</a> </li>
-<li class='toc3'><a href='#-trackSilence'>trackSilence</a> </li>
-<li class='toc3'><a href='#-trackSounding'>trackSounding</a> </li>
 <li class='toc3'><a href='#-usedChannels'>usedChannels</a> </li>
 <li class='toc3'><a href='#-usedTracks'>usedTracks</a> </li>
 <li class='toc3'><a href='#-volumeEvents'>volumeEvents</a> </li>
 <li class='toc3'><a href='#-write'>write</a> </li>
 <li class='toc3'><a href='#-writeFile'>writeFile</a> </li>
-</ul></ul><li class='toc1'><a href='#Help template'>Help template</a></li>
+</ul></ul><li class='toc1'><a href='#Help%20template'>Help template</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
 <p>This class is missing documentation.<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
-<h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
-<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented class methods'>Undocumented class methods</a></h3>
+<h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
+<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented%20class%20methods'>Undocumented class methods</a></h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*fromPattern' href='./../Overviews/Methods.html#fromPattern'>fromPattern</a> (<span class='argstr'>pattern</span>, <span class='argstr'>maxEvents: 1000</span>, <span class='argstr'>maxAmp: 0.2</span>, <span class='argstr'>startTime: 0</span>, <span class='argstr'>inTracks: 2</span>, <span class='argstr'>inTempo: 120</span>, <span class='argstr'>timeSignature</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./../Overviews/Methods.html#new'>new</a> (<span class='argstr'>pathName</span>)</h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*read' href='./../Overviews/Methods.html#read'>read</a> (<span class='argstr'>pathName</span>)</h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*tempoScale' href='./../Overviews/Methods.html#tempoScale'>tempoScale</a></h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*tempoScale' href='./../Overviews/Methods.html#tempoScale'>tempoScale</a> = value</h3>
 <h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
-<h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
-<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+<h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented%20instance%20methods'>Undocumented instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addAllMIDIEvents' href='./../Overviews/Methods.html#addAllMIDIEvents'>addAllMIDIEvents</a> (<span class='argstr'>events</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addAllMIDIEventsToTrack' href='./../Overviews/Methods.html#addAllMIDIEventsToTrack'>addAllMIDIEventsToTrack</a> (<span class='argstr'>events</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addAllMIDITypeEvents' href='./../Overviews/Methods.html#addAllMIDITypeEvents'>addAllMIDITypeEvents</a> (<span class='argstr'>type: 'cc'</span>, <span class='argstr'>channel: 0</span>, <span class='argstr'>args</span>, <span class='argstr'>absTime</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addCC' href='./../Overviews/Methods.html#addCC'>addCC</a> (<span class='argstr'>cc: 7</span>, <span class='argstr'>val: 127</span>, <span class='argstr'>startTime: 0</span>, <span class='argstr'>channel: 0</span>, <span class='argstr'>track: 0</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-addMetaEvent' href='./../Overviews/Methods.html#addMetaEvent'>addMetaEvent</a> (<span class='argstr'>event</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addMIDIEvent' href='./../Overviews/Methods.html#addMIDIEvent'>addMIDIEvent</a> (<span class='argstr'>event</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addMIDIEventToTrack' href='./../Overviews/Methods.html#addMIDIEventToTrack'>addMIDIEventToTrack</a> (<span class='argstr'>event</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addMIDITypeEvent' href='./../Overviews/Methods.html#addMIDITypeEvent'>addMIDITypeEvent</a> (<span class='argstr'>type: 'cc'</span>, <span class='argstr'>channel: 0</span>, <span class='argstr'>args</span>, <span class='argstr'>absTime: 0</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>sort: true</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-addMetaEvent' href='./../Overviews/Methods.html#addMetaEvent'>addMetaEvent</a> (<span class='argstr'>event</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addNote' href='./../Overviews/Methods.html#addNote'>addNote</a> (<span class='argstr'>noteNumber: 64</span>, <span class='argstr'>velo: 64</span>, <span class='argstr'>startTime: 0</span>, <span class='argstr'>dur: 1</span>, <span class='argstr'>upVelo</span>, <span class='argstr'>channel: 0</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>sort: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addTempo' href='./../Overviews/Methods.html#addTempo'>addTempo</a> (<span class='argstr'>tempo: 120</span>, <span class='argstr'>time: 0</span>, <span class='argstr'>sort: true</span>, <span class='argstr'>removeOld: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addTimeSignature' href='./../Overviews/Methods.html#addTimeSignature'>addTimeSignature</a> (<span class='argstr'>div: 4</span>, <span class='argstr'>denom: 4</span>, <span class='argstr'>time: 0</span>, <span class='argstr'>sort: true</span>, <span class='argstr'>removeOld: true</span>)</h3>
@@ -249,28 +225,24 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-analyzeUsedChannels' href='./../Overviews/Methods.html#analyzeUsedChannels'>analyzeUsedChannels</a> (<span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-analyzeUsedEvents' href='./../Overviews/Methods.html#analyzeUsedEvents'>analyzeUsedEvents</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-analyzeUsedTracks' href='./../Overviews/Methods.html#analyzeUsedTracks'>analyzeUsedTracks</a> </h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-arr' href='./../Overviews/Methods.html#arr'>arr</a> (<span class='argstr'>inst</span>, <span class='argstr'>amp: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-arrInfo' href='./../Overviews/Methods.html#arrInfo'>arrInfo</a> </h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asChunks' href='./../Overviews/Methods.html#asChunks'>asChunks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asDeltaChunks' href='./../Overviews/Methods.html#asDeltaChunks'>asDeltaChunks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asDicts' href='./../Overviews/Methods.html#asDicts'>asDicts</a> </h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMetaChunks' href='./../Overviews/Methods.html#asMetaChunks'>asMetaChunks</a> </h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMetaDeltaChunks' href='./../Overviews/Methods.html#asMetaDeltaChunks'>asMetaDeltaChunks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMIDIChunks' href='./../Overviews/Methods.html#asMIDIChunks'>asMIDIChunks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMIDIDeltaChunks' href='./../Overviews/Methods.html#asMIDIDeltaChunks'>asMIDIDeltaChunks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMIDIFileChunks' href='./../Overviews/Methods.html#asMIDIFileChunks'>asMIDIFileChunks</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMetaChunks' href='./../Overviews/Methods.html#asMetaChunks'>asMetaChunks</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMetaDeltaChunks' href='./../Overviews/Methods.html#asMetaDeltaChunks'>asMetaDeltaChunks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asNoteDicts' href='./../Overviews/Methods.html#asNoteDicts'>asNoteDicts</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asPenFunction' href='./../Overviews/Methods.html#asPenFunction'>asPenFunction</a> (<span class='argstr'>bounds</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>type: 'pitchBend'</span>, <span class='argstr'>channel: 0</span>, <span class='argstr'>cc: 0</span>, <span class='argstr'>minVal: 0</span>, <span class='argstr'>maxVal: 127</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asPenFunction' href='./../Overviews/Methods.html#asPenFunction'>asPenFunction</a> (<span class='argstr'>bounds</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>type: 'pitchBend'</span>, <span class='argstr'>channel: 0</span>, <span class='argstr'>cc: 0</span>, <span class='argstr'>minVal: 0</span>, <span class='argstr'>maxVal: 127</span>, <span class='argstr'>grid: true</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-beatAtMeasure' href='./../Overviews/Methods.html#beatAtMeasure'>beatAtMeasure</a> (<span class='argstr'>measure</span>, <span class='argstr'>measureFormat</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-beatAtRawMeasure' href='./../Overviews/Methods.html#beatAtRawMeasure'>beatAtRawMeasure</a> (<span class='argstr'>rawMeasure: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-beatAtTime' href='./../Overviews/Methods.html#beatAtTime'>beatAtTime</a> (<span class='argstr'>time: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-breathEvents' href='./../Overviews/Methods.html#breathEvents'>breathEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-ccEvents' href='./../Overviews/Methods.html#ccEvents'>ccEvents</a> (<span class='argstr'>cc</span>, <span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-checkWrite' href='./../Overviews/Methods.html#checkWrite'>checkWrite</a> (<span class='argstr'>newFileName</span>, <span class='argstr'>overwrite: false</span>, <span class='argstr'>ask: true</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-checkWrite.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-checkWrite.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-checkWrite.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-checkWrite.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-controllerEvents' href='./../Overviews/Methods.html#controllerEvents'>controllerEvents</a> (<span class='argstr'>cc</span>, <span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-convertNoteOffs' href='./../Overviews/Methods.html#convertNoteOffs'>convertNoteOffs</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-convertNoteOns' href='./../Overviews/Methods.html#convertNoteOns'>convertNoteOns</a> (<span class='argstr'>noteOffVelo: 64</span>)</h3>
@@ -285,29 +257,23 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-damperEvents' href='./../Overviews/Methods.html#damperEvents'>damperEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-division' href='./../Overviews/Methods.html#division'>division</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-division' href='./../Overviews/Methods.html#division'>division</a> = value</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-eggCut' href='./../Overviews/Methods.html#eggCut'>eggCut</a> (<span class='argstr'>arr</span>, <span class='argstr'>tracksMIDI</span>, <span class='argstr'>otherPath</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-endOfTrack' href='./../Overviews/Methods.html#endOfTrack'>endOfTrack</a> (<span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-envFromCC' href='./../Overviews/Methods.html#envFromCC'>envFromCC</a> (<span class='argstr'>track: 0</span>, <span class='argstr'>cc</span>, <span class='argstr'>channel</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-envFromType' href='./../Overviews/Methods.html#envFromType'>envFromType</a> (<span class='argstr'>track: 0</span>, <span class='argstr'>type: 'pitchBend'</span>, <span class='argstr'>channel</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-equalCutArray' href='./../Overviews/Methods.html#equalCutArray'>equalCutArray</a> (<span class='argstr'>cut</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-expressionEvents' href='./../Overviews/Methods.html#expressionEvents'>expressionEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-firstNote' href='./../Overviews/Methods.html#firstNote'>firstNote</a> (<span class='argstr'>trackArray</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-firstNoteOnTrack' href='./../Overviews/Methods.html#firstNoteOnTrack'>firstNoteOnTrack</a> (<span class='argstr'>track: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-format' href='./../Overviews/Methods.html#format'>format</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-format' href='./../Overviews/Methods.html#format'>format</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-fromPattern' href='./../Overviews/Methods.html#fromPattern'>fromPattern</a> (<span class='argstr'>pattern</span>, <span class='argstr'>maxEvents: 1000</span>, <span class='argstr'>maxAmp: 0.2</span>, <span class='argstr'>startTime: 0</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-generatePatternSeqs' href='./../Overviews/Methods.html#generatePatternSeqs'>generatePatternSeqs</a> </h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-getStartIndex' href='./../Overviews/Methods.html#getStartIndex'>getStartIndex</a> (<span class='argstr'>track</span>, <span class='argstr'>type: 'noteOn'</span>, <span class='argstr'>newTime</span>, <span class='argstr'>adjTempo</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-getTempo' href='./../Overviews/Methods.html#getTempo'>getTempo</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-getTime' href='./../Overviews/Methods.html#getTime'>getTime</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-getVl' href='./../Overviews/Methods.html#getVl'>getVl</a> (<span class='argstr'>file</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-handleMeta' href='./../Overviews/Methods.html#handleMeta'>handleMeta</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-handleMIDI' href='./../Overviews/Methods.html#handleMIDI'>handleMIDI</a> (<span class='argstr'>cmd</span>, <span class='argstr'>file</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-handleMeta' href='./../Overviews/Methods.html#handleMeta'>handleMeta</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-handleRunningStatus' href='./../Overviews/Methods.html#handleRunningStatus'>handleRunningStatus</a> (<span class='argstr'>val</span>, <span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-handleSysex' href='./../Overviews/Methods.html#handleSysex'>handleSysex</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-info' href='./../Overviews/Methods.html#info'>info</a> </h3>
@@ -319,8 +285,6 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-keySignatureEvents' href='./../Overviews/Methods.html#keySignatureEvents'>keySignatureEvents</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-keySignatures' href='./../Overviews/Methods.html#keySignatures'>keySignatures</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-length' href='./../Overviews/Methods.html#length'>length</a> </h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-linearShotgun' href='./../Overviews/Methods.html#linearShotgun'>linearShotgun</a> (<span class='argstr'>start: 0</span>, <span class='argstr'>end: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-measureAtBeat' href='./../Overviews/Methods.html#measureAtBeat'>measureAtBeat</a> (<span class='argstr'>beat: 0</span>, <span class='argstr'>measureFormat</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-measureAtTime' href='./../Overviews/Methods.html#measureAtTime'>measureAtTime</a> (<span class='argstr'>time: 0</span>, <span class='argstr'>measureFormat</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-metaEvents' href='./../Overviews/Methods.html#metaEvents'>metaEvents</a></h3>
@@ -333,54 +297,32 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiEvents' href='./../Overviews/Methods.html#midiEvents'>midiEvents</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiEvents' href='./../Overviews/Methods.html#midiEvents'>midiEvents</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTrackEvents' href='./../Overviews/Methods.html#midiTrackEvents'>midiTrackEvents</a> (<span class='argstr'>trackNumber: 0</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTrackNotesBetween' href='./../Overviews/Methods.html#midiTrackNotesBetween'>midiTrackNotesBetween</a> (<span class='argstr'>start: 0</span>, <span class='argstr'>end: 10</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>channel</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTrackNotesBetweenCut' href='./../Overviews/Methods.html#midiTrackNotesBetweenCut'>midiTrackNotesBetweenCut</a> (<span class='argstr'>start: 0</span>, <span class='argstr'>end: 10</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>channel</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTracks' href='./../Overviews/Methods.html#midiTracks'>midiTracks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTrackTypeEvents' href='./../Overviews/Methods.html#midiTrackTypeEvents'>midiTrackTypeEvents</a> (<span class='argstr'>track: 0</span>, <span class='argstr'>type: 'noteOn'</span>, <span class='argstr'>channel</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTrackTypeEventsBetween' href='./../Overviews/Methods.html#midiTrackTypeEventsBetween'>midiTrackTypeEventsBetween</a> (<span class='argstr'>start: 0</span>, <span class='argstr'>end: 10</span>, <span class='argstr'>track: 0</span>, <span class='argstr'>type: 'noteOn'</span>, <span class='argstr'>channel</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTracks' href='./../Overviews/Methods.html#midiTracks'>midiTracks</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-midiTypeEvents' href='./../Overviews/Methods.html#midiTypeEvents'>midiTypeEvents</a> ( <span class='argstr'>... args</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-modulationEvents' href='./../Overviews/Methods.html#modulationEvents'>modulationEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-noNoteRepeats' href='./../Overviews/Methods.html#noNoteRepeats'>noNoteRepeats</a> (<span class='argstr'>thresh: 0</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-noteEvents' href='./../Overviews/Methods.html#noteEvents'>noteEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-noteOffEvents' href='./../Overviews/Methods.html#noteOffEvents'>noteOffEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-noteOnEvents' href='./../Overviews/Methods.html#noteOnEvents'>noteOnEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-noteSustain' href='./../Overviews/Methods.html#noteSustain'>noteSustain</a> </h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-noteSustainEvents' href='./../Overviews/Methods.html#noteSustainEvents'>noteSustainEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-noteValues' href='./../Overviews/Methods.html#noteValues'>noteValues</a> (<span class='argstr'>track: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-numbytes' href='./../Overviews/Methods.html#numbytes'>numbytes</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-numbytes' href='./../Overviews/Methods.html#numbytes'>numbytes</a> = value</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-p' href='./../Overviews/Methods.html#p'>p</a> (<span class='argstr'>inst</span>, <span class='argstr'>amp: 0.2</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-p' href='./../Overviews/Methods.html#p'>p</a> (<span class='argstr'>inst</span>, <span class='argstr'>amp: 0.2</span>, <span class='argstr'>useTempo: true</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-panEvents' href='./../Overviews/Methods.html#panEvents'>panEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pathName' href='./../Overviews/Methods.html#pathName'>pathName</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pathName' href='./../Overviews/Methods.html#pathName'>pathName</a> = value</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-phrasePlay' href='./../Overviews/Methods.html#phrasePlay'>phrasePlay</a> (<span class='argstr'>track</span>, <span class='argstr'>func</span>, <span class='argstr'>funcSilence</span>, <span class='argstr'>newTime: 0</span>, <span class='argstr'>adjTempo: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-phraseStructure' href='./../Overviews/Methods.html#phraseStructure'>phraseStructure</a> (<span class='argstr'>numTracks: 4</span>, <span class='argstr'>gridScale: 2.6</span>, <span class='argstr'>sysPage: 4</span>, <span class='argstr'>color: 'color'</span>, <span class='argstr'>winSize: 'small'</span>, <span class='argstr'>thresh: 0</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pitchBendEvents' href='./../Overviews/Methods.html#pitchBendEvents'>pitchBendEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pitchBendMode' href='./../Overviews/Methods.html#pitchBendMode'>pitchBendMode</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pitchBendMode' href='./../Overviews/Methods.html#pitchBendMode'>pitchBendMode</a>_ (<span class='argstr'>to</span>, <span class='argstr'>convert: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-play' href='./../Overviews/Methods.html#play'>play</a> (<span class='argstr'>clock</span>, <span class='argstr'>protoEvent</span>, <span class='argstr'>quant</span>, <span class='argstr'>inst</span>, <span class='argstr'>amp: 0.2</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-playNotesWithFunction' href='./../Overviews/Methods.html#playNotesWithFunction'>playNotesWithFunction</a> (<span class='argstr'>function</span>, <span class='argstr'>channel</span>, <span class='argstr'>track</span>, <span class='argstr'>clock</span>, <span class='argstr'>doneAction</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-playSustain' href='./../Overviews/Methods.html#playSustain'>playSustain</a> (<span class='argstr'>function</span>, <span class='argstr'>newTime: 0</span>, <span class='argstr'>adjTempo: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-playTrackNotes' href='./../Overviews/Methods.html#playTrackNotes'>playTrackNotes</a> (<span class='argstr'>track: 1</span>, <span class='argstr'>duration</span>, <span class='argstr'>function</span>, <span class='argstr'>newTime: 0</span>, <span class='argstr'>adjTempo: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-playTrackType' href='./../Overviews/Methods.html#playTrackType'>playTrackType</a> (<span class='argstr'>track</span>, <span class='argstr'>type: 'noteOn'</span>, <span class='argstr'>function</span>, <span class='argstr'>newTime: 0</span>, <span class='argstr'>adjTempo: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-playWithSynth' href='./../Overviews/Methods.html#playWithSynth'>playWithSynth</a> (<span class='argstr'>defName: "default"</span>, <span class='argstr'>maxlevel: 0.5</span>, <span class='argstr'>minlevel: 0</span>, <span class='argstr'>addArgs</span>, <span class='argstr'>addAction: 'addToHead'</span>, <span class='argstr'>channel</span>, <span class='argstr'>track</span>, <span class='argstr'>target</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-asEvents.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-plot' href='./../Overviews/Methods.html#plot'>plot</a> (<span class='argstr'>notesOnly: false</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-plot.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-prAdjustEndOfTrack' href='./../Overviews/Methods.html#prAdjustEndOfTrack'>prAdjustEndOfTrack</a> (<span class='argstr'>track: 0</span>, <span class='argstr'>wait: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-processChunk' href='./../Overviews/Methods.html#processChunk'>processChunk</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-rawMeasureAtBeat' href='./../Overviews/Methods.html#rawMeasureAtBeat'>rawMeasureAtBeat</a> (<span class='argstr'>beat: 0</span>)</h3>
@@ -391,17 +333,15 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-removeTempo' href='./../Overviews/Methods.html#removeTempo'>removeTempo</a> (<span class='argstr'>time: 0</span>, <span class='argstr'>doIt: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-removeTimeSignature' href='./../Overviews/Methods.html#removeTimeSignature'>removeTimeSignature</a> (<span class='argstr'>time: 0</span>, <span class='argstr'>doIt: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-renderPattern' href='./../Overviews/Methods.html#renderPattern'>renderPattern</a> (<span class='argstr'>pattern</span>, <span class='argstr'>maxEvents: 1000</span>, <span class='argstr'>timeSig: "4/4"</span>, <span class='argstr'>numTicks: 1024</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sectionPlay' href='./../Overviews/Methods.html#sectionPlay'>sectionPlay</a> (<span class='argstr'>track</span>, <span class='argstr'>function</span>, <span class='argstr'>newTime: 0</span>, <span class='argstr'>adjTempo: 1</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SimpleMIDIFile/extSimpleMIDIFile-patterns.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-setInstName' href='./../Overviews/Methods.html#setInstName'>setInstName</a> (<span class='argstr'>name</span>, <span class='argstr'>track: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-setTempo' href='./../Overviews/Methods.html#setTempo'>setTempo</a> (<span class='argstr'>newTempo</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-setTrackName' href='./../Overviews/Methods.html#setTrackName'>setTrackName</a> (<span class='argstr'>name</span>, <span class='argstr'>track: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-shiftTime' href='./../Overviews/Methods.html#shiftTime'>shiftTime</a> (<span class='argstr'>deltaTime</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-smpteOffset' href='./../Overviews/Methods.html#smpteOffset'>smpteOffset</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-smpteOffsetEvents' href='./../Overviews/Methods.html#smpteOffsetEvents'>smpteOffsetEvents</a> </h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sortMetaEvents' href='./../Overviews/Methods.html#sortMetaEvents'>sortMetaEvents</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sortMIDIEvents' href='./../Overviews/Methods.html#sortMIDIEvents'>sortMIDIEvents</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sortMetaEvents' href='./../Overviews/Methods.html#sortMetaEvents'>sortMetaEvents</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sysexEvents' href='./../Overviews/Methods.html#sysexEvents'>sysexEvents</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sysexEvents' href='./../Overviews/Methods.html#sysexEvents'>sysexEvents</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-tempi' href='./../Overviews/Methods.html#tempi'>tempi</a> </h3>
@@ -426,24 +366,16 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-timeSignatureAsArray' href='./../Overviews/Methods.html#timeSignatureAsArray'>timeSignatureAsArray</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-timeSignatureEvents' href='./../Overviews/Methods.html#timeSignatureEvents'>timeSignatureEvents</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-timeSignatures' href='./../Overviews/Methods.html#timeSignatures'>timeSignatures</a> </h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackArrMetaEvents' href='./../Overviews/Methods.html#trackArrMetaEvents'>trackArrMetaEvents</a> </h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackArrMIDIEvents' href='./../Overviews/Methods.html#trackArrMIDIEvents'>trackArrMIDIEvents</a> </h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackName' href='./../Overviews/Methods.html#trackName'>trackName</a> (<span class='argstr'>track: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackNames' href='./../Overviews/Methods.html#trackNames'>trackNames</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-tracks' href='./../Overviews/Methods.html#tracks'>tracks</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-tracks' href='./../Overviews/Methods.html#tracks'>tracks</a> = value</h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackSilence' href='./../Overviews/Methods.html#trackSilence'>trackSilence</a> (<span class='argstr'>track: 1</span>, <span class='argstr'>thresh: 0</span>, <span class='argstr'>offset: 0</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackSounding' href='./../Overviews/Methods.html#trackSounding'>trackSounding</a> (<span class='argstr'>track: 1</span>, <span class='argstr'>thresh: 0</span>, <span class='argstr'>offset: 0</span>)</h3>
-<div class='extmethod'>From extension in <a href='/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/FedeClasses/FedeLib/Extensions/FedeExtensions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-usedChannels' href='./../Overviews/Methods.html#usedChannels'>usedChannels</a> (<span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-usedTracks' href='./../Overviews/Methods.html#usedTracks'>usedTracks</a> (<span class='argstr'>channel</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-volumeEvents' href='./../Overviews/Methods.html#volumeEvents'>volumeEvents</a> (<span class='argstr'>channel</span>, <span class='argstr'>track</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-write' href='./../Overviews/Methods.html#write'>write</a> (<span class='argstr'>newFileName</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeFile' href='./../Overviews/Methods.html#writeFile'>writeFile</a> (<span class='argstr'>theFile</span>)</h3>
-<h2><a class='anchor' name='Help template'>Help template</a></h2>
+<h2><a class='anchor' name='Help%20template'>Help template</a></h2>
 
 <p>Copy and paste the text below and save to HelpSource/Classes/SimpleMIDIFile.schelp<pre class='code prettyprint lang-sc'>TITLE:: SimpleMIDIFile
 summary:: (put short description here)
@@ -506,62 +438,24 @@ returns:: (describe returnvalue here)
 
 INSTANCEMETHODS::
 
-METHOD:: instName
+METHOD:: convertTimes
 (describe method here)
 
-ARGUMENT:: track
+ARGUMENT:: newTimeMode
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: measureAtBeat
-(describe method here)
-
-ARGUMENT:: beat
-(describe argument here)
-
-ARGUMENT:: measureFormat
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: fromPattern
-(describe method here)
-
-ARGUMENT:: pattern
-(describe argument here)
-
-ARGUMENT:: maxEvents
-(describe argument here)
-
-ARGUMENT:: maxAmp
-(describe argument here)
-
-ARGUMENT:: startTime
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asChunks
+METHOD:: sortMetaEvents
 (describe method here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: beatAtTime
+METHOD:: writeFile
 (describe method here)
 
-ARGUMENT:: time
+ARGUMENT:: theFile
 (describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteSustain
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: keySignatures
-(describe method here)
 
 returns:: (describe returnvalue here)
 
@@ -570,32 +464,15 @@ METHOD:: sortMIDIEvents
 
 returns:: (describe returnvalue here)
 
-METHOD:: playSustain
+METHOD:: getTime
 (describe method here)
-
-ARGUMENT:: function
-(describe argument here)
-
-ARGUMENT:: newTime
-(describe argument here)
-
-ARGUMENT:: adjTempo
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleMIDI
-(describe method here)
-
-ARGUMENT:: cmd
-(describe argument here)
 
 ARGUMENT:: file
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: sortMetaEvents
+METHOD:: length
 (describe method here)
 
 returns:: (describe returnvalue here)
@@ -620,60 +497,7 @@ ARGUMENT:: amp
 
 returns:: (describe returnvalue here)
 
-METHOD:: timeAtRawMeasure
-(describe method here)
-
-ARGUMENT:: rawMeasure
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: write
-(describe method here)
-
-ARGUMENT:: newFileName
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: addTrack
-(describe method here)
-
-ARGUMENT:: name
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: timeAtMeasure
-(describe method here)
-
-ARGUMENT:: measure
-(describe argument here)
-
-ARGUMENT:: measureFormat
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeCC
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: equalCutArray
-(describe method here)
-
-ARGUMENT:: cut
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asDicts
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asMIDIFileChunks
+METHOD:: tracks
 (describe method here)
 
 returns:: (describe returnvalue here)
@@ -689,490 +513,6 @@ ARGUMENT:: timeSignature
 
 returns:: (describe returnvalue here)
 
-METHOD:: format
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getTime
-(describe method here)
-
-ARGUMENT:: file
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiDeltaCCEvents
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: cc
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: renderPattern
-(describe method here)
-
-ARGUMENT:: pattern
-(describe argument here)
-
-ARGUMENT:: maxEvents
-(describe argument here)
-
-ARGUMENT:: timeSig
-(describe argument here)
-
-ARGUMENT:: numTicks
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: length
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: keySignatureEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiTrackTypeEventsBetween
-(describe method here)
-
-ARGUMENT:: start
-(describe argument here)
-
-ARGUMENT:: end
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeUsedEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiTrackTypeEvents
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: info
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: trackArrMIDIEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: convertToVLInteger
-(describe method here)
-
-ARGUMENT:: dT
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiTrackEvents
-(describe method here)
-
-ARGUMENT:: trackNumber
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: adjustTracks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: metaEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: theTrackNumber
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: init
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getTempo
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiDeltaEvents
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: envFromCC
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: cc
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asDeltaChunks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: tempoEnv
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setTempo
-(describe method here)
-
-ARGUMENT:: newTempo
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: measureAtTime
-(describe method here)
-
-ARGUMENT:: time
-(describe argument here)
-
-ARGUMENT:: measureFormat
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: smpteOffset
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: beatAtRawMeasure
-(describe method here)
-
-ARGUMENT:: rawMeasure
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prAdjustEndOfTrack
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: wait
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeTracks
-(describe method here)
-
-ARGUMENT:: type
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiChannelEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: eggCut
-(describe method here)
-
-ARGUMENT:: arr
-(describe argument here)
-
-ARGUMENT:: tracksMIDI
-(describe argument here)
-
-ARGUMENT:: otherPath
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeChannel
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getStartIndex
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: newTime
-(describe argument here)
-
-ARGUMENT:: adjTempo
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: addMIDIEvent
-(describe method here)
-
-ARGUMENT:: event
-(describe argument here)
-
-ARGUMENT:: sort
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeTypes
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeCCTracks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: processChunk
-(describe method here)
-
-ARGUMENT:: file
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: realNoteOnEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: addAllMIDITypeEvents
-(describe method here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: args
-(describe argument here)
-
-ARGUMENT:: absTime
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: sort
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: rawMeasureAtTime
-(describe method here)
-
-ARGUMENT:: time
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: timeSignatureEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: addTimeSignature
-(describe method here)
-
-ARGUMENT:: div
-(describe argument here)
-
-ARGUMENT:: denom
-(describe argument here)
-
-ARGUMENT:: time
-(describe argument here)
-
-ARGUMENT:: sort
-(describe argument here)
-
-ARGUMENT:: removeOld
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: theCmd
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: numbytes
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: correctTempoEvents
-(describe method here)
-
-ARGUMENT:: removeDuplicates
-(describe argument here)
-
-ARGUMENT:: removeDoubles
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: breathEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: usedTracks
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: pitchBendEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: rawMeasureAtBeat
-(describe method here)
-
-ARGUMENT:: beat
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: tracks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteOffEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: trackSounding
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: thresh
-(describe argument here)
-
-ARGUMENT:: offset
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: plot
-(describe method here)
-
-ARGUMENT:: notesOnly
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: noteOnEvents
 (describe method here)
 
@@ -1184,45 +524,7 @@ ARGUMENT:: track
 
 returns:: (describe returnvalue here)
 
-METHOD:: shiftTime
-(describe method here)
-
-ARGUMENT:: deltaTime
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setTrackName
-(describe method here)
-
-ARGUMENT:: name
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: trackNames
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: controllerEvents
-(describe method here)
-
-ARGUMENT:: cc
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: testEndOfTrack
+METHOD:: trackName
 (describe method here)
 
 ARGUMENT:: track
@@ -1230,53 +532,34 @@ ARGUMENT:: track
 
 returns:: (describe returnvalue here)
 
-METHOD:: addTimeSignatureString
+METHOD:: p
 (describe method here)
 
-ARGUMENT:: string
+ARGUMENT:: inst
 (describe argument here)
 
-ARGUMENT:: time
+ARGUMENT:: amp
 (describe argument here)
 
-ARGUMENT:: sort
-(describe argument here)
-
-ARGUMENT:: removeOld
+ARGUMENT:: useTempo
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: addTempo
+METHOD:: sysexEvents
 (describe method here)
-
-ARGUMENT:: tempo
-(describe argument here)
-
-ARGUMENT:: time
-(describe argument here)
-
-ARGUMENT:: sort
-(describe argument here)
-
-ARGUMENT:: removeOld
-(describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: sectionPlay
+METHOD:: getTempo
 (describe method here)
 
-ARGUMENT:: track
-(describe argument here)
+returns:: (describe returnvalue here)
 
-ARGUMENT:: function
-(describe argument here)
+METHOD:: metaTrackEvents
+(describe method here)
 
-ARGUMENT:: newTime
-(describe argument here)
-
-ARGUMENT:: adjTempo
+ARGUMENT:: trackNumber
 (describe argument here)
 
 returns:: (describe returnvalue here)
@@ -1292,62 +575,31 @@ ARGUMENT:: sort
 
 returns:: (describe returnvalue here)
 
-METHOD:: tempoAtTime
+METHOD:: timeSignatures
 (describe method here)
 
-ARGUMENT:: time
+returns:: (describe returnvalue here)
+
+METHOD:: beatAtMeasure
+(describe method here)
+
+ARGUMENT:: measure
+(describe argument here)
+
+ARGUMENT:: measureFormat
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: p
+METHOD:: usedTracks
 (describe method here)
-
-ARGUMENT:: inst
-(describe argument here)
-
-ARGUMENT:: amp
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleMeta
-(describe method here)
-
-ARGUMENT:: file
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: firstNoteOnTrack
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: addCC
-(describe method here)
-
-ARGUMENT:: cc
-(describe argument here)
-
-ARGUMENT:: val
-(describe argument here)
-
-ARGUMENT:: startTime
-(describe argument here)
 
 ARGUMENT:: channel
 (describe argument here)
 
-ARGUMENT:: track
-(describe argument here)
-
 returns:: (describe returnvalue here)
 
-METHOD:: tempo
+METHOD:: setTempo
 (describe method here)
 
 ARGUMENT:: newTempo
@@ -1355,103 +607,11 @@ ARGUMENT:: newTempo
 
 returns:: (describe returnvalue here)
 
-METHOD:: noteEvents
+METHOD:: processChunk
 (describe method here)
 
-ARGUMENT:: channel
+ARGUMENT:: file
 (describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: init1
-(describe method here)
-
-ARGUMENT:: inTracks
-(describe argument here)
-
-ARGUMENT:: inTempo
-(describe argument here)
-
-ARGUMENT:: timeSignature
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeUsedTracks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: ccEvents
-(describe method here)
-
-ARGUMENT:: cc
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: removeTempo
-(describe method here)
-
-ARGUMENT:: time
-(describe argument here)
-
-ARGUMENT:: doIt
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: trackName
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: pitchBendMode
-(describe method here)
-
-ARGUMENT:: to
-(describe argument here)
-
-ARGUMENT:: convert
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: expressionEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: instNames
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asMetaChunks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: trackArrMetaEvents
-(describe method here)
 
 returns:: (describe returnvalue here)
 
@@ -1466,41 +626,120 @@ ARGUMENT:: track
 
 returns:: (describe returnvalue here)
 
-METHOD:: playTrackNotes
+METHOD:: smpteOffsetEvents
 (describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addMIDIEvent
+(describe method here)
+
+ARGUMENT:: event
+(describe argument here)
+
+ARGUMENT:: sort
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: rawMeasureAtBeat
+(describe method here)
+
+ARGUMENT:: beat
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeCC
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: checkWrite
+(describe method here)
+
+ARGUMENT:: newFileName
+(describe argument here)
+
+ARGUMENT:: overwrite
+(describe argument here)
+
+ARGUMENT:: ask
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: fromPattern
+(describe method here)
+
+ARGUMENT:: pattern
+(describe argument here)
+
+ARGUMENT:: maxEvents
+(describe argument here)
+
+ARGUMENT:: maxAmp
+(describe argument here)
+
+ARGUMENT:: startTime
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteSustainEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
 
 ARGUMENT:: track
 (describe argument here)
 
-ARGUMENT:: duration
-(describe argument here)
+returns:: (describe returnvalue here)
 
-ARGUMENT:: function
-(describe argument here)
+METHOD:: analyzeUsedTracks
+(describe method here)
 
-ARGUMENT:: newTime
-(describe argument here)
+returns:: (describe returnvalue here)
 
-ARGUMENT:: adjTempo
+METHOD:: midiEvents
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: midiTypeEvents
+(describe method here)
+
+ARGUMENT::  ... args
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: analyzeChannels
+METHOD:: setTrackName
 (describe method here)
 
-ARGUMENT:: type
+ARGUMENT:: name
+(describe argument here)
+
+ARGUMENT:: track
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: arr
+METHOD:: midiTracks
 (describe method here)
 
-ARGUMENT:: inst
-(describe argument here)
+returns:: (describe returnvalue here)
 
-ARGUMENT:: amp
+METHOD:: asDicts
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: beatAtTime
+(describe method here)
+
+ARGUMENT:: time
 (describe argument here)
 
 returns:: (describe returnvalue here)
@@ -1534,182 +773,14 @@ ARGUMENT:: sort
 
 returns:: (describe returnvalue here)
 
-METHOD:: removeTimeSignature
+METHOD:: pitchBendMode
 (describe method here)
 
-ARGUMENT:: time
+ARGUMENT:: to
 (describe argument here)
 
-ARGUMENT:: doIt
+ARGUMENT:: convert
 (describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: metaTrackEvents
-(describe method here)
-
-ARGUMENT:: trackNumber
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: firstNote
-(describe method here)
-
-ARGUMENT:: trackArray
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: convertToInt8
-(describe method here)
-
-ARGUMENT:: val
-(describe argument here)
-
-ARGUMENT:: size
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: usedChannels
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: tempi
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: theChan
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiTypeEvents
-(describe method here)
-
-ARGUMENT::  ... args
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asMetaDeltaChunks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: smpteOffsetEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: checkWrite
-(describe method here)
-
-ARGUMENT:: newFileName
-(describe argument here)
-
-ARGUMENT:: overwrite
-(describe argument here)
-
-ARGUMENT:: ask
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: linearShotgun
-(describe method here)
-
-ARGUMENT:: start
-(describe argument here)
-
-ARGUMENT:: end
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: phrasePlay
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: func
-(describe argument here)
-
-ARGUMENT:: funcSilence
-(describe argument here)
-
-ARGUMENT:: newTime
-(describe argument here)
-
-ARGUMENT:: adjTempo
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteValues
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asPenFunction
-(describe method here)
-
-ARGUMENT:: bounds
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: cc
-(describe argument here)
-
-ARGUMENT:: minVal
-(describe argument here)
-
-ARGUMENT:: maxVal
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: read
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asMIDIDeltaChunks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asNoteDicts
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: division
-(describe method here)
 
 returns:: (describe returnvalue here)
 
@@ -1736,6 +807,17 @@ ARGUMENT:: sort
 
 returns:: (describe returnvalue here)
 
+METHOD:: noteOffEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
 METHOD:: convertNoteOns
 (describe method here)
 
@@ -1744,40 +826,432 @@ ARGUMENT:: noteOffVelo
 
 returns:: (describe returnvalue here)
 
-METHOD:: convertTimes
+METHOD:: tempi
 (describe method here)
 
-ARGUMENT:: newTimeMode
+returns:: (describe returnvalue here)
+
+METHOD:: midiChannelEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: trackSilence
+METHOD:: tempoEvents
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: instName
 (describe method here)
 
 ARGUMENT:: track
 (describe argument here)
 
-ARGUMENT:: thresh
+returns:: (describe returnvalue here)
+
+METHOD:: addTimeSignature
+(describe method here)
+
+ARGUMENT:: div
 (describe argument here)
 
-ARGUMENT:: offset
+ARGUMENT:: denom
+(describe argument here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: sort
+(describe argument here)
+
+ARGUMENT:: removeOld
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: sysexEvents
+METHOD:: noteEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: division
 (describe method here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: handleRunningStatus
+METHOD:: convertToInt8
 (describe method here)
 
 ARGUMENT:: val
 (describe argument here)
 
-ARGUMENT:: file
+ARGUMENT:: size
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: shiftTime
+(describe method here)
+
+ARGUMENT:: deltaTime
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeMetaTypes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: removeTempo
+(describe method here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: doIt
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: adjustTracks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: convertPitchBend
+(describe method here)
+
+ARGUMENT:: to
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: modulationEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asDeltaChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: envFromCC
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: cc
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: numbytes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeChannel
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: timeSignatureAsArray
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: theTrackNumber
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: instNames
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: controllerEvents
+(describe method here)
+
+ARGUMENT:: cc
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: testEndOfTrack
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeChannels
+(describe method here)
+
+ARGUMENT:: type
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addAllMIDITypeEvents
+(describe method here)
+
+ARGUMENT:: type
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: args
+(describe argument here)
+
+ARGUMENT:: absTime
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: sort
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: init1
+(describe method here)
+
+ARGUMENT:: inTracks
+(describe argument here)
+
+ARGUMENT:: inTempo
+(describe argument here)
+
+ARGUMENT:: timeSignature
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: metaEvents
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asMIDIFileChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: correctTempoEvents
+(describe method here)
+
+ARGUMENT:: removeDuplicates
+(describe argument here)
+
+ARGUMENT:: removeDoubles
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: tempoAtTime
+(describe method here)
+
+ARGUMENT:: time
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: theChan
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setInstName
+(describe method here)
+
+ARGUMENT:: name
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: measureAtTime
+(describe method here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: measureFormat
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: playNotesWithFunction
+(describe method here)
+
+ARGUMENT:: function
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: clock
+(describe argument here)
+
+ARGUMENT:: doneAction
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: write
+(describe method here)
+
+ARGUMENT:: newFileName
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: midiDeltaCCEvents
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: cc
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: adjustEndOfTrack
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: wait
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: countMIDIEvents
+(describe method here)
+
+ARGUMENT:: type
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: curTime
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: init
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: midiDeltaEvents
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: type
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: theCmd
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: keySignatures
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: midiTrackEvents
+(describe method here)
+
+ARGUMENT:: trackNumber
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asNoteDicts
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addTrack
+(describe method here)
+
+ARGUMENT:: name
 (describe argument here)
 
 returns:: (describe returnvalue here)
@@ -1793,30 +1267,190 @@ ARGUMENT:: sort
 
 returns:: (describe returnvalue here)
 
-METHOD:: midiTrackNotesBetweenCut
+METHOD:: ccEvents
 (describe method here)
 
-ARGUMENT:: start
-(describe argument here)
-
-ARGUMENT:: end
-(describe argument here)
-
-ARGUMENT:: track
+ARGUMENT:: cc
 (describe argument here)
 
 ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: modulationEvents
+METHOD:: analyzeTypes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: renderPattern
+(describe method here)
+
+ARGUMENT:: pattern
+(describe argument here)
+
+ARGUMENT:: maxEvents
+(describe argument here)
+
+ARGUMENT:: timeSig
+(describe argument here)
+
+ARGUMENT:: numTicks
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: convertToVLInteger
+(describe method here)
+
+ARGUMENT:: dT
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: usedChannels
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: rawMeasureAtTime
+(describe method here)
+
+ARGUMENT:: time
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pathName
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: breathEvents
 (describe method here)
 
 ARGUMENT:: channel
 (describe argument here)
 
 ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: removeMetaEvents
+(describe method here)
+
+ARGUMENT:: type
+(describe argument here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: realNoteOnEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: read
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: convertNoteOffs
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeUsedEvents
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: trackNames
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: generatePatternSeqs
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asMetaChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asMIDIChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addAllMIDIEventsToTrack
+(describe method here)
+
+ARGUMENT:: events
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: sort
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: handleMeta
+(describe method here)
+
+ARGUMENT:: file
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: pitchBendEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: damperEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeTracks
+(describe method here)
+
+ARGUMENT:: type
 (describe argument here)
 
 returns:: (describe returnvalue here)
@@ -1850,33 +1484,25 @@ ARGUMENT:: target
 
 returns:: (describe returnvalue here)
 
-METHOD:: adjustEndOfTrack
+METHOD:: envFromType
 (describe method here)
 
 ARGUMENT:: track
 (describe argument here)
-
-ARGUMENT:: wait
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: removeMetaEvents
-(describe method here)
 
 ARGUMENT:: type
 (describe argument here)
 
-ARGUMENT:: time
-(describe argument here)
-
-ARGUMENT:: track
+ARGUMENT:: channel
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: analyzeMetaTypes
+METHOD:: plot
 (describe method here)
+
+ARGUMENT:: notesOnly
+(describe argument here)
 
 returns:: (describe returnvalue here)
 
@@ -1887,6 +1513,210 @@ ARGUMENT:: channel
 (describe argument here)
 
 ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: expressionEvents
+(describe method here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: beatAtRawMeasure
+(describe method here)
+
+ARGUMENT:: rawMeasure
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: tempoMap
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addCC
+(describe method here)
+
+ARGUMENT:: cc
+(describe argument here)
+
+ARGUMENT:: val
+(describe argument here)
+
+ARGUMENT:: startTime
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: smpteOffset
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: timeAtMeasure
+(describe method here)
+
+ARGUMENT:: measure
+(describe argument here)
+
+ARGUMENT:: measureFormat
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prAdjustEndOfTrack
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: wait
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: keySignatureEvents
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: tempo
+(describe method here)
+
+ARGUMENT:: newTempo
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: timeMode
+(describe method here)
+
+ARGUMENT:: newTimeMode
+(describe argument here)
+
+ARGUMENT:: convert
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: info
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addTempo
+(describe method here)
+
+ARGUMENT:: tempo
+(describe argument here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: sort
+(describe argument here)
+
+ARGUMENT:: removeOld
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asMetaDeltaChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: format
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: midiTrackTypeEvents
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: type
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: timeSignatureEvents
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: firstNoteOnTrack
+(describe method here)
+
+ARGUMENT:: track
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: timeAtBeat
+(describe method here)
+
+ARGUMENT:: beat
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: analyzeCCTracks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asPenFunction
+(describe method here)
+
+ARGUMENT:: bounds
+(describe argument here)
+
+ARGUMENT:: track
+(describe argument here)
+
+ARGUMENT:: type
+(describe argument here)
+
+ARGUMENT:: channel
+(describe argument here)
+
+ARGUMENT:: cc
+(describe argument here)
+
+ARGUMENT:: minVal
+(describe argument here)
+
+ARGUMENT:: maxVal
+(describe argument here)
+
+ARGUMENT:: grid
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: timeAtRawMeasure
+(describe method here)
+
+ARGUMENT:: rawMeasure
 (describe argument here)
 
 returns:: (describe returnvalue here)
@@ -1902,279 +1732,24 @@ ARGUMENT:: track
 
 returns:: (describe returnvalue here)
 
-METHOD:: damperEvents
+METHOD:: handleRunningStatus
 (describe method here)
 
-ARGUMENT:: channel
+ARGUMENT:: val
 (describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asMIDIChunks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: convertNoteOffs
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: timeAtBeat
-(describe method here)
-
-ARGUMENT:: beat
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: countMIDIEvents
-(describe method here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: phraseStructure
-(describe method here)
-
-ARGUMENT:: numTracks
-(describe argument here)
-
-ARGUMENT:: gridScale
-(describe argument here)
-
-ARGUMENT:: sysPage
-(describe argument here)
-
-ARGUMENT:: color
-(describe argument here)
-
-ARGUMENT:: winSize
-(describe argument here)
-
-ARGUMENT:: thresh
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: tempoEvents
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: timeMode
-(describe method here)
-
-ARGUMENT:: newTimeMode
-(describe argument here)
-
-ARGUMENT:: convert
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleSysex
-(describe method here)
 
 ARGUMENT:: file
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: playTrackType
+METHOD:: removeTimeSignature
 (describe method here)
 
-ARGUMENT:: track
+ARGUMENT:: time
 (describe argument here)
 
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: function
-(describe argument here)
-
-ARGUMENT:: newTime
-(describe argument here)
-
-ARGUMENT:: adjTempo
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: pathName
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: metaTracks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: playNotesWithFunction
-(describe method here)
-
-ARGUMENT:: function
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: clock
-(describe argument here)
-
-ARGUMENT:: doneAction
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: arrInfo
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: beatAtMeasure
-(describe method here)
-
-ARGUMENT:: measure
-(describe argument here)
-
-ARGUMENT:: measureFormat
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: addAllMIDIEventsToTrack
-(describe method here)
-
-ARGUMENT:: events
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: sort
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteSustainEvents
-(describe method here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: tempoMap
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: convertPitchBend
-(describe method here)
-
-ARGUMENT:: to
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: curTime
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: envFromType
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: type
-(describe argument here)
-
-ARGUMENT:: channel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: timeSignatures
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: generatePatternSeqs
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: analyzeUsedChannels
-(describe method here)
-
-ARGUMENT:: track
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiTracks
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noNoteRepeats
-(describe method here)
-
-ARGUMENT:: thresh
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getVl
-(describe method here)
-
-ARGUMENT:: file
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: writeFile
-(describe method here)
-
-ARGUMENT:: theFile
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiTrackNotesBetween
-(describe method here)
-
-ARGUMENT:: start
-(describe argument here)
-
-ARGUMENT:: end
-(describe argument here)
-
-ARGUMENT:: track
-(describe argument here)
-
-ARGUMENT:: channel
+ARGUMENT:: doIt
 (describe argument here)
 
 returns:: (describe returnvalue here)
@@ -2193,18 +1768,66 @@ ARGUMENT:: sort
 
 returns:: (describe returnvalue here)
 
-METHOD:: setInstName
+METHOD:: analyzeUsedChannels
 (describe method here)
-
-ARGUMENT:: name
-(describe argument here)
 
 ARGUMENT:: track
 (describe argument here)
 
 returns:: (describe returnvalue here)
 
-METHOD:: timeSignatureAsArray
+METHOD:: getVl
+(describe method here)
+
+ARGUMENT:: file
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: measureAtBeat
+(describe method here)
+
+ARGUMENT:: beat
+(describe argument here)
+
+ARGUMENT:: measureFormat
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: handleMIDI
+(describe method here)
+
+ARGUMENT:: cmd
+(describe argument here)
+
+ARGUMENT:: file
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: handleSysex
+(describe method here)
+
+ARGUMENT:: file
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: firstNote
+(describe method here)
+
+ARGUMENT:: trackArray
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: metaTracks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: tempoEnv
 (describe method here)
 
 returns:: (describe returnvalue here)
@@ -2217,6 +1840,28 @@ ARGUMENT:: track
 
 returns:: (describe returnvalue here)
 
+METHOD:: addTimeSignatureString
+(describe method here)
+
+ARGUMENT:: string
+(describe argument here)
+
+ARGUMENT:: time
+(describe argument here)
+
+ARGUMENT:: sort
+(describe argument here)
+
+ARGUMENT:: removeOld
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asMIDIDeltaChunks
+(describe method here)
+
+returns:: (describe returnvalue here)
+
 
 EXAMPLES::
 
@@ -2224,4 +1869,4 @@ code::
 (some example code)
 ::
 </pre>
-<div class='doclink'>link::Classes/SimpleMIDIFile::<br>sc version: 3.5.5</div></div></body></html>
+<div class='doclink'>link::Classes/SimpleMIDIFile::<br>sc version: 3.8.0</div></div></body></html>

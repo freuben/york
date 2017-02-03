@@ -19,7 +19,7 @@
 <div id='summary'>Fast Responder for incoming MIDI Messages</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Control/<a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Control/ResponseDefs.sc'>ResponseDefs.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/AbstractResponderFunc.html">AbstractResponderFunc</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/ResponseDefs.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/ResponseDefs.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/AbstractResponderFunc.html">AbstractResponderFunc</a> : <a href="../Classes/Object.html">Object</a></div>
 <div id='subclasses'>Subclasses: <a href="../Classes/MIDIdef.html">MIDIdef</a></div>
 <div id='related'>See also: <a href="./../Guides/MIDI.html">MIDI</a>, <a href="./../Classes/MIDIdef.html">MIDIdef</a></div>
 </div>
@@ -36,14 +36,14 @@
 <li class='toc3'><a href='#*bend'>bend</a> </li>
 <li class='toc3'><a href='#*program'>program</a> </li>
 <li class='toc3'><a href='#*sysex'>sysex</a> </li>
-<li class='toc2'><a href='#System Common'>System Common</a></li>
+<li class='toc2'><a href='#System%20Common'>System Common</a></li>
 <ul class='toc'><li class='toc3'><a href='#*smpte'>smpte</a> </li>
 <li class='toc3'><a href='#*mtcQuarterFrame'>mtcQuarterFrame</a> </li>
 <li class='toc3'><a href='#*songPosition'>songPosition</a> </li>
 <li class='toc3'><a href='#*songSelect'>songSelect</a> </li>
 <li class='toc3'><a href='#*tuneRequest'>tuneRequest</a> </li>
 <li class='toc3'><a href='#*midiClock'>midiClock</a> </li>
-</ul><li class='toc2'><a href='#System Realtime'>System Realtime</a></li>
+</ul><li class='toc2'><a href='#System%20Realtime'>System Realtime</a></li>
 <ul class='toc'><li class='toc3'><a href='#*sysrt'>sysrt</a> </li>
 <li class='toc3'><a href='#*tick'>tick</a> </li>
 <li class='toc3'><a href='#*start'>start</a> </li>
@@ -53,20 +53,20 @@
 <li class='toc3'><a href='#*activeSense'>activeSense</a> </li>
 </ul><li class='toc2'><a href='#Debugging'>Debugging</a></li>
 <ul class='toc'><li class='toc3'><a href='#*trace'>trace</a> </li>
-</ul><li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
+</ul><li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
 </ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-chan'>chan</a> </li>
 <li class='toc3'><a href='#-msgNum'>msgNum</a> </li>
 <li class='toc3'><a href='#-msgType'>msgType</a> </li>
 <li class='toc3'><a href='#-argTemplate'>argTemplate</a> </li>
 <li class='toc3'><a href='#-learn'>learn</a> </li>
-<li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
-<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+<li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented%20instance%20methods'>Undocumented instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-learnFunc'>learnFunc</a> </li>
 </ul></ul><li class='toc1'><a href='#examples'>Examples</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
-<p>MIDIFunc (and its subclass <a href="./../Classes/MIDIdef.html">MIDIdef</a>) registers one or more functions to respond to an incoming MIDI message. Many of its methods are inherited from its superclass <a href="./../Classes/AbstractResponderFunc.html">AbstractResponderFunc</a>.<div class='note'><span class='notelabel'>NOTE:</span> MIDIFunc and <a href="./../Classes/MIDIdef.html">MIDIdef</a> aim to improve upon the MIDIresponder classes by being faster, easier to use, and providing support for all MIDI message types. They were made with the intention of creating a more convenient, logical and consistent interface, which shares a common design with <a href="./../Classes/OSCFunc.html">OSCFunc</a> and <a href="./../Classes/OSCdef.html">OSCdef</a>. Note that unlike the older classes, MIDIFuncs are removed on Cmd-. by default. This can be overriden using either of the fix or permanent methods.</div><h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<p>MIDIFunc (and its subclass <a href="./../Classes/MIDIdef.html">MIDIdef</a>) registers one or more functions to respond to an incoming MIDI message. Many of its methods are inherited from its superclass <a href="./../Classes/AbstractResponderFunc.html">AbstractResponderFunc</a>.<div class='note'><span class='notelabel'>NOTE:</span> MIDIFunc and <a href="./../Classes/MIDIdef.html">MIDIdef</a> aim to improve upon the MIDIresponder classes by being faster, easier to use, and providing support for all MIDI message types. They were made with the intention of creating a more convenient, logical and consistent interface, which shares a common design with <a href="./../Classes/OSCFunc.html">OSCFunc</a> and <a href="./../Classes/OSCdef.html">OSCdef</a>. Note that unlike the older classes, MIDIFuncs are removed on Cmd-. by default. This can be overridden using either of the fix or permanent methods.</div><h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*defaultDispatchers' href='./../Overviews/Methods.html#defaultDispatchers'>defaultDispatchers</a></h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*defaultDispatchers' href='./../Overviews/Methods.html#defaultDispatchers'>defaultDispatchers</a> = value</h3>
 <div class='method'>
@@ -77,8 +77,8 @@
 <p>Create a new, enabled MIDIFunc. Normally one would use one of the message type specific convenience methods below, rather than use this method directly.<h4>Arguments:</h4>
 <table class='arguments'>
 <tr><td class='argumentname'>func<td class='argumentdesc'>
-<p>A <a href="./../Classes/Function.html">Function</a> or similar object which will respond to the incoming message. When evaluated for noteOn, noteOff, control, and polytouch messages it will be passed the arguments val, num, chan, and src, corresponding to the message value (e.g. velocity, control value, etc.), message number (e.g. note number), MIDI channel, and MIDI source uid. For touch, programme change and bend messages it will be passed only val, chan, and src. For information on the args passed for the other sorts of <code class='code prettyprint lang-sc'>msgType</code> see the convenience methods below.<tr><td class='argumentname'>msgNum<td class='argumentdesc'>
-<p>An <a href="./../Classes/Integer.html">Integer</a> indicating the MIDI message number (note number, control number, or programme number) for this MIDIFunc. This can be an array. If nil, the MIDIFunc will respond to messages of all possible message numbers.<tr><td class='argumentname'>chan<td class='argumentdesc'>
+<p>A <a href="./../Classes/Function.html">Function</a> or similar object which will respond to the incoming message. When evaluated for noteOn, noteOff, control, and polytouch messages it will be passed the arguments val, num, chan, and src, corresponding to the message value (e.g. velocity, control value, etc.), message number (e.g. note number), MIDI channel, and MIDI source uid. For touch, program change and bend messages it will be passed only val, chan, and src. For information on the args passed for the other sorts of <code class='code prettyprint lang-sc'>msgType</code> see the convenience methods below.<tr><td class='argumentname'>msgNum<td class='argumentdesc'>
+<p>An <a href="./../Classes/Integer.html">Integer</a> indicating the MIDI message number (note number, control number, or program number) for this MIDIFunc. This can be an array. If nil, the MIDIFunc will respond to messages of all possible message numbers.<tr><td class='argumentname'>chan<td class='argumentdesc'>
 <p>An <a href="./../Classes/Integer.html">Integer</a> indicating the MIDI channel number for this MIDIFunc. This can be an array. If nil, the MIDIFunc will respond to messages received on all channels.<tr><td class='argumentname'>msgType<td class='argumentdesc'>
 <p>A <a href="./../Classes/Symbol.html">Symbol</a> indicating which kind of MIDI message this MIDIFunc should respond to. One of <code class='code prettyprint lang-sc'>\noteOn</code>, <code class='code prettyprint lang-sc'>\noteOff</code>, <code class='code prettyprint lang-sc'>\control</code>, <code class='code prettyprint lang-sc'>\touch</code>, <code class='code prettyprint lang-sc'>\polytouch</code>, <code class='code prettyprint lang-sc'>\bend</code>, <code class='code prettyprint lang-sc'>\program</code>, <code class='code prettyprint lang-sc'>\sysex</code>, <code class='code prettyprint lang-sc'>\mtcQF</code>, <code class='code prettyprint lang-sc'>\smpte</code>, <code class='code prettyprint lang-sc'>\songPosition</code>, <code class='code prettyprint lang-sc'>\songSelect</code>, <code class='code prettyprint lang-sc'>\tuneRequest</code>, <code class='code prettyprint lang-sc'>\midiClock</code>, <code class='code prettyprint lang-sc'>\sysrt</code>, <code class='code prettyprint lang-sc'>\tick</code>, <code class='code prettyprint lang-sc'>\start</code>, <code class='code prettyprint lang-sc'>\continue</code>, <code class='code prettyprint lang-sc'>\stop</code>, <code class='code prettyprint lang-sc'>\activeSense</code>, or <code class='code prettyprint lang-sc'>\reset</code>.<tr><td class='argumentname'>srcID<td class='argumentdesc'>
 <p>An <a href="./../Classes/Integer.html">Integer</a> corresponding to the uid of the MIDI input. (See <a href="./../Classes/MIDIClient.html">MIDIClient</a>.) If nil, the MIDIFunc will respond to messages received from all sources.<tr><td class='argumentname'>argTemplate<td class='argumentdesc'>
@@ -117,7 +117,7 @@
 <div class='method'>
 <p>A convenience method to create a new MIDIFunc which responds to MIDI system exclusive messages. See <a href="#*new">*new</a> for argument descriptions. The responding <code class='code prettyprint lang-sc'>func</code> will be passed the arguments data (an <a href="./../Classes/Int8Array.html">Int8Array</a>) and srcID.<h4>Returns:</h4>
 <div class='returnvalue'>
-<p>A new instance of MIDIFunc which responds to MIDI system exclusive messages.</div></div><h3><a class='anchor' name='System Common'>System Common</a></h3>
+<p>A new instance of MIDIFunc which responds to MIDI system exclusive messages.</div></div><h3><a class='anchor' name='System%20Common'>System Common</a></h3>
 
 <p>N.B. Because of SC's underlying low level MIDI implementation, there is no generic <code class='code prettyprint lang-sc'>msgType</code> and convenience method for System Common messages. Instead these are grouped with System Realtime under <a href="#*sysrt">*sysrt</a> below.<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*smpte' href='./../Overviews/Methods.html#smpte'>smpte</a> (<span class='argstr'>func</span>, <span class='argstr'>srcID</span>, <span class='argstr'>argTemplate</span>, <span class='argstr'>dispatcher</span>)</h3>
 <div class='method'>
@@ -143,7 +143,7 @@
 <div class='method'>
 <p>A convenience method to create a new MIDIFunc which responds to MIDI clock messages. See <a href="#*new">*new</a> for argument descriptions. The responding <code class='code prettyprint lang-sc'>func</code> will be passed the argument srcID.<h4>Returns:</h4>
 <div class='returnvalue'>
-<p>A new instance of MIDIFunc which responds to MIDI clock messages.</div></div><h3><a class='anchor' name='System Realtime'>System Realtime</a></h3>
+<p>A new instance of MIDIFunc which responds to MIDI clock messages.</div></div><h3><a class='anchor' name='System%20Realtime'>System Realtime</a></h3>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*sysrt' href='./../Overviews/Methods.html#sysrt'>sysrt</a> (<span class='argstr'>func</span>, <span class='argstr'>index</span>, <span class='argstr'>srcID</span>, <span class='argstr'>argTemplate</span>, <span class='argstr'>dispatcher</span>)</h3>
 <div class='method'>
 <p>A convenience method to create a new MIDIFunc which responds generically to MIDI System Realtime and System Common messages. Note that the message specific methods above and below are probably more convenient in most cases. Note that this does not include MIDI Time Code Quarter Frame messages (sysrt index 1). For those see <a href="#*mtcQuarterFrame">*mtcQuarterFrame</a> and <a href="#*smpte">*smpte</a>. See <a href="#*new">*new</a> for argument descriptions. The responding <code class='code prettyprint lang-sc'>func</code> will be passed the arguments data (may be nil), srcID, and index. Index indicates the message type as follows:<table>
@@ -180,7 +180,7 @@
 <p>A convenience method which dumps all incoming MIDI messages.<h4>Arguments:</h4>
 <table class='arguments'>
 <tr><td class='argumentname'>bool<td class='argumentdesc'>
-<p>A <a href="./../Classes/Boolean.html">Boolean</a> indicating whether dumping is on or off.</table></div><h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
+<p>A <a href="./../Classes/Boolean.html">Boolean</a> indicating whether dumping is on or off.</table></div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-chan' href='./../Overviews/Methods.html#chan'>chan</a> </h3>
 <div class='method'>
@@ -203,8 +203,8 @@
 <p>Train this MIDIFunc to respond to the next message of its type. Arguments passed at creation (e.g. chan, srcID, msgNum, etc.) will filter the training to the next matching message received.<h4>Arguments:</h4>
 <table class='arguments'>
 <tr><td class='argumentname'>learnVal<td class='argumentdesc'>
-<p>A <a href="./../Classes/Boolean.html">Boolean</a> indicating whether the responder should learn the specific value. For example, if used with a control change MIDIFunc, the object would learn to match the next specific control change value. If used with a note on MIDIFunc, it would match only a specific velocity. The default is false.</table></div><h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
-<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+<p>A <a href="./../Classes/Boolean.html">Boolean</a> indicating whether the responder should learn the specific value. For example, if used with a control change MIDIFunc, the object would learn to match the next specific control change value. If used with a note on MIDIFunc, it would match only a specific velocity. The default is false.</table></div><h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented%20instance%20methods'>Undocumented instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-learnFunc' href='./../Overviews/Methods.html#learnFunc'>learnFunc</a> (<span class='argstr'>learnVal</span>)</h3>
 <h2><a class='anchor' name='examples'>Examples</a></h2>
 <pre class='code prettyprint lang-sc'>MIDIIn.connectAll
@@ -226,4 +226,4 @@ MIDIIn.doControlAction(1, 1, 1, 64); // spoof a cc
 MIDIIn.doControlAction(1, 1, 9, 64);
 MIDIIn.doControlAction(1, 10, 1, 64);</pre>
 
-<p><div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/MIDIFunc.schelp'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/MIDIFunc.schelp</a><br>link::Classes/MIDIFunc::<br>sc version: 3.7.2</div></div></body></html>
+<p><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/MIDIFunc.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/MIDIFunc.schelp</a><br>link::Classes/MIDIFunc::<br>sc version: 3.8.0</div></div></body></html>

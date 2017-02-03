@@ -1,0 +1,826 @@
+<html><head><title>Programming Concepts 2</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider WORKSHOPS (extension)</div>
+<div id='categories'><a href='./../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>Programming Concepts 2</h1>
+<div id='summary'>Computer.play(Music, Creativity &amp; Code)</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../Computer.html">Computer.play</a>, <a href="./../Workshops/Programming Concepts 1.html">Programming Concepts 1</a>, <a href="./../Seminars/Composing with Computers 1.html">Composing with Computers 1</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Scaling%20and%20mapping'>Scaling and mapping</a></li>
+<ul class='toc'><li class='toc2'><a href='#Scaling%20values'>Scaling values</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#ControlSpec'>ControlSpec</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Control%20Structures'>Control Structures</a></li>
+<ul class='toc'><li class='toc2'><a href='#if'>if</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#do'>do</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#case'>case</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#while'>while</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#for'>for</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Creating%20and%20Manipulating%20Collections'>Creating and Manipulating Collections</a></li>
+<ul class='toc'><li class='toc2'><a href='#Creating%20Collections'>Creating Collections</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Data%20Anaylsis%20and%20Manipulation%20with%20Collections'>Data Anaylsis and Manipulation with Collections</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Working%20with%20MIDIOut'>Working with MIDIOut</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Extensions%20and%20Quarks'>Extensions and Quarks</a></li>
+<ul class='toc'><li class='toc2'><a href='#sc3-plugins'>sc3-plugins</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Third%20party%20websites'>Third party websites</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Installation'>Installation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Quarks'>Quarks</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#SimpleMIDIFile'>SimpleMIDIFile</a></li>
+<ul class='toc'><li class='toc2'><a href='#Creating%20a%20MIDI%20File'>Creating a MIDI File</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Reading%20and%20Manipulating%20MIDI%20Files%20through%20Patterns'>Reading and Manipulating MIDI Files through Patterns</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Instance%20variables'>Instance variables</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Methods'>Methods</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Scaling%20and%20mapping'>Scaling and mapping</a></h2>
+<h3><a class='anchor' name='Scaling%20values'>Scaling values</a></h3>
+
+<p><strong>mapping</strong>: lineal and exponential
+<p>scaling values:<ul>
+<li><code class='code prettyprint lang-sc'>linlin(inMin, inMax, outMin, outMax)</code> - lineal to lineal<li><code class='code prettyprint lang-sc'>linexp(inMin, inMax, outMin, outMax)</code> - lineal to exponential<li><code class='code prettyprint lang-sc'>explin(inMin, inMax, outMin, outMax)</code> - exponential to lineal<li><code class='code prettyprint lang-sc'>expexp(inMin, inMax, outMin, outMax)</code> - exponential to exponential</ul>
+<pre class='code prettyprint lang-sc'>0.5.linlin(0,1,0,100)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> Exponential mapping shouldn’t use ceros!</div>
+<p><pre class='code prettyprint lang-sc'>0.5.linexp(0,1,0,100)   // posts nan (not a number)
+0.5.linexp(0.000001,1,0.000001,100)</pre>
+<h3><a class='anchor' name='ControlSpec'>ControlSpec</a></h3>
+
+<p>A class for mapping values A ControlSpec is used by GUI sliders and knobs to specify the range and curve of the controls. ControlSpec may be used in many ways to map from linear 0..1 range to your desired range and back.<pre class='code prettyprint lang-sc'>ControlSpec(minval, maxval, warp, step, default, units)</pre>
+
+<p><strong>warp</strong>: 'linear', 'exponential'
+<p><strong>methods</strong>:<ul>
+<li>constrain (value)<ul>
+<li>clips and rounds the value to within the spec</ul>
+
+<p><li>map (value)<ul>
+<li>maps a value from [0..1] to spec range</ul>
+
+<p><li>unmap (value)<ul>
+<li>maps a value from the spec range to [0..1]</ul>
+</ul>
+
+<p>A <code class='code prettyprint lang-sc'>ControlSpec</code> with a range <code class='code prettyprint lang-sc'>0..127</code>, lineal mapping, in steps of 1:<pre class='code prettyprint lang-sc'>c = [0,127,\linear,1].asSpec
+
+c.map(0.1) //maps from 0-1 to 0-127
+
+c.unmap(100); //maps from 0-127 to 0-1</pre>
+
+<p>There are some ready-made ControlSpecs!<pre class='code prettyprint lang-sc'>ControlSpec.specs.asCompileString</pre>
+
+<p>An expample of a predetermined <code class='code prettyprint lang-sc'>ControlSpec</code>:<pre class='code prettyprint lang-sc'>\midi -&gt; ControlSpec(0, 127, default: 64)
+
+c = \midi.asSpec
+c.map(0.1)</pre>
+
+<p>A useful ControlSpec is to map from amp to db<pre class='code prettyprint lang-sc'>c = [-inf, 6, \db, 0, -inf, " dB"].asSpec;
+c.map(0);
+c.map(1);</pre>
+<h2><a class='anchor' name='Control%20Structures'>Control Structures</a></h2>
+
+<p>Control Structures in programming are parts of code that determine the <em>flow</em> or direction the program might take. There are initial conditions and parameters in a control stucture - based on these preconditions the computer determines what should happen. This process leads to particular results based on the preconditions.<h3><a class='anchor' name='if'>if</a></h3>
+
+<p>The most common Control Structure is the <em>if-then</em> statment.
+<p>An <em>if</em> statment determines what to do based on an expression that must return a <code class='code prettyprint lang-sc'>Boolean</code> value: <code class='code prettyprint lang-sc'>true</code> or <code class='code prettyprint lang-sc'>false</code>.
+<p>This is how we write an <em>if</em> statment in SC:<ul>
+<li>if (boolean, {true function}, {false function});</ul>
+<pre class='code prettyprint lang-sc'>if (4.notNil, {"yes"}, {"no"});
+if (nil.notNil, {"yes"}, {"no"});</pre>
+
+<p>Another example:<pre class='code prettyprint lang-sc'>    a = 1; //equal to 1
+
+    if (a == 1, {a = 2}, {a = "false"}); //note the difference between "=" to assign a value to a variable (equal to) and "==" which means "if a is equal to 1 then…" (boolean)
+
+    if (a == 1, {a = 2}, {a = "false"}); //evaluate again</pre>
+
+<p>You can nest different Boolean expressions for more complex statements using <code class='code prettyprint lang-sc'>.and</code> and <code class='code prettyprint lang-sc'>.or</code>:<pre class='code prettyprint lang-sc'>a = 1; //a equal to 1
+b = 7; //b equal to 7
+if( (b &gt; a).and(b.odd), {"true".postln; b = 6}, {"false".postln});
+
+a = 1; //a equal to 1
+b = 7; //b equal to 7
+if( (b == 7).or(b &gt; 5), {"true".postln; b = 4}, {"false".postln});</pre>
+<h3><a class='anchor' name='do'>do</a></h3>
+
+<p><em>Do</em> is used to iterate over a Collection. Positive Integers also respond to do by iterating from zero up to their value. Collections iterate, calling the function for each object they contain. Other kinds of Objects respond to do by passing themselves to the function one time. The function is called with two arguments, the item, and an iteration counter.
+<p>Syntax<pre class='code prettyprint lang-sc'>do ( collection, function )</pre>
+
+<p>--or--<pre class='code prettyprint lang-sc'>collection.do(function)</pre>
+
+<p>Example<pre class='code prettyprint lang-sc'>[ 1, 2, "abc", \boom ].do({ arg item, i; [i, item].postln; });
+
+5.do({ arg item; item.postln }); // iterates from zero to four
+
+"you".do({ arg item; item.postln }); // a String is a collection of characters
+
+'they'.do({ arg item; item.postln }); // a Symbol is a singular item
+
+(8..20).do({ arg item; item.postln }); // iterates from eight to twenty
+
+(8..20).do({ arg item, index; [item, index].postln }); // the second argument returns the index
+
+(8,10..20).do({ arg item; item.postln }); // iterates from eight to twenty, with stepsize two</pre>
+<h3><a class='anchor' name='case'>case</a></h3>
+
+<p>Function implements a <em>case</em> method which allows for conditional evaluation with multiple cases. Since the receiver represents the first case this can be simply written as pairs of test functions and corresponding functions to be evaluated if true. Case is inlined and is therefore just as efficient as nested if statements.
+<p>Example:<pre class='code prettyprint lang-sc'>(
+var i, x, z;
+z = [0, 1, 1.1, 1.3, 1.5, 2];
+i = z.choose.postln;
+x = case
+    { i == 1 }   { \no }
+    { i == 1.1 } { \wrong }
+    { i == 1.3 } { \wrong }
+    { i == 1.5 } { \wrong }
+    { i == 2 }   { \wrong }
+    { i == 0 }   { \true };
+x.postln;
+)</pre>
+<h3><a class='anchor' name='while'>while</a></h3>
+
+<p>The <em>while</em> message implements conditional execution of a loop. If the testFunc answers true when evaluated, then the bodyFunc is evaluated and the process is repeated. Once the testFunc returns false, the loop terminates.
+<p>Syntax<pre class='code prettyprint lang-sc'>while ( testFunc, bodyFunc );</pre>
+
+<p>--or--<pre class='code prettyprint lang-sc'>testFunc.while( bodyFunc );</pre>
+
+<p>Example<pre class='code prettyprint lang-sc'>(
+i = 0;
+while ( { i &lt; 5 }, { i = i + 1; "boing".postln });
+)</pre>
+
+<p><em>while</em> expressions are also optimised by the compiler if they do not contain variable declarations in the testFunc and the bodyFunc.<h3><a class='anchor' name='for'>for</a></h3>
+
+<p>The <em>for</em> message implements iteration over an integer series from a starting value to an end value stepping by one each time. A function is evaluated each iteration and is passed the iterated numeric value as an argument.
+<p>Syntax<pre class='code prettyprint lang-sc'>for ( startValue, endValue, function )</pre>
+
+<p>--or--<pre class='code prettyprint lang-sc'>startValue.for ( endValue, function )</pre>
+
+<p>Example<pre class='code prettyprint lang-sc'>for (3, 7, { arg i; i.postln }); // prints values 3 through 7</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> There are several more control structures, for more information see <a href="./../Reference/Control-Structures.html">Control Structures</a> helpfile</div><h2><a class='anchor' name='Creating%20and%20Manipulating%20Collections'>Creating and Manipulating Collections</a></h2>
+
+<p>We have already talked about collections but now we will look at them in a bit more depth. Collections are really important in programming as they are used for data creation and manipulation. We store information in Collections that then we can access and change.
+<p>First, let's look at a few ways in which we can create collections using the Array class:<h3><a class='anchor' name='Creating%20Collections'>Creating Collections</a></h3>
+
+<p><code class='code prettyprint lang-sc'>Array</code> is a class that can be used to facilitate the creation of collections. The class responds to several methods that return a new Collection through a particular function.
+<p>Here are some examples of useful methods to create Arrays:
+<p><strong>fill(size, function)</strong>
+<p>Creates a Collection of the given size, the elements of which are determined by evaluation the given function. The function is passed the index as an argument.<pre class='code prettyprint lang-sc'>Array.fill(20, rrand(1,10)); //returns the same random number 20 times
+Array.fill(20, {rrand(1,10)}); //we need to remember the function so that each number is different in the array!
+
+Array.fill(4, { arg i; i * 2 }); //the index here is multiplied by 2
+Array.fill(14, { arg i; i.rand }); //index is used to determine how many rand numbers we're using
+
+Array.fill(14, { Array.fill(4, {rrand(0,9)}) }); //we can have a collection with items that are other collections</pre>
+
+<p><strong>geom(size, start, grow)</strong>
+<p>Fill an ArrayedCollection with a geometric series.<pre class='code prettyprint lang-sc'>Array.geom(5, 1, 3).postln;</pre>
+
+<p><strong>series(size, start, step)</strong>
+<p>Fill an ArrayedCollection with an arithmetic series.<pre class='code prettyprint lang-sc'>Array.series(5, 10, 2).postln;</pre>
+
+<p><strong>iota( ... sizes)</strong>
+<p>Fills an ArrayedCollection with a counter.<pre class='code prettyprint lang-sc'>Array.iota(2, 3);
+Array.iota(2, 2);</pre>
+
+<p><strong>fib(size, a, b)</strong>
+<p>Fill a SequenceableCollection with a fibonacci series. <strong>a</strong> is the starting step value and <strong>b</strong> is the starting value.<pre class='code prettyprint lang-sc'>Array.fib(5);
+Array.fib(5, 2, 32); // start from 32 with step 2.</pre>
+
+<p><strong>rand(size, minVal, maxVal)</strong>
+<p>Fill a SequenceableCollection with random values in the range <strong>minVal</strong> to <strong>maxVal</strong>.<pre class='code prettyprint lang-sc'>Array.rand(8, 1, 100);</pre>
+
+<p><strong>interpolation(size, start: 0, end: 1)</strong>
+<p>Fill a SequenceableCollection with the interpolated values between the <strong>start</strong> and <strong>end</strong> values.<pre class='code prettyprint lang-sc'>Array.interpolation(5, 3.2, 20.5);</pre>
+<h3><a class='anchor' name='Data%20Anaylsis%20and%20Manipulation%20with%20Collections'>Data Anaylsis and Manipulation with Collections</a></h3>
+
+<p>We can find out various things about a collection and we can also change a collection's content as we wish.
+<p>Now, let's look at some methods that are useful for analysing and manipulating the contents of collections.
+<p><strong>size</strong>
+<p>Returns size of a Collection.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4, \boo, "foo", \ha].size;</pre>
+
+<p><strong>first</strong>
+<p>Return the first element of the collection.<pre class='code prettyprint lang-sc'>[3, 4, 5].first;</pre>
+
+<p><strong>last</strong>
+<p>Return the last element of the collection.<pre class='code prettyprint lang-sc'>[3, 4, 5].last;</pre>
+
+<p><strong>isEmpty</strong>
+<p>Returns <code class='code prettyprint lang-sc'>Boolean</code> answering if the Collection contains no objects.<pre class='code prettyprint lang-sc'>[].isEmpty;
+[1,2,3,4].isEmpty</pre>
+
+<p><strong>add</strong>
+<p>Adds an object to the list.<pre class='code prettyprint lang-sc'>[1,2].add(3)</pre>
+
+<p><strong>++</strong>
+<p>Concatenates (joins) two or more lists.<pre class='code prettyprint lang-sc'>[1,2] ++ [3,4,5] ++ [\foo, "boo"]</pre>
+
+<p><strong>remove</strong>
+<p>Remove an object from the list.<pre class='code prettyprint lang-sc'>(
+var a;
+a = [1, 2, 3, 4];
+a.remove(3);
+a;
+)</pre>
+
+<p><strong>removeAll(list)</strong>
+<p>Removes the contents of a given collection from the list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].removeAll([2, 3]);</pre>
+
+<p><strong>atAll</strong>
+<p>Return a collection of all the items from a list of indeces.<pre class='code prettyprint lang-sc'>y = (12..30);
+y.atAll([0, 2]);</pre>
+
+<p><strong>includes(item)</strong>
+<p>Returns <code class='code prettyprint lang-sc'>Boolean</code> stating whether an item is within a list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].includes(3);
+[1, 2, 3, 4].includes(5);</pre>
+
+<p><strong>collect(function)</strong>
+<p>Answer a new collection which consists of the results of function evaluated for each item in the collection. The function is passed two arguments, the item and an integer index.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].collect({ arg item; if(item.even, {item + 10 }, {item}); });</pre>
+
+<p><strong>select(function)</strong>
+<p>Answer a new collection which consists of all items for which function answers <code class='code prettyprint lang-sc'>true</code>. The function is passed two arguments, the item and an integer index.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].select({ arg item, i; item.even });</pre>
+
+<p><strong>reject(function)</strong>
+<p>Answer a new collection which consists of all items for which function answers <code class='code prettyprint lang-sc'>false</code>. The function is passed two arguments, the item and an integer index.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].reject({ arg item, i; item.even });</pre>
+
+<p><strong>occurrencesOf</strong>
+<p>Answer the number of occurrance of an item in a list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 3, 4, 3, 4, 3].occurrencesOf(3);</pre>
+
+<p><strong>sum</strong>
+<p>Answer the sum fo the list.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].sum;</pre>
+
+<p><strong>maxItem</strong>
+<p>Returns maximum item in a list.<pre class='code prettyprint lang-sc'>a = Array.rand(10,2.0,14);
+a.maxItem;</pre>
+
+<p><strong>minItem</strong>
+<p>Returns minimum item in a list.<pre class='code prettyprint lang-sc'>a = Array.rand(10,2.0,14);
+a.minItem;</pre>
+
+<p><strong>indexOfEqual</strong>
+<p>Return the index of something in the collection that equals the item, or <code class='code prettyprint lang-sc'>nil</code> if not found.<pre class='code prettyprint lang-sc'>[3, 4, "foo", "bar"].indexOfEqual("foo");</pre>
+
+<p><strong>indicesOfEqual</strong>
+<p>Return an array of indices of things in the collection that equal the item, or <code class='code prettyprint lang-sc'>nil</code> if not found.<pre class='code prettyprint lang-sc'>y = [7, 8, 7, 6, 5, 6, 7, 6, 7, 8, 9];
+y.indicesOfEqual(7);
+y.indicesOfEqual(5);</pre>
+
+<p><strong>copyRange</strong>
+<p>Return a new Collection which is a copy of the indexed slots of the receiver from start to end.<pre class='code prettyprint lang-sc'>(
+var y, z;
+z = [1, 2, 3, 4, 5];
+y = z.copyRange(1, 3);
+z.postln;
+y.postln;
+)</pre>
+
+<p><strong>flat</strong>
+<p>Returns a collection from which all nesting has been flattened.<pre class='code prettyprint lang-sc'>[[1, 2, 3], [[4, 5], [[6]]]].flat;</pre>
+
+<p><strong>flop</strong>
+<p>Invert rows and columns in a two dimensional Collection (turn inside out).<pre class='code prettyprint lang-sc'>[[1, 2, 3], [4, 5, 6]].flop;
+[[1, 2, 3], [4, 5, 6], [7, 8]].flop; // shorter array wraps
+[].flop; // result is always 2-d.</pre>
+
+<p><strong>choose</strong>
+<p>Choose an element from the collection at random.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].choose;</pre>
+
+<p><strong>wchoose(weigths)</strong>
+<p>Choose an element from the collection at random using a list of probabilities or weights. The weights must sum to 1.0.<pre class='code prettyprint lang-sc'>[1, 2, 3, 4].wchoose([0.1, 0.2, 0.3, 0.4]);</pre>
+
+<p><strong>sort(function)</strong>
+<p>Sort the contents of the collection using the comparison function argument. The function should take two elements as arguments and return true if the first argument should be sorted before the second argument. If the function is nil, the following default function is used. { arg a, b; a &lt; b }<pre class='code prettyprint lang-sc'>[6, 2, 1, 7, 5].sort;
+[6, 2, 1, 7, 5].sort({ arg a, b; a &gt; b }); // reverse sort</pre>
+
+<p><strong>integrate</strong>
+<p>Returns a collection with the incremental sums of all elements.<pre class='code prettyprint lang-sc'>[3, 4, 1, 1].integrate;</pre>
+
+<p><strong>differentiate</strong>
+<p>Returns a collection with the pairwise difference between all elements.<pre class='code prettyprint lang-sc'>[3, 4, 1, 1].differentiate;</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> For handling <strong>multidimensional</strong> arrays, there are specific methods which are covered in the helpfile <a href="./../Guides/J-concepts-in-SC.html">J concepts in SC</a>.</div><h2><a class='anchor' name='Working%20with%20MIDIOut'>Working with MIDIOut</a></h2>
+
+<p>MIDI support in SuperCollider is fairly thorough and all MIDI devices accessivle to your OS are accessible to SC.
+<p>There are several classes the are used to directly work with MIDI: <code class='code prettyprint lang-sc'>MIDIClient, MIDIFunc, MIDIdef, MIDIOut, MIDIEndPoint</code> and <code class='code prettyprint lang-sc'>MIDIIn</code>.
+<p>For the moment, we are going to only look at how to send MIDI messages out. We will look at how to receive MIDI messages in the next class.
+<p>But first, we need to turn MIDI on in SC. We always need to do this through the following piece of code:<pre class='code prettyprint lang-sc'>MIDIIn.connectAll; //starts MIDI</pre>
+
+<p>When you evaluted that piece of code, you probabilly noticed that in the post window a list was printed of your MIDI devices - MIDI Sources and Destinations. We can ask SC what they are again with the <code class='code prettyprint lang-sc'>MIDIClient</code> class:<pre class='code prettyprint lang-sc'>MIDIClient.sources;
+MIDIClient.destinations;</pre>
+
+<p>This retuns a list of several <code class='code prettyprint lang-sc'>MIDIEndPoint</code> classes. <code class='code prettyprint lang-sc'>MIDIEndPoint</code> tells us the device and port names of the MIDI devices that are connected to your computer.
+<p>Now we are interested only in our MIDI destinations as we are sending MIDI messeges out.<pre class='code prettyprint lang-sc'>MIDIClient.destinations;</pre>
+
+<p>We send MIDI messages out with the <code class='code prettyprint lang-sc'>MIDIOut</code> class.
+<p>First, we need to initiate the class and tell the computer to which MIDI device we want to send messages to. We can do this either by specifying the index of <code class='code prettyprint lang-sc'>MIDIClient.destinations</code> containing the device we would like to use.<pre class='code prettyprint lang-sc'>~midiOut = MIDIOut(0); //index of MIDIClient with device</pre>
+
+<p>But more safely, we can initiate the class by specifying the device and port names:<pre class='code prettyprint lang-sc'>~midiOut = MIDIOut.newByName("IAC Driver", "Bus 1");</pre>
+
+<p>Here I'm using <em>IAC Driver</em>, a 'virtual' MIDI device for Macs that allows you to send MIDI messages from one application to another. You can turn it on with the <strong>Audio MIDI Setup</strong> application (Utilities folder).<div class='note'><span class='notelabel'>NOTE:</span> Windows users will have to find an alternative to IAC Driver</div>
+<p>You can use any (hardware) MIDI device for this: synthesisers, drum machines, samplers, etc., provided that it is connected to your computer and its recognised by your OS.
+<p>There is a default latency for <code class='code prettyprint lang-sc'>MIDIOut</code> messages:<pre class='code prettyprint lang-sc'>~midiOut.latency; //default is 0.2
+~midiOut.latency = 0.05; //you can change the latency if you want more accuracy</pre>
+
+<p>Before we start sending MIDI messages, make sure you have either another application (DAW, Sibelius, other sequencer, app) or hardware (synths, sampler, instrument, drum machine, etc.).
+<p>Now, we can send MIDI messages out:<pre class='code prettyprint lang-sc'>~midiOut.noteOn(1,60,120); //starts note
+~midiOut.noteOff(1,60,0); //ends note</pre>
+
+<p>Let's make a function that contains a routine (<code class='code prettyprint lang-sc'>.fork</code>) to be able to determine the duration between a noteOn and noteOff message.<pre class='code prettyprint lang-sc'>(
+~note = {arg note=60, velo=120, dur=0.4;
+{
+~midiOut.noteOn(1,note, velo);
+        dur.yield;
+~midiOut.noteOff(1,note,0);
+    }.fork;
+};
+)</pre>
+
+<p>Play random notes:<pre class='code prettyprint lang-sc'>~note.value(rrand(40,100), rrand(40,120), rrand(0.1,0.4))</pre>
+
+<p>Now another routine to play lots of notes:<pre class='code prettyprint lang-sc'>(
+~randNotes = {
+inf.do{
+~note.value(rrand(40,120));
+    rrand(0.01,0.1).yield;
+};
+}.fork;
+)</pre>
+
+<p>Stop it<pre class='code prettyprint lang-sc'>~randNotes.stop;
+
+~midiOut.allNotesOff(1); //sends midi noteOff to all values in chan 1</pre>
+
+<p>You can send any kind of MIDI message. The most common MIDI messages are <code class='code prettyprint lang-sc'>noteOn</code>, <code class='code prettyprint lang-sc'>noteOff</code> and <code class='code prettyprint lang-sc'>control</code>. Here are some of the messages that <code class='code prettyprint lang-sc'>MIDIOut</code> responds to, including the MIDI messages we just mentioned:<pre class='code prettyprint lang-sc'>noteOn (chan, note, veloc)
+noteOff(chan, note, veloc)
+control(chan, ctlNum, val)
+polyTouch(chan, note, val)
+program(chan, num)
+touch(chan, val)
+bend(chan, val)
+allNotesOff(chan)</pre>
+
+<p>If you are interested in all of MIDI's message capabilities, check this out:<pre class='code prettyprint lang-sc'>Computer.url("https://www.midi.org/specifications/item/table-1-summary-of-midi-message");</pre>
+
+<p>So, we can send MIDI messages out to other devices!<div class='warning'><span class='warninglabel'>WARNING:</span> This might blow your mind: With SC it is also possible to use <code class='code prettyprint lang-sc'>Patterns</code> to send MIDIOut messages!! What?? Cool right?</div>
+<p>So, this is my pattern:<pre class='code prettyprint lang-sc'>(
+a = Pdef(\x, Pbind(\degree, Pseq((0..7), inf), \scale, Scale.major, \amp, 0.8, \dur, 0.3, \legato, 0.5));
+e = (a &lt;&gt; (type: \midi, midiout: ~midiOut));
+1.do{e.next.postln(Event.new).play;}
+)</pre>
+
+<p>Let's now change our <code class='code prettyprint lang-sc'>Pdef</code> on the fly:<pre class='code prettyprint lang-sc'>Pdef(\x, Pbind(\degree, Pseq((0..7).scramble, inf), \scale, Scale.minor, \amp, 0.8, \dur, 0.1, \legato, 0.2));</pre>
+
+<p>Two new Pdefs combined into a Ppar:<pre class='code prettyprint lang-sc'>(
+Pdef(\y, Pbind(\degree, Prand((0..7).scramble, inf), \scale, Scale.dorian, \ctranspose, -12, \amp, 0.8, \dur, 0.1, \legato, 0.2));
+Pdef(\z, Pbind(\degree, Pseq((0..7).scramble, inf), \scale, Scale.minor, \amp, 0.8, \dur, 0.1, \legato, 0.2));
+Pdef(\x, Ppar([Pdef(\y),Pdef(\z)],inf));
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> If you want to have more MIDI fun with patterns, check this <a href="./../Code Examples/MIDI Fun.html">MIDI Fun</a></div><h2><a class='anchor' name='Extensions%20and%20Quarks'>Extensions and Quarks</a></h2>
+
+<p>As well as rich libraries of classes and UGens which come with SuperCollider, there are many third party extensions (examples, classes and UGens) which you can download from various places.<h3><a class='anchor' name='sc3-plugins'>sc3-plugins</a></h3>
+
+<p><strong>sc3-plugins</strong> is a library of Synthesis Plugins and Extensions developed by several people in the sc community. You can download them here:<pre class='code prettyprint lang-sc'>Computer.url("https://github.com/supercollider/sc3-plugins/releases");</pre>
+<h3><a class='anchor' name='Third%20party%20websites'>Third party websites</a></h3>
+
+<p>Off the sc-users mailing list (archive via Google if you search with sc-users in the search line, or via word of mouth)
+<p>For example, Nick Collins has some nice extensions in his website.<pre class='code prettyprint lang-sc'>Computer.url("https://composerprogrammer.com/code.html");</pre>
+
+<p>You can also find things in GitHub:<pre class='code prettyprint lang-sc'>Computer.url("https://github.com");</pre>
+
+<p><h3><a class='anchor' name='Installation'>Installation</a></h3>
+
+<p>The easiest way to install such packages is to put all help files, .sc class files and plugin files into the Extensions directory.
+<p>To find your Extensions directory, evaluate this code:<pre class='code prettyprint lang-sc'>Platform.userExtensionDir</pre>
+
+<p>You should place the files in that directory. If the directory, doesn't exist, then create one that matches the path you got from the above code. After placing the files, then recompile your library: <em>cmd + shift + l</em>. Now your extensions should be installed!
+<p>Most extensions should come with a readme file with instructions.<h3><a class='anchor' name='Quarks'>Quarks</a></h3>
+
+<p><code class='code prettyprint lang-sc'>Quarks</code> are packages of SuperCollider code containing classes, extension methods, documentation and server UGen plugins. The <code class='code prettyprint lang-sc'>Quarks</code> class manages downloading these packages and installing or uninstalling them.
+<p>Check the helpfile for <a href="./../Classes/Quarks.html">Quarks</a>.
+<p>The most convenient way of managing Quarks is from a GUI:<pre class='code prettyprint lang-sc'>Quarks.gui; //opens a window to manage Quarks</pre>
+
+<p>There are some very useful Quarks like the wslib.
+<p>For example wslib contains a class called <code class='code prettyprint lang-sc'>SimpleMIDIFile</code>, that allows you to read &amp; write MIDI files.<h2><a class='anchor' name='SimpleMIDIFile'>SimpleMIDIFile</a></h2>
+
+<p>It is possible to read and write MIDI Files in SuperCollider. SC has very good MIDI File support through SimpleMIDIFile, a class that comes in the wslib <code class='code prettyprint lang-sc'>Quark</code>.
+<p>First we need to install a Quark that contains the class that handles MIDIFiles in SuperCollider. The Quark is called wslib.<pre class='code prettyprint lang-sc'>Quarks.gui //install wslib</pre>
+
+<p>Once you install the Quark, remember to recompile the libary with <em>cmd +shift + l</em>.
+<p><code class='code prettyprint lang-sc'>SimpleMIDIFile</code> is a MIDI file implementation capable of reading and writing all types of MIDI data (except sysex messages).<h3><a class='anchor' name='Creating%20a%20MIDI%20File'>Creating a MIDI File</a></h3>
+
+<p>Example of how to create a MIDI File:<pre class='code prettyprint lang-sc'>(
+m = SimpleMIDIFile( "~/Desktop/midifiletest.mid" ); // create empty file
+
+m.init1( 3, 120, "4/4" );    // init for type 1 (multitrack); 3 tracks, 120bpm, 4/4 measures
+
+m.timeMode = \seconds;  // change from default to something useful
+
+((0,(1/8)..5)).do({ |starttime| // add random notes
+    m.addNote( 36 + 50.rand, 32 + 96.rand, starttime, [0.1,0.05].choose, 127,
+        track: 1 );
+    //addNote args: noteNumber, velo, startTime, dur, upVelo, channel, track, sort=true
+    });
+
+((0,(1/4)..5)).do({ |starttime| // add random notes to next track
+    m.addNote( 36 + 50.rand, 64 + 64.rand, starttime, [0.1,0.025].choose, 127,
+        channel: 1,  // note: = midi channel 2
+        track: 2 )
+    });
+)
+
+m.midiEvents.dopostln; // all midi events
+m.metaEvents.dopostln; // notice the incorrect 'endOfTrack' events for track 1 &amp; 2;
+
+m.adjustEndOfTrack;
+m.metaEvents.dopostln; // try again
+
+m.tempoMap; // get the tempo map ( [[ startTime, bpm ], [ etc.. ]] )
+m.timeSignatures; // get the time signatures ( ( [[ startTime, a/b ], [ etc.. ]] )
+
+m.p.play; // convert to Pattern and play
+
+m.write; // now play the file in Quicktime, or open with another app
+
+m.plot;  // uses ScaledUserView</pre>
+<h3><a class='anchor' name='Reading%20and%20Manipulating%20MIDI%20Files%20through%20Patterns'>Reading and Manipulating MIDI Files through Patterns</a></h3>
+
+<p><code class='code prettyprint lang-sc'>SimpleMIDIFile</code> also supports Patterns!! You can use the p method to convert a SimpleMIDIFile into a playable pattern (a <code class='code prettyprint lang-sc'>Ppar</code> to be exact).
+<p>Download a Bach Midi File:<pre class='code prettyprint lang-sc'>"curl http://www.jsbach.net/midi/bwv988/988-aria.mid -o ~/Desktop/aria.mid".unixCmd;</pre>
+
+<p>If you are on windows, go to the url and download the file an put it on your Desktop.
+<p>Now, let's read the file:<pre class='code prettyprint lang-sc'>m = SimpleMIDIFile.read( "~/Desktop/aria.mid" );</pre>
+
+<p>Play it! (<em>cmd-.</em> to stop)<pre class='code prettyprint lang-sc'>m.p.play; // takes a few seconds to start because this midifile starts with a rest</pre>
+
+<p>Play it with another instrument:<pre class='code prettyprint lang-sc'>(
+SynthDef( "organ", { |freq = 440, sustain = 1, amp = 0.1, out|
+        var sig;
+        sig = LFPar.ar( freq * [1,2,3,5], 0, amp/[2,4,5,7] );
+        Out.ar( out, Env([0,1,1,0], [0.025,sustain,0.025]).kr(2) * sig.dup )
+}).add;
+);
+
+
+x = m.p( \organ ).play;
+x.stop;</pre>
+
+<p>Now, let's add more synth defs and try to do a bit of Wendy Carlos:<pre class='code prettyprint lang-sc'>(
+SynthDef( "triangle", { |freq = 440, sustain = 1, amp = 0.1, out|
+        var sig;
+        sig = LFTri.ar( freq * [1,2,3,5], 0, amp/[2,4,5,7] );
+        Out.ar( out, Env([0,1,1,0], [0.025,sustain,0.025]).kr(2) * sig.dup )
+}).add;
+
+SynthDef( "pulse", { |freq = 440, sustain = 1, amp = 0.1, out|
+        var sig;
+        sig = LFPulse.ar(freq * [1,2,3,5], 0, 0.5, amp/[2,4,5,7] );
+        Out.ar( out, Env([0,1,1,0], [0.025,sustain,0.025]).kr(2) * sig.dup )
+}).add;
+
+SynthDef( "saw", { |freq = 440, sustain = 1, amp = 0.1, out|
+        var sig;
+        sig = LFSaw.ar( freq * [1,2,3,5], 0, amp/[2,4,5,7] );
+        Out.ar( out, Env([0,1,1,0], [0.025,sustain,0.025]).kr(2) * sig.dup )
+}).add;
+);
+
+~pseqs = m.generatePatternSeqs
+
+(
+~soprano = Pbind(\instrument, \organ, [\midinote, \dur], Pseq(~pseqs[1]););
+~alto = Pbind(\instrument, \triangle, [\midinote, \dur], Pseq(~pseqs[2]););
+~tenor = Pbind(\instrument, \saw, [\midinote, \dur], Pseq(~pseqs[3]););
+~bass = Pbind(\instrument, \pulse, [\midinote, \dur], Pseq(~pseqs[4]););
+)
+
+~play = Ppar([~soprano, ~alto, ~tenor, ~bass]).play
+
+~play.stop</pre>
+
+<p>Now let's use Ndef to add some effects!<pre class='code prettyprint lang-sc'>Ndef(\reverb).play;
+
+Ndef(\reverb, {Ndef(\carlos).ar})
+
+Ndef(\carlos, Pdef(\bach));
+
+Pdef(\bach,  Ppar([~soprano, ~alto, ~tenor, ~bass]));
+
+(
+Ndef(\reverb, {var sig;
+    sig = Ndef.ar(\carlos);
+    FreeVerb2.ar(sig[0], sig[1], 0.6, 0.9);
+});
+)
+
+Ndef(\reverb, 0); //nothing
+
+(
+Ndef(\reverb, {var sig;
+    sig = Ndef.ar(\carlos);
+    FreeVerb2.ar(sig[0], sig[1], MouseX.kr(0,1), MouseY.kr(0,1));
+});
+)</pre>
+
+<p>Let's start having fun with Patterns and the MIDI File content:
+<p>Use Pxrand to randomize the order of the file.<pre class='code prettyprint lang-sc'>(
+~soprano = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[1], inf););
+~alto = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[2], inf););
+~tenor = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[3], inf););
+~bass = Pbind(\instrument, \organ, [\midinote, \dur], Pxrand(~pseqs[4], inf););
+Pdef(\bach,  Ppar([~soprano, ~alto, ~tenor]));
+)</pre>
+
+<p>Play it backwards<pre class='code prettyprint lang-sc'>(
+~soprano = Pbind(\instrument, \organ, [\midinote, \dur], Pseq(~pseqs[1].reverse););
+~alto = Pbind(\instrument, \organ, [\midinote, \dur], Pseq(~pseqs[2].reverse););
+~tenor = Pbind(\instrument, \organ, [\midinote, \dur], Pseq(~pseqs[3].reverse););
+~bass = Pbind(\instrument, \organ, [\midinote, \dur], Pseq(~pseqs[4].reverse););
+Pdef(\bach,  Ppar([~soprano, ~alto, ~tenor]));
+)</pre>
+
+<p>Inversion and retrograde:<pre class='code prettyprint lang-sc'>(
+~g = "g5".notemidi;
+~inv1 = ((~g+12)-~pseqs[1].flop[0] + (~g+12));
+~inv2 = (~g-~pseqs[2].flop[0] + ~g);
+~inv3 = ((~g-12)-~pseqs[3].flop[0] + (~g-12));
+~inv4 = ((~g-12)-~pseqs[4].flop[0] + (~g-12));
+~soprano = Pbind(\instrument, \organ, \midinote, Pseq(~inv1.reverse, inf), \dur, Pseq(~pseqs[1].flop[1], inf));
+~alto = Pbind(\instrument, \organ, \midinote, Pseq(~inv2.reverse, inf), \dur, Pseq(~pseqs[2].flop[1], inf););
+~tenor = Pbind(\instrument, \organ, \midinote, Pseq(~inv3.reverse, inf), \dur, Pseq(~pseqs[3].flop[1], inf));
+~bass = Pbind(\instrument, \organ, \midinote, Pseq(~inv4.reverse, inf), \dur, Pseq(~pseqs[4].flop[1], inf));
+p = Pdef(\bach,  Ppar([~soprano, ~alto, ~tenor]));
+)</pre>
+
+<p>Now, let's write a new MIDI File with the version we just created:<pre class='code prettyprint lang-sc'>(
+n = SimpleMIDIFile( "~/Desktop/hcabReverse.mid" );
+n.init1( 2, m.tempo, m.timeSignatures[0][1] );
+n.fromPattern( p );
+)
+
+n.write; // when writing to file note numbers are rounded (MIDI file format doesn't allow floats)</pre>
+
+<p>We can also create out own Patterns in SC and then write them as MIDI files.
+<p>We use the fromPattern method to turn patterns into midi files:<pre class='code prettyprint lang-sc'>(
+p = Pbind(
+    \dur, Prand( [0.25,0.5,1], inf ),
+    \freq, Pwhite( 440, 880 ),
+    \db, Pwhite( -40,-10 ),
+    \legato, Pwhite( 0.25, 4 ) );
+
+m = SimpleMIDIFile( "~/Desktop/testPat.mid" );
+m.init1( 2, 120, "4/4" );
+m.fromPattern( p );
+)
+
+m.plot;
+
+m.p.play; // note numbers are not rounded
+p.play; // compare
+
+m.write; // when writing to file note numbers are rounded (MIDI file format doesn't allow floats)</pre>
+<h3><a class='anchor' name='Instance%20variables'>Instance variables</a></h3>
+
+<p>all variables stated here have getters and setters. However in some cases the setters
+<p>are actually separate methods which may change or convert other variables as well.
+<p><strong>pathName</strong>
+<p>file path of the midi file. defaults to "~/scwork/midi.mid"
+<p><strong>midiEvents</strong>
+<p>an array containing all MIDI events as arrays. Format:
+<p><strong>[ trackNumber, absTime, type, channel, val1, val2 ]</strong>
+<p><em>trackNumber</em>
+<p>the number of the track in which this event sits. For format type 0 files this is always 0,
+<p>for type 1 files track 0 is reserved for meta events, so midiEvent tracks start counting at 1
+<p><em>absTime</em>
+<p>the absolute start-time of the event. If timeMode == \ticks the absTime is in ticks (tempo dependant),
+<p>if timeMode == \seconds it is in seconds (not depending on tempo). In the original midi file format all
+<p>times are relative to the previous event on a track, but for convenience SimpleMIDIFile converts them
+<p>to absolute times when reading in.
+<p><em>type</em>
+<p>usually a Symbol which can be:<pre class='code prettyprint lang-sc'>\noteOff
+\noteOn
+\polyTouch
+\cc
+\program
+\afterTouch
+\pitchBend</pre>
+
+<p><em>channel</em>
+<p>midi channel on which the event plays. Starts at 0 (= midi channel 1)
+<p><em>val1, val2</em>
+<p>values for the event. These are usually 0-127. The contents of these vary per event type:<table>
+<tr><td><em>type</em><td><em>val1</em><td><em>val2</em><tr><td>noteOn<td>note number<td>velocity<tr><td>noteOff<td>note number<td>velocity<tr><td>polyTouch<td>note number<td>amount<tr><td>cc<td>control number<td>amount<tr><td>program<td>program number<td>(no val2)<tr><td>afterTouch<td>amount<td>(no val2)<tr><td>pitchBend<td>depends on pitchBendMode<td></table>
+<strong>metaEvents</strong>
+<p>an array containing all META events as arrays. Format:
+<p><strong>[ trackNumber, absTime, type, [values] / value / string ]</strong>
+<p>The absTime represents the abslute time at which the event takes place. In the Standard MIDI file format time values are always relative to the previous event. For convenience reasons the <code class='code prettyprint lang-sc'>SimpleMIDIFile</code> class converts these to absolute times when reading a file.
+<p>The format of last item in the array above depends on the type of the event:
+<p>types of which the last item is a string<pre class='code prettyprint lang-sc'>\text
+\copyright
+\trackName
+\instName
+\lyrics
+\marker
+\cuePoint</pre>
+
+<p>types of which the last item is a value<pre class='code prettyprint lang-sc'>\sequenceNumber
+\tempo -&gt; tempo in beats per minute</pre>
+
+<p>types of which the last item is an array of values<pre class='code prettyprint lang-sc'>\timeSignature
+\keySignature
+\sequencerSpecific
+\midiChannelPrefix</pre>
+
+<p>types of which the last item something else<pre class='code prettyprint lang-sc'>\smpteOffset -&gt; a SMPTE
+\endOfTrack -&gt; nil</pre>
+
+<p>there can be unknown types of meta events. They have status byte number instead of a symbol in the 'type' slot of the array
+<p><strong>tempo</strong>
+<p>a global tempo indicator in bpm. If there's one or more tempo events in the metaEvents, tempo will always indicate the tempo of the first one found. The tempo mapping functionality uses the tempo events instead of this value. Setting the tempo with tempo_ doesn't add or change any tempo event ( a MIDI file can but doesn't need to contain a tempo event ). To get the tempo again from the metaEvents if their there use getTempo.
+<p><strong>timeMode</strong>
+<p>can be 'ticks' or 'seconds'. Defaults to 'ticks'. This affects all time information contained in the midiEvents and metaEvents. Whenever the timeMode is switched all time data will be converted.
+<p><em>ticks</em>
+<p>ticks are the standard MIDI file format for time data. The duration of one tick depends on the division and tempo at that specific point.
+<p><em>seconds</em>
+<p>seconds are absolute seconds, not influenced by tempo or division
+<p><strong>division</strong>
+<p>number of 'ticks' per quarter note. This should usually be 1024. Change it only when you experience problems with specific sequencer software (there seem to be some which use different divisions)
+<p><strong>format</strong>
+<p>can be 0, 1 or 2 (single, multi or pattern oriented)
+<p><em>0</em>
+<p> format 0 files typically have all data in the first track (0)
+<p><em>1</em>
+<p> format 1 files typically have al global metaData ins the first track (0)  and all midi data in the following tracks (1..). A trackName metaEvent  in track 0 is usually interpreted as the song name
+<p><em>2</em>
+<p> format 2 is not very common. Works the same as format 1, but is meant for  separate patterns in one file, contained in sequences (tracks)
+<p>Empty SimpleMIDIFiles need to be inited as format 0 or 1 first, using the init0 and init1 methods
+<p><strong>tracks</strong>
+<p>number of tracks used. Can be fetched from midiEvents using the adjustTracks method
+<p><strong>pitchBendMode</strong>
+<p>can be <code class='code prettyprint lang-sc'>'int8'</code>, <code class='code prettyprint lang-sc'>'int16'</code> or <code class='code prettyprint lang-sc'>'float'</code>. The default is <code class='code prettyprint lang-sc'>'int8'</code>. When the pitchBendMode is changed all existing values are converted.
+<p><em>int8</em>
+<p> pitchbend stored as array of 2 int8 values (0-127), as stored in the midifile
+<p><em>int16</em>
+<p> pitchbend stored as single int16 value (0-16383)
+<p><em>float</em>
+<p> pitchbend stored as floating point values (-1.0 - 1.0)<h3><a class='anchor' name='Methods'>Methods</a></h3>
+<pre class='code prettyprint lang-sc'>   creation
+   *new ( pathname )
+
+   initiation
+      init0 ( inTempo, timeSignature )
+   init1 ( inTracks, inTempo, timeSignature ) // minimum tracks: 2; first is metaData
+
+   read / write
+   *read ( pathname )
+   read
+
+   write ( newFileName )
+
+   pattern support
+   p ( inst, amp )
+   fromPattern ( pattern, maxEvents = 200, maxAmp = 0.2, startTime = 0 )
+   generatePatternSeqs // returns sequenceable [note, dur] data in an array
+
+   correction
+   adjustTracks // adjust number of tracks according to midi data
+   adjustEndOfTrack ( track, wait )
+   correctTempoEvents ( removeDuplicates, removeDoubles )
+   sortMIDIEvents // sort events on time and track
+   sortMetaEvents
+   getTempo
+
+   conversion / processing
+   convertNoteOns ( noteOffVelo )
+   convertNoteOffs
+
+   shiftTime ( deltaTime )
+
+   selection
+   midiTrackEvents ( trackNumber )
+   midiChannelEvents ( channel, track )
+   midiTrackTypeEvents ( track, type, channel )
+   midiTypeEvents ( args )
+
+   noteEvents ( channel, track )
+   noteOnEvents ( channel, track )
+   realNoteOnEvents ( channel, track )
+   noteOffEvents ( channel, track )
+   firstNoteOnTrack ( track )
+
+   pitchBendEvents ( channel, track )
+   afterTouchEvents ( channel, track )
+   controllerEvents ( cc, channel, track )
+   ccEvents ( cc, channel, track )
+   modulationEvents ( channel, track )
+   breathEvents ( channel, track )
+   volumeEvents ( channel, track )
+   panEvents ( channel, track )
+   expressionEvents ( channel, track )
+   damperEvents ( channel, track )
+
+   metaTrackEvents ( trackNumber )
+   timeSignatureEvents
+   keySignatureEvents
+   smpteOffsetEvents
+   tempoEvents
+   endOfTrack ( track )
+
+   converted selection to different array formats or Classes
+
+   noteSustainEvents( channel, track )
+       // noteSustainEvents returns events in this form:
+       // [track, absTime, \noteOn, channel, note, velo, dur, upVelo]
+
+   midiDeltaEvents ( track, type, channel )
+   midiDeltaCCEvents ( track, cc, channel )
+
+   timeSignatures
+   keySignatures
+   trackNames
+   instNames
+
+   midiTracks
+   metaTracks
+
+   asDicts (  )
+   asNoteDicts ( channel, track )
+
+   envFromType ( track, type, channel )
+   envFromCC ( track, cc, channel )
+
+   extraction of single values
+   trackName ( track )
+   instName ( track )
+   length
+   smpteOffset
+
+   timing methods (converted selection, extraction)
+   tempi
+   tempoMap
+   tempoEnv
+
+   beatAtTime ( time )
+   timeAtBeat ( beat )
+
+   tempoAtTime ( time )
+
+   timeSignatureAsArray
+
+   measureAtBeat ( beat, measureFormat )
+   measureAtTime ( time, measureFormat )
+   beatAtMeasure ( measure, measureFormat )
+   timeAtMeasure ( measure, measureFormat )
+
+   addition of events
+   addMIDIEvent ( event, sort )
+   addAllMIDIEvents ( events, sort )
+   addMIDIEventToTrack ( event, track, sort )
+   addAllMIDIEventsToTrack ( events, track, sort )
+   addMIDITypeEvent ( type, channel, args, absTime, track, sort )
+   addAllMIDITypeEvents ( type, channel, args, absTime, track, sort )
+   addNote ( noteNumber, velo, startTime, dur, upVelo, channel, track, sort )
+   addCC ( cc, val, startTime, channel, track )
+
+   addMetaEvent ( event, sort )
+   addTrack ( name )
+   addTimeSignature ( div, denom, time, sort, removeOld )
+   addTimeSignatureString ( string, time, sort, removeOld )
+   addTempo ( tempo, time, sort, removeOld )
+
+   setTrackName ( name, track )
+   setInstName ( name, track )
+   setTempo ( newTempo )
+
+   removal
+   removeMetaEvents ( type, time, track )
+   removeTimeSignature ( time, doIt )
+   removeTempo ( time, doIt )
+
+   analysis
+   analyzeTypes
+   analyzeMetaTypes
+   analyzeChannels ( type )
+   analyzeChannel ( channel, track )
+   analyzeUsedChannels ( track )
+   analyzeUsedTracks
+   analyzeUsedEvents
+   analyzeTracks ( type )
+   analyzeCC
+   analyzeCCTracks
+
+   usedChannels ( track )
+   usedTracks ( channel )
+
+   countMIDIEvents ( type, track, channel )
+
+   info</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Programming Concepts 2.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Workshops/Programming Concepts 2.schelp</a><br>link::Workshops/Programming Concepts 2::<br>sc version: 3.8.0</div></div></body></html>
