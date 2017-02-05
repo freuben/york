@@ -95,7 +95,7 @@ Ppar([~par1, ~par2, ~par3]).play;
 <li>e.g. freq or midinote to create frequencies<li>dur for duration<li>amp for amplitude<li>instrument for instrument</ul>
 
 <p>You can find more information on the types of useful Events available <a href="./../Workshops/Patterns, Effects and Ndefs.html#Events%20and%20Patterns">below</a>.
-<p>To play default values of <code class='code prettyprint lang-sc'>Pbind</code>:<pre class='code prettyprint lang-sc'>a = Pbind.new.play   // if no additional arguments, new method must explicitedly be used
+<p>To play default values of <code class='code prettyprint lang-sc'>Pbind</code>:<pre class='code prettyprint lang-sc'>a = Pbind.new.play   // if no additional arguments, new method must explicitly be used
 a.stop</pre>
 
 <p>to change duration:<pre class='code prettyprint lang-sc'>Pbind(\dur,0.125).play</pre>
@@ -263,7 +263,7 @@ a.nextN(10);
 
 <p>n may also be a pattern so that it can vary each iteration.<pre class='code prettyprint lang-sc'>(
 p = Prand((48 ..72), inf);
-d = Pstutter(Prand((1..5),inf), Prand([0.1,0.15,0.2,0.3], inf)); //amount of repetitions varys each iteration
+d = Pstutter(Prand((1..5),inf), Prand([0.1,0.15,0.2,0.3], inf)); //amount of repetitions varies each iteration
 Pbind(\instrument, \perkysine, \midinote, p, \dur, d, \amp, 0.1).play;
 )</pre>
 
@@ -387,8 +387,16 @@ Pbind(
 <h2><a class='anchor' name='Events%20and%20Patterns'>Events and Patterns</a></h2>
 
 <p>It's important to understand that <code class='code prettyprint lang-sc'>Pbind</code> is doing some things for you behind the scenes.
-<p>Patterns use Events, which affect the behaviour and sound quality of the output. Here is an example:
-<p>( Pbind(  \freq, Pseq([440, 660, 990, 880, 770], inf),     // frequency in hertz  \dur, Pseq([1.0, 0.5],inf),			              // duration of event in beats  \legato, 0.5,							              // proportion of inter onset time to play  \pan, Pseq([0.5, -0.5],inf),  \instrument, \default ).play; )
+<p>Patterns use Events, which affect the behaviour and sound quality of the output. Here is an example:<pre class='code prettyprint lang-sc'>(
+Pbind(
+    \freq, Pseq([440, 660, 990, 880, 770], inf),     // frequency in hertz
+    \dur, Pseq([1.0, 0.5],inf),                          // duration of event in beats
+    \legato, 0.5,                                          // proportion of inter onset time to play
+    \pan, Pseq([0.5, -0.5],inf),
+    \instrument, \default
+).play;
+)</pre>
+
 <p>You can see the default properties (or keys) of Events by looking at the defaults defined in the class.<pre class='code prettyprint lang-sc'>[Meta_Event:makeParentEvents] //cmd + i</pre>
 <h3><a class='anchor' name='Useful%20keys%20for%20notes'>Useful keys for notes</a></h3>
 
@@ -445,7 +453,7 @@ mtranspose:    0,    // modal transposition of degree
 gtranspose:    0.0    // gamut transposition of note within a ~stepsPerOctave e.t. scale
 ctranspose:    0.0    // chromatic transposition of midinote within 12 tone e.t. scale
 
-octave:        5.0    // octave offest of note
+octave:        5.0    // octave offset of note
 root:        0.0    // root of the scale
 degree:        0    // degree in scale
 scale:        #[0, 2, 4, 5, 7, 9, 11]    // diatonic major scale
@@ -507,7 +515,7 @@ a.stop;
 a.play;
 a.stop;</pre>
 
-<p>You can use <code class='code prettyprint lang-sc'>Pset</code>, to set a different parmeter of another pattern.<pre class='code prettyprint lang-sc'>Pset(name, value, pattern)
+<p>You can use <code class='code prettyprint lang-sc'>Pset</code>, to set a different parameter of another pattern.<pre class='code prettyprint lang-sc'>Pset(name, value, pattern)
 
 (
 ~notepat = Pseq([60,64,66,69,67,64,60,57], inf);
@@ -526,7 +534,7 @@ Pbindf(~melodypat, \dur, Pseq([0.75,0.5,0.5,0.25,0.75,0.5,0.5,0.25].scramble, in
 
 <p>Now, let's start to do some pattern live coding (changing patterns on the fly). This is a lot of fun and can be useful for your projects! For this, we need a class called <code class='code prettyprint lang-sc'>Pdef</code>
 <p><code class='code prettyprint lang-sc'>Pdef(key, pat)</code>
-<p>Creates a pattern definition that you can change. When you change the content of Pdef, the pattern definition propagets through all streams.<pre class='code prettyprint lang-sc'>(
+<p>Creates a pattern definition that you can change. When you change the content of Pdef, the pattern definition propagates through all streams.<pre class='code prettyprint lang-sc'>(
 ~melodypat = Pbind(
         [\midinote, \dur],
         Prand([
@@ -553,7 +561,7 @@ Pdef(\mypattern, Ppar([ ~melodypat2, ~basspat2],inf)).quant(4); //quantize
 a.stop;</pre>
 <h3><a class='anchor' name='Scales%20and%20Tuning'>Scales and Tuning</a></h3>
 
-<p>Another exmple, a variation on the minimalist one above. This example uses the <code class='code prettyprint lang-sc'>Scale</code> and <code class='code prettyprint lang-sc'>Tuning</code> classes. This classes can save you some time counting intervals and figuring tuning ratios. Basically, SC makes the calculations for you! Each class has many different types of Scales and Tuning systems. Check the helpfil of both clases!
+<p>Another example, a variation on the minimalist one above. This example uses the <code class='code prettyprint lang-sc'>Scale</code> and <code class='code prettyprint lang-sc'>Tuning</code> classes. These classes can save you some time counting intervals and figuring tuning ratios. Basically, SC makes the calculations for you! Each class has many different types of Scales and Tuning systems. Check the helpfile of both classes!
 <p>If you want to know which Scales and Tuning are available, evaluate the code below:<pre class='code prettyprint lang-sc'>Scale.directory;
 Tuning.directory;</pre>
 
@@ -631,7 +639,7 @@ Pdef(\pattern, Ppar([~pat2,~pat4], inf));
 
 <p>We just were introduced to <code class='code prettyprint lang-sc'>Pdef</code>: a pattern <strong>definition</strong>. Previously we've also talked about <code class='code prettyprint lang-sc'>SynthDef</code>: a synthesis definition. In SC, there are many types of <strong>definitions</strong>. A definition is a class that is characterised by having a key: a way of naming an instance of a class with a <code class='code prettyprint lang-sc'>Symbol</code>. Symbols are like strings, but they are not a collection of letters, but a single word expressed like this: <code class='code prettyprint lang-sc'>\symbol</code>. Instead of having to use many variables to define an instance of a class, you can define it with a key. Then SC remembers that instance and you can start changing it. In the case of <code class='code prettyprint lang-sc'>Pdef</code>, we used the key to define a pattern behaviour that then we can access and change.
 <p>Ndefs, are <code class='code prettyprint lang-sc'>NodeProxy</code> definitions. In electronic and computer music, we deal a lot with signals and the different 'routes' they might take and how we might combine them. If you are familiar with the recording process, you know that the signal path is important for what you want to achieve. If you have used a mixer, whether it is an analogue mixer or a mixer in your DAW, you are probabily familiar with the idea of Buses and Groups. You can route different channels through Buses. You can join various channels together with Groups.
-<p>In SC, we have the Server, which plays the audio. We keep reference of what it playing in the servers through what is called a Node. SC keeps what's called a Node tree in the server to keep reference of everything that's playing in it. You can look at the Node tree from the server's drop down menu if you click on the server information in the left corner. SC also has a <code class='code prettyprint lang-sc'>Bus</code> class and a <code class='code prettyprint lang-sc'>Group</code> class for doing more complex routing. But we have to do a lot of bookeeping of which buses and groups we are using. Ndefs do that bookkeeping for us! And belive me, when things get a bit more complicated, that is a great thing! So an <code class='code prettyprint lang-sc'>Ndef</code> helps us with signal routing in a very intuitive way, and what's best, you can do this routing on the fly! Cool ha!
+<p>In SC, we have the Server, which plays the audio. We keep reference of what it playing in the servers through what is called a Node. SC keeps what's called a Node tree in the server to keep reference of everything that's playing in it. You can look at the Node tree from the server's drop down menu if you click on the server information in the left corner. SC also has a <code class='code prettyprint lang-sc'>Bus</code> class and a <code class='code prettyprint lang-sc'>Group</code> class for doing more complex routing. But we have to do a lot of bookkeeping of which buses and groups we are using. Ndefs do that bookkeeping for us! And believe me, when things get a bit more complicated, that is a great thing! So an <code class='code prettyprint lang-sc'>Ndef</code> helps us with signal routing in a very intuitive way, and what's best, you can do this routing on the fly! Cool ha!
 <p>Ok, here's how Ndefs work:
 <p>First, we define and play a Node definition<pre class='code prettyprint lang-sc'>Ndef(\sound).play;</pre>
 
@@ -740,7 +748,7 @@ Ndef(\delay, {var source, delay;
 });
 )</pre>
 
-<p>Let's add <code class='code prettyprint lang-sc'>Ndef(\delay)</code> to the master Ndef.<div class='note'><span class='notelabel'>NOTE:</span> Noitice multichannel expanssion through <code class='code prettyprint lang-sc'>!2</code></div>
+<p>Let's add <code class='code prettyprint lang-sc'>Ndef(\delay)</code> to the master Ndef.<div class='note'><span class='notelabel'>NOTE:</span> Noitice multichannel expansion through <code class='code prettyprint lang-sc'>!2</code></div>
 <p><pre class='code prettyprint lang-sc'>Ndef(\master, {Ndef.ar(\delay,1)!2});</pre>
 
 <p>With <code class='code prettyprint lang-sc'>ServerMeter</code>, we can monitor our outputs.<pre class='code prettyprint lang-sc'>ServerMeter.new(s)</pre>
@@ -778,7 +786,7 @@ Ndef(\dist, {arg override=3, amp=1;
 <p>Before we continue with Ndefs, lets review Pdefs one more time, just to make sure we understand what they do. We're also introducing <code class='code prettyprint lang-sc'>Pdefn</code>, a similar class to <code class='code prettyprint lang-sc'>Pdef</code> but allows you to store <strong>value patterns</strong> (<code class='code prettyprint lang-sc'>Pdef</code> is used for <strong>event patterns</strong>).<pre class='code prettyprint lang-sc'>Pdef(\x, Pbind(\note, Pbrown(0, 6, 0.1, inf)));</pre>
 
 <p><strong>Quantising</strong>
-<p>When quantising to a larger number of beats, the changes become very slow if one has to wait for the next beat. Providing anoutset quant value is a way to make the change so that it appears as if it had been done at the previous grid point already. The stream is fast forwarded to the current position relative to the quant grid. Providing a number larger than zero, the next possible quant point is used as outset.
+<p>When quantising to a larger number of beats, the changes become very slow if one has to wait for the next beat. Providing an outset quant value is a way to make the change so that it appears as if it had been done at the previous grid point already. The stream is fast forwarded to the current position relative to the quant grid. Providing a number larger than zero, the next possible quant point is used as outset.
 <p>For example, if quant is 32, and one has just missed the first beat when changing the pattern, one has to wait for 32 beats until the change happens. Using an outset of 1, it is assumed that you had already changed the pattern at the first beat, the stream is fast forwarded to the time it would be at now if you had done so. The new pattern is inserted at the next beat (outset=1).<pre class='code prettyprint lang-sc'>Pdef(\x).quant_([8, 0, 0, 1]); //[quant, phase, timingOffset, outset]</pre>
 
 <p><strong>Play with Pdef</strong>
@@ -817,7 +825,7 @@ Pdefn(\x, Pseq([0, 3, 3, 7], inf) + Pseq([0, [0, 3], [0, 5, 7]], inf));</pre>
 
 <p>Let's give this <code class='code prettyprint lang-sc'>Ndef</code> a <code class='code prettyprint lang-sc'>fadeTime</code> of 1 second:<pre class='code prettyprint lang-sc'>Ndef(\sound).fadeTime = 1;</pre>
 
-<p>We're adding the <code class='code prettyprint lang-sc'>Ndef(\a)</code>, which is emty and modulating the amplitude with the mouse<pre class='code prettyprint lang-sc'>Ndef(\sound, {Ndef(\a).ar*MouseX.kr(0,1)});</pre>
+<p>We're adding the <code class='code prettyprint lang-sc'>Ndef(\a)</code>, which is empty and modulating the amplitude with the mouse<pre class='code prettyprint lang-sc'>Ndef(\sound, {Ndef(\a).ar*MouseX.kr(0,1)});</pre>
 
 <p>Now let's put <code class='code prettyprint lang-sc'>Pdef(\a)</code> into <code class='code prettyprint lang-sc'>Ndef(\a)</code><pre class='code prettyprint lang-sc'>Ndef(\a, Pdef(\a));</pre>
 
@@ -874,7 +882,7 @@ Pdefn(\x, Pseq([0, 3, 3, 7], inf) + Pseq([0, [0, 3], [0, 5, 7]], inf));</pre>
 <p>Drop contents of <code class='code prettyprint lang-sc'>Ndef(\sound)</code><pre class='code prettyprint lang-sc'>Ndef(\sound, 0)</pre>
 <h3><a class='anchor' name='Effects%20and%20mixing%20with%20Ndefs'>Effects and mixing with Ndefs</a></h3>
 
-<p>Ndefs provide a versitle and powerful way of using effects and mixing audio. You can filter and mix signals and change these configurations on the fly! As an analogy: imagine being able to recable/repatch you gear on the fly at the same time having the ability to modify your gear (effects, synths, etc.), all of this while you are playing the sounds! You can do this with Ndefs and this is powerful stuff (and of course it can be very useful for performance!).
+<p>Ndefs provide a versatile and powerful way of using effects and mixing audio. You can filter and mix signals and change these configurations on the fly! As an analogy: imagine being able to recable/repatch you gear on the fly at the same time having the ability to modify your gear (effects, synths, etc.), all of this while you are playing the sounds! You can do this with Ndefs and this is powerful stuff (and of course it can be very useful for performance!).
 <p><strong>Filtering</strong>:<pre class='code prettyprint lang-sc'>Ndef(\filter, {Ndef(\sine).ar * PinkNoise.ar(3)})
 
 (
