@@ -19,8 +19,8 @@
 <div id='summary'>associative collection mapping keys to values</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Collections/<a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Collections/Dictionary.sc'>Dictionary.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Set.html">Set</a> : <a href="../Classes/Collection.html">Collection</a> : <a href="../Classes/Object.html">Object</a></div>
-<div id='subclasses'>Subclasses: <a href="../Classes/IdentityDictionary.html">IdentityDictionary</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/Dictionary.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/Dictionary.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Set.html">Set</a> : <a href="../Classes/Collection.html">Collection</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='subclasses'>Subclasses: <a href="../Classes/IdentityDictionary.html">IdentityDictionary</a>, <a href="../Classes/TwoWayDictionary.html">TwoWayDictionary</a></div>
 <div id='related'>See also: <a href="./../Classes/Environment.html">Environment</a>, <a href="./../Classes/Event.html">Event</a></div>
 </div>
 <div id='toc'>
@@ -28,9 +28,9 @@
 <ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#*new'>new</a> </li>
 <li class='toc3'><a href='#*newFrom'>newFrom</a> </li>
-<li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
 </ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
-<ul class='toc'><li class='toc2'><a href='#Adding and Removing'>Adding and Removing</a></li>
+<ul class='toc'><li class='toc2'><a href='#Adding%20and%20Removing'>Adding and Removing</a></li>
 <ul class='toc'><li class='toc3'><a href='#-add'>add</a> </li>
 <li class='toc3'><a href='#-put'>put</a> </li>
 <li class='toc3'><a href='#-removeAt'>removeAt</a> </li>
@@ -56,7 +56,7 @@
 <li class='toc3'><a href='#-associationsDo'>associationsDo</a> </li>
 <li class='toc3'><a href='#-pairsDo'>pairsDo</a> </li>
 <li class='toc3'><a href='#-invert'>invert</a> </li>
-</ul><li class='toc2'><a href='#Other instance methods'>Other instance methods</a></li>
+</ul><li class='toc2'><a href='#Other%20instance%20methods'>Other instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-order'>order</a> </li>
 <li class='toc3'><a href='#-powerset'>powerset</a> </li>
 <li class='toc3'><a href='#-merge'>merge</a> </li>
@@ -64,21 +64,32 @@
 <li class='toc3'><a href='#-asSortedArray'>asSortedArray</a> </li>
 <li class='toc3'><a href='#-asKeyValuePairs'>asKeyValuePairs</a> </li>
 <li class='toc3'><a href='#-embedInStream'>embedInStream</a> </li>
-</ul><li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
-<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+</ul><li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented%20instance%20methods'>Undocumented instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-++'>++</a> </li>
+<li class='toc3'><a href='#-asArgsArray'>asArgsArray</a> </li>
+<li class='toc3'><a href='#-asArgsDict'>asArgsDict</a> </li>
+<li class='toc3'><a href='#-asArgsString'>asArgsString</a> </li>
 <li class='toc3'><a href='#-asDict'>asDict</a> </li>
 <li class='toc3'><a href='#-asPairs'>asPairs</a> </li>
+<li class='toc3'><a href='#-asSortedArgsArray'>asSortedArgsArray</a> </li>
 <li class='toc3'><a href='#-associationAtFail'>associationAtFail</a> </li>
 <li class='toc3'><a href='#-choose'>choose</a> </li>
+<li class='toc3'><a href='#-dopostln'>dopostln</a> </li>
+<li class='toc3'><a href='#-findKeysForValue'>findKeysForValue</a> </li>
 <li class='toc3'><a href='#-fixCollisionsFrom'>fixCollisionsFrom</a> </li>
+<li class='toc3'><a href='#-flattenArgsDict'>flattenArgsDict</a> </li>
 <li class='toc3'><a href='#-grow'>grow</a> </li>
 <li class='toc3'><a href='#-gui'>gui</a> </li>
 <li class='toc3'><a href='#-includes'>includes</a> </li>
 <li class='toc3'><a href='#-includesKey'>includesKey</a> </li>
+<li class='toc3'><a href='#-isArgsArray'>isArgsArray</a> </li>
+<li class='toc3'><a href='#-isArgsDict'>isArgsDict</a> </li>
 <li class='toc3'><a href='#-isAssociationArray'>isAssociationArray</a> </li>
 <li class='toc3'><a href='#-keysValuesArrayDo'>keysValuesArrayDo</a> </li>
 <li class='toc3'><a href='#-mergeItem'>mergeItem</a> </li>
+<li class='toc3'><a href='#-postItems'>postItems</a> </li>
+<li class='toc3'><a href='#-postSorted'>postSorted</a> </li>
 <li class='toc3'><a href='#-printItemsOn'>printItemsOn</a> </li>
 <li class='toc3'><a href='#-remove'>remove</a> </li>
 <li class='toc3'><a href='#-removeAtFail'>removeAtFail</a> </li>
@@ -91,7 +102,7 @@
 <li class='toc3'><a href='#-transformEvent'>transformEvent</a> </li>
 <li class='toc3'><a href='#-writeSCMIRZArchive'>writeSCMIRZArchive</a> </li>
 </ul></ul><li class='toc1'><a href='#Overview'>Overview</a></li>
-<ul class='toc'><li class='toc2'><a href='#The Difference between Dictionary, IdentityDictionary, Environment, and Event'>The Difference between Dictionary, IdentityDictionary, Environment, and Event</a></li>
+<ul class='toc'><li class='toc2'><a href='#The%20Difference%20between%20Dictionary,%20IdentityDictionary,%20Environment,%20and%20Event'>The Difference between Dictionary, IdentityDictionary, Environment, and Event</a></li>
 <ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
 <p>A Dictionary is an associative collection mapping keys to values. Two keys match if they are <strong>equal</strong>. (i.e. == returns true.)
@@ -108,9 +119,9 @@
 <p>any Object that responds to keysValuesDo (usually a List or an Array).</table><h4>Discussion:</h4>
 
 <p>A new Dictionary can also be created from an array of <a href="./../Classes/Association.html">Association</a>s:<pre class='code prettyprint lang-sc'>Dictionary.with(*[\a-&gt;1,\b-&gt;2,\c-&gt;3])</pre>
-</div><h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
+</div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
-<h3><a class='anchor' name='Adding and Removing'>Adding and Removing</a></h3>
+<h3><a class='anchor' name='Adding%20and%20Removing'>Adding and Removing</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-add' href='./../Overviews/Methods.html#add'>add</a> (<span class='argstr'>anAssociation</span>)</h3>
 <div class='method'>
 <p>Add <strong>anAssociation</strong> to the Dictionary. If the key value pair already exists in the Dictionary, the key's value will be replaced.<pre class='code prettyprint lang-sc'>(
@@ -243,7 +254,7 @@ d.associationsDo { |assoc| postln("the association: " ++ assoc) };</pre>
 <div class='method'>
 <p>Return a new dictionary with all the values as keys and vice versa.<pre class='code prettyprint lang-sc'>d = (a: "hello", b: "robot", c: [1, 2, 3]);
 d.invert;</pre>
-</div><h3><a class='anchor' name='Other instance methods'>Other instance methods</a></h3>
+</div><h3><a class='anchor' name='Other%20instance%20methods'>Other instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-order' href='./../Overviews/Methods.html#order'>order</a> (<span class='argstr'>func</span>)</h3>
 <div class='method'>
 <p>Return an array of keys which corresponds to the order of the values of the dictionary.<pre class='code prettyprint lang-sc'>d = (a: 5, b: 7, c: 1, d: 0);
@@ -301,7 +312,7 @@ b = (note: [3, 5]);
 Pseq([a, b]).play;</pre>
 
 <p>If a key "embedInStream" is given, use this function instead. The behaviour of the event can be configured easily this way.
-<p>The arguments event (the reciever) and inevent (the inevent) are passed to the function.<div class='note'><span class='notelabel'>NOTE:</span> In infinite patterns, you <strong>must</strong> call yield or embedInStream in the function, otherwise it will loop forever.</div><pre class='code prettyprint lang-sc'>(
+<p>The arguments event (the receiver) and inevent (the inevent) are passed to the function.<div class='note'><span class='notelabel'>NOTE:</span> In infinite patterns, you <strong>must</strong> call yield or embedInStream in the function, otherwise it will loop forever.</div><pre class='code prettyprint lang-sc'>(
 a = (
     pattern: Pbind(\note, Pgeom(1, 1.1, { 20.rand }), \dur, 0.05),
     embedInStream: { |event, inevent| event[\pattern].embedInStream(inevent) }
@@ -331,38 +342,60 @@ d = (
 d.rout.((z:999));
 d.rout.((z:1, a:0));
 d.rout.(());</pre>
-</table></div><h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
-<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+</table></div><h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented%20instance%20methods'>Undocumented instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-++' href='./../Overviews/Methods.html#++'>++</a> (<span class='argstr'>dict</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asArgsArray' href='./../Overviews/Methods.html#asArgsArray'>asArgsArray</a> (<span class='argstr'>check: false</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asArgsDict' href='./../Overviews/Methods.html#asArgsDict'>asArgsDict</a> (<span class='argstr'>check: false</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asArgsString' href='./../Overviews/Methods.html#asArgsString'>asArgsString</a> (<span class='argstr'>delim: ","</span>, <span class='argstr'>equalSign: "="</span>, <span class='argstr'>prepend: "arg "</span>, <span class='argstr'>append: ";"</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asDict' href='./../Overviews/Methods.html#asDict'>asDict</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asPairs' href='./../Overviews/Methods.html#asPairs'>asPairs</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asSortedArgsArray' href='./../Overviews/Methods.html#asSortedArgsArray'>asSortedArgsArray</a> (<span class='argstr'>check: false</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-associationAtFail' href='./../Overviews/Methods.html#associationAtFail'>associationAtFail</a> (<span class='argstr'>argKey</span>, <span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-choose' href='./../Overviews/Methods.html#choose'>choose</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-dopostln' href='./../Overviews/Methods.html#dopostln'>dopostln</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Posting/extObject-dopost.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Posting/extObject-dopost.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-findKeysForValue' href='./../Overviews/Methods.html#findKeysForValue'>findKeysForValue</a> (<span class='argstr'>argValue</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Dictionary/extDictionary-findKeysForValue.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Dictionary/extDictionary-findKeysForValue.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-fixCollisionsFrom' href='./../Overviews/Methods.html#fixCollisionsFrom'>fixCollisionsFrom</a> (<span class='argstr'>index</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-flattenArgsDict' href='./../Overviews/Methods.html#flattenArgsDict'>flattenArgsDict</a> (<span class='argstr'>check: false</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-grow' href='./../Overviews/Methods.html#grow'>grow</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-gui' href='./../Overviews/Methods.html#gui'>gui</a> ( <span class='argstr'>... args</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extJITgui.sc'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extJITgui.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extJITgui.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extJITgui.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-includes' href='./../Overviews/Methods.html#includes'>includes</a> (<span class='argstr'>item1</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-includesKey' href='./../Overviews/Methods.html#includesKey'>includesKey</a> (<span class='argstr'>key</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-isArgsArray' href='./../Overviews/Methods.html#isArgsArray'>isArgsArray</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-isArgsDict' href='./../Overviews/Methods.html#isArgsDict'>isArgsDict</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isAssociationArray' href='./../Overviews/Methods.html#isAssociationArray'>isAssociationArray</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-keysValuesArrayDo' href='./../Overviews/Methods.html#keysValuesArrayDo'>keysValuesArrayDo</a> (<span class='argstr'>argArray</span>, <span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-mergeItem' href='./../Overviews/Methods.html#mergeItem'>mergeItem</a> (<span class='argstr'>key</span>, <span class='argstr'>val</span>, <span class='argstr'>func</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-postItems' href='./../Overviews/Methods.html#postItems'>postItems</a> (<span class='argstr'>nPerLine</span>, <span class='argstr'>keyDelim: " : "</span>, <span class='argstr'>delim: ""</span>, <span class='argstr'>newLinePre: "	"</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Posting/extVarious-postItems.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Posting/extVarious-postItems.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-postSorted' href='./../Overviews/Methods.html#postSorted'>postSorted</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-printItemsOn' href='./../Overviews/Methods.html#printItemsOn'>printItemsOn</a> (<span class='argstr'>stream</span>, <span class='argstr'>itemsPerLine: 5</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-remove' href='./../Overviews/Methods.html#remove'>remove</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-removeAtFail' href='./../Overviews/Methods.html#removeAtFail'>removeAtFail</a> (<span class='argstr'>key</span>, <span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-removeFail' href='./../Overviews/Methods.html#removeFail'>removeFail</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-scanFor' href='./../Overviews/Methods.html#scanFor'>scanFor</a> (<span class='argstr'>argKey</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-softPut' href='./../Overviews/Methods.html#softPut'>softPut</a> (<span class='argstr'>param</span>, <span class='argstr'>val</span>, <span class='argstr'>within: 0.025</span>, <span class='argstr'>mapped: true</span>, <span class='argstr'>lastVal</span>, <span class='argstr'>spec</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-softSet' href='./../Overviews/Methods.html#softSet'>softSet</a> (<span class='argstr'>param</span>, <span class='argstr'>val</span>, <span class='argstr'>within: 0.025</span>, <span class='argstr'>mapped: true</span>, <span class='argstr'>lastVal</span>, <span class='argstr'>spec</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/GUI/extSoftSet.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sortedKeysValuesDo' href='./../Overviews/Methods.html#sortedKeysValuesDo'>sortedKeysValuesDo</a> (<span class='argstr'>function</span>, <span class='argstr'>sortFunc</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-storeItemsOn' href='./../Overviews/Methods.html#storeItemsOn'>storeItemsOn</a> (<span class='argstr'>stream</span>, <span class='argstr'>itemsPerLine: 5</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-transformEvent' href='./../Overviews/Methods.html#transformEvent'>transformEvent</a> (<span class='argstr'>event</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeSCMIRZArchive' href='./../Overviews/Methods.html#writeSCMIRZArchive'>writeSCMIRZArchive</a> (<span class='argstr'>akv</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SCMIR/SCMIRExtensions/Classes/SCMIRFile/SCMIRZArchiveSupport.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SCMIR/SCMIRExtensions/Classes/SCMIRFile/SCMIRZArchiveSupport.sc</a></div>
 <h2><a class='anchor' name='Overview'>Overview</a></h2>
-<h3><a class='anchor' name='The Difference between Dictionary, IdentityDictionary, Environment, and Event'>The Difference between Dictionary, IdentityDictionary, Environment, and Event</a></h3>
+<h3><a class='anchor' name='The%20Difference%20between%20Dictionary,%20IdentityDictionary,%20Environment,%20and%20Event'>The Difference between Dictionary, IdentityDictionary, Environment, and Event</a></h3>
 
 <p>Often, the subclass <a href="./../Classes/Event.html">Event</a> is used as an IdentityDictionary, because there is a syntactical shortcut:<pre class='code prettyprint lang-sc'>a = (foo: 7);    // return a new Event.
 a.put(\foo, 2.718);
@@ -381,4 +414,4 @@ Dictionary["hello" -&gt; 0, "hello" -&gt; 1]; // Dictionary[ (hello -&gt; 1) ]
 // for symbols as keys, the behaviour is identical:
 Dictionary[\hello -&gt; 1, \hello -&gt; 0];
 ( \hello: 1, \hello: 0 );</pre>
-<div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/Dictionary.schelp'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/Dictionary.schelp</a><br>link::Classes/Dictionary::<br>sc version: 3.7.2</div></div></body></html>
+<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Dictionary.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Dictionary.schelp</a><br>link::Classes/Dictionary::<br>sc version: 3.8.0</div></div></body></html>
