@@ -23,11 +23,7 @@
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#Playing%20with%20UGens%202'>Playing with UGens 2</a></li>
-<ul class='toc'></ul><li class='toc1'><a href='#Buffers'>Buffers</a></li>
-<ul class='toc'><li class='toc2'><a href='#PlayBuf'>PlayBuf</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Buffer%20class'>Buffer class</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#DiskIn'>DiskIn</a></li>
-<ul class='toc'></ul></ul><li class='toc1'><a href='#Delays'>Delays</a></li>
+<li class='toc1'><a href='#Delays'>Delays</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#Additive%20Synthesis'>Additive Synthesis</a></li>
 <ul class='toc'><li class='toc2'><a href='#Envelopes:'>Envelopes:</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Wavetable%20synthesis'>Wavetable synthesis</a></li>
@@ -43,92 +39,6 @@
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Dynamic%20waveshaping'>Dynamic waveshaping</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#WaveTerrain%20Synthesis.'>WaveTerrain Synthesis.</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='Playing%20with%20UGens%202'>Playing with UGens 2</a></h2>
-
-<p>First, let's boot the server:<pre class='code prettyprint lang-sc'>s.boot;</pre>
-
-<p>Now let's kill it, just for fun:<pre class='code prettyprint lang-sc'>s.free;</pre>
-
-<p>You can us the shortcut <em>cmd + b</em> to boot the Server, It's easier and faster.<div class='note'><span class='notelabel'>NOTE:</span> Remember, you can boot the server with <em>cmd + b</em></div><h2><a class='anchor' name='Buffers'>Buffers</a></h2>
-<ul>
-<li><code class='code prettyprint lang-sc'>Buffers</code> are arrays of 32-bit floating point values.<li><code class='code prettyprint lang-sc'>Buffers</code> are on the server so that they can be used by synths.<li><code class='code prettyprint lang-sc'>Buffers</code> need to be allocated, filled, and at some point freed.<li><code class='code prettyprint lang-sc'>Buffers</code> can be allocated, loaded and freed while synthesis is running.<li><code class='code prettyprint lang-sc'>Buffers</code> can be used for wave tables, sample buffers, delay lines, ...</ul>
-
-<p>The number of buffers on a server is set at boot time.<pre class='code prettyprint lang-sc'>o = ServerOptions.new;
-o.numBuffers;</pre>
-<h3><a class='anchor' name='PlayBuf'>PlayBuf</a></h3>
-
-<p><code class='code prettyprint lang-sc'>PlayBuf</code> is a UGen to listen/manipulate sound files.
-<p><code class='code prettyprint lang-sc'>PlayBuf</code> - sample playback oscillator (numChannels, bufnum, rate, trigger, startPos, loop)<ul>
-<li><em>rate</em>: 1.0 is the server's sample rate, 2.0 is one octave up, 0.5 is one octave down<li><em>loop</em> = 1 is true, 0 is false</ul>
-<h3><a class='anchor' name='Buffer%20class'>Buffer class</a></h3>
-
-<p>Buffers can also be accessed with the <code class='code prettyprint lang-sc'>Buffer</code> class (which may be more convenient than the messaging style)
-<p><code class='code prettyprint lang-sc'>Buffer.read</code> allocates a buffer and reads a sound file into it.<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "/Users/freuben/Music/Stelarc/insects/apis.genista.wav");
-
-{ PlayBuf.ar(1, b.bufnum, 1, loop: 1) }.scope</pre>
-
-<p>Mouse control of rate (transposition)<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(1, b.bufnum, MouseX.kr(0.5,2), loop: 1) }.scope
-
-b.bufnum   // returns buffer number
-b.numChannels   // returns the number of channels in the buffer
-
-b.free  // return the memory and free buffer ID, IMPORTANT</pre>
-
-<p><code class='code prettyprint lang-sc'>BufRateScale</code>
-<p>File being read into a buffer may have a different sample than SC is using
-<p><code class='code prettyprint lang-sc'>BufRateScale.kr(bufnum)</code> returns a ratio to adjust the playback of the soundfile<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "sounds/a11wlk01.wav");  // sample rate of this file is 11025</pre>
-
-<p>to scale the playback:<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1) }.scope
-
-b.free</pre>
-
-<p><code class='code prettyprint lang-sc'>BufFrames</code>
-<p><code class='code prettyprint lang-sc'>BufFrames.kr(bufnum)</code> returns the current number of allocated frames
-<p>it can be used to specify starting halfway through the buffer or some place else<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "sounds/a11wlk01-44_1.aiff");
-(
-var start = 1/2;
-{ PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum),
-    startPos: BufFrames.kr(b.bufnum) * start, loop: 1)
-}.scope
-)</pre>
-
-<p>note that loop returns to the beginning in the above example
-<p>a trigger (&lt;= 0 to &gt; 0) causes the playback to start from startPos
-<p>using a trigger without looping
-<p>Impulse.kr produces a trigger with a certain frequency<pre class='code prettyprint lang-sc'>(
-    var start = 1/2;
-    { PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum),
-        Impulse.kr(1/3),
-        startPos: BufFrames.kr(b.bufnum) * start, loop: 0)
-    }.scope
-)</pre>
-
-<p>Using a trigger with looping:
-<p>the trigger should occur with a frequency that is
-<p>(serverSampleRate / numberOfFrames) * rateScale
-<p>Server's sample rate:<pre class='code prettyprint lang-sc'>s.sampleRate</pre>
-<pre class='code prettyprint lang-sc'>(
-var start = 1/2;
-{ PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum),
-    Impulse.kr(s.sampleRate / (BufFrames.kr(b.bufnum) * start) *
-        BufRateScale.kr(b.bufnum)),
-    startPos: BufFrames.kr(b.bufnum) * start, loop: 1)
-}.scope
-)
-
-b.free</pre>
-<h3><a class='anchor' name='DiskIn'>DiskIn</a></h3>
-
-<p>To continuously play longer sound file from disk. One buffer must be preloaded.
-<p>using <code class='code prettyprint lang-sc'>Buffer object</code>
-<p>(server, path, startFrame, numChannels)<pre class='code prettyprint lang-sc'>b = Buffer.cueSoundFile(s, "/Users/freuben/Music/Aleks/CONCERTRECORDING/Improvisations/StringQ_1_MONO.aif", 0, 1); //or your own path
-
-x = { DiskIn.ar(1, b.bufnum) }.play;
-
-b.close;    // close file</pre>
-
-<p>Again, note the like named instance method, but different arguments<pre class='code prettyprint lang-sc'>b.cueSoundFile("/Users/freuben/Music/Aleks/CONCERTRECORDING/Improvisations/StringQ_1_MONO.aif", 0);
-
-x.free; b.close; b.free;    // close and free</pre>
 <h2><a class='anchor' name='Delays'>Delays</a></h2>
 
 <p>Phase demonstration:<pre class='code prettyprint lang-sc'>~freq = 440;
@@ -193,7 +103,9 @@ x.free; b.close; b.free;    // close and free</pre>
     [input, delay];
 }.play //left
 )</pre>
-<h2><a class='anchor' name='Additive%20Synthesis'>Additive Synthesis</a></h2>
+
+<p>MultiTap Delay
+<p>s.boot; b = Buffer.alloc(s, s.sampleRate); ( {  MultiTap.ar(`[0.1, 0.2, 0.3, 0.4], `[0.1, 0.2, 0.4, 0.8],  Decay.ar(Dust.ar(2), 0.1, PinkNoise.ar), bufnum: b.bufnum) }.play )<h2><a class='anchor' name='Additive%20Synthesis'>Additive Synthesis</a></h2>
 <h3><a class='anchor' name='Envelopes:'>Envelopes:</a></h3>
 <pre class='code prettyprint lang-sc'>Env.new([0,1,0], [1,9]).plot; //values, time</pre>
 
