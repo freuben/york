@@ -1,0 +1,124 @@
+<html><head><title>Audio Analysis and Machine Listening</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider STUDY GUIDES (extension)</div>
+<div id='categories'><a href='./../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>Audio Analysis and Machine Listening</h1>
+<div id='summary'>Computer.play(Music, Creativity &amp; Code)</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../Computer.html">Computer.play</a>, <a href="./../Study Guides/Digital Audio.html">Digital Audio</a>, <a href="./../Study Guides/Digital Synthesis.html">Digital Synthesis</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Sound%20Analysis'>Sound Analysis</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Fourier%20Analysis'>Fourier Analysis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Fourier%20Transform'>Fourier Transform</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Fourier%20and%20Sound'>Fourier and Sound</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Spectograms'>Spectograms</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Fourier%20Analysis%20in%20more%20detail'>Fourier Analysis in more detail</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Resynthesis'>Resynthesis</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Machine%20Listening'>Machine Listening</a></li>
+<ul class='toc'><li class='toc2'><a href='#Feature%20Extraction'>Feature Extraction</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Sound%20Analysis'>Sound Analysis</a></h2>
+
+<p><strong>Why analyse audio with computers?</strong><ul>
+<li>Insight into structure of sound<li>Extraction of musical features from audio data<li>Analysis/Resynthesis Models in Digital Signal Processing<li>Interaction and Machine Listening</ul>
+
+<p><strong>Approaches to sound analysis</strong>:<ul>
+<li>General models of signal analysis (signal theory/processing, engineering &amp; mathematics)<li>Models based on human auditory system (research in biological auditory systems - modelling listening) -&gt; Machine Listening</ul>
+
+<p><strong>Machine Listening Research</strong><ul>
+<li>Models inspired on physiology of auditory system<li>Trying to reproduce some aspects of how humans listen and process sound<li>Physiological aspects of auditory system, neuroscience, cognitive science, cognitive musicology<li>Computational models of music and sound perception and cognition<li>Science &amp; Engineering Research, Signal Processing and Analysis, Music and Audio Analysis.</ul>
+
+<p><strong>Machine Listening</strong><ul>
+<li>Feature extraction<li>Sound/Music descriptors:<ul>
+<li>Sound events (onsets/segments)<li>Pitch (monophonic/polyphonic)<li>Rhythm (beat/tempo)<li>Timbal categorisations (instrument/sound recognition, noise/pitch)</ul>
+</ul>
+
+<p><strong>Analysis/Synthesis</strong><ul>
+<li>Often analysis and synthesis are coupled<li>Analysis - resynthesis<li>Synthesis models based on spectral data and its manipulation<li>Analysis, synthesis and simulation (spectral, physical, neurological)</ul>
+
+<p><strong>Spectral Analysis</strong><ul>
+<li>Visual representation of the frequency spectrum of a signal as a function of time.<li>Useful for audio and music signals.<li>Can be used as a creative tool in composition<li>Can be used for sprectral processing<li>Most common analysis in computer music is Fourier Analysis - using the <code class='code prettyprint lang-sc'>FFT</code> (Fast Fourier Transform) algorithm</ul>
+<h2><a class='anchor' name='Fourier%20Analysis'>Fourier Analysis</a></h2>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/Fourier.png'/><br><b>Joseph Fourier - cambridgeblog.org</b></div>
+
+<p><strong>Joseph Fourier</strong> was a French mathematician and physicist (1768-1830) responsible for initiating investigation of the Fourier series and its application in heat transfer and vibrations. The Fourier transform and Fourier’s law are also named in his honour. He also discovered the greenhouse effect. (wikipedia.org)
+<p><strong>Fourier Series</strong><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fourier series.png'/></div>
+<ul>
+<li>Decomposes periodic functions/signals into the infinite sum of simple oscillating functions expressed as sines and cosines.<li>The <em>Fourier Series</em> is the sum of these sinusoids that express a complex periodic function<li>Harmonic Analysis</ul>
+
+<p><div class='image'><img src='https://upload.wikimedia.org/wikipedia/commons/e/e8/Periodic_identity_function.gif'/><br><b>First 5 partials in Fourier Series - wikipedia.org</b></div>
+<h3><a class='anchor' name='Fourier%20Transform'>Fourier Transform</a></h3>
+<ul>
+<li>The <em>Fourier Transform</em> is a mathematical function (used for many scientific and engineering (and artistic!) purposes) that takes a function in time and transforms it into a new function whose argument is frequency, expressed in cycles per second.<li>The later function is the one called <em>Fourier Transform</em> and it decomposes a complex function into the <em>Fourier Series</em>.<li>The <em>Fourier Transform</em> can be reversed as well - it can take a set of sines and cosines and generate a complex function (this usually is called the <em>Inverse Fourier Transform</em>.)<li>Many scientific applications: partial differential equations, number theory, combinatorics, signal processing, imaging, probability theory, statistics, acoustics, sonar, optics, geometry, etc.<li>Fourier transformation is useful to represent signals - and yes! audio signals too!</ul>
+<h3><a class='anchor' name='Fourier%20and%20Sound'>Fourier and Sound</a></h3>
+<ul>
+<li>It is theoretically possible to take a complex sound and decompose it into a bunch of sine waves, each at a different frequency, amplitude, and phase.<li>Useful to analyse periodic sounds (harmonic/pitched sounds) but also it gives us a good representation of aperiodic sounds (noise, inharmonic sounds)<li><em>Inverse Fourier Transform</em> is great as a resynthesis tool!</ul>
+
+<p><strong>Fourier Analysis and Phase Vocoder</strong><ul>
+<li>A theory that allows any perfectly periodic sound to be broken down into the simplest possible basic oscillation (sine)<li>In the physical world, sound is not perfectly periodic though - a vibrating object can simultaneously oscillate at a number of different frequencies to make a complex vibration<li>Difference between harmonic and partial (includes harmonic and inharmonic patterns)</ul>
+
+<p><strong>Fourier Analysis in Simple Terms</strong><ul>
+<li>Despite the failure of sound ‘in the real world’ to be well-behaved and periodic, it is still possible to measure whether a sound has energy (magnitude) at any particular frequency<li>We can ‘test’ a sound beginning at a point in time, for a certain duration for each frequency we want to measure<li>By carrying a succession of these ‘tests’ at different starting points, it is possible to make a map of the sound’s frequency across time<li>Because computers have finite memory and processing resources, we don’t measure every frequency at every point<li>Instead we use a duration relative to most frequencies we want to test and carry the analysis as if the signal were periodic during that segment of time<li>As long as the signal doesn’t change during this time frame, we can get the measurements for the harmonics of the analysis frequency</ul>
+<div class='note'><span class='notelabel'>NOTE:</span> This is a very simplified explanation of Fourier Analysis... The actual mathematics of Fourier Transform is quite complicated and there are whole courses dedicated to this subject at Maths and Engineering Departments. People do their PhDs and further research in this topic, so you can imagine how vast it is!</div><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fft_class1.png'/></div>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fft_class2.png'/><br><b>FFT class at MIT - ocw.mit.edu</b></div>
+<div class='note'><span class='notelabel'>NOTE:</span> ASK JEZ, if you want some Engineering insights into FFT! In fact a lot of Jez's research is related to spectral analysis and modeling!</div><h3><a class='anchor' name='Spectograms'>Spectograms</a></h3>
+<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram1.png'/></div>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram2.png'/></div>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram3.png'/></div>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram4.png'/><br><b>Spectograms!</b></div>
+
+<p>A <strong>spectogram</strong> is a plot over time indicating energy in a sound at different frequency components. Typical figures might be: fundamental frequency 43 Hz, 86 frames per second (analysis regions overlap by one half)
+<p><strong>Free Software</strong>:
+<p><em>Sonic Visualiser</em>, Queen’s Mary, University of London<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/Sonic Visualiser.png'/><br><b>Sonic Visualiser</b></div>
+
+<p><pre class='code prettyprint lang-sc'>Computer.url("http://sonicvisualiser.org/");</pre>
+
+<p><em>SPEAR</em>, Michael Kingbeil (McAulay and Quatieri - peak matching algorithm)<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/SPEAR.png'/><br><b>SPEAR</b></div>
+
+<p><pre class='code prettyprint lang-sc'>Computer.url("http://www.klingbeil.com/spear/");</pre>
+<h3><a class='anchor' name='Fourier%20Analysis%20in%20more%20detail'>Fourier Analysis in more detail</a></h3>
+<ul>
+<li>To take snapshots of a signal we need a window of a certain amount of samples. Windows typically spaced evenly overtime. Sliding window - two successive frames separated by a hop of a number of samples<li>DFT (Discrete Fourier Transform) only deals with discrete signals in digital domain. FFT (Fast Fourier Transform) speeds up the calculation. STFT (Short-time Fourier Transform) is when a sequence of DFTs are carried out across a signal so that every sample appears in at least one window.<li>Must set a basic analysis frequency. In a ‘perfect world’ we could choose a fundamental frequency corresponding to the period of the waveform<li>But what about inharmonic sounds or a combination of different periodic sounds?<li>We can attempt that by using a large period of analysis corresponding to a small frequency. The Fourier Analysis can only measure the energy (magnitude) at multiples of this fundamental, but if we take a low fundamental, the harmonic multiples can be close enough together.</ul>
+
+<p><strong>Fourier Transform considerations</strong><ul>
+<li>A <strong>bin</strong> or <strong>band</strong> represents each harmonic of the fundamental frequency of the analysis.<li>Input is usually <strong>non-stationary</strong> (sound is changing in frequency components). Two considerations that constitute a tradeoff between temporal and frequency resolution:<ul>
+<li>A small fundamental frequency means a good analysis resolution.<li>A large fundamental analysis frequency will correspond to a smaller period, within which it is more likely that a sound is not varying</ul>
+
+<p><li>In order to avoid discontinuities at the edge of windows (if they are rectangular), we use <strong>window functions</strong> to diminish spectral spillage between bins.<li>Some of these <strong>window functions</strong> are:<ul>
+<li>Hann<li>Hamming<li>Kaiser-Bessel</ul>
+</ul>
+
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/windows.png'/></div>
+
+<p>The typical short-time Fourier Transform (STFT) parameters are:<ul>
+<li><em>window size N</em>: power of 2, e.g., 512, 1024, 2048<li><em>Hop size H</em>: half or quarter of N or expressed as an overlap proportion matching lobe size of window function.<li><em>Frame rate = R/H</em><li><em>Analysis Fundamental Frequency = R/N</em> (bin frequency separation)<li><em>Widowing function</em>: typically Hann or Kaiser-Bessel.</ul>
+<h3><a class='anchor' name='Resynthesis'>Resynthesis</a></h3>
+<ul>
+<li>Additive synthesis: for aperiodic sounds would require large number of components<li>Phase vocoder analysis provides the requisite magnitudes and phases. We can proceed with an inverse calculation<li>IFFT (inverse fast Fourier transform) is used to resynthesise sounds and recover signal from FFT (very similar algorithm)<li>Spectral processing changes magnitudes and phases to get a different result. Used for sound transformations. Also to combine different spectral information from different sources</ul>
+<h2><a class='anchor' name='Machine%20Listening'>Machine Listening</a></h2>
+<h3><a class='anchor' name='Feature%20Extraction'>Feature Extraction</a></h3>
+
+<p><strong>Low-level features</strong>:<ul>
+<li><em>ZCR</em>: Count zero crossings within <em>N</em> samples<li><em>RMS</em>: Root mean square amplitude calculated over <em>N</em> samples<li><em>Max power</em>: Maximum power in a block of <em>N</em> samples<li><em>Spectral centroid</em>: Statistical measure over the spectrum<li><em>Spectral flux</em>: Change of spectrum between frames<li><em>Spectral fall-off</em>: measures drop in energy at higher frequencies in sound<li><em>LPC coefficients</em>: Linear predictive coding models spectrum of input with source-filter<li><em>MFCCs</em>: Mel-frequency cepstral coefficients; cepstrum approximates principal components; timbre descriptor</ul>
+
+<p><strong>High-level features</strong>:<ul>
+<li><em>Onset detection</em><li><em>Pitch detection (monophonic)</em><li><em>Melody extraction</em><li><em>Pitch detection (polyphonic)</em><li><em>Key and chord recognition</em><li><em>Beat tracking and rhythm extraction</em><li><em>Instrument recognition</em></ul>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp</a><br>link::Study Guides/Audio Analysis and Machine Listening::<br>sc version: 3.8.0</div></div></body></html>
