@@ -787,4 +787,54 @@ KeyTrack
 
 MCLDUGens
 FFTFlux</pre>
-<div class='note'><span class='notelabel'>NOTE:</span> Go through the helpfiles to understand what each class does</div><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp</a><br>link::Study Guides/Audio Analysis and Machine Listening::<br>sc version: 3.8.0</div></div></body></html>
+<div class='note'><span class='notelabel'>NOTE:</span> Go through the helpfiles to understand what each class does</div>
+<p><strong>Pitch</strong><pre class='code prettyprint lang-sc'>(
+ {
+    var in, amp, freq, hasFreq, out;
+    in = SoundIn.ar(0);
+    amp = Amplitude.kr(in, 0.05, 0.05);
+    # freq, hasFreq = Pitch.kr(in, ampThreshold: 0.02, median: 7);
+    Saw.ar(freq,amp)*MouseX.kr(0,4);
+}.play;
+)</pre>
+
+<p><strong>Onsets</strong><pre class='code prettyprint lang-sc'>(
+x = {
+    var sig, chain, onsets, pips;
+
+    // A simple generative signal
+    sig = LPF.ar(Pulse.ar(TIRand.kr(63, 75, Impulse.kr(2)).midicps), LFNoise2.kr(0.5).exprange(100, 10000)) * Saw.ar(2).range(0, 1);
+    // or, uncomment this line if you want to play the buffer in
+    //sig = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1);
+
+    chain = FFT(LocalBuf(512), sig);
+
+    onsets = Onsets.kr(chain, MouseX.kr(0,1), \rcomplex);
+
+    // You'll hear percussive "ticks" whenever an onset is detected
+    pips = WhiteNoise.ar(EnvGen.kr(Env.perc(0.001, 0.1, 0.2), onsets));
+    Out.ar(0, Pan2.ar(sig, -0.75, 0.2) + Pan2.ar(pips, 0.75, 1));
+}.play;
+)
+
+
+(
+x = {
+    var sig, chain, onsets, pips;
+
+    // A simple generative signal
+    sig = SoundIn.ar(0);
+    // or, uncomment this line if you want to play the buffer in
+    //sig = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1);
+
+    chain = FFT(LocalBuf(512), sig);
+
+    onsets = Onsets.kr(chain, MouseX.kr(0,5), \rcomplex);
+
+    // You'll hear percussive "ticks" whenever an onset is detected
+    pips = WhiteNoise.ar(EnvGen.kr(Env.perc(0.001, 0.1, 0.2), onsets));
+    Out.ar(0, Pan2.ar(pips, 0.75, 1));
+}.play;
+)</pre>
+
+<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp</a><br>link::Study Guides/Audio Analysis and Machine Listening::<br>sc version: 3.8.0</div></div></body></html>
