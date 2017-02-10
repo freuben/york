@@ -26,9 +26,14 @@
 <ul class='toc'></ul><li class='toc1'><a href='#Fourier%20Analysis'>Fourier Analysis</a></li>
 <ul class='toc'><li class='toc2'><a href='#Fourier%20Transform'>Fourier Transform</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Fourier%20and%20Sound'>Fourier and Sound</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Spectograms'>Spectograms</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Spectrograms'>Spectrograms</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Fourier%20Analysis%20in%20more%20detail'>Fourier Analysis in more detail</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Resynthesis'>Resynthesis</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Fourier%20in%20SuperCollider'>Fourier in SuperCollider</a></li>
+<ul class='toc'><li class='toc2'><a href='#FFT%20and%20IFFT'>FFT and IFFT</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Phase%20Vocoder%20UGens'>Phase Vocoder UGens</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Accessing%20Frequency%20and%20Magnitude%20Data'>Accessing Frequency and Magnitude Data</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#FFT%20stretching'>FFT stretching</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Machine%20Listening'>Machine Listening</a></li>
 <ul class='toc'><li class='toc2'><a href='#Feature%20Extraction'>Feature Extraction</a></li>
 <ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Sound%20Analysis'>Sound Analysis</a></h2>
@@ -39,19 +44,11 @@
 <p><strong>Approaches to sound analysis</strong>:<ul>
 <li>General models of signal analysis (signal theory/processing, engineering &amp; mathematics)<li>Models based on human auditory system (research in biological auditory systems - modelling listening) -&gt; Machine Listening</ul>
 
-<p><strong>Machine Listening Research</strong><ul>
-<li>Models inspired on physiology of auditory system<li>Trying to reproduce some aspects of how humans listen and process sound<li>Physiological aspects of auditory system, neuroscience, cognitive science, cognitive musicology<li>Computational models of music and sound perception and cognition<li>Science &amp; Engineering Research, Signal Processing and Analysis, Music and Audio Analysis.</ul>
-
-<p><strong>Machine Listening</strong><ul>
-<li>Feature extraction<li>Sound/Music descriptors:<ul>
-<li>Sound events (onsets/segments)<li>Pitch (monophonic/polyphonic)<li>Rhythm (beat/tempo)<li>Timbal categorisations (instrument/sound recognition, noise/pitch)</ul>
-</ul>
-
 <p><strong>Analysis/Synthesis</strong><ul>
 <li>Often analysis and synthesis are coupled<li>Analysis - resynthesis<li>Synthesis models based on spectral data and its manipulation<li>Analysis, synthesis and simulation (spectral, physical, neurological)</ul>
 
 <p><strong>Spectral Analysis</strong><ul>
-<li>Visual representation of the frequency spectrum of a signal as a function of time.<li>Useful for audio and music signals.<li>Can be used as a creative tool in composition<li>Can be used for sprectral processing<li>Most common analysis in computer music is Fourier Analysis - using the <code class='code prettyprint lang-sc'>FFT</code> (Fast Fourier Transform) algorithm</ul>
+<li>Visual representation of the frequency spectrum of a signal as a function of time.<li>Useful for audio and music signals.<li>Can be used as a creative tool in composition<li>Can be used for spectral processing<li>Most common analysis in computer music is Fourier Analysis - using the FFT (Fast Fourier Transform) algorithm</ul>
 <h2><a class='anchor' name='Fourier%20Analysis'>Fourier Analysis</a></h2>
 <div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/Fourier.png'/><br><b>Joseph Fourier - cambridgeblog.org</b></div>
 
@@ -76,16 +73,16 @@
 <div class='note'><span class='notelabel'>NOTE:</span> This is a very simplified explanation of Fourier Analysis... The actual mathematics of Fourier Transform is quite complicated and there are whole courses dedicated to this subject at Maths and Engineering Departments. People do their PhDs and further research in this topic, so you can imagine how vast it is!</div><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fft_class1.png'/></div>
 
 <p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fft_class2.png'/><br><b>FFT class at MIT - ocw.mit.edu</b></div>
-<div class='note'><span class='notelabel'>NOTE:</span> ASK JEZ, if you want some Engineering insights into FFT! In fact a lot of Jez's research is related to spectral analysis and modeling!</div><h3><a class='anchor' name='Spectograms'>Spectograms</a></h3>
+<div class='note'><span class='notelabel'>NOTE:</span> ASK JEZ, if you want some Engineering insights into FFT! In fact a lot of Jez's research is related to spectral analysis and modelling!</div><h3><a class='anchor' name='Spectrograms'>Spectrograms</a></h3>
 <div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram1.png'/></div>
 
 <p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram2.png'/></div>
 
 <p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram3.png'/></div>
 
-<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram4.png'/><br><b>Spectograms!</b></div>
+<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram4.png'/><br><b>Spectrograms!</b></div>
 
-<p>A <strong>spectogram</strong> is a plot over time indicating energy in a sound at different frequency components. Typical figures might be: fundamental frequency 43 Hz, 86 frames per second (analysis regions overlap by one half)
+<p>A <strong>spectrogram</strong> is a plot over time indicating energy in a sound at different frequency components. Typical figures might be: fundamental frequency 43 Hz, 86 frames per second (analysis regions overlap by one half)
 <p><strong>Free Software</strong>:
 <p><em>Sonic Visualiser</em>, Queen’s Mary, University of London<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/Sonic Visualiser.png'/><br><b>Sonic Visualiser</b></div>
 
@@ -94,6 +91,10 @@
 <p><em>SPEAR</em>, Michael Kingbeil (McAulay and Quatieri - peak matching algorithm)<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/SPEAR.png'/><br><b>SPEAR</b></div>
 
 <p><pre class='code prettyprint lang-sc'>Computer.url("http://www.klingbeil.com/spear/");</pre>
+
+<p><strong>FreqScope in SC</strong>
+<p>There is a GUI implementation of a Frequency Spectrum Visualiser:<pre class='code prettyprint lang-sc'>{LPF.ar(WhiteNoise.ar(1), LFNoise1.kr(1).range(20,12250))}.play;
+FreqScope.new;</pre>
 <h3><a class='anchor' name='Fourier%20Analysis%20in%20more%20detail'>Fourier Analysis in more detail</a></h3>
 <ul>
 <li>To take snapshots of a signal we need a window of a certain amount of samples. Windows typically spaced evenly overtime. Sliding window - two successive frames separated by a hop of a number of samples<li>DFT (Discrete Fourier Transform) only deals with discrete signals in digital domain. FFT (Fast Fourier Transform) speeds up the calculation. STFT (Short-time Fourier Transform) is when a sequence of DFTs are carried out across a signal so that every sample appears in at least one window.<li>Must set a basic analysis frequency. In a ‘perfect world’ we could choose a fundamental frequency corresponding to the period of the waveform<li>But what about inharmonic sounds or a combination of different periodic sounds?<li>We can attempt that by using a large period of analysis corresponding to a small frequency. The Fourier Analysis can only measure the energy (magnitude) at multiples of this fundamental, but if we take a low fundamental, the harmonic multiples can be close enough together.</ul>
@@ -113,7 +114,657 @@
 <h3><a class='anchor' name='Resynthesis'>Resynthesis</a></h3>
 <ul>
 <li>Additive synthesis: for aperiodic sounds would require large number of components<li>Phase vocoder analysis provides the requisite magnitudes and phases. We can proceed with an inverse calculation<li>IFFT (inverse fast Fourier transform) is used to resynthesise sounds and recover signal from FFT (very similar algorithm)<li>Spectral processing changes magnitudes and phases to get a different result. Used for sound transformations. Also to combine different spectral information from different sources</ul>
+<h2><a class='anchor' name='Fourier%20in%20SuperCollider'>Fourier in SuperCollider</a></h2>
+<h3><a class='anchor' name='FFT%20and%20IFFT'>FFT and IFFT</a></h3>
+
+<p>SuperCollider implements a number of UGens supporting Fast Fourier Transform (FFT) based processing. The most basic of these are <code class='code prettyprint lang-sc'>FFT</code> and <code class='code prettyprint lang-sc'>IFFT</code> (inverse-FFT) which convert data between the time and frequency domains:<pre class='code prettyprint lang-sc'>chain = FFT(buffer, input)
+output = IFFT(chain)</pre>
+
+<p><code class='code prettyprint lang-sc'>FFT</code> stores spectral data in a local buffer ( see <a href="./../Classes/LocalBuf.html">LocalBuf</a> ). The <code class='code prettyprint lang-sc'>LocalBuf</code> should be the same size as the window of your Fast Fourier Transform. You can change the <em>hop size</em> (default is 0.5), <em>window type</em> (default is Sine) and <em>window size</em> (if different from buffer). Look at <a href="./../Classes/FFT.html">FFT helpfile</a> for more information.
+<p>The most simple <code class='code prettyprint lang-sc'>FFT/IFFT</code> chain example is by not performing any processing between these two algorithms.<div class='note'><span class='notelabel'>NOTE:</span> This is just a demonstration - there is no purpose to perform an <code class='code prettyprint lang-sc'>IFFT</code> just after an <code class='code prettyprint lang-sc'>FFT</code>!</div><pre class='code prettyprint lang-sc'>Ndef(\fft).ar(2); //2 channel ndef
+Ndef(\fft).play;
+
+ServerMeter(s);
+
+(
+Ndef(\fft, {var input, chain, output;
+    input = WhiteNoise.ar(0.1);
+    chain = FFT(LocalBuf(2048), input);
+    output = IFFT(chain)
+});
+)</pre>
+
+<p>This is how you do <code class='code prettyprint lang-sc'>FFT</code> multichannel expansion:<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var input, chain, output;
+    input =  Ringz.ar(Impulse.ar([2, 3]), [700, 800], 0.1) * 1;
+    chain = FFT(LocalBuf(2048!2), input);
+    output = IFFT(chain)
+});
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> Notice that the buffer has an array as argument for multichannel expansion</div><h3><a class='anchor' name='Phase%20Vocoder%20UGens'>Phase Vocoder UGens</a></h3>
+
+<p>In between an FFT and an IFFT one can chain together a number of Phase Vocoder UGens (i.e. 'PV_...') to manipulate blocks of spectral data before reconversion. The process of buffering the appropriate amount of audio, windowing, conversion, overlap-add, etc. is handled for you automatically.
+<p><strong>Some PV UGens</strong>
+<p>The following PV UGens are included in the standard SC distribution:<ul>
+<li><code class='code prettyprint lang-sc'>FFT</code> - Fast Fourier Transform<li><code class='code prettyprint lang-sc'>IFFT</code> - Inverse Fast Fourier Transform<li><code class='code prettyprint lang-sc'>PV_Add</code> - complex addition<li><code class='code prettyprint lang-sc'>PV_BinScramble</code> - scramble bins<li><code class='code prettyprint lang-sc'>PV_BinShift</code> - shift and stretch bin position<li><code class='code prettyprint lang-sc'>PV_BinWipe</code> - combine low and high bins from two inputs<li><code class='code prettyprint lang-sc'>PV_BrickWall</code> - zero bins<li><code class='code prettyprint lang-sc'>PV_ConformalMap</code> - complex plane attack<li><code class='code prettyprint lang-sc'>PV_Copy</code> - copy an FFT buffer<li><code class='code prettyprint lang-sc'>PV_CopyPhase</code> - copy magnitudes and phases<li><code class='code prettyprint lang-sc'>PV_Diffuser</code> - random phase shifting<li><code class='code prettyprint lang-sc'>PV_HainsworthFoote</code> - onset dectection<li><code class='code prettyprint lang-sc'>PV_JensenAndersen</code> - onset dectection<li><code class='code prettyprint lang-sc'>PV_LocalMax</code> - pass bins which are a local maximum<li><code class='code prettyprint lang-sc'>PV_MagAbove</code> - pass bins above a threshold<li><code class='code prettyprint lang-sc'>PV_MagBelow</code> - pass bins below a threshold<li><code class='code prettyprint lang-sc'>PV_MagClip</code> - clip bins to a threshold<li><code class='code prettyprint lang-sc'>PV_MagFreeze</code> - freeze magnitudes<li><code class='code prettyprint lang-sc'>PV_MagMul</code> - multiply magnitudes<li><code class='code prettyprint lang-sc'>PV_MagDiv</code> - division of magnitudes<li><code class='code prettyprint lang-sc'>PV_MagNoise</code> - multiply magnitudes by noise<li><code class='code prettyprint lang-sc'>PV_MagShift</code> - shift and stretch magnitude bin position<li><code class='code prettyprint lang-sc'>PV_MagSmear</code> - average magnitudes across bins<li><code class='code prettyprint lang-sc'>PV_MagSquared</code> - square magnitudes<li><code class='code prettyprint lang-sc'>PV_Max</code> - maximum magnitude<li><code class='code prettyprint lang-sc'>PV_Min</code> - minimum magnitude<li><code class='code prettyprint lang-sc'>PV_Mul</code> - complex multiply<li><code class='code prettyprint lang-sc'>PV_PhaseShift</code> - shift phase of all bins<li><code class='code prettyprint lang-sc'>PV_PhaseShift270</code> - shift phase by 270 degrees<li><code class='code prettyprint lang-sc'>PV_PhaseShift90</code> - shift phase by 90 degrees<li><code class='code prettyprint lang-sc'>PV_RandComb</code> - pass random bins<li><code class='code prettyprint lang-sc'>PV_RandWipe</code> - crossfade in random bin order<li><code class='code prettyprint lang-sc'>PV_RectComb</code> - make gaps in spectrum<li><code class='code prettyprint lang-sc'>PV_RectComb2</code> - make gaps in spectrum<li><code class='code prettyprint lang-sc'>UnpackFFT, PackFFT, Unpack1FFT</code> "unpacking" components used in pvcalc, pvcalc2, pvcollect (can also be used on their own)</ul>
+
+<p><div class='note'><span class='notelabel'>NOTE:</span> Most of these PV UGes only deal with the magnitude values.</div>
+<p><strong>PV UGen demonstrations</strong>
+<p>Now we're going to see some of these PV UGens in action! These demonstrations will be based mostly on playing a buffer containing a sound file and using this signal as input to the FFT. You can however, of course use any input for the Phase Vocoder.<pre class='code prettyprint lang-sc'>Ndef(\fft).ar(2); //2 channel ndef
+Ndef(\fft).play;
+
+//load buffer
+a = Buffer.loadDialog;
+
+Ndef(\input, {PlayBuf.ar(a.numChannels, a.bufnum, BufRateScale.kr(a.bufnum), loop: 1)});</pre>
+
+<p>The contents of buffer a can be changed to test different sounds with the UGens.
+<p>In most of the UGens demonstrations, input parameters will be derived from the mouse to allow quick testing of the meaning of the parameters.
+<p><strong>PV_MagAbove</strong>
+<p><em>plays bins above a certain amp threshold.</em><ul>
+<li>(buffer, threshold)<li>buffer: the fft buffer<li>threshold: the magnitude threshold. In this example, it is controlled by MouseX.</ul>
+<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_MagAbove(chain, MouseX.kr(0,100));  // note, no use of .ar of PV_MagAbove
+IFFT(chain);
+})
+)
+
+Ndef(\input, {WhiteNoise.ar(1)});
+
+Ndef(\input, {PlayBuf.ar(a.numChannels, a.bufnum, BufRateScale.kr(a.bufnum), loop: 1)});</pre>
+
+<p><strong>PV_MagBelow</strong>
+<p><em>plays bins below a certain amp threshold</em><ul>
+<li>(buffer, threshold)<li>buffer: fft buffer<li>threshold: magnitude threshold. In this example, it is controlled by MouseX.</ul>
+
+<p><pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_MagBelow(chain, MouseX.kr(0,100));
+IFFT(chain);
+});
+)</pre>
+
+<p><strong>PV_MagFreeze</strong>
+<p><em>freeze magnitudes when freeze &gt; 0</em><ul>
+<li>(buffer, freeze)<li>buffer: fft buffer<li>freeze: when &gt; 0, magnitudes will freeze at their current levels</ul>
+
+<p>In these examples, pushing the (left) mouse button will freeze the magnitudes. Releasing the button will thaw them out again.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_MagFreeze(chain, MouseButton.kr(0,1));  // freeze when button pressed
+IFFT(chain);
+});
+)</pre>
+
+<p><strong>PV_MagShift</strong>
+<p><em>stretch and shift magnitudes of bins</em><ul>
+<li>(buffer, stretch, shift)<li>shift (add offset to the magnitude of a bin)</ul>
+
+<p>In this demo, the amount of shift is controlled by the mouse and is in the range -5 to 5.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_MagShift(chain, shift: MouseX.kr(-5.0,5));  // add offset to bin
+IFFT(chain);
+})
+)</pre>
+
+<p><ul>
+<li>scale (multiply magnitudes of bins, a crude frequency scaler)</ul>
+
+<p>In this demo, the amount of scaling is controlled by the Mouse and is in the range of 0.001 to 2.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_MagShift(chain, MouseX.kr(0.001,2));  // scale
+IFFT(chain);
+});
+)</pre>
+
+<p><strong>PV_RandComb</strong>
+<p><em>randomly clear bins</em><ul>
+<li>(buffer,wipe,trig)<li>wipe: (the higher the value (in the range 0-1), the more bins that get wiped (cleared)<li>trigger: select a new random ordering</ul>
+
+<p>In this demo, the wipe parameter is controlled by the mouse. The random ordering is controlled by the (left) mouse button.
+<p>When the UGen is started, a random order of bins is created. Changing the wipe argument will clear bins in the order chosen. When triggered, a new order is made and bins will be cleared in that new random order.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_RandComb(chain, MouseX.kr(0.0,1), MouseButton.kr);  // wipe determined mouse, trigger is button
+IFFT(chain);
+});
+)</pre>
+
+<p><strong>PV_MagNoise</strong>
+<p><em>multiplies magnitudes with noise</em><ul>
+<li>no amp control for noise<li>(buffer)</ul>
+
+<p>This can be seen as a type of amplitude jitter but without any control over the amount of jitter.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_MagNoise(chain);
+IFFT(chain);
+})
+)</pre>
+
+<p><strong>PV_BrickWall</strong>
+<p><em>clears bins above or below a cutoff point</em><ul>
+<li>(buffer,wipe)<li>wipe: should be in the range -1 to 1<li>wipe ==0, no effect<li>wipe &gt; 0, high pass filter, clears bins from the bottom up<li>wipe &lt; 0, low pass filter, clears bins from the top down</ul>
+
+<p>In this demo, the wipe argument is supplied by the mouse.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_BrickWall(chain, MouseX.kr(-1,1));
+IFFT(chain);
+})
+)</pre>
+
+<p><strong>PV_BinScramble</strong>
+<p><em>Randomises the order of the bins.</em><ul>
+<li>(buffer, wipe, width, trig)<li>wipe: scrambles more bins as it goes from 0-1<li>width: in the range 0-1, indicating the maximum distance of a bin from its original location<li>trig: selects a new random ordering</ul>
+
+<p>In this demo:<ul>
+<li>wipe is controlled by the mouse on the X axis<li>width is controlled by the mouse on the Y axis (the nearer the top of the screen, the smaller the value)<li>trigger is controlled by the (left) mouse button</ul>
+<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var in, chain;
+in = Ndef(\input).ar;
+chain = FFT(LocalBuf(2048!2), in);
+chain = PV_BinScramble(chain, MouseX.kr, MouseY.kr, MouseButton.kr);
+IFFT(chain);
+})
+)
+
+Ndef.clear;
+a.free;</pre>
+
+<p><strong>Requiring 2 inputs</strong>
+<p>A few of the PV UGens use two inputs, e.g. to multiply the values of two spectra. To demonstrate these UGens,2 PlayBuf UGens will be used for input. These buffers will be a (already allocated) and c.<pre class='code prettyprint lang-sc'>a = Buffer.loadDialog;
+
+b = Buffer.loadDialog;
+
+Ndef(\fft).ar(2);
+Ndef(\fft).play;
+
+Ndef(\in1, {PlayBuf.ar(a.numChannels, a.bufnum, BufRateScale.kr(a.bufnum), loop: 1);}); //input 1
+
+Ndef(\in2, {PlayBuf.ar(b.numChannels, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1);}); //input 2</pre>
+
+<p><strong>PV_Mul</strong>
+<p><em>complex multiplication of two spectra. (This is a form of convolution).</em>
+<p>Note that both spectra are multiplied as produced by the FFT. It is not the case that one of the spectra is modified to be an amplitude spectrum before use.<ul>
+<li>(bufferA, bufferB)</ul>
+
+<p>In the demo, an amplitude argument has been defined to control the amplitude of the signals going into the FFT. The signal from buffer a is controlled by MouseX. The signal from buffer c is controlled by MouseY.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var inA, inB, chain, chainA, chainB;
+inA = Ndef(\in1).ar * MouseX.kr(0,0.5);
+inB = Ndef(\in2).ar * MouseY.kr(0,0.5);
+chainA = FFT(LocalBuf(2048!2), inA);
+chainB = FFT(LocalBuf(2048!2), inB);
+chain = PV_Mul(chainA, chainB);
+IFFT(chain);
+})
+)
+
+Ndef(\in2, {SoundIn.ar(0);}); //mic input
+
+Ndef(\in2, {PlayBuf.ar(b.numChannels, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1);}); //input 2</pre>
+
+<p><strong>PV_RandWipe</strong>
+<p><em>crossfade in random bin order</em><ul>
+<li>(bufferA, bufferB, wipe, trig)<li>wipe: if 0, bins are from bufferA, if 1 bins are from bufferB<li>trig: trigger selects new random ordering</ul>
+
+<p>In the demo, wipe is controlled by MouseX. The trigger is pressing the (left) mouse button.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var inA, inB, chain, chainA, chainB, amp = 0.7;
+inA = Ndef(\in1).ar * amp;
+inB = Ndef(\in2).ar * amp;
+chainA = FFT(LocalBuf(2048!2), inA);
+chainB = FFT(LocalBuf(2048!2), inB);
+chain = PV_RandWipe(chainA, chainB, MouseX.kr, MouseButton.kr);
+IFFT(chain);
+})
+)</pre>
+
+<p><strong>PV_Max</strong>
+<p><em>output copies the bins with the max magnitude of the two inputs</em>
+<p>This should mean that each pair of bins is compared, and the largest magnitude value is used for the new spectrum.<ul>
+<li>(chainA, chainB)</ul>
+
+<p>There is no user control for this UGen except to specify the two input signals.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var inA, inB, chain, chainA, chainB, amp = 0.7;
+inA = Ndef(\in1).ar  * amp;
+inB = Ndef(\in2).ar * amp;
+chainA = FFT(LocalBuf(2048!2), inA);
+chainB = FFT(LocalBuf(2048!2), inB);
+chain = PV_Max(chainA, chainB);
+IFFT(chain);
+})
+)</pre>
+
+<p><strong>PV_Min</strong>
+<p><em>output copies the bins with the minimum magnitude of the two inputs</em>
+<p>This should mean that each pair of bins is compared, and the largest magnitude value is used for the new spectrum.<ul>
+<li>(chainA, chainB)</ul>
+
+<p>There is no user control for this UGen except to specify the two input signals.
+<p>( Ndef(\fft, {var inA, inB, chain, chainA, chainB, amp = 0.7; inA = Ndef(\in1).ar * amp; inB = Ndef(\in2).ar * amp; chainA = FFT(LocalBuf(2048!2), inA); chainB = FFT(LocalBuf(2048!2), inB); chain = PV_Min(chainA, chainB); IFFT(chain); }) )
+<p><strong>PV_Morph</strong>
+<p><em>One kind of spectral morphing.</em><ul>
+<li>Morphs between two fft buffers.<li>(bufferA,  bufferB, morph)</ul>
+
+<p><pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var inA, inB, chain, chainA, chainB, amp = 0.7;
+inA = Ndef(\in1).ar  * amp;
+inB = Ndef(\in2).ar * amp;
+chainA = FFT(LocalBuf(2048!2), inA);
+chainB = FFT(LocalBuf(2048!2), inB);
+chain = PV_Morph(chainA, chainB, MouseX.kr);  //move mouse left to right to morph
+IFFT(chain);
+})
+)</pre>
+
+<p><strong>Convolution</strong>
+<p><em>Real-time convolver.</em><ul>
+<li>Strict convolution of two continuously changing inputs.<li>(in, kernel, framesize, mul, add)</ul>
+
+<p><pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var inA, inB, amp = 0.7;
+inA = Ndef(\in1).ar  * amp;
+inB = Ndef(\in2).ar * amp;
+Convolution.ar(inA, inB, 1024, 0.5);
+})
+)
+
+Ndef(\in1, {SoundIn.ar(0);}); //mic input
+Ndef(\in1, {PlayBuf.ar(b.numChannels, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1);}); //input 1
+
+Ndef(\in2, {SoundIn.ar(0);}); //mic input
+Ndef(\in2, {PlayBuf.ar(b.numChannels, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1);}); //input 2
+
+Ndef.clear
+a.free; b.free;</pre>
+
+<p><strong>PV_ChainUGen (pvcollect, pvcalc, pvcalc2)</strong>
+<p>With <code class='code prettyprint lang-sc'>PV_ChainUGen</code> it is possible to access the magnitude and phase information and directly manipulate it through functions/operations. In other words, you can apply some kind of transformation to the frequency-domain signal produced by FFT by directly accessing magnitudes and phases.
+<p><code class='code prettyprint lang-sc'>PV_ChainUGen</code> works through the messages: <code class='code prettyprint lang-sc'>pvcollect</code>, <code class='code prettyprint lang-sc'>pvcalc</code>, and <code class='code prettyprint lang-sc'>pvcalc2</code>.<div class='note'><span class='notelabel'>NOTE:</span> For further information see <a href="./../Classes/PV_ChainUGen.html">PV_ChainUGen</a> and <a href="./../Classes/UnpackFFT.html">UnpackFFT</a>.</div>
+<p><strong>pvcollect</strong>
+<p><em>Process each bin of an FFT chain, separately</em>
+<p><code class='code prettyprint lang-sc'>chain = chain.pvcollect(numframes, func, frombin, tobin, zeroothers)</code>
+<p>pvcollect applies function func to each bin of an FFT chain. func should be a function that takes magnitude, phase, bin, index as inputs and returns a resulting [magnitude, phase].
+<p>The "bin" is the integer bin number, starting at 0 for DC, while "index" is the iteration number, always starting with 0. You can optionally ignore the phase and only return a single (magnitude) value, in which case the phase is assumed to be left unchanged.
+<p>frombin, tobin, and zeroothers are optional arguments which limit the processing to a specified integer range of FFT bins. If zeroothers is set to 1 then bins outside of the range being processed are silenced.<pre class='code prettyprint lang-sc'>c = Buffer.loadDialog;
+d = Buffer.alloc(s, 1024, 1);
+d.setn(0,0.5!1024)
+
+Ndef(\fft).play;
+
+Ndef(\in, {PlayBuf.ar(c.numChannels, c.bufnum, BufRateScale.kr(c.bufnum), loop: 1)});
+(
+w = GUI.window.new("~", Rect(0, 0, 1024, 200)).front;
+m = GUI.multiSliderView.new(w, Rect(0, 0, 1024, 200)).value_(0.5!512).
+        gap_(0).thumbSize_(2).valueThumbSize_(2).action_({|me|
+            d.setn(0, me.value.postln;)});
+
+~update = {|arr| {m.value_(arr);}.defer; d.setn(0, arr;)};
+
+Ndef(\fft, {var in, chain, v, numFrames;
+    numFrames = 1024;
+    in = Ndef(\in).ar;
+    chain = FFT(LocalBuf(numFrames), Mix(in));
+    chain = chain.pvcollect(numFrames, {|mag, phase, index|
+        [mag*Index.kr(d.bufnum, index), phase];
+    }, frombin: 0, tobin: 250, zeroothers: 1);
+    0.5 * IFFT(chain).dup;
+    });
+)
+
+Tdef(\bins).play; //task definition
+
+(
+Tdef(\bins, {~update.(~array = {0}!512);
+    inf.do{|j|~update.(~array.put(rrand(0,511),
+            rrand(0.0,1)));
+        0.01.wait}});
+)
+
+Tdef(\bins).pause;
+Tdef(\bins).resume;
+
+Ndef(\in, {WhiteNoise.ar(0.5)});
+
+(
+Tdef(\bins, {var step; step = 0; ~update.(~array = {0}!512);
+    inf.do{|j|~update.(~array.put((0,1..511)[step], rrand(0.0,1)));
+        0.01.wait;
+        if(step &lt; 511, {step = step + 1;},{step = 0});
+    }
+});
+)
+
+Ndef(\in, {PlayBuf.ar(c.numChannels, c.bufnum, BufRateScale.kr(c.bufnum), loop: 1)});
+
+Tdef(\bins).pause;
+Tdef(\bins).resume;
+
+(
+Tdef(\bins, {var step; step = 0; ~update.(~array = {0}!512);
+    inf.do{|j|~update.(~array.put((0,1..511)[step], rrand(0.0,1)));
+        0.01.wait;
+        if(step &lt; 511, {step = step + 1;},{step = 0})
+    }
+});
+)
+
+Tdef(\bins).stop
+
+~update.(~array = {(0.0,0.001953125..1.0)}.value);
+~array = ~array.reverse;
+~update.(~array);
+
+~update.(Array.fill(1024, {1.0.rand}).postln)
+
+~update.({0}!512)
+
+~update.({|i| sin(i*0.02)+1/2 }!1024)
+
+Ndef.clear
+c.free;
+d.free;
+w.close;</pre>
+
+<p><strong>pvcalc</strong>
+<p><em>Process the bins of an FFT chain</em>
+<p><code class='code prettyprint lang-sc'>chain = chain.pvcalc(numframes, func, frombin, tobin, zeroothers)</code>
+<p>pvcalc applies function func to the frequency-domain data of an FFT chain. func should be a function that takes two arrays as inputs (magnitude, and phase) and returns a resulting pair of arrays [magnitude, phase].
+<p>frombin, tobin, and zeroothers are optional arguments which limit the processing to a specified integer range of FFT bins. If zeroothers is set to 1 then bins outside of the range being processed are silenced.<pre class='code prettyprint lang-sc'>c = Buffer.loadDialog; //load another soundfile
+
+Ndef(\fft).play;
+Ndef(\in, {PlayBuf.ar(c.numChannels, c.bufnum, BufRateScale.kr(c.bufnum), loop: 1); });
+
+Ndef(\in, {SoundIn.ar(0);}); //mic input</pre>
+
+<p>Arbitrary filter, arbitrary phase shift<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {
+    var in, chain, v, change, numFrames;
+    numFrames = 1024;
+    in = Ndef(\in).ar;
+    chain = FFT(LocalBuf(numFrames), Mix(in));
+    chain = chain.pvcalc(numFrames, {|mags, phases|
+        [mags * {1.5.rand}.dup(mags.size), phases + {pi.rand}.dup(phases.size)];
+    }, frombin: 0, tobin: 250, zeroothers: 0);
+    0.5 * IFFT(chain).dup;
+});
+)</pre>
+
+<p>Scramble magnitudes and phases<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {
+    var in, chain, v, change, numFrames;
+    numFrames = 1024;
+    in = Ndef(\in).ar;
+    chain = FFT(LocalBuf(numFrames), Mix(in));
+    chain = chain.pvcalc(numFrames, {|mags, phases|
+        [mags.scramble, phases.scramble];
+    }, frombin: 0, tobin: 250, zeroothers: 0);
+    0.5 * IFFT(chain).dup;
+    });
+)</pre>
+
+<p>".rotate"<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {
+    var in, chain, v, change, numFrames;
+    numFrames = 1024;
+    in = Ndef(\in).ar;
+    chain = FFT(LocalBuf(numFrames), Mix(in));
+    chain = chain.pvcalc(numFrames, {|mags, phases|
+        [mags.rotate(-32), phases.rotate(32)];
+    }, frombin: 0, tobin: 250, zeroothers: 0);
+    0.5 * IFFT(chain).dup;
+});
+)</pre>
+
+<p>reverse magnitudes and phases<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {
+    var in, chain, v, change, numFrames;
+    numFrames = 1024;
+    in = Ndef(\in).ar;
+    chain = FFT(LocalBuf(numFrames), Mix(in));
+    chain = chain.pvcalc(numFrames, {|mags, phases|
+        [mags.reverse, phases.reverse];
+    }, frombin: 0, tobin: 250, zeroothers: 0);
+    0.5 * IFFT(chain).dup;
+});
+)</pre>
+
+<p>".rotate" doesn't work directly, but this is equivalent<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {
+    var in, chain, v, change, numFrames;
+    numFrames = 1024;
+    in = Ndef(\in).ar;
+    chain = FFT(LocalBuf(numFrames), Mix(in));
+    chain = chain.pvcalc(numFrames, {|mags, phases|
+        [mags[30..] ++ mags[..30], phases[30..] ++ phases[..30]];
+    }, frombin: 0, tobin: 250, zeroothers: 0);
+    0.5 * IFFT(chain).dup;
+});
+)
+
+Ndef.clear;
+c.free;</pre>
+<h3><a class='anchor' name='Accessing%20Frequency%20and%20Magnitude%20Data'>Accessing Frequency and Magnitude Data</a></h3>
+
+<p>In SuperCollider it is possible to access the frequencies and magnitudes from an <code class='code prettyprint lang-sc'>FFT</code> directly from a buffer. This data can be read from a buffer straight into an array to be used/manipulated as you wish. This is done through the PV_MagBuffer and PV_FreqBuffer classes (sc3-plugins)
+<p>First, we need to allocate two buffers, one to store the frequency data and another for the magnitudes. The buffers should be equal to <em>size of the window / 2</em>.<pre class='code prettyprint lang-sc'>(
+~windowSize=1024;
+~freqBuf = Buffer.alloc(s, ~windowSize/2, 1, 1);
+~magBuf = Buffer.alloc(s, ~windowSize/2, 1, 1);
+)</pre>
+
+<p>Now, let's analyse the sound of the microphone. Notice that PV_MagBuffer &amp; PV_FreqBuf receive arguments for <em>buffer</em> (FFT buffer) and <em>databuffer</em> (where we are going to store the data and access it!).<pre class='code prettyprint lang-sc'>Ndef(\input, {SoundIn.ar(0)});
+
+(
+Ndef(\analyse,     { arg in, thresh=0.1, num=20;
+    var chain;
+    chain = FFT(LocalBuf(~windowSize), Ndef(\input).ar);
+    chain = PV_MagBuffer(chain, ~magBuf.bufnum);
+    chain = PV_FreqBuffer(chain, ~freqBuf.bufnum);
+    IFFT(chain);
+})
+)</pre>
+
+<p>Now, let's get the data from the buffers! The <code class='code prettyprint lang-sc'>.getn</code> message is the way to access the data of a buffer as an array. You need to specify the start and end index of the buffer values you want to store into an array:<pre class='code prettyprint lang-sc'>(
+~freqBuf.getn(0,511,{|msg| ~freqs = msg; });
+~magBuf.getn(0,511, {|msg| ~mags = msg; });
+)
+
+~freqs.do{|item| item.postln };
+~mags.do{|item| item.postln };
+~arr = [~freqs,~mags].flop;
+~arr.do{|item| item.postln };</pre>
+
+<p>It takes just a few milliseconds for SC to access the information from the buffer, so we can optimise the timing with the Condition class. The computer waits until the information has been accessed before printing it.<pre class='code prettyprint lang-sc'>(
+{
+c = Condition.new(false);
+~freqBuf.getn(0,511,{|msg| ~freqs = msg;
+~magBuf.getn(0,511, {|msg| ~mags = msg; c.test = true; c.signal});
+});
+c.wait;
+[~freqs,~mags].flop.postln; //post [freq,mags]
+}.fork;
+)</pre>
+
+<p>We are getting a lot of information!! Maybe too much for what we want to do. If we want to do partial tracking, it's possible to limit the amount of bins by just accessing the bins with the highest magnitudes. PV_MaxMagN limits the number of bins to a specific number and it takes the maximum magnitudes at a given time:<pre class='code prettyprint lang-sc'>(
+Ndef(\analyse,     { arg in, num=6;
+    var chain;
+    chain = FFT(LocalBuf(~windowSize), Ndef(\input).ar);
+    chain = PV_MaxMagN(chain, num);
+    chain = PV_MagBuffer(chain, ~magBuf.bufnum);
+    chain = PV_FreqBuffer(chain, ~freqBuf.bufnum);
+    IFFT(chain);
+})
+)</pre>
+
+<p>Now we can do partial tracking by specifying the number of bins we want.<pre class='code prettyprint lang-sc'>Ndef(\analyse).set(\num, 12);
+
+(
+{
+c = Condition.new(false);
+~freqBuf.getn(0,511,{|msg| ~freqs = msg;
+~magBuf.getn(0,511, {|msg| ~mags = msg; c.test = true; c.signal});
+});
+c.wait;
+//this rejects items with a magnitude of 0
+//we are filtering out all of the bins with less magnitudes
+~arr = [~freqs,~mags].flop.reject({|item| item[1] == 0});
+~arr.do{|item| item.postln};
+}.fork;
+)</pre>
+
+<p>Now, this is more manageable! So, for example, we can use the strongest bins now to write some real-time spectral music... We're going to take the frequency and magnitudes from our analysis and use a synth to play them.<pre class='code prettyprint lang-sc'>Ndef(\resynthesis, Pdef(\partials)).play;
+
+(
+SynthDef("resynth", {arg out=0, freq=440, gate=0, amp=1;
+    var signal, env;
+    signal = SinOsc.ar(freq, 0, amp);
+    env = EnvGen.kr(Env.adsr(0.05,0.5,0.9,0.2), gate, doneAction:2);
+    Out.ar(out, signal*env);
+}).add;
+)
+//sing a note and while you're singing run this:
+(
+{
+c = Condition.new(false);
+~freqBuf.getn(0,511,{|msg| ~freqs = msg;
+~magBuf.getn(0,511, {|msg| ~mags = msg; c.test = true; c.signal});
+});
+c.wait;
+~arr = [~freqs,~mags].flop.reject({|item| item[1] == 0});
+    Pdef(\partials, Pbind(\instrumnet, \resynth, \freq, ~arr.flop[0].flat,
+        \amp, ~arr.flop[1].flat / ~windowSize, \dur, Prand([3,4],1)) ).play;
+~arr.do{|item| item.postln};
+}.fork;
+)</pre>
+<h3><a class='anchor' name='FFT%20stretching'>FFT stretching</a></h3>
+
+<p>FFT time stretching can be achieved with this two UGens. However they are not part of the standard SC distribution. They are part of the sc3-plugins, so make sure you download SC including the extra plugins.
+<p>PV_RecordBuf - records FFT data to a memory buffer PV_PlayBuf - plays FFT data from a memory buffer
+<p>Analyse a soundfile and store its data to a buffer<pre class='code prettyprint lang-sc'>(
+var sf;
+// path to a sound file here
+p = "/Users/federicoreuben/Music/MastersExamples/01 15 Steps.wav";
+// the frame size for the analysis - experiment with other sizes (powers of 2)
+f = 1024;
+// the hop size
+h = 0.25;
+// get some info about the file
+sf = SoundFile.new( p );
+sf.openRead;
+sf.close;
+// allocate memory to store FFT data to... SimpleNumber.calcPVRecSize(frameSize, hop) will return
+// the appropriate number of samples needed for the buffer
+y = Buffer.alloc(s, sf.duration.calcPVRecSize(f, h));
+// allocate the soundfile you want to analyze
+z = Buffer.read(s, p);
+)</pre>
+
+<p>This does the analysis and saves it to buffer 1... frees itself when done<pre class='code prettyprint lang-sc'>(
+SynthDef("pvrec", { arg bufnum=0, recBuf=1, soundBufnum=2;
+    var in, chain;
+    in = PlayBuf.ar(1, soundBufnum, BufRateScale.kr(soundBufnum), loop: 0, doneAction: 2).poll;
+    bufnum = LocalBuf.new(1024, 1); // uses frame size from above
+    // note the window type and overlaps... this is important for resynth parameters
+    chain = FFT(bufnum, in, 0.25, 1);
+    chain = PV_RecordBuf(chain, recBuf, 0, 1, 0, 0.25, 1);
+    // no ouput ... simply save the analysis to recBuf
+    }).send(s);
+)
+
+a = Synth("pvrec", [\recBuf, y, \soundBufnum, z]);</pre>
+
+<p>You can save your 'analysis' file to disk! I suggest using float32 for the format These can be read back in using <code class='code prettyprint lang-sc'>Buffer.read</code><pre class='code prettyprint lang-sc'>y.write(p++".scpv", "wav", "float32");</pre>
+
+<p>Play your analysis back ... see the playback UGens listed above for more examples.<pre class='code prettyprint lang-sc'>Ndef(\pvplay).play;
+Ndef(\pvplay).fadeTime = 1;
+
+(
+Ndef(\pvplay, { arg rate=1;
+    var in, chain, bufnum;
+    bufnum = LocalBuf.new(1024, 1);
+    chain = PV_PlayBuf(bufnum, y, rate, 50, 1);
+    IFFT(chain, 1).dup;
+    });
+)
+
+Ndef(\pvplay).set(\rate, 1.5);
+
+Ndef(\pvplay).set(\rate, -1.5);
+
+Ndef(\pvplay).set(\rate, 0.25);
+
+(
+Ndef(\pvplay, {
+    var in, chain, bufnum;
+    bufnum = LocalBuf.new(1024, 1);
+    chain = PV_PlayBuf(bufnum, y, MouseX.kr(1, 300), 50, 1);
+    IFFT(chain, 1).dup;
+    });
+);
+
+Ndef(\pvplay, 0); // stop the synth</pre>
+
+<p>Vary the rate... experiment with different FFT sizes and overlaps in the analysis:<pre class='code prettyprint lang-sc'>(
+Ndef(\pvplay, {
+    var in, chain, bufnum;
+    bufnum = LocalBuf.new(1024, 1);
+    chain = PV_PlayBuf(bufnum, y, LFNoise2.kr(10).range(-1, 2), 0, 1);
+    IFFT(chain, 1).dup;
+    })
+)
+
+Ndef(\pvplay, 0); // stop the synth
+
+// free the buffer
+y.free;</pre>
+
+<p>Read a file with FFT data:<pre class='code prettyprint lang-sc'>y = Buffer.read(s, "/Users/federicoreuben/Music/MastersExamples/01 15 Steps.wav.scpv");
+
+Ndef(\pvplay).set(\rate, 2);
+
+(
+Ndef(\pvplay, { arg rate=1;
+    var in, chain, bufnum;
+    bufnum = LocalBuf.new(1024, 1);
+    chain = PV_PlayBuf(bufnum, y, rate, 50, 1);
+    IFFT(chain, 1).dup;
+    });
+);
+
+
+(
+Ndef(\pvplay, { arg rate=1;
+    var in, chain, bufnum;
+    bufnum = LocalBuf.new(1024, 1);
+            chain = PV_PlayBuf(bufnum, y, LFNoise1.kr(0.4).linlin(-1,1,-0.5,-2), 0, 1);
+    IFFT(chain, 1).dup;
+    });
+)
+
+Ndef.clear;
+y.free;</pre>
 <h2><a class='anchor' name='Machine%20Listening'>Machine Listening</a></h2>
+<ul>
+<li>Models inspired on physiology of auditory system<li>Trying to reproduce some aspects of how humans listen and process sound<li>Physiological aspects of auditory system, neuroscience, cognitive science, cognitive musicology<li>Computational models of music and sound perception and cognition<li>Science &amp; Engineering Research, Signal Processing and Analysis, Music and Audio Analysis.</ul>
+
+<p><strong>Modelling human listening?</strong><ul>
+<li>Feature extraction<li>Sound/Music descriptors:<ul>
+<li>Sound events (onsets/segments)<li>Pitch (monophonic/polyphonic)<li>Rhythm (beat/tempo)<li>Timbal categorisations (instrument/sound recognition, noise/pitch)</ul>
+</ul>
 <h3><a class='anchor' name='Feature%20Extraction'>Feature Extraction</a></h3>
 
 <p><strong>Low-level features</strong>:<ul>
