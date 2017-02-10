@@ -354,8 +354,17 @@ IFFT(chain);
 <p>This should mean that each pair of bins is compared, and the largest magnitude value is used for the new spectrum.<ul>
 <li>(chainA, chainB)</ul>
 
-<p>There is no user control for this UGen except to specify the two input signals.
-<p>( Ndef(\fft, {var inA, inB, chain, chainA, chainB, amp = 0.7; inA = Ndef(\in1).ar * amp; inB = Ndef(\in2).ar * amp; chainA = FFT(LocalBuf(2048!2), inA); chainB = FFT(LocalBuf(2048!2), inB); chain = PV_Min(chainA, chainB); IFFT(chain); }) )
+<p>There is no user control for this UGen except to specify the two input signals.<pre class='code prettyprint lang-sc'>(
+Ndef(\fft, {var inA, inB, chain, chainA, chainB, amp = 0.7;
+inA = Ndef(\in1).ar  * amp;
+inB = Ndef(\in2).ar * amp;
+chainA = FFT(LocalBuf(2048!2), inA);
+chainB = FFT(LocalBuf(2048!2), inB);
+chain = PV_Min(chainA, chainB);
+IFFT(chain);
+})
+)</pre>
+
 <p><strong>PV_Morph</strong>
 <p><em>One kind of spectral morphing.</em><ul>
 <li>Morphs between two fft buffers.<li>(bufferA,  bufferB, morph)</ul>
@@ -463,7 +472,7 @@ Tdef(\bins, {var step; step = 0; ~update.(~array = {0}!512);
 });
 )
 
-Tdef(\bins).stop
+Tdef(\bins).stop;
 
 ~update.(~array = {(0.0,0.001953125..1.0)}.value);
 ~array = ~array.reverse;
@@ -570,7 +579,7 @@ c.free;</pre>
 <p>Now, let's analyse the sound of the microphone. Notice that PV_MagBuffer &amp; PV_FreqBuf receive arguments for <em>buffer</em> (FFT buffer) and <em>databuffer</em> (where we are going to store the data and access it!).<pre class='code prettyprint lang-sc'>Ndef(\input, {SoundIn.ar(0)});
 
 (
-Ndef(\analyse,     { arg in, thresh=0.1, num=20;
+Ndef(\analyse, {arg in, thresh=0.1, num=20;
     var chain;
     chain = FFT(LocalBuf(~windowSize), Ndef(\input).ar);
     chain = PV_MagBuffer(chain, ~magBuf.bufnum);
@@ -601,7 +610,7 @@ c.wait;
 )</pre>
 
 <p>We are getting a lot of information!! Maybe too much for what we want to do. If we want to do partial tracking, it's possible to limit the amount of bins by just accessing the bins with the highest magnitudes. PV_MaxMagN limits the number of bins to a specific number and it takes the maximum magnitudes at a given time:<pre class='code prettyprint lang-sc'>(
-Ndef(\analyse,     { arg in, num=6;
+Ndef(\analyse, {arg in, num=6;
     var chain;
     chain = FFT(LocalBuf(~windowSize), Ndef(\input).ar);
     chain = PV_MaxMagN(chain, num);
@@ -788,7 +797,13 @@ KeyTrack
 MCLDUGens
 FFTFlux</pre>
 <div class='note'><span class='notelabel'>NOTE:</span> Go through the helpfiles to understand what each class does</div>
-<p><strong>Pitch</strong><pre class='code prettyprint lang-sc'>(
+<p><strong>Pitch</strong>
+<p><em>Pitch follower</em>
+<p>Pitch returns two values (via an Array of OutputProxys, see the OutputProxy help file), a freq which is the pitch estimate and hasFreq, which tells whether a pitch was found.
+<p><strong>Amplitude</strong>
+<p><em>Amplitude follower</em>
+<p>Tracks the peak amplitude of a signal.
+<p>Now, let's use Pitch and Amplitude together with a live input:<pre class='code prettyprint lang-sc'>(
  {
     var in, amp, freq, hasFreq, out;
     in = SoundIn.ar(0);
@@ -798,40 +813,27 @@ FFTFlux</pre>
 }.play;
 )</pre>
 
-<p><strong>Onsets</strong><pre class='code prettyprint lang-sc'>(
+<p><strong>Onsets</strong>
+<p><em>Onset detector</em>
+<p>An onset detector for musical audio signals - detects the beginning of notes/drumbeats/etc. Outputs a control-rate trigger signal which is 1 when an onset is detected, and 0 otherwise.
+<p>In the following example,  you'll hear percussive "ticks" whenever an onset is detected
+<p>First with a signal we are generating:<pre class='code prettyprint lang-sc'>(
 x = {
     var sig, chain, onsets, pips;
-
-    // A simple generative signal
     sig = LPF.ar(Pulse.ar(TIRand.kr(63, 75, Impulse.kr(2)).midicps), LFNoise2.kr(0.5).exprange(100, 10000)) * Saw.ar(2).range(0, 1);
-    // or, uncomment this line if you want to play the buffer in
-    //sig = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1);
-
     chain = FFT(LocalBuf(512), sig);
-
     onsets = Onsets.kr(chain, MouseX.kr(0,1), \rcomplex);
-
-    // You'll hear percussive "ticks" whenever an onset is detected
     pips = WhiteNoise.ar(EnvGen.kr(Env.perc(0.001, 0.1, 0.2), onsets));
     Out.ar(0, Pan2.ar(sig, -0.75, 0.2) + Pan2.ar(pips, 0.75, 1));
 }.play;
-)
+)</pre>
 
-
-(
+<p>Now try it with a live input:<pre class='code prettyprint lang-sc'>(
 x = {
     var sig, chain, onsets, pips;
-
-    // A simple generative signal
     sig = SoundIn.ar(0);
-    // or, uncomment this line if you want to play the buffer in
-    //sig = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1);
-
     chain = FFT(LocalBuf(512), sig);
-
     onsets = Onsets.kr(chain, MouseX.kr(0,5), \rcomplex);
-
-    // You'll hear percussive "ticks" whenever an onset is detected
     pips = WhiteNoise.ar(EnvGen.kr(Env.perc(0.001, 0.1, 0.2), onsets));
     Out.ar(0, Pan2.ar(pips, 0.75, 1));
 }.play;

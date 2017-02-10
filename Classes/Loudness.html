@@ -19,16 +19,16 @@
 <div id='summary'>Extraction of instantaneous loudness in sones</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Audio/<a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Audio/MachineListening.sc'>MachineListening.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/UGen.html">UGen</a> : <a href="../Classes/AbstractFunction.html">AbstractFunction</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/MachineListening.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/MachineListening.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/UGen.html">UGen</a> : <a href="../Classes/AbstractFunction.html">AbstractFunction</a> : <a href="../Classes/Object.html">Object</a></div>
 <div id='related'>See also: <a href="./../Classes/BeatTrack.html">BeatTrack</a>, <a href="./../Classes/MFCC.html">MFCC</a>, <a href="./../Classes/Onsets.html">Onsets</a>, <a href="./../Classes/Pitch.html">Pitch</a>, <a href="./../Classes/KeyTrack.html">KeyTrack</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#*kr'>kr</a> </li>
-<li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
 </ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
-<ul class='toc'><li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
 </ul><li class='toc1'><a href='#examples'>Examples</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
@@ -40,9 +40,9 @@
 <tr><td class='argumentname'>chain<td class='argumentdesc'>
 <p>[fft] Audio input to track, which has been pre-analysed by the <a href="./../Classes/FFT.html">FFT</a> <a href="./../Classes/UGen.html">UGen</a>; see examples below for the expected FFT size.<tr><td class='argumentname'>smask<td class='argumentdesc'>
 <p>[sk] Spectral masking param: lower bins mask higher bin power within ERB bands, with a power falloff (leaky integration multiplier) of smask per bin.<tr><td class='argumentname'>tmask<td class='argumentdesc'>
-<p>[sk] Temporal masking param: the phon level let through in an ERB band is the maximum of the new measurement, and the previous minus tmask phons.</table></div><h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
+<p>[sk] Temporal masking param: the phon level let through in an ERB band is the maximum of the new measurement, and the previous minus tmask phons.</table></div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
-<h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
+<h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
 <div id='inheritedinstmets'></div><h2><a class='anchor' name='examples'>Examples</a></h2>
 <pre class='code prettyprint lang-sc'>// assumes hop of half fftsize, fine
 b = Buffer.alloc(s, 1024, 1); // for sampling rates 44100 and 48000
@@ -101,4 +101,4 @@ K2A.ar(loudness * 0.016)
 }.plot(2.0)
 )</pre>
 
-<p>Research note: This <a href="./../Classes/UGen.html">UGen</a> is an informal juxtaposition of perceptual coding, and a Zwicker and Glasberg/Moore/Stone loudness model.<div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/Loudness.schelp'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/Loudness.schelp</a><br>link::Classes/Loudness::<br>sc version: 3.7.2</div></div></body></html>
+<p>Research note: This <a href="./../Classes/UGen.html">UGen</a> is an informal juxtaposition of perceptual coding, and a Zwicker and Glasberg/Moore/Stone loudness model.<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Loudness.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Loudness.schelp</a><br>link::Classes/Loudness::<br>sc version: 3.8.0</div></div></body></html>
