@@ -873,26 +873,18 @@ Out.ar(0,Pan2.ar((vol*in)+(beepvol*beep),0.0));
 <p><em>A (12TET major/minor) key tracker</em>
 <p>A key tracker based on a pitch class profile of energy across FFT bins and matching this to templates for major and minor scales in all transpositions. It assumes a 440 Hz concert A reference. Output is 0-11 C major to B major, 12-23 C minor to B minor.<pre class='code prettyprint lang-sc'>d = Buffer.loadDialog
 
-b = Buffer.alloc(s, 4096, 1); // for sampling rates 44100 and 48000
-
 (
 {
 var in, fft, resample, chord, rootnote, sympath;
 var key, transientdetection;
-
 in = PlayBuf.ar(1, d, BufRateScale.kr(d), 1, 0, 1);
-
-fft = FFT(b, in);
-
+fft = FFT(LocalBuf(4096), in);
 key = KeyTrack.kr(fft, 2.0, 0.5);
 key.poll;
 key = Median.kr(101, key); // Remove outlier wibbles
-
 chord = if(key&lt;12, #[0, 4, 7], #[0, 3, 7]);
 rootnote = if(key&lt;12, key, key-12) + 60;
-
 sympath = SinOsc.ar((rootnote + chord).midicps, 0, 0.4).mean;
-
 Out.ar(0,Pan2.ar(in, -0.5) + Pan2.ar(sympath, 0.5));
 }.play
 )</pre>
