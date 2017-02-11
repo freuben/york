@@ -51,10 +51,10 @@
 <p><strong>Spectral Analysis</strong><ul>
 <li>Visual representation of the frequency spectrum of a signal as a function of time.<li>Useful for audio and music signals.<li>Can be used as a creative tool in composition<li>Can be used for spectral processing<li>Most common analysis in computer music is Fourier Analysis - using the FFT (Fast Fourier Transform) algorithm</ul>
 <h2><a class='anchor' name='Fourier%20Analysis'>Fourier Analysis</a></h2>
-<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/Fourier.png'/><br><b>Joseph Fourier - cambridgeblog.org</b></div>
+<div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/Fourier.png'/><br><b>Joseph Fourier - cambridgeblog.org</b></div>
 
 <p><strong>Joseph Fourier</strong> was a French mathematician and physicist (1768-1830) responsible for initiating investigation of the Fourier series and its application in heat transfer and vibrations. The Fourier transform and Fourier’s law are also named in his honour. He also discovered the greenhouse effect. (wikipedia.org)
-<p><strong>Fourier Series</strong><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fourier series.png'/></div>
+<p><strong>Fourier Series</strong><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/fourier series.png'/></div>
 <ul>
 <li>Decomposes periodic functions/signals into the infinite sum of simple oscillating functions expressed as sines and cosines.<li>The <em>Fourier Series</em> is the sum of these sinusoids that express a complex periodic function<li>Harmonic Analysis</ul>
 
@@ -71,25 +71,25 @@
 
 <p><strong>Fourier Analysis in Simple Terms</strong><ul>
 <li>Despite the failure of sound ‘in the real world’ to be well-behaved and periodic, it is still possible to measure whether a sound has energy (magnitude) at any particular frequency<li>We can ‘test’ a sound beginning at a point in time, for a certain duration for each frequency we want to measure<li>By carrying a succession of these ‘tests’ at different starting points, it is possible to make a map of the sound’s frequency across time<li>Because computers have finite memory and processing resources, we don’t measure every frequency at every point<li>Instead we use a duration relative to most frequencies we want to test and carry the analysis as if the signal were periodic during that segment of time<li>As long as the signal doesn’t change during this time frame, we can get the measurements for the harmonics of the analysis frequency</ul>
-<div class='note'><span class='notelabel'>NOTE:</span> This is a very simplified explanation of Fourier Analysis. The actual mathematics of Fourier Transform is quite complicated and there are whole courses dedicated to this subject at Maths and Engineering Departments. People do their PhDs and further research in this topic, so you can imagine how vast it is!</div><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fft_class1.png'/></div>
+<div class='note'><span class='notelabel'>NOTE:</span> This is a very simplified explanation of Fourier Analysis. The actual mathematics of Fourier Transform is quite complicated and there are whole courses dedicated to this subject at Maths and Engineering Departments. People do their PhDs and further research in this topic, so you can imagine how vast it is!</div><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/fft_class1.png'/></div>
 
-<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/fft_class2.png'/><br><b>FFT class at MIT - ocw.mit.edu</b></div>
+<p><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/fft_class2.png'/><br><b>FFT class at MIT - ocw.mit.edu</b></div>
 <div class='note'><span class='notelabel'>NOTE:</span> Ask Jez if you want some engineering insights into FFT! In fact a lot of Jez's research is related to spectral analysis and modelling!</div><h3><a class='anchor' name='Spectrograms'>Spectrograms</a></h3>
-<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram1.png'/></div>
+<div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/spectogram1.png'/></div>
 
-<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram2.png'/></div>
+<p><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/spectogram2.png'/></div>
 
-<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram3.png'/></div>
+<p><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/spectogram3.png'/></div>
 
-<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/spectogram4.png'/><br><b>Spectrograms!</b></div>
+<p><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/spectogram4.png'/><br><b>Spectrograms!</b></div>
 
 <p>A <strong>spectrogram</strong> is a plot over time indicating energy in a sound at different frequency components. Typical figures might be: fundamental frequency 43 Hz, 86 frames per second (analysis regions overlap by one half)
 <p><strong>Free Software</strong>:
-<p><em>Sonic Visualiser</em>, Queen’s Mary, University of London<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/Sonic Visualiser.png'/><br><b>Sonic Visualiser</b></div>
+<p><em>Sonic Visualiser</em>, Queen’s Mary, University of London<div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/Sonic Visualiser.png'/><br><b>Sonic Visualiser</b></div>
 
 <p><pre class='code prettyprint lang-sc'>Computer.url("http://sonicvisualiser.org/");</pre>
 
-<p><em>SPEAR</em>, Michael Kingbeil (McAulay and Quatieri - peak matching algorithm)<div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/SPEAR.png'/><br><b>SPEAR</b></div>
+<p><em>SPEAR</em>, Michael Kingbeil (McAulay and Quatieri - peak matching algorithm)<div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/SPEAR.png'/><br><b>SPEAR</b></div>
 
 <p><pre class='code prettyprint lang-sc'>Computer.url("http://www.klingbeil.com/spear/");</pre>
 
@@ -108,7 +108,7 @@ FreqScope.new;</pre>
 <li>Hann<li>Hamming<li>Kaiser-Bessel</ul>
 </ul>
 
-<p><div class='image'><img src='/Users/federicoreuben/Documents/York/2016-2017/Teaching/Undergraduate/Computer.play/Seminars/audio analysis/windows.png'/></div>
+<p><div class='image'><img src='http://www.federicoreuben.com/computerdotplay/guides/guide3/windows.png'/></div>
 
 <p>The typical short-time Fourier Transform (STFT) parameters are:<ul>
 <li><em>window size N</em>: power of 2, e.g., 512, 1024, 2048<li><em>Hop size H</em>: half or quarter of N or expressed as an overlap proportion matching lobe size of window function.<li><em>Frame rate = R/H</em><li><em>Analysis Fundamental Frequency = R/N</em> (bin frequency separation)<li><em>Widowing function</em>: typically Hann or Kaiser-Bessel.</ul>
