@@ -570,14 +570,14 @@ Ndef.clear;
 c.free;</pre>
 <h3><a class='anchor' name='Accessing%20Frequency%20and%20Magnitude%20Data'>Accessing Frequency and Magnitude Data</a></h3>
 
-<p>In SuperCollider it is possible to access the frequencies and magnitudes from an <code class='code prettyprint lang-sc'>FFT</code> directly from a buffer. This data can be read from a buffer straight into an array to be used/manipulated as you wish. This is done through the PV_MagBuffer and PV_FreqBuffer classes (sc3-plugins)
+<p>In SuperCollider it is possible to access the frequencies and magnitudes from an <code class='code prettyprint lang-sc'>FFT</code> directly from a buffer. This data can be read from a buffer straight into an array to be used/manipulated as you wish. This is done through the <code class='code prettyprint lang-sc'>PV_MagBuffer</code> and <code class='code prettyprint lang-sc'>PV_FreqBuffer</code> classes (sc3-plugins)
 <p>First, we need to allocate two buffers, one to store the frequency data and another for the magnitudes. The buffers should be equal to <em>size of the window / 2</em>.<pre class='code prettyprint lang-sc'>(
 ~windowSize=1024;
 ~freqBuf = Buffer.alloc(s, ~windowSize/2, 1, 1);
 ~magBuf = Buffer.alloc(s, ~windowSize/2, 1, 1);
 )</pre>
 
-<p>Now, let's analyse the sound of the microphone. Notice that PV_MagBuffer &amp; PV_FreqBuf receive arguments for <em>buffer</em> (FFT buffer) and <em>databuffer</em> (where we are going to store the data and access it!).<pre class='code prettyprint lang-sc'>Ndef(\input, {SoundIn.ar(0)});
+<p>Now, let's analyse the sound of the microphone. Notice that <code class='code prettyprint lang-sc'>PV_MagBuffer</code> and <code class='code prettyprint lang-sc'>PV_FreqBuf</code> receive arguments for <em>buffer</em> (FFT buffer) and <em>databuffer</em> (where we are going to store the data and access it!).<pre class='code prettyprint lang-sc'>Ndef(\input, {SoundIn.ar(0)});
 
 (
 Ndef(\analyse, {arg in, thresh=0.1, num=20;
@@ -610,7 +610,7 @@ c.wait;
 }.fork;
 )</pre>
 
-<p>We are getting a lot of information!! Maybe too much for what we want to do. If we want to do partial tracking, it's possible to limit the amount of bins by just accessing the bins with the highest magnitudes. PV_MaxMagN limits the number of bins to a specified number - it only takes the strongest (maximum magnitudes) bins at a given time:<pre class='code prettyprint lang-sc'>(
+<p>We are getting a lot of information!! Maybe too much for what we want to do. If we want to do partial tracking, it's possible to limit the amount of bins by just accessing the bins with the highest magnitudes. <code class='code prettyprint lang-sc'>PV_MaxMagN</code> limits the number of bins to a specified number - it only takes the strongest (maximum magnitudes) bins at a given time:<pre class='code prettyprint lang-sc'>(
 Ndef(\analyse, {arg in, num=6;
     var chain;
     chain = FFT(LocalBuf(~windowSize), Ndef(\input).ar);
@@ -664,7 +664,8 @@ c.wait;
 <h3><a class='anchor' name='FFT%20stretching'>FFT stretching</a></h3>
 
 <p>FFT time stretching can be achieved with this two UGens. However they are not part of the standard SC distribution. They are part of the sc3-plugins, so make sure you download and install the extra plugins.
-<p>PV_RecordBuf - records FFT data to a memory buffer PV_PlayBuf - plays FFT data from a memory buffer
+<p><code class='code prettyprint lang-sc'>PV_RecordBuf</code> - records FFT data to a memory buffer
+<p><code class='code prettyprint lang-sc'>PV_PlayBuf</code> - plays FFT data from a memory buffer
 <p>Analyse a soundfile and store its data to a buffer<pre class='code prettyprint lang-sc'>(
 var sf;
 // path to a sound file here
