@@ -37,6 +37,7 @@
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Machine%20Listening'>Machine Listening</a></li>
 <ul class='toc'><li class='toc2'><a href='#Feature%20Extraction'>Feature Extraction</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Machine%20Listening%20in%20SuperCollider'>Machine Listening in SuperCollider</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Examples:'>Examples:</a></li>
 <ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Sound%20Analysis'>Sound Analysis</a></h2>
 
 <p><strong>Why analyse audio with computers?</strong><ul>
@@ -149,7 +150,7 @@ Ndef(\fft, {var input, chain, output;
 <p>The following PV UGens are included in the standard SC distribution:<ul>
 <li><code class='code prettyprint lang-sc'>FFT</code> - Fast Fourier Transform<li><code class='code prettyprint lang-sc'>IFFT</code> - Inverse Fast Fourier Transform<li><code class='code prettyprint lang-sc'>PV_Add</code> - complex addition<li><code class='code prettyprint lang-sc'>PV_BinScramble</code> - scramble bins<li><code class='code prettyprint lang-sc'>PV_BinShift</code> - shift and stretch bin position<li><code class='code prettyprint lang-sc'>PV_BinWipe</code> - combine low and high bins from two inputs<li><code class='code prettyprint lang-sc'>PV_BrickWall</code> - zero bins<li><code class='code prettyprint lang-sc'>PV_ConformalMap</code> - complex plane attack<li><code class='code prettyprint lang-sc'>PV_Copy</code> - copy an FFT buffer<li><code class='code prettyprint lang-sc'>PV_CopyPhase</code> - copy magnitudes and phases<li><code class='code prettyprint lang-sc'>PV_Diffuser</code> - random phase shifting<li><code class='code prettyprint lang-sc'>PV_HainsworthFoote</code> - onset dectection<li><code class='code prettyprint lang-sc'>PV_JensenAndersen</code> - onset dectection<li><code class='code prettyprint lang-sc'>PV_LocalMax</code> - pass bins which are a local maximum<li><code class='code prettyprint lang-sc'>PV_MagAbove</code> - pass bins above a threshold<li><code class='code prettyprint lang-sc'>PV_MagBelow</code> - pass bins below a threshold<li><code class='code prettyprint lang-sc'>PV_MagClip</code> - clip bins to a threshold<li><code class='code prettyprint lang-sc'>PV_MagFreeze</code> - freeze magnitudes<li><code class='code prettyprint lang-sc'>PV_MagMul</code> - multiply magnitudes<li><code class='code prettyprint lang-sc'>PV_MagDiv</code> - division of magnitudes<li><code class='code prettyprint lang-sc'>PV_MagNoise</code> - multiply magnitudes by noise<li><code class='code prettyprint lang-sc'>PV_MagShift</code> - shift and stretch magnitude bin position<li><code class='code prettyprint lang-sc'>PV_MagSmear</code> - average magnitudes across bins<li><code class='code prettyprint lang-sc'>PV_MagSquared</code> - square magnitudes<li><code class='code prettyprint lang-sc'>PV_Max</code> - maximum magnitude<li><code class='code prettyprint lang-sc'>PV_Min</code> - minimum magnitude<li><code class='code prettyprint lang-sc'>PV_Mul</code> - complex multiply<li><code class='code prettyprint lang-sc'>PV_PhaseShift</code> - shift phase of all bins<li><code class='code prettyprint lang-sc'>PV_PhaseShift270</code> - shift phase by 270 degrees<li><code class='code prettyprint lang-sc'>PV_PhaseShift90</code> - shift phase by 90 degrees<li><code class='code prettyprint lang-sc'>PV_RandComb</code> - pass random bins<li><code class='code prettyprint lang-sc'>PV_RandWipe</code> - crossfade in random bin order<li><code class='code prettyprint lang-sc'>PV_RectComb</code> - make gaps in spectrum<li><code class='code prettyprint lang-sc'>PV_RectComb2</code> - make gaps in spectrum<li><code class='code prettyprint lang-sc'>UnpackFFT, PackFFT, Unpack1FFT</code> "unpacking" components used in pvcalc, pvcalc2, pvcollect (can also be used on their own)</ul>
 
-<p><div class='note'><span class='notelabel'>NOTE:</span> Most of these PV UGes only deal with the magnitude values.</div>
+<p><div class='note'><span class='notelabel'>NOTE:</span> Most of these PV UGens only deal with the magnitude values.</div>
 <p><strong>PV UGen demonstrations</strong>
 <p>Now we're going to see some of these PV UGens in action! These demonstrations will be based mostly on playing a buffer containing a sound file and using this signal as input to the FFT. You can however, of course use any input for the Phase Vocoder.<pre class='code prettyprint lang-sc'>Ndef(\fft).ar(2); //2 channel ndef
 Ndef(\fft).play;
@@ -609,7 +610,7 @@ c.wait;
 }.fork;
 )</pre>
 
-<p>We are getting a lot of information!! Maybe too much for what we want to do. If we want to do partial tracking, it's possible to limit the amount of bins by just accessing the bins with the highest magnitudes. PV_MaxMagN limits the number of bins to a specific number and it takes the maximum magnitudes at a given time:<pre class='code prettyprint lang-sc'>(
+<p>We are getting a lot of information!! Maybe too much for what we want to do. If we want to do partial tracking, it's possible to limit the amount of bins by just accessing the bins with the highest magnitudes. PV_MaxMagN limits the number of bins to a specified number - it only takes the strongest (maximum magnitudes) bins at a given time:<pre class='code prettyprint lang-sc'>(
 Ndef(\analyse, {arg in, num=6;
     var chain;
     chain = FFT(LocalBuf(~windowSize), Ndef(\input).ar);
@@ -620,7 +621,7 @@ Ndef(\analyse, {arg in, num=6;
 })
 )</pre>
 
-<p>Now we can do partial tracking by specifying the number of bins we want.<pre class='code prettyprint lang-sc'>Ndef(\analyse).set(\num, 12);
+<p>Now we can do partial tracking by specifying the number of strongest bins we want to access.<pre class='code prettyprint lang-sc'>Ndef(\analyse).set(\num, 12);
 
 (
 {
@@ -630,7 +631,7 @@ c = Condition.new(false);
 });
 c.wait;
 //this rejects items with a magnitude of 0
-//we are filtering out all of the bins with less magnitudes
+//we are filtering out all of the weakest bins
 ~arr = [~freqs,~mags].flop.reject({|item| item[1] == 0});
 ~arr.do{|item| item.postln};
 }.fork;
@@ -662,7 +663,7 @@ c.wait;
 )</pre>
 <h3><a class='anchor' name='FFT%20stretching'>FFT stretching</a></h3>
 
-<p>FFT time stretching can be achieved with this two UGens. However they are not part of the standard SC distribution. They are part of the sc3-plugins, so make sure you download SC including the extra plugins.
+<p>FFT time stretching can be achieved with this two UGens. However they are not part of the standard SC distribution. They are part of the sc3-plugins, so make sure you download and install the extra plugins.
 <p>PV_RecordBuf - records FFT data to a memory buffer PV_PlayBuf - plays FFT data from a memory buffer
 <p>Analyse a soundfile and store its data to a buffer<pre class='code prettyprint lang-sc'>(
 var sf;
@@ -786,24 +787,35 @@ y.free;</pre>
 
 <p>These are some of the classes in SuperCollider for Machine Listening:<pre class='code prettyprint lang-sc'>Pitch, Tartini, ZeroCrossing
 Loudness
-Onsets
+Onsets, OnsetStatistics
+BeatTrack, BeatTrack2, BeatStatistics
+KeyTrack
+
+RMS
+LPCAnalyzer
+SensoryDissonance
 SpecCentroid
 SpecFlatness
 SpecPcile (spectral roll-off)
+SpectralEntropy
 MFCC
-BeatTrack, BeatTrack2
-KeyTrack
+Cepstrum
+FFTFlux
+FFTPower
+FFTSlope
+FFTSpread
+FFTPeak
+FFTCrest</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> Go through the helpfiles to understand what each class does</div><h3><a class='anchor' name='Examples:'>Examples:</a></h3>
 
-MCLDUGens
-FFTFlux</pre>
-<div class='note'><span class='notelabel'>NOTE:</span> Go through the helpfiles to understand what each class does</div>
+<p>Let's look at some examples in more detail:
 <p><strong>Pitch</strong>
 <p><em>Pitch follower</em>
-<p>Pitch returns two values (via an Array of OutputProxys, see the OutputProxy help file), a freq which is the pitch estimate and hasFreq, which tells whether a pitch was found.
+<p><code class='code prettyprint lang-sc'>Pitch</code> returns two values (via an Array of OutputProxys, see the OutputProxy help file), a freq which is the pitch estimate and hasFreq, which tells whether a pitch was found.
 <p><strong>Amplitude</strong>
 <p><em>Amplitude follower</em>
 <p>Tracks the peak amplitude of a signal.
-<p>Now, let's use Pitch and Amplitude together with a live input:<pre class='code prettyprint lang-sc'>(
+<p>Now, let's use <code class='code prettyprint lang-sc'>Pitch</code> and <code class='code prettyprint lang-sc'>Amplitude</code> together with a live input:<pre class='code prettyprint lang-sc'>(
  {
     var in, amp, freq, hasFreq, out;
     in = SoundIn.ar(0);
@@ -839,4 +851,49 @@ x = {
 }.play;
 )</pre>
 
-<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp</a><br>link::Study Guides/Audio Analysis and Machine Listening::<br>sc version: 3.8.0</div></div></body></html>
+<p><strong>BeatTrack</strong>
+<p><em>Autocorrelation Beat/Tempo Tracker</em>
+<p>Autocorrelation based beat tracker. The underlying model assumes 4/4, but it should work on any isochronous beat structure, though there are biases to 100-120 bpm; a fast 7/8 may not be tracked in that sense. There are four k-rate outputs, being ticks at quarter, eighth and sixteenth level from the determined beat, and the current detected tempo.<pre class='code prettyprint lang-sc'>d=Buffer.loadDialog;
+
+(
+{arg vol=1.0, beepvol=1.0, lock=0;
+var in, fft, resample;
+var trackb,trackh,trackq,tempo;
+var bsound,hsound,qsound, beep;
+in= PlayBuf.ar(1,d,BufRateScale.kr(d),1,0,1);
+fft = FFT(LocalBuf(1024), in);
+#trackb,trackh,trackq,tempo=BeatTrack.kr(fft, lock);
+(60*tempo).poll;
+beep= SinOsc.ar(1000,0.0,Decay.kr(trackb,0.1));
+Out.ar(0,Pan2.ar((vol*in)+(beepvol*beep),0.0));
+}.play
+)</pre>
+
+<p><strong>KeyTrack</strong>
+<p><em>A (12TET major/minor) key tracker</em>
+<p>A key tracker based on a pitch class profile of energy across FFT bins and matching this to templates for major and minor scales in all transpositions. It assumes a 440 Hz concert A reference. Output is 0-11 C major to B major, 12-23 C minor to B minor.<pre class='code prettyprint lang-sc'>d = Buffer.loadDialog
+
+b = Buffer.alloc(s, 4096, 1); // for sampling rates 44100 and 48000
+
+(
+{
+var in, fft, resample, chord, rootnote, sympath;
+var key, transientdetection;
+
+in = PlayBuf.ar(1, d, BufRateScale.kr(d), 1, 0, 1);
+
+fft = FFT(b, in);
+
+key = KeyTrack.kr(fft, 2.0, 0.5);
+key.poll;
+key = Median.kr(101, key); // Remove outlier wibbles
+
+chord = if(key&lt;12, #[0, 4, 7], #[0, 3, 7]);
+rootnote = if(key&lt;12, key, key-12) + 60;
+
+sympath = SinOsc.ar((rootnote + chord).midicps, 0, 0.4).mean;
+
+Out.ar(0,Pan2.ar(in, -0.5) + Pan2.ar(sympath, 0.5));
+}.play
+)</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/Study Guides/Audio Analysis and Machine Listening.schelp</a><br>link::Study Guides/Audio Analysis and Machine Listening::<br>sc version: 3.8.0</div></div></body></html>
