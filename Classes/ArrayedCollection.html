@@ -19,8 +19,8 @@
 <div id='summary'>Abstract superclass of Collections of fixed maximum size</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/ArrayedCollection.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/ArrayedCollection.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/SequenceableCollection.html">SequenceableCollection</a> : <a href="../Classes/Collection.html">Collection</a> : <a href="../Classes/Object.html">Object</a></div>
-<div id='subclasses'>Subclasses: <a href="../Classes/Array.html">Array</a>, <a href="../Classes/RawArray.html">RawArray</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/ArrayedCollection.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/ArrayedCollection.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/SequenceableCollection.html">SequenceableCollection</a> : <a href="../Classes/Collection.html">Collection</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='subclasses'>Subclasses: <a href="../Classes/Array.html">Array</a>, <a href="../Classes/Polynomial.html">Polynomial</a>, <a href="../Classes/RawArray.html">RawArray</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
@@ -97,11 +97,16 @@
 <li class='toc3'><a href='#-clipExtend'>clipExtend</a> </li>
 <li class='toc3'><a href='#-clumpBundles'>clumpBundles</a> </li>
 <li class='toc3'><a href='#-deepDo'>deepDo</a> </li>
+<li class='toc3'><a href='#-fft'>fft</a> </li>
 <li class='toc3'><a href='#-getSlots'>getSlots</a> </li>
+<li class='toc3'><a href='#-ifft'>ifft</a> </li>
 <li class='toc3'><a href='#-indexedSize'>indexedSize</a> </li>
 <li class='toc3'><a href='#-isArray'>isArray</a> </li>
+<li class='toc3'><a href='#-multiplyFactors'>multiplyFactors</a> </li>
+<li class='toc3'><a href='#-normalize2'>normalize2</a> </li>
 <li class='toc3'><a href='#-overWrite'>overWrite</a> </li>
 <li class='toc3'><a href='#-prBundleSize'>prBundleSize</a> </li>
+<li class='toc3'><a href='#-preExtend'>preExtend</a> </li>
 <li class='toc3'><a href='#-reshapeLike'>reshapeLike</a> </li>
 <li class='toc3'><a href='#-setSlots'>setSlots</a> </li>
 <li class='toc3'><a href='#-slice'>slice</a> </li>
@@ -164,7 +169,7 @@ y.foldAt(3).postln; // this returns the value at index 1
 y.foldAt(4).postln; // this returns the value at index 0
 y.foldAt(5).postln; // this returns the value at index 1</pre>
 </div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-plot' href='./../Overviews/Methods.html#plot'>plot</a> (<span class='argstr'>name</span>, <span class='argstr'>bounds</span>, <span class='argstr'>discrete: false</span>, <span class='argstr'>numChannels</span>, <span class='argstr'>minval</span>, <span class='argstr'>maxval</span>, <span class='argstr'>separately: true</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc</a></div>
 <div class='method'>
 <p>Plot data in a GUI window. See <a href="./../Reference/plot.html">plot</a> for more details.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-swap' href='./../Overviews/Methods.html#swap'>swap</a> (<span class='argstr'>i</span>, <span class='argstr'>j</span>)</h3>
 <div class='method'>
@@ -465,11 +470,21 @@ a.asciiPlot;</pre>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-clipExtend' href='./../Overviews/Methods.html#clipExtend'>clipExtend</a> (<span class='argstr'>length</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-clumpBundles' href='./../Overviews/Methods.html#clumpBundles'>clumpBundles</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-deepDo' href='./../Overviews/Methods.html#deepDo'>deepDo</a> (<span class='argstr'>depth: 1</span>, <span class='argstr'>function</span>, <span class='argstr'>index: 0</span>, <span class='argstr'>rank: 0</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-fft' href='./../Overviews/Methods.html#fft'>fft</a> (<span class='argstr'>imag: 0</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Shortcuts/extArray-fft.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Shortcuts/extArray-fft.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-getSlots' href='./../Overviews/Methods.html#getSlots'>getSlots</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-ifft' href='./../Overviews/Methods.html#ifft'>ifft</a> (<span class='argstr'>imag: 0</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Shortcuts/extArray-fft.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Shortcuts/extArray-fft.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-indexedSize' href='./../Overviews/Methods.html#indexedSize'>indexedSize</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isArray' href='./../Overviews/Methods.html#isArray'>isArray</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-multiplyFactors' href='./../Overviews/Methods.html#multiplyFactors'>multiplyFactors</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/Polynomials/Polynomial.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/Polynomials/Polynomial.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-normalize2' href='./../Overviews/Methods.html#normalize2'>normalize2</a> (<span class='argstr'>max: 1</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Collection/extCollection-normalize2.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Collection/extCollection-normalize2.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-overWrite' href='./../Overviews/Methods.html#overWrite'>overWrite</a> (<span class='argstr'>aCollection</span>, <span class='argstr'>pos: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-prBundleSize' href='./../Overviews/Methods.html#prBundleSize'>prBundleSize</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-preExtend' href='./../Overviews/Methods.html#preExtend'>preExtend</a> (<span class='argstr'>size</span>, <span class='argstr'>item</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/String/asStringWithFrac.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/String/asStringWithFrac.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-reshapeLike' href='./../Overviews/Methods.html#reshapeLike'>reshapeLike</a> (<span class='argstr'>another</span>, <span class='argstr'>indexing: 'wrapAt'</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-setSlots' href='./../Overviews/Methods.html#setSlots'>setSlots</a> (<span class='argstr'>array</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-slice' href='./../Overviews/Methods.html#slice'>slice</a> ( <span class='argstr'>... cuts</span>)</h3>
@@ -479,4 +494,4 @@ a.asciiPlot;</pre>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-slotPut' href='./../Overviews/Methods.html#slotPut'>slotPut</a> (<span class='argstr'>index</span>, <span class='argstr'>value</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-slotSize' href='./../Overviews/Methods.html#slotSize'>slotSize</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-unbubble' href='./../Overviews/Methods.html#unbubble'>unbubble</a> (<span class='argstr'>depth: 0</span>, <span class='argstr'>levels: 1</span>)</h3>
-<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/ArrayedCollection.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/ArrayedCollection.schelp</a><br>link::Classes/ArrayedCollection::<br>sc version: 3.8.0</div></div></body></html>
+<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/ArrayedCollection.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/ArrayedCollection.schelp</a><br>link::Classes/ArrayedCollection::<br>sc version: 3.8.0</div></div></body></html>
