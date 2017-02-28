@@ -55,11 +55,11 @@ a = Pseq([60,64,67,69], 2).asStream;
 <p>Previously we have seen how we can schedule a sequence of events through a <strong>Routine</strong>. This can be simplified using a <code class='code prettyprint lang-sc'>Pattern</code>.<pre class='code prettyprint lang-sc'>//synthdef
 (
     SynthDef( "perkysine", {
-    | freq=400, amp=1|
+    | freq=400, amp=1, out=0|
     var osc;
     osc = SinOsc.ar( [freq,freq+0.05.rand] ) * EnvGen.ar(
     Env.perc, doneAction: 2) * 0.2;
-    Out.ar(0,osc*amp);
+    Out.ar(out,osc*amp);
     }).store;
 )
 //routine
@@ -108,16 +108,16 @@ a.stop</pre>
 
 <p>your instrument should use <code class='code prettyprint lang-sc'>doneAction: 2</code> to release the <code class='code prettyprint lang-sc'>Synth</code>.<pre class='code prettyprint lang-sc'>(
 SynthDef(\strum,{
- |freq = 440|
- var trigger, pluck, period, string, out;
+ |freq = 440, out=0|
+ var trigger, pluck, period, string, output;
      trigger = HPZ1.kr(XLine.kr(1,0,0.01)).abs;
      pluck = PinkNoise.ar(Decay.kr(trigger, 0.05));
      period = freq.reciprocal;
      string = CombL.ar(pluck,period, period, 4);
-    out = LPF.ar(string,12000);
-    out = LeakDC.ar(out);
-    DetectSilence.ar(out, doneAction: 2);
-    Out.ar(0,out)
+    output = LPF.ar(string,12000);
+    output = LeakDC.ar(output);
+    DetectSilence.ar(output, doneAction: 2);
+    Out.ar(out,output)
 }).store
 )
 
@@ -584,11 +584,11 @@ a = Buffer.loadDialog;
 b = Buffer.loadDialog;
 
 (
-SynthDef("playGrain", {arg bufnum=0, time=0.1, rate=1, start=0;
+SynthDef("playGrain", {arg bufnum=0, time=0.1, rate=1, start=0, out=0;
     var sig;
     sig = PlayBuf.ar(2, bufnum, rate, startPos: BufFrames.kr(bufnum)*start)
     * EnvGen.ar(Env.linen(0.01,time,0.1), doneAction:2);
-    Out.ar(0,sig);
+    Out.ar(out,sig);
 }).add;
 )
 
@@ -597,7 +597,9 @@ Synth("playGrain", [\bufnum, a.bufnum, \start, 0.9]);
 ~bufSeq = Pseq([a,a,a,b,b,b], inf);
 
 ~drumPat1 = Pseq([0,\rest,\rest,0,\rest], inf);
-Pbind(\instrument, \playGrain, \bufnum, ~bufSeq, \degree, ~drumPat1, \dur, 0.5, \time, 0.2)
+~pat1 = Pbind(\instrument, \playGrain, \bufnum, ~bufSeq, \degree, ~drumPat1, \dur, 0.5, \time, 0.2)
+
+Pdef(\pattern, ~pat1);
 
 ~conduct = PatternConductor(Pdef(\pattern));
 ~conduct.play;
@@ -639,7 +641,7 @@ Pdef(\pattern, Ppar([~pat2,~pat4], inf));
 
 <p>We just were introduced to <code class='code prettyprint lang-sc'>Pdef</code>: a pattern <strong>definition</strong>. Previously we've also talked about <code class='code prettyprint lang-sc'>SynthDef</code>: a synthesis definition. In SC, there are many types of <strong>definitions</strong>. A definition is a class that is characterised by having a key: a way of naming an instance of a class with a <code class='code prettyprint lang-sc'>Symbol</code>. Symbols are like strings, but they are not a collection of letters, but a single word expressed like this: <code class='code prettyprint lang-sc'>\symbol</code>. Instead of having to use many variables to define an instance of a class, you can define it with a key. Then SC remembers that instance and you can start changing it. In the case of <code class='code prettyprint lang-sc'>Pdef</code>, we used the key to define a pattern behaviour that then we can access and change.
 <p>Ndefs, are <code class='code prettyprint lang-sc'>NodeProxy</code> definitions. In electronic and computer music, we deal a lot with signals and the different 'routes' they might take and how we might combine them. If you are familiar with the recording process, you know that the signal path is important for what you want to achieve. If you have used a mixer, whether it is an analogue mixer or a mixer in your DAW, you are probabily familiar with the idea of Buses and Groups. You can route different channels through Buses. You can join various channels together with Groups.
-<p>In SC, we have the Server, which plays the audio. We keep reference of what it playing in the servers through what is called a Node. SC keeps what's called a Node tree in the server to keep reference of everything that's playing in it. You can look at the Node tree from the server's drop down menu if you click on the server information in the left corner. SC also has a <code class='code prettyprint lang-sc'>Bus</code> class and a <code class='code prettyprint lang-sc'>Group</code> class for doing more complex routing. But we have to do a lot of bookkeeping of which buses and groups we are using. Ndefs do that bookkeeping for us! And believe me, when things get a bit more complicated, that is a great thing! So an <code class='code prettyprint lang-sc'>Ndef</code> helps us with signal routing in a very intuitive way, and what's best, you can do this routing on the fly! Cool ha!
+<p>In SC, we have the Server, which plays the audio. We keep reference of what is playing in the server through what is called a Node. SC keeps what's called a Node tree in the server to keep reference of everything that's playing in it. You can look at the Node tree from the server's drop down menu if you click on the server information in the left corner. SC also has a <code class='code prettyprint lang-sc'>Bus</code> class and a <code class='code prettyprint lang-sc'>Group</code> class for doing more complex routing. But we have to do a lot of bookkeeping of which buses and groups we are using. Ndefs do that bookkeeping for us! And believe me, when things get a bit more complicated, that is a great thing! So an <code class='code prettyprint lang-sc'>Ndef</code> helps us with signal routing in a very intuitive way, and what's best, you can do this routing on the fly! Cool ha!
 <p>Ok, here's how Ndefs work:
 <p>First, we define and play a Node definition<pre class='code prettyprint lang-sc'>Ndef(\sound).play;</pre>
 
