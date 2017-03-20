@@ -19,7 +19,7 @@
 <div id='summary'>Send a trigger message from the server back to the client.</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: /Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Audio/<a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/SCClassLibrary/Common/Audio/Trig.sc'>Trig.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/UGen.html">UGen</a> : <a href="../Classes/AbstractFunction.html">AbstractFunction</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/Trig.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/Trig.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/UGen.html">UGen</a> : <a href="../Classes/AbstractFunction.html">AbstractFunction</a> : <a href="../Classes/Object.html">Object</a></div>
 <div id='subclasses'>Subclasses: <a href="../Classes/SendReply.html">SendReply</a></div>
 <div id='related'>See also: <a href="./../Classes/OSCFunc.html">OSCFunc</a>, <a href="./../Classes/SendReply.html">SendReply</a></div>
 </div>
@@ -27,10 +27,10 @@
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#*ar'>ar</a>  <a href='#*kr'>kr</a> </li>
-<li class='toc2'><a href='#Inherited class methods'>Inherited class methods</a></li>
+<li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
 </ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
-<ul class='toc'><li class='toc2'><a href='#Inherited instance methods'>Inherited instance methods</a></li>
-<li class='toc2'><a href='#Undocumented instance methods'>Undocumented instance methods</a></li>
+<ul class='toc'><li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
+<li class='toc2'><a href='#Undocumented%20instance%20methods'>Undocumented instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-numOutputs'>numOutputs</a> </li>
 <li class='toc3'><a href='#-writeOutputSpecs'>writeOutputSpecs</a> </li>
 </ul></ul><li class='toc1'><a href='#examples'>Examples</a></li>
@@ -49,10 +49,10 @@
 <tr><td class='argumentname'>in<td class='argumentdesc'>
 <p>The trigger.<tr><td class='argumentname'>id<td class='argumentdesc'>
 <p>An integer that will be passed with the trigger message. This is useful if you have more than one SendTrig in a SynthDef.<tr><td class='argumentname'>value<td class='argumentdesc'>
-<p>A UGen or float that will be polled at the time of trigger, and its value passed with the trigger message.</table></div><h3><a class='anchor' name='Inherited class methods'>Inherited class methods</a></h3>
+<p>A UGen or float that will be polled at the time of trigger, and its value passed with the trigger message.</table></div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
-<h3><a class='anchor' name='Inherited instance methods'>Inherited instance methods</a></h3>
-<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented instance methods'>Undocumented instance methods</a></h3>
+<h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
+<div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented%20instance%20methods'>Undocumented instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-numOutputs' href='./../Overviews/Methods.html#numOutputs'>numOutputs</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeOutputSpecs' href='./../Overviews/Methods.html#writeOutputSpecs'>writeOutputSpecs</a> </h3>
 <h2><a class='anchor' name='examples'>Examples</a></h2>
@@ -61,7 +61,7 @@
 (
 SynthDef("help-SendTrig",{
     SendTrig.kr(Dust.kr(1.0),0,0.9);
-}).send(s);
+}).add;
 
 // register to receive this message
 o = OSCFunc({ arg msg, time;
@@ -73,4 +73,4 @@ Synth("help-SendTrig");
 
 o.free;</pre>
 
-<p><div class='doclink'>source: <a href='file:///Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/SendTrig.schelp'>/Applications/SuperCollider 3.7.2/SuperCollider 3.7.2.app/Contents/Resources/HelpSource/Classes/SendTrig.schelp</a><br>link::Classes/SendTrig::<br>sc version: 3.7.2</div></div></body></html>
+<p><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/SendTrig.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/SendTrig.schelp</a><br>link::Classes/SendTrig::<br>sc version: 3.8.0</div></div></body></html>
