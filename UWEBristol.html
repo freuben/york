@@ -21,13 +21,16 @@
 <div class='subheader'>
 </div>
 <div id='toc'>
-<ul class='toc'><li class='toc1'><a href='#UWE%20Bristol%20SuperCollider%20Workshop'>UWE Bristol SuperCollider Workshop</a></li>
-<ul class='toc'></ul><li class='toc1'><a href='#Workshop%20Material'>Workshop Material</a></li>
+<ul class='toc'><li class='toc1'><a href='#UWE%20Bristol%20SuperCollider'>UWE Bristol SuperCollider</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Materials'>Materials</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#Links'>Links</a></li>
-<li class='toc1'><a href='#Short%20Bio'>Short Bio</a></li>
-<ul class='toc'></ul></ul></div><h2><a class='anchor' name='UWE%20Bristol%20SuperCollider%20Workshop'>UWE Bristol SuperCollider Workshop</a></h2>
+<ul class='toc'><li class='toc2'><a href='#Learning%20SC'>Learning SC</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Resources'>Resources</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Books'>Books</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Short%20Bio'>Short Bio</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='UWE%20Bristol%20SuperCollider'>UWE Bristol SuperCollider</a></h2>
 
-<p>This workshop will focus on the SuperCollider programming language and its powerful sound synthesis engine and interactive features. I will introduce some basic SC concepts to get us started. Then, we will examine the possibilities of the language for creative coding, with particular emphasis on live coding. I will also critically examine some existing live coding practices and propose solutions to certain problems that arise from live coding with human musicians playing 'real' instruments in improvised settings. I will briefly explain my own live coding environment which prioritises modularity, immediacy and exchange in improvisation. To save time, I will ask you to please install the latest version of SuperCollider in your computer before our session. You can download it by following this link: <a href="http://supercollider.github.io/download">http://supercollider.github.io/download</a>. You can also download the sc3-plugins (providing additional synthesis, analysis, and other features) here: <a href="https://github.com/supercollider/sc3-plugins/releases">https://github.com/supercollider/sc3-plugins/releases</a>.<h2><a class='anchor' name='Workshop%20Material'>Workshop Material</a></h2>
+<p>This session will focus on the SuperCollider programming language and its powerful sound synthesis engine and interactive features. I will introduce some basic SC concepts to get us started. Then, we will examine the possibilities of the language for creative coding, with particular emphasis on live coding. I will also critically examine some existing live coding practices and propose solutions to certain problems that arise from live coding with human musicians playing 'real' instruments in improvised settings. I will briefly explain my own live coding environment which prioritises modularity, immediacy and exchange in improvisation.<h2><a class='anchor' name='Materials'>Materials</a></h2>
 <dl>
 <dt>Tutorial<dd><ul>
 <li><a href="./Workshops/Programming Concepts 1.html">Programming Concepts 1</a><li><a href="./Workshops/Playing with UGens.html">Playing with UGens</a><li><a href="./Workshops/Patterns and Ndefs.html">Patterns and Ndefs</a><li><a href="./Workshops/Programming Concepts 2.html">Programming Concepts 2</a><li><a href="./Workshops/Interfacing.html">Interfacing</a></ul>
@@ -39,10 +42,63 @@
 <li><a href="./Code Examples/Code for Fun.html">Code for Fun</a><li><a href="./Code Examples/MIDI Fun.html">MIDI Fun</a><li><a href="./Code Examples/FX Fun.html">FX Fun</a><li><a href="./Code Examples/Synth Fun.html">Synth Fun</a><li><a href="./Code Examples/Buffer Tricks.html">Buffer Tricks</a><li><a href="./Code Examples/MIDI Synthesiser.html">MIDI Synthesiser</a></ul>
 
 <p><dt>Extras<dd><ul>
-<li><a href="./Seminars/Introduction to ComputerDotPlay.html">Introduction to ComputerDotPlay</a><li><a href="./Seminars/Composing with Computers 1.html">Composing with Computers 1</a><li><a href="./Seminars/Human-Computer Interaction.html">Human-Computer Interaction</a><li><a href="./Seminars/Composing with Computers 2.html">Composing with Computers 2</a></ul>
+<li><a href="./Other/Improvisation.html">Improvisation</a><li><a href="./Seminars/Introduction to ComputerDotPlay.html">Introduction to ComputerDotPlay</a><li><a href="./Seminars/Composing with Computers 1.html">Composing with Computers 1</a><li><a href="./Seminars/Human-Computer Interaction.html">Human-Computer Interaction</a><li><a href="./Seminars/Composing with Computers 2.html">Composing with Computers 2</a></ul>
 </dl>
 <h2><a class='anchor' name='Links'>Links</a></h2>
+<pre class='code prettyprint lang-sc'>//first evaluate this
+(  //double click inside the brackets, then shift+return
+~openUrl = {arg url;
+        var cmd;
+        Platform.case(
+            \osx,       {cmd = ("open " ++ url); },
+            \linux,     {cmd = ("open " ++ url); },
+            \windows,   {cmd = ("start " ++ url); }
+        );
+        cmd.unixCmd;
+    };
+)</pre>
+<h3><a class='anchor' name='Learning%20SC'>Learning SC</a></h3>
+
+<p>There are many SC tutorials out there. Some might be better that others depending on what you are interested in doing with SC and the way that you learn.
+<p>The ones I prefer are:<ul>
+<li>This one of course...<li>Nick Collins' Tutorial:<pre class='code prettyprint lang-sc'>~openUrl.value("https://composerprogrammer.com/teaching/supercollider/sctutorial/tutorial.html");</pre>
+</ul>
+
+<p>There are others that you can find here:<pre class='code prettyprint lang-sc'>~openUrl.value("http://supercollider.sourceforge.net/learning/");</pre>
+
+<p>There are some video tutorials by Eli Fieldsteel. Some people seem to find them useful:<pre class='code prettyprint lang-sc'>~openUrl.value("https://www.youtube.com/playlist?list=PLPYzvS8A_rTaNDweXe6PX4CXSGq4iEWYC");</pre>
+<h3><a class='anchor' name='Resources'>Resources</a></h3>
+
+<p>SuperCollider website:<pre class='code prettyprint lang-sc'>~openUrl.value("http://supercollider.github.io/");</pre>
+
+<p>sc3-plugins:<pre class='code prettyprint lang-sc'>~openUrl.value("https://github.com/supercollider/sc3-plugins/releases");</pre>
+
+<p>Other resources:<pre class='code prettyprint lang-sc'>~openUrl.value("http://www.audiosynth.com/"); //original SuperCollider page by James McCartney
+~openUrl.value("http://supercollider.github.io/pages"); //SuperCollider Wiki
+~openUrl.value("http://supercollider.github.io/community/mailing-lists"); //SuperCollider Mailing List - sc-users
+~openUrl.value("http://sccode.org/"); //SuperCollider code
+~openUrl.value("https://twitter.com/search?q=%23sc140 &amp; open https://twitter.com/sc140tweets"); //sctweets</pre>
+<h3><a class='anchor' name='Books'>Books</a></h3>
+
+<p>There are 2 books published on SuperCollider.<ul>
+<li>Andrea Valle's book (beginner/intermediate):
+<p>Valle, Andrea (2016) <em>Introduction to SuperCollider</em>. Logos Verlag Berlin GmbH.<pre class='code prettyprint lang-sc'>~openUrl.value("http://www.logos-verlag.de/cgi-bin/buch/isbn/4017");</pre>
+
+<p><li>The SuperCollider book (intermediate/advanced):
+<p>Wilson, S., Cottle, D. and Collins, N. (eds.) (2011) <em>The SuperCollider Book</em>. MIT Press.<pre class='code prettyprint lang-sc'>~openUrl.value("http://supercolliderbook.net/");</pre>
+</ul>
 <h2><a class='anchor' name='Short%20Bio'>Short Bio</a></h2>
 
 <p><strong>Federico Reuben</strong> is a composer, live electronics performer, sound artist and academic. He writes music for humans and computers; writes about music and its intersection with technology, science and culture; makes sound art installations and performances; and is active as a live coding laptop improviser. Currently, he is Senior Lecturer in Music Technology at the University of York.
-<p><a href="https://www.york.ac.uk/music/staff/academic/federico-reuben/">https://www.york.ac.uk/music/staff/academic/federico-reuben/</a><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/UWEBristol.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/UWEBristol.schelp</a><br>link::UWEBristol::<br>sc version: 3.8.0</div></div></body></html>
+<p>You can find out what he's up to here:<ul>
+<li>University of York Profile:<pre class='code prettyprint lang-sc'>~openUrl.value("https://www.york.ac.uk/music/staff/academic/federico-reuben/");</pre>
+
+<p><li>York Research Database:<pre class='code prettyprint lang-sc'>~openUrl.value("https://pure.york.ac.uk/portal/en/researchers/federico-reuben(7f8a0d7e-23e7-48a8-a678-ef41771b959b).html");</pre>
+
+<p><li>Music, Science and Technology Research Cluster (mstrc) @ York website:<pre class='code prettyprint lang-sc'>~openUrl.value("https://www.mstrcyork.org/");</pre>
+
+<p><li>Personal Website:<pre class='code prettyprint lang-sc'>~openUrl.value("http://federicoreuben.com/");</pre>
+
+<p><li>Squib-box collective:<pre class='code prettyprint lang-sc'>~openUrl.value("http://www.squib-box.com/");</pre>
+</ul>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/UWEBristol.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerPlay/HelpSource/UWEBristol.schelp</a><br>link::UWEBristol::<br>sc version: 3.8.0</div></div></body></html>

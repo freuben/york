@@ -112,21 +112,21 @@ b</pre>
 <p>Basic SynthDef format:<pre class='code prettyprint lang-sc'>SynthDef("name", {Out.ar(busNumber, UGens)});</pre>
 
 <p>Same Synth as above but now in a <code class='code prettyprint lang-sc'>SynthDef</code> with the name <code class='code prettyprint lang-sc'>"SineMouse"</code>:<pre class='code prettyprint lang-sc'>(
-SynthDef("SineMouse", {var signal;
+SynthDef("SineMouse", {arg out=0; var signal;
 signal = SinOsc.ar(MouseX.kr(100,10000, 'exponential'),0,0.2);
-Out.ar(0, signal);
-}).send(s);
+Out.ar(out, signal);
+}).add;
 )</pre>
 
 <p>The message .send(s) sends this SynthDef to the server.
 <p>This creates an instance of the Synth:<pre class='code prettyprint lang-sc'>Synth("SineMouse");</pre>
 
 <p>Now let't try it with arguments:<pre class='code prettyprint lang-sc'>(
-SynthDef("SineArg", {arg freq=200,mul=0.5;
+SynthDef("SineArg", {arg freq=200,mul=0.5, out=0;
 var signal;
 signal = SinOsc.ar(freq,0,mul);
-Out.ar(0, signal);
-}).send(s);
+Out.ar(out, signal);
+}).add;
 )</pre>
 
 <p>Basic Synth format:<pre class='code prettyprint lang-sc'>Synth("name", [\argument1, value1, \argument2, value2]);</pre>

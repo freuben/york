@@ -19,7 +19,7 @@
 <div id='summary'>Client-side representation of a synth definition</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/SynthDef.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/SynthDef.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/SynthDef.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/SynthDef.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
 <div id='subclasses'>Subclasses: <a href="../Classes/ProxySynthDef.html">ProxySynthDef</a>, <a href="../Classes/SynthDefOld.html">SynthDefOld</a></div>
 <div id='related'>See also: <a href="./../Classes/Synth.html">Synth</a>, <a href="./../Reference/Synth-Definition-File-Format.html">Synth Definition File Format</a>, <a href="./../Classes/SynthDesc.html">SynthDesc</a></div>
 </div>
@@ -34,7 +34,10 @@
 <li class='toc3'><a href='#*removeAt'>removeAt</a> </li>
 <li class='toc3'><a href='#*writeOnce'>writeOnce</a> </li>
 <li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
-</ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
+<li class='toc2'><a href='#Undocumented%20class%20methods'>Undocumented class methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#*record'>record</a> </li>
+<li class='toc3'><a href='#*recordDialog'>recordDialog</a> </li>
+</ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-add'>add</a> </li>
 <li class='toc3'><a href='#-name'>name</a> </li>
 <li class='toc3'><a href='#-func'>func</a> </li>
@@ -80,23 +83,41 @@
 <li class='toc3'><a href='#-desc'>desc</a> </li>
 <li class='toc3'><a href='#-doSend'>doSend</a> </li>
 <li class='toc3'><a href='#-dumpUGens'>dumpUGens</a> </li>
+<li class='toc3'><a href='#-fastgui'>fastgui</a> </li>
 <li class='toc3'><a href='#-finishBuild'>finishBuild</a> </li>
+<li class='toc3'><a href='#-free'>free</a> </li>
+<li class='toc3'><a href='#-freeAll'>freeAll</a> </li>
+<li class='toc3'><a href='#-freeAt'>freeAt</a> </li>
+<li class='toc3'><a href='#-freeLast'>freeLast</a> </li>
 <li class='toc3'><a href='#-hasGateControl'>hasGateControl</a> </li>
 <li class='toc3'><a href='#-indexUGens'>indexUGens</a> </li>
 <li class='toc3'><a href='#-initBuild'>initBuild</a> </li>
 <li class='toc3'><a href='#-initTopoSort'>initTopoSort</a> </li>
+<li class='toc3'><a href='#-isInTracker'>isInTracker</a> </li>
 <li class='toc3'><a href='#-loadReconstructed'>loadReconstructed</a> </li>
+<li class='toc3'><a href='#-makeAU'>makeAU</a> </li>
+<li class='toc3'><a href='#-makeAUPluginSpec'>makeAUPluginSpec</a> </li>
 <li class='toc3'><a href='#-maxLocalBufs'>maxLocalBufs</a> </li>
 <li class='toc3'><a href='#-metadata'>metadata</a> </li>
 <li class='toc3'><a href='#-numChannels'>numChannels</a> </li>
 <li class='toc3'><a href='#-optimizeGraph'>optimizeGraph</a> </li>
+<li class='toc3'><a href='#-playAlways'>playAlways</a> </li>
 <li class='toc3'><a href='#-rate'>rate</a> </li>
+<li class='toc3'><a href='#-release'>release</a> </li>
+<li class='toc3'><a href='#-releaseAll'>releaseAll</a> </li>
+<li class='toc3'><a href='#-releaseAt'>releaseAt</a> </li>
+<li class='toc3'><a href='#-releaseLast'>releaseLast</a> </li>
 <li class='toc3'><a href='#-removeUGen'>removeUGen</a> </li>
 <li class='toc3'><a href='#-replaceUGen'>replaceUGen</a> </li>
+<li class='toc3'><a href='#-runningSynths'>runningSynths</a> </li>
+<li class='toc3'><a href='#-sendAlways'>sendAlways</a> </li>
 <li class='toc3'><a href='#-setControlNames'>setControlNames</a> </li>
 <li class='toc3'><a href='#-storeOnce'>storeOnce</a> </li>
 <li class='toc3'><a href='#-topologicalSort'>topologicalSort</a> </li>
+<li class='toc3'><a href='#-track'>track</a> </li>
+<li class='toc3'><a href='#-trackPlay'>trackPlay</a> </li>
 <li class='toc3'><a href='#-widthFirstUGens'>widthFirstUGens</a> </li>
+<li class='toc3'><a href='#-willFreeSynth'>willFreeSynth</a> </li>
 <li class='toc3'><a href='#-writeConstants'>writeConstants</a> </li>
 <li class='toc3'><a href='#-writeDef'>writeDef</a> </li>
 <li class='toc3'><a href='#-writeOnce'>writeOnce</a> </li>
@@ -175,7 +196,12 @@ d.allControlNames;</pre>
 <div class='method'>
 <p>Create a new SynthDef. It is written to disk only if a def file with this name does not already exist. Note that this will not check for differences, so you will need to delete the defFile to get it to rebuild. Default for dir is to use the path specified by <code class='code prettyprint lang-sc'>SynthDef.synthDefDir</code>.<div class='warning'><span class='warninglabel'>WARNING:</span> <code class='code prettyprint lang-sc'>SynthDef.writeOnce</code> is a legacy method. Its main use was to improve the efficiency of SynthDefs in quarks, but this is superseded by <a href="./../Classes/SynthDescLib.html">SynthDescLib</a>. Being completely impervious to changes, it can cause difficult-to-diagnose bugs (such as having version 1.1 of a quark but with a SynthDef stuck in version 1.0). Quark developers should now use <a href="#-add">-add</a> instead.
 <p>The exception is very large SynthDefs, where you have a choice between <a href="#-writeDefFile">-writeDefFile</a> and this method. Even then, the efficiency savings of <code class='code prettyprint lang-sc'>writeOnce</code> are only in disk I/O -- both methods build the SynthDef every time they run.</div></div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
-<div id='inheritedclassmets'></div><h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
+<div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented%20class%20methods'>Undocumented class methods</a></h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*record' href='./../Overviews/Methods.html#record'>record</a> (<span class='argstr'>name</span>, <span class='argstr'>ugenGraphFunc</span>, <span class='argstr'>duration: 1</span>, <span class='argstr'>addPath: "sounds/"</span>, <span class='argstr'>headerFormat: "aiff"</span>, <span class='argstr'>sampleFormat: "int24"</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSynthdef-record.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSynthdef-record.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*recordDialog' href='./../Overviews/Methods.html#recordDialog'>recordDialog</a> (<span class='argstr'>name</span>, <span class='argstr'>ugenGraphFunc</span>, <span class='argstr'>duration: 1</span>, <span class='argstr'>headerFormat: "aiff"</span>, <span class='argstr'>sampleFormat: "int24"</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSynthdef-record.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSynthdef-record.sc</a></div>
+<h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-add' href='./../Overviews/Methods.html#add'>add</a> (<span class='argstr'>libname</span>, <span class='argstr'>completionMsg</span>, <span class='argstr'>keepDef: true</span>)</h3>
 <div class='method'>
 <p>Adds the synthdef to the <a href="./../Classes/SynthDescLib.html">SynthDescLib</a> specified by libname, and sends it to the library's servers. No defFile is written; all operations take place in memory.<h4>Discussion:</h4>
@@ -233,21 +259,21 @@ SynthDef(\help_synth, { |out, freq = 800, sustain = 1, amp = 0.1|
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-addUGen' href='./../Overviews/Methods.html#addUGen'>addUGen</a> (<span class='argstr'>ugen</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asBytes' href='./../Overviews/Methods.html#asBytes'>asBytes</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asDefName' href='./../Overviews/Methods.html#asDefName'>asDefName</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asSynthDef' href='./../Overviews/Methods.html#asSynthDef'>asSynthDef</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asDefName.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asSynthDesc' href='./../Overviews/Methods.html#asSynthDesc'>asSynthDesc</a> (<span class='argstr'>libname: 'global'</span>, <span class='argstr'>keepDef: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-available' href='./../Overviews/Methods.html#available'>available</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-available' href='./../Overviews/Methods.html#available'>available</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-build' href='./../Overviews/Methods.html#build'>build</a> (<span class='argstr'>ugenGraphFunc</span>, <span class='argstr'>rates</span>, <span class='argstr'>prependArgs</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-buildControls' href='./../Overviews/Methods.html#buildControls'>buildControls</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-buildForProxy' href='./../Overviews/Methods.html#buildForProxy'>buildForProxy</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-buildUgenGraph' href='./../Overviews/Methods.html#buildUgenGraph'>buildUgenGraph</a> (<span class='argstr'>func</span>, <span class='argstr'>rates</span>, <span class='argstr'>prependArgs</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-canFreeSynth' href='./../Overviews/Methods.html#canFreeSynth'>canFreeSynth</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-canReleaseSynth' href='./../Overviews/Methods.html#canReleaseSynth'>canReleaseSynth</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-children' href='./../Overviews/Methods.html#children'>children</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-children' href='./../Overviews/Methods.html#children'>children</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-cleanupTopoSort' href='./../Overviews/Methods.html#cleanupTopoSort'>cleanupTopoSort</a> </h3>
@@ -266,29 +292,65 @@ SynthDef(\help_synth, { |out, freq = 800, sustain = 1, amp = 0.1|
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-desc' href='./../Overviews/Methods.html#desc'>desc</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-doSend' href='./../Overviews/Methods.html#doSend'>doSend</a> (<span class='argstr'>server</span>, <span class='argstr'>completionMsg</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-dumpUGens' href='./../Overviews/Methods.html#dumpUGens'>dumpUGens</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-fastgui' href='./../Overviews/Methods.html#fastgui'>fastgui</a> (<span class='argstr'>sent: false</span>, <span class='argstr'>paramScale: 4</span>, <span class='argstr'>zeroScale: 1</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/GUI/Extensions/extSynthdef-fastgui.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/GUI/Extensions/extSynthdef-fastgui.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-finishBuild' href='./../Overviews/Methods.html#finishBuild'>finishBuild</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-free' href='./../Overviews/Methods.html#free'>free</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-freeAll' href='./../Overviews/Methods.html#freeAll'>freeAll</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-freeAt' href='./../Overviews/Methods.html#freeAt'>freeAt</a> (<span class='argstr'>i</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-freeLast' href='./../Overviews/Methods.html#freeLast'>freeLast</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-hasGateControl' href='./../Overviews/Methods.html#hasGateControl'>hasGateControl</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-indexUGens' href='./../Overviews/Methods.html#indexUGens'>indexUGens</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-initBuild' href='./../Overviews/Methods.html#initBuild'>initBuild</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-initTopoSort' href='./../Overviews/Methods.html#initTopoSort'>initTopoSort</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-isInTracker' href='./../Overviews/Methods.html#isInTracker'>isInTracker</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-loadReconstructed' href='./../Overviews/Methods.html#loadReconstructed'>loadReconstructed</a> (<span class='argstr'>server</span>, <span class='argstr'>completionMsg</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-makeAU' href='./../Overviews/Methods.html#makeAU'>makeAU</a> (<span class='argstr'>identifier</span>, <span class='argstr'>changedSpecs</span>, <span class='argstr'>install: 'global'</span>, <span class='argstr'>cleanFiles: true</span>, <span class='argstr'>silent: true</span>, <span class='argstr'>superColliderAUFolder</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/obsolete/synthDef-makeAU.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/obsolete/synthDef-makeAU.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-makeAUPluginSpec' href='./../Overviews/Methods.html#makeAUPluginSpec'>makeAUPluginSpec</a> (<span class='argstr'>folder: "~/scwork"</span>, <span class='argstr'>changedSpecs</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/obsolete/synthDef-makeAU.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/obsolete/synthDef-makeAU.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-maxLocalBufs' href='./../Overviews/Methods.html#maxLocalBufs'>maxLocalBufs</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-maxLocalBufs' href='./../Overviews/Methods.html#maxLocalBufs'>maxLocalBufs</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-metadata' href='./../Overviews/Methods.html#metadata'>metadata</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-metadata' href='./../Overviews/Methods.html#metadata'>metadata</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-numChannels' href='./../Overviews/Methods.html#numChannels'>numChannels</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-optimizeGraph' href='./../Overviews/Methods.html#optimizeGraph'>optimizeGraph</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-playAlways' href='./../Overviews/Methods.html#playAlways'>playAlways</a> (<span class='argstr'>target</span>, <span class='argstr'>outbus: 0</span>, <span class='argstr'>fadeTime: 0.02</span>, <span class='argstr'>addAction: 'addToHead'</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/GUI/Extensions/extSynthdef-fastgui.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/GUI/Extensions/extSynthdef-fastgui.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-rate' href='./../Overviews/Methods.html#rate'>rate</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-release' href='./../Overviews/Methods.html#release'>release</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-releaseAll' href='./../Overviews/Methods.html#releaseAll'>releaseAll</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-releaseAt' href='./../Overviews/Methods.html#releaseAt'>releaseAt</a> (<span class='argstr'>i</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-releaseLast' href='./../Overviews/Methods.html#releaseLast'>releaseLast</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-removeUGen' href='./../Overviews/Methods.html#removeUGen'>removeUGen</a> (<span class='argstr'>ugen</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-replaceUGen' href='./../Overviews/Methods.html#replaceUGen'>replaceUGen</a> (<span class='argstr'>a</span>, <span class='argstr'>b</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-runningSynths' href='./../Overviews/Methods.html#runningSynths'>runningSynths</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-sendAlways' href='./../Overviews/Methods.html#sendAlways'>sendAlways</a> (<span class='argstr'>target</span>, <span class='argstr'>outbus: 0</span>, <span class='argstr'>fadeTime: 0.02</span>, <span class='argstr'>addAction: 'addToHead'</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/GUI/Extensions/extSynthdef-fastgui.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/GUI/Extensions/extSynthdef-fastgui.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-setControlNames' href='./../Overviews/Methods.html#setControlNames'>setControlNames</a> (<span class='argstr'>controlUGens</span>, <span class='argstr'>cn</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-storeOnce' href='./../Overviews/Methods.html#storeOnce'>storeOnce</a> (<span class='argstr'>libname: 'global'</span>, <span class='argstr'>dir</span>, <span class='argstr'>completionMsg</span>, <span class='argstr'>mdPlugin</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-topologicalSort' href='./../Overviews/Methods.html#topologicalSort'>topologicalSort</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-track' href='./../Overviews/Methods.html#track'>track</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-trackPlay' href='./../Overviews/Methods.html#trackPlay'>trackPlay</a> (<span class='argstr'>target</span>, <span class='argstr'>args</span>, <span class='argstr'>addAction: 'addToHead'</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-widthFirstUGens' href='./../Overviews/Methods.html#widthFirstUGens'>widthFirstUGens</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-widthFirstUGens' href='./../Overviews/Methods.html#widthFirstUGens'>widthFirstUGens</a> = value</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-willFreeSynth' href='./../Overviews/Methods.html#willFreeSynth'>willFreeSynth</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-SynthTracker.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeConstants' href='./../Overviews/Methods.html#writeConstants'>writeConstants</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeDef' href='./../Overviews/Methods.html#writeDef'>writeDef</a> (<span class='argstr'>file</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeOnce' href='./../Overviews/Methods.html#writeOnce'>writeOnce</a> (<span class='argstr'>dir</span>, <span class='argstr'>mdPlugin</span>)</h3>
@@ -520,4 +582,4 @@ Pbind(
     \out, Pseq([0, 1], inf)
 ).play;
 )</pre>
-<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/SynthDef.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/SynthDef.schelp</a><br>link::Classes/SynthDef::<br>sc version: 3.8.0</div></div></body></html>
+<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/SynthDef.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/SynthDef.schelp</a><br>link::Classes/SynthDef::<br>sc version: 3.8.0</div></div></body></html>
