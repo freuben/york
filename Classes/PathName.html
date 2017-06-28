@@ -19,7 +19,7 @@
 <div id='summary'>file and directory path utilities</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Files/PathName.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Files/PathName.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Files/PathName.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Files/PathName.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
 <div id='related'>See also: <a href="./../Classes/File.html">File</a>, <a href="./../Classes/String.html">String</a></div>
 </div>
 <div id='toc'>
@@ -68,9 +68,13 @@
 <li class='toc3'><a href='#-isCVS'>isCVS</a> </li>
 <li class='toc3'><a href='#-isSVN'>isSVN</a> </li>
 <li class='toc3'><a href='#-lastColonIndex'>lastColonIndex</a> </li>
+<li class='toc3'><a href='#-noRealEndNumbers'>noRealEndNumbers</a> </li>
 <li class='toc3'><a href='#-parentLevelPath'>parentLevelPath</a> </li>
 <li class='toc3'><a href='#-parentPath'>parentPath</a> </li>
 <li class='toc3'><a href='#-pathMatch'>pathMatch</a> </li>
+<li class='toc3'><a href='#-realEndNumber'>realEndNumber</a> </li>
+<li class='toc3'><a href='#-realNextName'>realNextName</a> </li>
+<li class='toc3'><a href='#-realNextPathName'>realNextPathName</a> </li>
 <li class='toc3'><a href='#-streamTree'>streamTree</a> </li>
 <li class='toc3'><a href='#-streamTreeNoCVS'>streamTreeNoCVS</a> </li>
 </ul></ul><li class='toc1'><a href='#examples'>Examples</a></li>
@@ -101,7 +105,8 @@ myPath.fileName.postln;
 )</pre>
 </div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-fileNameWithoutExtension' href='./../Overviews/Methods.html#fileNameWithoutExtension'>fileNameWithoutExtension</a> </h3>
 <div class='method'>
-<p>returns the name of the file itself without the file extension.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-extension' href='./../Overviews/Methods.html#extension'>extension</a> </h3>
+<p>returns the name of the file itself without the file extension.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-extension' href='./../Overviews/Methods.html#extension'>extension</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-extension' href='./../Overviews/Methods.html#extension'>extension</a>_ (<span class='argstr'>extension: ""</span>, <span class='argstr'>warn</span>)</h3>
 <div class='method'>
 <p>returns the file extension, i.e. everything after the last full-stop in the <a href="#-fileName">-fileName</a>.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-pathOnly' href='./../Overviews/Methods.html#pathOnly'>pathOnly</a> </h3>
 <div class='method'>
@@ -225,10 +230,19 @@ PathName("floating12_3A4X_56.7").nextName.postln;</pre>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isCVS' href='./../Overviews/Methods.html#isCVS'>isCVS</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isSVN' href='./../Overviews/Methods.html#isSVN'>isSVN</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-lastColonIndex' href='./../Overviews/Methods.html#lastColonIndex'>lastColonIndex</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-noRealEndNumbers' href='./../Overviews/Methods.html#noRealEndNumbers'>noRealEndNumbers</a> (<span class='argstr'>withExtension: true</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-parentLevelPath' href='./../Overviews/Methods.html#parentLevelPath'>parentLevelPath</a> (<span class='argstr'>index</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/ATK/Classes/extPathName.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/ATK/Classes/extPathName.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-parentPath' href='./../Overviews/Methods.html#parentPath'>parentPath</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pathMatch' href='./../Overviews/Methods.html#pathMatch'>pathMatch</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-realEndNumber' href='./../Overviews/Methods.html#realEndNumber'>realEndNumber</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-realEndNumber' href='./../Overviews/Methods.html#realEndNumber'>realEndNumber</a> = <span class='argstr'>number: 0</span></h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-realNextName' href='./../Overviews/Methods.html#realNextName'>realNextName</a> (<span class='argstr'>increaseBy: 1</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-realNextPathName' href='./../Overviews/Methods.html#realNextPathName'>realNextPathName</a> (<span class='argstr'>increaseBy: 1</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/File management/extPathName-realNextName.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-streamTree' href='./../Overviews/Methods.html#streamTree'>streamTree</a> (<span class='argstr'>str</span>, <span class='argstr'>tabs: 0</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-streamTreeNoCVS' href='./../Overviews/Methods.html#streamTreeNoCVS'>streamTreeNoCVS</a> (<span class='argstr'>str</span>, <span class='argstr'>tabs: 0</span>)</h3>
 <h2><a class='anchor' name='examples'>Examples</a></h2>
@@ -309,4 +323,4 @@ GetFileDialog.new(
 )
 )</pre>
 
-<p><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/PathName.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/PathName.schelp</a><br>link::Classes/PathName::<br>sc version: 3.8.0</div></div></body></html>
+<p><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/PathName.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/PathName.schelp</a><br>link::Classes/PathName::<br>sc version: 3.8.0</div></div></body></html>

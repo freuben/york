@@ -19,7 +19,7 @@
 <div id='summary'>Abstract superclass of integer indexable collections</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/SequenceableCollection.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/SequenceableCollection.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Collection.html">Collection</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/SequenceableCollection.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/SequenceableCollection.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Collection.html">Collection</a> : <a href="../Classes/Object.html">Object</a></div>
 <div id='subclasses'>Subclasses: <a href="../Classes/ArrayedCollection.html">ArrayedCollection</a>, <a href="../Classes/LinkedList.html">LinkedList</a>, <a href="../Classes/List.html">List</a>, <a href="../Classes/Order.html">Order</a>, <a href="../Classes/RingBuffer.html">RingBuffer</a></div>
 </div>
 <div id='toc'>
@@ -36,7 +36,8 @@
 <li class='toc3'><a href='#*interpolation'>interpolation</a> </li>
 <li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
 <li class='toc2'><a href='#Undocumented%20class%20methods'>Undocumented class methods</a></li>
-<ul class='toc'><li class='toc3'><a href='#*newFromFile'>newFromFile</a> </li>
+<ul class='toc'><li class='toc3'><a href='#*meshgrid'>meshgrid</a> </li>
+<li class='toc3'><a href='#*newFromFile'>newFromFile</a> </li>
 <li class='toc3'><a href='#*streamContents'>streamContents</a> </li>
 <li class='toc3'><a href='#*streamContentsLimit'>streamContentsLimit</a> </li>
 <li class='toc3'><a href='#*tuningScale'>tuningScale</a> </li>
@@ -122,6 +123,7 @@
 <li class='toc3'><a href='#-asArgsDict'>asArgsDict</a> </li>
 <li class='toc3'><a href='#-asArgsString'>asArgsString</a> </li>
 <li class='toc3'><a href='#-asAscii'>asAscii</a> </li>
+<li class='toc3'><a href='#-asCartesian'>asCartesian</a> </li>
 <li class='toc3'><a href='#-asDigit'>asDigit</a> </li>
 <li class='toc3'><a href='#-asFraction'>asFraction</a> </li>
 <li class='toc3'><a href='#-asLayoutElement'>asLayoutElement</a> </li>
@@ -138,6 +140,7 @@
 <li class='toc3'><a href='#-ascii'>ascii</a> </li>
 <li class='toc3'><a href='#-aswAddendsOf'>aswAddendsOf</a> </li>
 <li class='toc3'><a href='#-atan2WT'>atan2WT</a> </li>
+<li class='toc3'><a href='#-autocorr'>autocorr</a> </li>
 <li class='toc3'><a href='#-bi2uni'>bi2uni</a> </li>
 <li class='toc3'><a href='#-bitAnd'>bitAnd</a> </li>
 <li class='toc3'><a href='#-bitHammingDistance'>bitHammingDistance</a> </li>
@@ -147,6 +150,7 @@
 <li class='toc3'><a href='#-cauchy'>cauchy</a> </li>
 <li class='toc3'><a href='#-containsSeqColl'>containsSeqColl</a> </li>
 <li class='toc3'><a href='#-convertOneRhythm'>convertOneRhythm</a> </li>
+<li class='toc3'><a href='#-corr'>corr</a> </li>
 <li class='toc3'><a href='#-cosFadeIn'>cosFadeIn</a> </li>
 <li class='toc3'><a href='#-cosFadeOut'>cosFadeOut</a> </li>
 <li class='toc3'><a href='#-curverange'>curverange</a> </li>
@@ -175,6 +179,8 @@
 <li class='toc3'><a href='#-isArgsDict'>isArgsDict</a> </li>
 <li class='toc3'><a href='#-isAssociationArray'>isAssociationArray</a> </li>
 <li class='toc3'><a href='#-isSequenceableCollection'>isSequenceableCollection</a> </li>
+<li class='toc3'><a href='#-jarqueBera'>jarqueBera</a> </li>
+<li class='toc3'><a href='#-kendallW'>kendallW</a> </li>
 <li class='toc3'><a href='#-keyToDegree'>keyToDegree</a> </li>
 <li class='toc3'><a href='#-keysValuesDo'>keysValuesDo</a> </li>
 <li class='toc3'><a href='#-lastIndex'>lastIndex</a> </li>
@@ -184,6 +190,7 @@
 <li class='toc3'><a href='#-mergeSort'>mergeSort</a> </li>
 <li class='toc3'><a href='#-mergeSortTemp'>mergeSortTemp</a> </li>
 <li class='toc3'><a href='#-mergeTemp'>mergeTemp</a> </li>
+<li class='toc3'><a href='#-meshgrid'>meshgrid</a> </li>
 <li class='toc3'><a href='#-middle'>middle</a> </li>
 <li class='toc3'><a href='#-middleIndex'>middleIndex</a> </li>
 <li class='toc3'><a href='#-midinote'>midinote</a> </li>
@@ -192,6 +199,7 @@
 <li class='toc3'><a href='#-moddif'>moddif</a> </li>
 <li class='toc3'><a href='#-mode'>mode</a> </li>
 <li class='toc3'><a href='#-multiChannelPerform'>multiChannelPerform</a> </li>
+<li class='toc3'><a href='#-nSorted'>nSorted</a> </li>
 <li class='toc3'><a href='#-nearestInList'>nearestInList</a> </li>
 <li class='toc3'><a href='#-nearestInScale'>nearestInScale</a> </li>
 <li class='toc3'><a href='#-nearestTo'>nearestTo</a> </li>
@@ -200,7 +208,9 @@
 <li class='toc3'><a href='#-nextTimeOnGrid'>nextTimeOnGrid</a> </li>
 <li class='toc3'><a href='#-notemidi'>notemidi</a> </li>
 <li class='toc3'><a href='#-nthPrime'>nthPrime</a> </li>
+<li class='toc3'><a href='#-oscorr'>oscorr</a> </li>
 <li class='toc3'><a href='#-pareto'>pareto</a> </li>
+<li class='toc3'><a href='#-pc1'>pc1</a> </li>
 <li class='toc3'><a href='#-performBinaryOpOnComplex'>performBinaryOpOnComplex</a> </li>
 <li class='toc3'><a href='#-performBinaryOpOnSeqColl'>performBinaryOpOnSeqColl</a> </li>
 <li class='toc3'><a href='#-performBinaryOpOnSimpleNumber'>performBinaryOpOnSimpleNumber</a> </li>
@@ -208,6 +218,7 @@
 <li class='toc3'><a href='#-performKeyToDegree'>performKeyToDegree</a> </li>
 <li class='toc3'><a href='#-performNearestInList'>performNearestInList</a> </li>
 <li class='toc3'><a href='#-performNearestInScale'>performNearestInScale</a> </li>
+<li class='toc3'><a href='#-phi'>phi</a> </li>
 <li class='toc3'><a href='#-poisson'>poisson</a> </li>
 <li class='toc3'><a href='#-postItems'>postItems</a> </li>
 <li class='toc3'><a href='#-pow'>pow</a> </li>
@@ -221,6 +232,7 @@
 <li class='toc3'><a href='#-raddeg'>raddeg</a> </li>
 <li class='toc3'><a href='#-ramp'>ramp</a> </li>
 <li class='toc3'><a href='#-rangeExp'>rangeExp</a> </li>
+<li class='toc3'><a href='#-rankVals'>rankVals</a> </li>
 <li class='toc3'><a href='#-rate'>rate</a> </li>
 <li class='toc3'><a href='#-rectWindow'>rectWindow</a> </li>
 <li class='toc3'><a href='#-removing'>removing</a> </li>
@@ -228,8 +240,10 @@
 <li class='toc3'><a href='#-roundUp'>roundUp</a> </li>
 <li class='toc3'><a href='#-schedBundleArrayOnClock'>schedBundleArrayOnClock</a> </li>
 <li class='toc3'><a href='#-scurve'>scurve</a> </li>
+<li class='toc3'><a href='#-signtest'>signtest</a> </li>
 <li class='toc3'><a href='#-sortMap'>sortMap</a> </li>
 <li class='toc3'><a href='#-sortedMedian'>sortedMedian</a> </li>
+<li class='toc3'><a href='#-spearmanRho'>spearmanRho</a> </li>
 <li class='toc3'><a href='#-sqrsum'>sqrsum</a> </li>
 <li class='toc3'><a href='#-sqrtFadeIn'>sqrtFadeIn</a> </li>
 <li class='toc3'><a href='#-sqrtFadeOut'>sqrtFadeOut</a> </li>
@@ -246,12 +260,16 @@
 <li class='toc3'><a href='#-unwrap'>unwrap</a> </li>
 <li class='toc3'><a href='#-unwrap2'>unwrap2</a> </li>
 <li class='toc3'><a href='#-welWindow'>welWindow</a> </li>
+<li class='toc3'><a href='#-wilcoxonSR'>wilcoxonSR</a> </li>
+<li class='toc3'><a href='#-wilcoxonSRzScore'>wilcoxonSRzScore</a> </li>
+<li class='toc3'><a href='#-wmean'>wmean</a> </li>
 <li class='toc3'><a href='#-wrap2'>wrap2</a> </li>
 <li class='toc3'><a href='#-wrapAt'>wrapAt</a> </li>
 <li class='toc3'><a href='#-wrapAtDepth'>wrapAtDepth</a> </li>
 <li class='toc3'><a href='#-wrapPut'>wrapPut</a> </li>
 <li class='toc3'><a href='#-writeFile'>writeFile</a> </li>
 <li class='toc3'><a href='#-writeSCMIRZArchive'>writeSCMIRZArchive</a> </li>
+<li class='toc3'><a href='#-wvariance'>wvariance</a> </li>
 </ul></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
 <p>SequenceableCollection is a subclass of Collection whose elements can be indexed by an Integer. It has many useful subclasses; <a href="./../Classes/Array.html">Array</a> and <a href="./../Classes/List.html">List</a> are amongst the most commonly used.<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
@@ -301,6 +319,8 @@ Array.fib(5, 2, 32); // start from 32 with step 2.</pre>
 <p>Fill a SequenceableCollection with the interpolated values between the <strong>start</strong> and <strong>end</strong> values.<pre class='code prettyprint lang-sc'>Array.interpolation(5, 3.2, 20.5);</pre>
 </div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented%20class%20methods'>Undocumented class methods</a></h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*meshgrid' href='./../Overviews/Methods.html#meshgrid'>meshgrid</a> (<span class='argstr'>arrays</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/various/extSequenceableCollection.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/various/extSequenceableCollection.sc</a></div>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*newFromFile' href='./../Overviews/Methods.html#newFromFile'>newFromFile</a> (<span class='argstr'>path</span>, <span class='argstr'>columnSeparator: $ </span>, <span class='argstr'>rowSeparator: $\n</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/SeqCol-newFromFile.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/SeqCol-newFromFile.sc</a></div>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*streamContents' href='./../Overviews/Methods.html#streamContents'>streamContents</a> (<span class='argstr'>function</span>)</h3>
@@ -816,19 +836,21 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asAscii' href='./../Overviews/Methods.html#asAscii'>asAscii</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/String/extString-collection.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/String/extString-collection.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-asCartesian' href='./../Overviews/Methods.html#asCartesian'>asCartesian</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/extSequenceableCollection.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/extSequenceableCollection.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asDigit' href='./../Overviews/Methods.html#asDigit'>asDigit</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/String/extString-collection.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/String/extString-collection.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asFraction' href='./../Overviews/Methods.html#asFraction'>asFraction</a> (<span class='argstr'>denominator: 100</span>, <span class='argstr'>fasterBetter: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asLayoutElement' href='./../Overviews/Methods.html#asLayoutElement'>asLayoutElement</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asMIDIInPortUID' href='./../Overviews/Methods.html#asMIDIInPortUID'>asMIDIInPortUID</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asMIDIPort.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asMIDIPort.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asMIDIPort.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/asMIDIPort.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asOSCArgArray' href='./../Overviews/Methods.html#asOSCArgArray'>asOSCArgArray</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asOSCArgBundle' href='./../Overviews/Methods.html#asOSCArgBundle'>asOSCArgBundle</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asOSCArgEmbeddedArray' href='./../Overviews/Methods.html#asOSCArgEmbeddedArray'>asOSCArgEmbeddedArray</a> (<span class='argstr'>array</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/extConvertToOSC.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asPaddedString' href='./../Overviews/Methods.html#asPaddedString'>asPaddedString</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/Integer-asPaddedString.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/Integer-asPaddedString.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asPoint' href='./../Overviews/Methods.html#asPoint'>asPoint</a> </h3>
@@ -842,6 +864,8 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/SeqCol-asAddendsOf.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/SeqCol-asAddendsOf.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-atan2WT' href='./../Overviews/Methods.html#atan2WT'>atan2WT</a> (<span class='argstr'>function: 1</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/UGens/Atan2Osc.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/UGens/Atan2Osc.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-autocorr' href='./../Overviews/Methods.html#autocorr'>autocorr</a> (<span class='argstr'>num</span>, <span class='argstr'>mean</span>, <span class='argstr'>sd</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-bi2uni' href='./../Overviews/Methods.html#bi2uni'>bi2uni</a> (<span class='argstr'>lo: 0</span>, <span class='argstr'>hi: 1</span>, <span class='argstr'>clip: 'none'</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Improvements/extVarious-range.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Improvements/extVarious-range.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-bitAnd' href='./../Overviews/Methods.html#bitAnd'>bitAnd</a> (<span class='argstr'>aNumber</span>, <span class='argstr'>adverb</span>)</h3>
@@ -850,11 +874,13 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-breakUp' href='./../Overviews/Methods.html#breakUp'>breakUp</a> (<span class='argstr'>div</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Collection/extNumber-breakUp.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Collection/extNumber-breakUp.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-canFreeSynth' href='./../Overviews/Methods.html#canFreeSynth'>canFreeSynth</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/canFreeSynth.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-cauchy' href='./../Overviews/Methods.html#cauchy'>cauchy</a> (<span class='argstr'>spread: 1</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/ProbabilityDistributions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/ProbabilityDistributions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-containsSeqColl' href='./../Overviews/Methods.html#containsSeqColl'>containsSeqColl</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-convertOneRhythm' href='./../Overviews/Methods.html#convertOneRhythm'>convertOneRhythm</a> (<span class='argstr'>list</span>, <span class='argstr'>tie: 0</span>, <span class='argstr'>stretch: 1</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-corr' href='./../Overviews/Methods.html#corr'>corr</a> (<span class='argstr'>that</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-cosFadeIn' href='./../Overviews/Methods.html#cosFadeIn'>cosFadeIn</a> (<span class='argstr'>center: 0</span>, <span class='argstr'>range: 0.5</span>, <span class='argstr'>on: 0.25</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extUgen-fadein.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extUgen-fadein.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-cosFadeOut' href='./../Overviews/Methods.html#cosFadeOut'>cosFadeOut</a> (<span class='argstr'>center: 0</span>, <span class='argstr'>range: 0.5</span>, <span class='argstr'>silent: 0.25</span>)</h3>
@@ -893,6 +919,10 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SynthTracker/extVarious-argsArray.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isAssociationArray' href='./../Overviews/Methods.html#isAssociationArray'>isAssociationArray</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isSequenceableCollection' href='./../Overviews/Methods.html#isSequenceableCollection'>isSequenceableCollection</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-jarqueBera' href='./../Overviews/Methods.html#jarqueBera'>jarqueBera</a> (<span class='argstr'>skewness</span>, <span class='argstr'>kurtosis</span>, <span class='argstr'>n</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-kendallW' href='./../Overviews/Methods.html#kendallW'>kendallW</a> (<span class='argstr'>postChiSq: true</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-keyToDegree' href='./../Overviews/Methods.html#keyToDegree'>keyToDegree</a> (<span class='argstr'>scale</span>, <span class='argstr'>stepsPerOctave: 12</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-keysValuesDo' href='./../Overviews/Methods.html#keysValuesDo'>keysValuesDo</a> (<span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-lastIndex' href='./../Overviews/Methods.html#lastIndex'>lastIndex</a> </h3>
@@ -903,6 +933,8 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-mergeSort' href='./../Overviews/Methods.html#mergeSort'>mergeSort</a> (<span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-mergeSortTemp' href='./../Overviews/Methods.html#mergeSortTemp'>mergeSortTemp</a> (<span class='argstr'>function</span>, <span class='argstr'>tempArray</span>, <span class='argstr'>left</span>, <span class='argstr'>right</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-mergeTemp' href='./../Overviews/Methods.html#mergeTemp'>mergeTemp</a> (<span class='argstr'>function</span>, <span class='argstr'>tempArray</span>, <span class='argstr'>left</span>, <span class='argstr'>mid</span>, <span class='argstr'>right</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-meshgrid' href='./../Overviews/Methods.html#meshgrid'>meshgrid</a> ( <span class='argstr'>... arrays</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/various/extSequenceableCollection.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/various/extSequenceableCollection.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-middle' href='./../Overviews/Methods.html#middle'>middle</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-middleIndex' href='./../Overviews/Methods.html#middleIndex'>middleIndex</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-midinote' href='./../Overviews/Methods.html#midinote'>midinote</a> </h3>
@@ -912,6 +944,8 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-moddif' href='./../Overviews/Methods.html#moddif'>moddif</a> ( <span class='argstr'>... args</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-mode' href='./../Overviews/Methods.html#mode'>mode</a> (<span class='argstr'>degree</span>, <span class='argstr'>octave: 12</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-multiChannelPerform' href='./../Overviews/Methods.html#multiChannelPerform'>multiChannelPerform</a> (<span class='argstr'>selector</span> <span class='argstr'>... args</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-nSorted' href='./../Overviews/Methods.html#nSorted'>nSorted</a> (<span class='argstr'>n</span>, <span class='argstr'>func</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-nearestInList' href='./../Overviews/Methods.html#nearestInList'>nearestInList</a> (<span class='argstr'>list</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-nearestInScale' href='./../Overviews/Methods.html#nearestInScale'>nearestInScale</a> (<span class='argstr'>scale</span>, <span class='argstr'>stepsPerOctave: 12</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-nearestTo' href='./../Overviews/Methods.html#nearestTo'>nearestTo</a> (<span class='argstr'>value</span>)</h3>
@@ -923,8 +957,12 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-notemidi' href='./../Overviews/Methods.html#notemidi'>notemidi</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/midinote.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/midinote.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-nthPrime' href='./../Overviews/Methods.html#nthPrime'>nthPrime</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-oscorr' href='./../Overviews/Methods.html#oscorr'>oscorr</a> (<span class='argstr'>that</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pareto' href='./../Overviews/Methods.html#pareto'>pareto</a> (<span class='argstr'>shape: 1</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/ProbabilityDistributions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/ProbabilityDistributions.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-pc1' href='./../Overviews/Methods.html#pc1'>pc1</a> (<span class='argstr'>e: 1e-12</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnComplex' href='./../Overviews/Methods.html#performBinaryOpOnComplex'>performBinaryOpOnComplex</a> (<span class='argstr'>aSelector</span>, <span class='argstr'>aComplex</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnSeqColl' href='./../Overviews/Methods.html#performBinaryOpOnSeqColl'>performBinaryOpOnSeqColl</a> (<span class='argstr'>aSelector</span>, <span class='argstr'>theOperand</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnSimpleNumber' href='./../Overviews/Methods.html#performBinaryOpOnSimpleNumber'>performBinaryOpOnSimpleNumber</a> (<span class='argstr'>aSelector</span>, <span class='argstr'>aNumber</span>, <span class='argstr'>adverb</span>)</h3>
@@ -932,6 +970,8 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performKeyToDegree' href='./../Overviews/Methods.html#performKeyToDegree'>performKeyToDegree</a> (<span class='argstr'>degree</span>, <span class='argstr'>stepsPerOctave: 12</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performNearestInList' href='./../Overviews/Methods.html#performNearestInList'>performNearestInList</a> (<span class='argstr'>degree</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performNearestInScale' href='./../Overviews/Methods.html#performNearestInScale'>performNearestInScale</a> (<span class='argstr'>degree</span>, <span class='argstr'>stepsPerOctave: 12</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-phi' href='./../Overviews/Methods.html#phi'>phi</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/extSequenceableCollection.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/extSequenceableCollection.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-poisson' href='./../Overviews/Methods.html#poisson'>poisson</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/ProbabilityDistributions.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/ProbabilityDistributions.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-postItems' href='./../Overviews/Methods.html#postItems'>postItems</a> (<span class='argstr'>nPerLine</span>, <span class='argstr'>delim: ", "</span>, <span class='argstr'>startString: "
@@ -942,7 +982,7 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-prFlat' href='./../Overviews/Methods.html#prFlat'>prFlat</a> (<span class='argstr'>list</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-prUnixCmd' href='./../Overviews/Methods.html#prUnixCmd'>prUnixCmd</a> (<span class='argstr'>postOutput: true</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-prepareForProxySynthDef' href='./../Overviews/Methods.html#prepareForProxySynthDef'>prepareForProxySynthDef</a> (<span class='argstr'>proxy</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/JITLib/ProxySpace/wrapForNodeProxy.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-prevPrime' href='./../Overviews/Methods.html#prevPrime'>prevPrime</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-quickSort' href='./../Overviews/Methods.html#quickSort'>quickSort</a> (<span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-quickSortRange' href='./../Overviews/Methods.html#quickSortRange'>quickSortRange</a> (<span class='argstr'>i</span>, <span class='argstr'>j</span>, <span class='argstr'>function</span>)</h3>
@@ -952,6 +992,8 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-ramp' href='./../Overviews/Methods.html#ramp'>ramp</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-rangeExp' href='./../Overviews/Methods.html#rangeExp'>rangeExp</a> (<span class='argstr'>lo</span>, <span class='argstr'>hi</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Improvements/extVarious-range.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Lang/Improvements/extVarious-range.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rankVals' href='./../Overviews/Methods.html#rankVals'>rankVals</a> (<span class='argstr'>greatestFirst: true</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-rate' href='./../Overviews/Methods.html#rate'>rate</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-rectWindow' href='./../Overviews/Methods.html#rectWindow'>rectWindow</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-removing' href='./../Overviews/Methods.html#removing'>removing</a> (<span class='argstr'>item</span>)</h3>
@@ -959,8 +1001,12 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-roundUp' href='./../Overviews/Methods.html#roundUp'>roundUp</a> (<span class='argstr'>aNumber: 1</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-schedBundleArrayOnClock' href='./../Overviews/Methods.html#schedBundleArrayOnClock'>schedBundleArrayOnClock</a> (<span class='argstr'>clock</span>, <span class='argstr'>bundleArray</span>, <span class='argstr'>lag: 0</span>, <span class='argstr'>server</span>, <span class='argstr'>latency</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-scurve' href='./../Overviews/Methods.html#scurve'>scurve</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-signtest' href='./../Overviews/Methods.html#signtest'>signtest</a> (<span class='argstr'>that</span>, <span class='argstr'>twotailed: true</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sortMap' href='./../Overviews/Methods.html#sortMap'>sortMap</a> (<span class='argstr'>function</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sortedMedian' href='./../Overviews/Methods.html#sortedMedian'>sortedMedian</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-spearmanRho' href='./../Overviews/Methods.html#spearmanRho'>spearmanRho</a> (<span class='argstr'>that</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sqrsum' href='./../Overviews/Methods.html#sqrsum'>sqrsum</a> (<span class='argstr'>aNumber</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sqrtFadeIn' href='./../Overviews/Methods.html#sqrtFadeIn'>sqrtFadeIn</a> (<span class='argstr'>center: 0</span>, <span class='argstr'>range: 0.5</span>, <span class='argstr'>silent: 0.25</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extUgen-fadein.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extUgen-fadein.sc</a></div>
@@ -983,6 +1029,12 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-unwrap2' href='./../Overviews/Methods.html#unwrap2'>unwrap2</a> (<span class='argstr'>aNumber: 1</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Collection/extCollection-unwrap.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Collection/extCollection-unwrap.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-welWindow' href='./../Overviews/Methods.html#welWindow'>welWindow</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wilcoxonSR' href='./../Overviews/Methods.html#wilcoxonSR'>wilcoxonSR</a> (<span class='argstr'>that</span>, <span class='argstr'>onetailed: false</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wilcoxonSRzScore' href='./../Overviews/Methods.html#wilcoxonSRzScore'>wilcoxonSRzScore</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wmean' href='./../Overviews/Methods.html#wmean'>wmean</a> (<span class='argstr'>weights</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-wrap2' href='./../Overviews/Methods.html#wrap2'>wrap2</a> (<span class='argstr'>aNumber</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-wrapAt' href='./../Overviews/Methods.html#wrapAt'>wrapAt</a> (<span class='argstr'>index</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-wrapAtDepth' href='./../Overviews/Methods.html#wrapAtDepth'>wrapAtDepth</a> (<span class='argstr'>rank</span>, <span class='argstr'>index</span>)</h3>
@@ -991,5 +1043,7 @@ Pbind(\degree, Pseries(0, 1, inf), \dur, Pseq([2, [1, [1, [2, 1, 1, -1]]], 2].co
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/SeqCol-newFromFile.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SC3plugins/LoopBufUGens/classes/LJP Classes/Extensions/SeqCol-newFromFile.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeSCMIRZArchive' href='./../Overviews/Methods.html#writeSCMIRZArchive'>writeSCMIRZArchive</a> (<span class='argstr'>akv</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SCMIR/SCMIRExtensions/Classes/SCMIRFile/SCMIRZArchiveSupport.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SCMIR/SCMIRExtensions/Classes/SCMIRFile/SCMIRZArchiveSupport.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-wvariance' href='./../Overviews/Methods.html#wvariance'>wvariance</a> (<span class='argstr'>weights</span>, <span class='argstr'>wmean</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/statistics/extStatistics.sc</a></div>
 <div class='footnotes'>
-<a class='anchor' name='footnote_1'/><div class='footnote'>[<a href='#footnote_org_1'>1</a>] - see Laurson and Kuuskankare's 2003, "From RTM-notation to ENP-score-notation" <a href="http://jim2003.agglo-montbeliard.fr/articles/laurson.pdf">http://jim2003.agglo-montbeliard.fr/articles/laurson.pdf</a></div></div><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/SequenceableCollection.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/SequenceableCollection.schelp</a><br>link::Classes/SequenceableCollection::<br>sc version: 3.8.0</div></div></body></html>
+<a class='anchor' name='footnote_1'/><div class='footnote'>[<a href='#footnote_org_1'>1</a>] - see Laurson and Kuuskankare's 2003, "From RTM-notation to ENP-score-notation" <a href="http://jim2003.agglo-montbeliard.fr/articles/laurson.pdf">http://jim2003.agglo-montbeliard.fr/articles/laurson.pdf</a></div></div><div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/SequenceableCollection.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/SequenceableCollection.schelp</a><br>link::Classes/SequenceableCollection::<br>sc version: 3.8.0</div></div></body></html>

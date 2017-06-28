@@ -19,7 +19,7 @@
 <div id='summary'>Client-side representation of a buffer on a server</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/Buffer.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/Buffer.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/Buffer.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Control/Buffer.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Object.html">Object</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
@@ -45,7 +45,15 @@
 <li class='toc3'><a href='#*cachedBuffersDo'>cachedBuffersDo</a> </li>
 </ul><li class='toc2'><a href='#Inherited%20class%20methods'>Inherited class methods</a></li>
 <li class='toc2'><a href='#Undocumented%20class%20methods'>Undocumented class methods</a></li>
-<ul class='toc'><li class='toc3'><a href='#*freeAll'>freeAll</a> </li>
+<ul class='toc'><li class='toc3'><a href='#*checkFreeMulti'>checkFreeMulti</a> </li>
+<li class='toc3'><a href='#*freeAll'>freeAll</a> </li>
+<li class='toc3'><a href='#*loadFunction'>loadFunction</a> </li>
+<li class='toc3'><a href='#*playDialog'>playDialog</a> </li>
+<li class='toc3'><a href='#*readDefault'>readDefault</a> </li>
+<li class='toc3'><a href='#*readDefault44_1'>readDefault44_1</a> </li>
+<li class='toc3'><a href='#*readDir'>readDir</a> </li>
+<li class='toc3'><a href='#*readMultiple'>readMultiple</a> </li>
+<li class='toc3'><a href='#*readPlay'>readPlay</a> </li>
 </ul></ul><li class='toc1'><a href='#instancemethods'>Instance methods</a></li>
 <ul class='toc'><li class='toc2'><a href='#Variables'>Variables</a></li>
 <ul class='toc'><li class='toc3'><a href='#-server'>server</a> </li>
@@ -93,9 +101,16 @@
 <li class='toc3'><a href='#-asControlInput'>asControlInput</a> </li>
 <li class='toc3'><a href='#-asUGenInput'>asUGenInput</a> </li>
 <li class='toc3'><a href='#-cache'>cache</a> </li>
+<li class='toc3'><a href='#-checkCloseFree'>checkCloseFree</a> </li>
+<li class='toc3'><a href='#-checkFree'>checkFree</a> </li>
+<li class='toc3'><a href='#-copyLoop'>copyLoop</a> </li>
+<li class='toc3'><a href='#-copyLoopCF'>copyLoopCF</a> </li>
+<li class='toc3'><a href='#-copyLoopFrom'>copyLoopFrom</a> </li>
+<li class='toc3'><a href='#-copyLoopTo'>copyLoopTo</a> </li>
 <li class='toc3'><a href='#-doOnInfo'>doOnInfo</a> </li>
 <li class='toc3'><a href='#-duration'>duration</a> </li>
 <li class='toc3'><a href='#-getnMsg'>getnMsg</a> </li>
+<li class='toc3'><a href='#-playOnce'>playOnce</a> </li>
 <li class='toc3'><a href='#-preparePartConv'>preparePartConv</a> </li>
 <li class='toc3'><a href='#-queryDone'>queryDone</a> </li>
 <li class='toc3'><a href='#-readNoUpdate'>readNoUpdate</a> </li>
@@ -103,6 +118,7 @@
 <li class='toc3'><a href='#-startFrame'>startFrame</a> </li>
 <li class='toc3'><a href='#-streamCollection'>streamCollection</a> </li>
 <li class='toc3'><a href='#-uncache'>uncache</a> </li>
+<li class='toc3'><a href='#-writeAction'>writeAction</a> </li>
 </ul></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
 
 <p>A buffer is most often used to hold sampled audio, such as a soundfile loaded into memory, but can be used to hold other types of data as well. It is a globally available array of floating-point numbers on the server. The Buffer class encapsulates a number of common tasks, OSC messages, and capabilities related to server-side buffers – see the examples lower down this document for many examples of using Buffers for sound playback and recording.
@@ -398,7 +414,23 @@ s.cachedBuffersDo({ |buf| buf.postln });</pre>
 <div class='method'>
 <p>Iterate over all cached buffers. The iteration is not in any order, but will touch all buffers.</div><h3><a class='anchor' name='Inherited%20class%20methods'>Inherited class methods</a></h3>
 <div id='inheritedclassmets'></div><h3><a class='anchor' name='Undocumented%20class%20methods'>Undocumented class methods</a></h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*checkFreeMulti' href='./../Overviews/Methods.html#checkFreeMulti'>checkFreeMulti</a> (<span class='argstr'>buffers</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extBuffer-checkFree.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extBuffer-checkFree.sc</a></div>
 <h3 class='cmethodname'><span class='methprefix'>*</span><a name='*freeAll' href='./../Overviews/Methods.html#freeAll'>freeAll</a> (<span class='argstr'>server</span>)</h3>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*loadFunction' href='./../Overviews/Methods.html#loadFunction'>loadFunction</a> (<span class='argstr'>function</span>, <span class='argstr'>duration</span>, <span class='argstr'>bufnum</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSynthdef-record.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSynthdef-record.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*playDialog' href='./../Overviews/Methods.html#playDialog'>playDialog</a> (<span class='argstr'>mul: 1</span>, <span class='argstr'>rate: 1</span>, <span class='argstr'>out: 0</span>, <span class='argstr'>server</span>, <span class='argstr'>free: true</span>, <span class='argstr'>startFrame: 0</span>, <span class='argstr'>numFrames</span>, <span class='argstr'>bufnum</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-playDialog.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-playDialog.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*readDefault' href='./../Overviews/Methods.html#readDefault'>readDefault</a> (<span class='argstr'>server</span>, <span class='argstr'>action</span>, <span class='argstr'>bufnum</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDefault.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDefault.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*readDefault44_1' href='./../Overviews/Methods.html#readDefault44_1'>readDefault44_1</a> (<span class='argstr'>server</span>, <span class='argstr'>action</span>, <span class='argstr'>bufnum</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDefault.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDefault.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*readDir' href='./../Overviews/Methods.html#readDir'>readDir</a> (<span class='argstr'>path</span>, <span class='argstr'>bufnumOffset</span>, <span class='argstr'>ext: "wav"</span>, <span class='argstr'>server</span>, <span class='argstr'>notify: true</span>, <span class='argstr'>nlevels: inf</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDir.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDir.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*readMultiple' href='./../Overviews/Methods.html#readMultiple'>readMultiple</a> (<span class='argstr'>names</span>, <span class='argstr'>path</span>, <span class='argstr'>bufnumOffset</span>, <span class='argstr'>server</span>, <span class='argstr'>notify: true</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDir.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-readDir.sc</a></div>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*readPlay' href='./../Overviews/Methods.html#readPlay'>readPlay</a> (<span class='argstr'>server</span>, <span class='argstr'>path</span>, <span class='argstr'>free: false</span>, <span class='argstr'>startFrame: 0</span>, <span class='argstr'>numFrames</span>, <span class='argstr'>bufnum</span>, <span class='argstr'>mul: 1</span>, <span class='argstr'>rate: 1</span>, <span class='argstr'>out: 0</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-playDialog.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-playDialog.sc</a></div>
 <h2><a class='anchor' name='instancemethods'>Instance Methods</a></h2>
 <h3><a class='anchor' name='Variables'>Variables</a></h3>
 
@@ -711,7 +743,7 @@ c.free;</pre>
 <table class='arguments'>
 <tr><td class='argumentname'>completionMessage<td class='argumentdesc'>
 <p>A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated.</table></div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-plot' href='./../Overviews/Methods.html#plot'>plot</a> (<span class='argstr'>name</span>, <span class='argstr'>bounds</span>, <span class='argstr'>minval</span>, <span class='argstr'>maxval</span>, <span class='argstr'>separately: false</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/PlusGUI/Math/PlotView.sc</a></div>
 <div class='method'>
 <p>Plot the contents of the Buffer in a GUI window.<h4>Arguments:</h4>
 <table class='arguments'>
@@ -838,11 +870,25 @@ x.free; b.free;</pre>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asControlInput' href='./../Overviews/Methods.html#asControlInput'>asControlInput</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asUGenInput' href='./../Overviews/Methods.html#asUGenInput'>asUGenInput</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-cache' href='./../Overviews/Methods.html#cache'>cache</a> </h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-checkCloseFree' href='./../Overviews/Methods.html#checkCloseFree'>checkCloseFree</a> (<span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extBuffer-checkFree.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extBuffer-checkFree.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-checkFree' href='./../Overviews/Methods.html#checkFree'>checkFree</a> (<span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extBuffer-checkFree.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extBuffer-checkFree.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-copyLoop' href='./../Overviews/Methods.html#copyLoop'>copyLoop</a> (<span class='argstr'>buf</span>, <span class='argstr'>dstStartAt: 0</span>, <span class='argstr'>srcStartAt: 0</span>, <span class='argstr'>numSamples: -1</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-copyLoopCF' href='./../Overviews/Methods.html#copyLoopCF'>copyLoopCF</a> (<span class='argstr'>buf</span>, <span class='argstr'>startFrom: 0</span>, <span class='argstr'>fadeTime: 0.25</span>, <span class='argstr'>numSamples: -1</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-copyLoopFrom' href='./../Overviews/Methods.html#copyLoopFrom'>copyLoopFrom</a> (<span class='argstr'>buf</span>, <span class='argstr'>dstStartAt: 0</span>, <span class='argstr'>srcStartAt: 0</span>, <span class='argstr'>numSamples: -1</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-copyLoopTo' href='./../Overviews/Methods.html#copyLoopTo'>copyLoopTo</a> (<span class='argstr'>buf</span>, <span class='argstr'>dstStartAt: 0</span>, <span class='argstr'>srcStartAt: 0</span>, <span class='argstr'>numSamples: -1</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-copyLoop.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-doOnInfo' href='./../Overviews/Methods.html#doOnInfo'>doOnInfo</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-duration' href='./../Overviews/Methods.html#duration'>duration</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-getnMsg' href='./../Overviews/Methods.html#getnMsg'>getnMsg</a> (<span class='argstr'>index</span>, <span class='argstr'>count</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-playOnce' href='./../Overviews/Methods.html#playOnce'>playOnce</a> (<span class='argstr'>mul: 1</span>, <span class='argstr'>rate: 1</span>, <span class='argstr'>out: 0</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-playDialog.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Buffer/extBuffer-playDialog.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-preparePartConv' href='./../Overviews/Methods.html#preparePartConv'>preparePartConv</a> (<span class='argstr'>buf</span>, <span class='argstr'>fftsize</span>)</h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/PartConv.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/PartConv.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/PartConv.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Audio/PartConv.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-queryDone' href='./../Overviews/Methods.html#queryDone'>queryDone</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-readNoUpdate' href='./../Overviews/Methods.html#readNoUpdate'>readNoUpdate</a> (<span class='argstr'>argpath</span>, <span class='argstr'>fileStartFrame: 0</span>, <span class='argstr'>numFrames: -1</span>, <span class='argstr'>bufStartFrame: 0</span>, <span class='argstr'>leaveOpen: false</span>, <span class='argstr'>completionMessage</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-setnMsgArgs' href='./../Overviews/Methods.html#setnMsgArgs'>setnMsgArgs</a> ( <span class='argstr'>... args</span>)</h3>
@@ -850,4 +896,6 @@ x.free; b.free;</pre>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-startFrame' href='./../Overviews/Methods.html#startFrame'>startFrame</a> = value</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-streamCollection' href='./../Overviews/Methods.html#streamCollection'>streamCollection</a> (<span class='argstr'>collstream</span>, <span class='argstr'>collsize</span>, <span class='argstr'>startFrame: 0</span>, <span class='argstr'>wait: -1</span>, <span class='argstr'>action</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-uncache' href='./../Overviews/Methods.html#uncache'>uncache</a> </h3>
-<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Buffer.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Buffer.schelp</a><br>link::Classes/Buffer::<br>sc version: 3.8.0</div></div></body></html>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-writeAction' href='./../Overviews/Methods.html#writeAction'>writeAction</a> (<span class='argstr'>path</span>, <span class='argstr'>headerFormat: "aiff"</span>, <span class='argstr'>sampleFormat: "int24"</span>, <span class='argstr'>numFrames: -1</span>, <span class='argstr'>startFrame: 0</span>, <span class='argstr'>leaveOpen: false</span>, <span class='argstr'>action</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSoundFile-splitChannels.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extSoundFile-splitChannels.sc</a></div>
+<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/Buffer.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/Buffer.schelp</a><br>link::Classes/Buffer::<br>sc version: 3.8.0</div></div></body></html>
