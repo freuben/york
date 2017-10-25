@@ -19,8 +19,8 @@
 <div id='summary'>Mathematical quantity</div>
 </div>
 <div class='subheader'>
-<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Math/Number.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Math/Number.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Magnitude.html">Magnitude</a> : <a href="../Classes/Object.html">Object</a></div>
-<div id='subclasses'>Subclasses: <a href="../Classes/Complex.html">Complex</a>, <a href="../Classes/Polar.html">Polar</a>, <a href="../Classes/SimpleNumber.html">SimpleNumber</a></div>
+<div id='filename'>Source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Math/Number.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Math/Number.sc</a></div><div id='superclasses'>Inherits from: <a href="../Classes/Magnitude.html">Magnitude</a> : <a href="../Classes/Object.html">Object</a></div>
+<div id='subclasses'>Subclasses: <a href="../Classes/Complex.html">Complex</a>, <a href="../Classes/Polar.html">Polar</a>, <a href="../Classes/SimpleNumber.html">SimpleNumber</a>, <a href="../Classes/Spherical.html">Spherical</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
@@ -47,10 +47,16 @@
 <ul class='toc'><li class='toc3'><a href='#-@'>@</a> </li>
 <li class='toc3'><a href='#-complex'>complex</a> </li>
 <li class='toc3'><a href='#-polar'>polar</a> </li>
+<li class='toc3'><a href='#-@'>@</a> </li>
+<li class='toc3'><a href='#-spherical'>spherical</a> </li>
 </ul><li class='toc2'><a href='#Iteration'>Iteration</a></li>
 <ul class='toc'><li class='toc3'><a href='#-for'>for</a> </li>
 <li class='toc3'><a href='#-forBy'>forBy</a> </li>
 <li class='toc3'><a href='#-forSeries'>forSeries</a> </li>
+</ul><li class='toc2'><a href='#Spherical%20Coordinate%20Support'>Spherical Coordinate Support</a></li>
+<ul class='toc'><li class='toc3'><a href='#-rho'>rho</a> </li>
+<li class='toc3'><a href='#-theta'>theta</a> </li>
+<li class='toc3'><a href='#-phi'>phi</a> </li>
 </ul><li class='toc2'><a href='#Inherited%20instance%20methods'>Inherited instance methods</a></li>
 <li class='toc2'><a href='#Undocumented%20instance%20methods'>Undocumented instance methods</a></li>
 <ul class='toc'><li class='toc3'><a href='#-asLayoutElement'>asLayoutElement</a> </li>
@@ -70,6 +76,8 @@
 <li class='toc3'><a href='#-kelvin2celcius'>kelvin2celcius</a> </li>
 <li class='toc3'><a href='#-kelvin2farenheit'>kelvin2farenheit</a> </li>
 <li class='toc3'><a href='#-mod'>mod</a> </li>
+<li class='toc3'><a href='#-nCk'>nCk</a> </li>
+<li class='toc3'><a href='#-performBinaryOpOnCartesian'>performBinaryOpOnCartesian</a> </li>
 <li class='toc3'><a href='#-performBinaryOpOnPoint'>performBinaryOpOnPoint</a> </li>
 <li class='toc3'><a href='#-performBinaryOpOnSeqColl'>performBinaryOpOnSeqColl</a> </li>
 <li class='toc3'><a href='#-pow'>pow</a> </li>
@@ -112,13 +120,26 @@
 <p>Answer the real part of the number.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-imag' href='./../Overviews/Methods.html#imag'>imag</a> </h3>
 <div class='method'>
 <p>Answer the imaginary part of the number.</div><h3><a class='anchor' name='Conversion'>Conversion</a></h3>
-<h3 class='imethodname'><span class='methprefix'>-</span><a name='-@' href='./../Overviews/Methods.html#@'>@</a> (<span class='argstr'>aNumber</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-@' href='./../Overviews/Methods.html#@'>@</a> (<span class='argstr'>aValue</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc</a></div>
 <div class='method'>
 <p>Create a new <a href="./../Classes/Point.html">Point</a> whose x coordinate is the receiver and whose y coordinate is aNumber.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-complex' href='./../Overviews/Methods.html#complex'>complex</a> (<span class='argstr'>imaginaryPart</span>)</h3>
 <div class='method'>
 <p>Create a new <a href="./../Classes/Complex.html">Complex</a> number whose real part is the receiver with the given imaginary part.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-polar' href='./../Overviews/Methods.html#polar'>polar</a> (<span class='argstr'>angle</span>)</h3>
 <div class='method'>
-<p>Create a new <a href="./../Classes/Polar.html">Polar</a> number whose radius is the receiver with the given angle.</div><h3><a class='anchor' name='Iteration'>Iteration</a></h3>
+<p>Create a new <a href="./../Classes/Polar.html">Polar</a> number whose radius is the receiver with the given angle.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-@' href='./../Overviews/Methods.html#@'>@</a> (<span class='argstr'>aValue</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc</a></div>
+<div class='method'>
+<p>If aValue is <a href="./../Classes/Number.html">Number</a>, create a new <a href="./../Classes/Point.html">Point</a> whose x coordinate is the receiver and whose y coordinate is <a href="./../Classes/Number.html">Number</a>. If aValue is a <a href="./../Classes/Point.html">Point</a>, create a new <a href="./../Classes/Cartesian.html">Cartesian</a> whose x coordinate is the receiver, y coordinate is aValue.x and z coordinate is aValue.y.<h4>Arguments:</h4>
+<table class='arguments'>
+<tr><td class='argumentname'>aValue<td class='argumentdesc'></table></div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-spherical' href='./../Overviews/Methods.html#spherical'>spherical</a> (<span class='argstr'>theta</span>, <span class='argstr'>phi</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc</a></div>
+<div class='method'>
+<p>Create a new <a href="./../Classes/Spherical.html">Spherical</a> number whose radius is the receiver with the given angles.<h4>Arguments:</h4>
+<table class='arguments'>
+<tr><td class='argumentname'>theta<td class='argumentdesc'>
+<p>azimuth angle<tr><td class='argumentname'>phi<td class='argumentdesc'>
+<p>elevation angle</table></div><h3><a class='anchor' name='Iteration'>Iteration</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-for' href='./../Overviews/Methods.html#for'>for</a> (<span class='argstr'>endValue</span>, <span class='argstr'>function</span>)</h3>
 <div class='method'>
 <p>Calls <strong>function</strong> for numbers from this up to endval, inclusive, stepping each time by 1.<h4>Arguments:</h4>
@@ -139,10 +160,18 @@
 <tr><td class='argumentname'>second<td class='argumentdesc'>
 <p>a <a href="./../Classes/Number.html">Number</a>.<tr><td class='argumentname'>last<td class='argumentdesc'>
 <p>a <a href="./../Classes/Number.html">Number</a>.<tr><td class='argumentname'>function<td class='argumentdesc'>
-<p>a <a href="./../Classes/Function.html">Function</a> which is passed two arguments, the first which is an number from this to endval, and the second which is a number from zero to the number of iterations minus one.</table></div><h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
+<p>a <a href="./../Classes/Function.html">Function</a> which is passed two arguments, the first which is an number from this to endval, and the second which is a number from zero to the number of iterations minus one.</table></div><h3><a class='anchor' name='Spherical%20Coordinate%20Support'>Spherical Coordinate Support</a></h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-rho' href='./../Overviews/Methods.html#rho'>rho</a> </h3>
+<div class='method'>
+<p>Answer the spherical radius of the number.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-theta' href='./../Overviews/Methods.html#theta'>theta</a> </h3>
+<div class='method'>
+<p>Answer the spherical azimuth angle of the number.</div><h3 class='imethodname'><span class='methprefix'>-</span><a name='-phi' href='./../Overviews/Methods.html#phi'>phi</a> </h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc</a></div>
+<div class='method'>
+<p>Answer the spherical elevation angle of the number.</div><h3><a class='anchor' name='Inherited%20instance%20methods'>Inherited instance methods</a></h3>
 <div id='inheritedinstmets'></div><h3><a class='anchor' name='Undocumented%20instance%20methods'>Undocumented instance methods</a></h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asLayoutElement' href='./../Overviews/Methods.html#asLayoutElement'>asLayoutElement</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/GUI/Base/ext-asLayoutElement.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asSMPTE' href='./../Overviews/Methods.html#asSMPTE'>asSMPTE</a> (<span class='argstr'>fps</span>, <span class='argstr'>type</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SMPTE/extVarious-asSMPTE.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Main Features/SMPTE/extVarious-asSMPTE.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-asSizedString' href='./../Overviews/Methods.html#asSizedString'>asSizedString</a> (<span class='argstr'>size: 2</span>, <span class='argstr'>keepWidth: false</span>)</h3>
@@ -166,13 +195,17 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-farenheit2kelvin' href='./../Overviews/Methods.html#farenheit2kelvin'>farenheit2kelvin</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extNumber-speedOfSound.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extNumber-speedOfSound.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-half' href='./../Overviews/Methods.html#half'>half</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc</a></div>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-isNumber' href='./../Overviews/Methods.html#isNumber'>isNumber</a> </h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-kelvin2celcius' href='./../Overviews/Methods.html#kelvin2celcius'>kelvin2celcius</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extNumber-speedOfSound.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extNumber-speedOfSound.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-kelvin2farenheit' href='./../Overviews/Methods.html#kelvin2farenheit'>kelvin2farenheit</a> </h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extNumber-speedOfSound.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extNumber-speedOfSound.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-mod' href='./../Overviews/Methods.html#mod'>mod</a> (<span class='argstr'>aNumber</span>)</h3>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-nCk' href='./../Overviews/Methods.html#nCk'>nCk</a> (<span class='argstr'>k</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/Polynomials/Polynomial.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/Polynomials/Polynomial.sc</a></div>
+<h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnCartesian' href='./../Overviews/Methods.html#performBinaryOpOnCartesian'>performBinaryOpOnCartesian</a> (<span class='argstr'>op</span>, <span class='argstr'>aCartesian</span>, <span class='argstr'>adverb</span>)</h3>
+<div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/MathLib/classes/SpherCoords/SystemOverwrites/extNumber.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnPoint' href='./../Overviews/Methods.html#performBinaryOpOnPoint'>performBinaryOpOnPoint</a> (<span class='argstr'>op</span>, <span class='argstr'>aPoint</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-performBinaryOpOnSeqColl' href='./../Overviews/Methods.html#performBinaryOpOnSeqColl'>performBinaryOpOnSeqColl</a> (<span class='argstr'>aSelector</span>, <span class='argstr'>aSeqColl</span>, <span class='argstr'>adverb</span>)</h3>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-pow' href='./../Overviews/Methods.html#pow'>pow</a> (<span class='argstr'>aNumber</span>)</h3>
@@ -181,5 +214,5 @@
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-sqrtFadeOut' href='./../Overviews/Methods.html#sqrtFadeOut'>sqrtFadeOut</a> (<span class='argstr'>center: 0</span>, <span class='argstr'>range: 0.5</span>, <span class='argstr'>silent: 0.25</span>)</h3>
 <div class='extmethod'>From extension in <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extUgen-fadein.sc'>/Users/federicoreuben/Library/Application Support/SuperCollider/downloaded-quarks/wslib/wslib-classes/Extensions/Various/extUgen-fadein.sc</a></div>
 <h3 class='imethodname'><span class='methprefix'>-</span><a name='-twice' href='./../Overviews/Methods.html#twice'>twice</a> </h3>
-<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc</a></div>
-<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Number.schelp'>/Applications/SuperCollider 3.8.0/SuperCollider.app/Contents/Resources/HelpSource/Classes/Number.schelp</a><br>link::Classes/Number::<br>sc version: 3.8.0</div></div></body></html>
+<div class='extmethod'>From extension in <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/SCClassLibrary/DefaultLibrary/extNumber.sc</a></div>
+<div class='doclink'>helpfile source: <a href='file:///Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/Number.schelp'>/Applications/SuperCollider 3.8/SuperCollider.app/Contents/Resources/HelpSource/Classes/Number.schelp</a><br>link::Classes/Number::<br>sc version: 3.8.0</div></div></body></html>
