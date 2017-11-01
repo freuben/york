@@ -96,24 +96,22 @@
 <p>The instuctions install the plugins can be found <a href="https://github.com/VCVRack/Rack/wiki/Installing-Plugins">here</a>. For Mac, you'll have to go to folder where the application is and press <em>ctr+click</em> on the <strong>Rack</strong> icon - then select <em>Show Package Contents</em>, this will open a folder in the finder. Then go to: <em>Contents-&gt;Resources-&gt;plugins</em>. Then unzip the <em>VCV Rack</em> plugins and drop the unziped folder contents into the <em>Contents/Resources/plugins</em> folder.
 <p><strong>SuperCollider</strong>
 <p>In this module, you'll learn how to work with the SuperCollider programming language. SuperCollider is free and you can download the latest version <a href="http://supercollider.github.io/download">here</a>.
-<p>You should also download and install the <a href="https://github.com/supercollider/sc3-plugins/releases">Synthesis Plugins and Extensions</a>.
-<p>Once you download SuperCollider, you can access the module material by evaluating this code with <em>shift+return</em>:<pre class='code prettyprint lang-sc'>HelpBrowser.goTo("https://freuben.github.io/york/SSfMT");</pre>
+<p>Once you download SuperCollider, you can access the module material by copying and pasting this line of code into a SuperCollider document:<pre class='code prettyprint lang-sc'>HelpBrowser.goTo("https://freuben.github.io/york/SSfMT");</pre>
 
-<p>For quick installation of the plugins in Mac, evaluate each line of code individually in SuperCollider:<pre class='code prettyprint lang-sc'>"open https://github.com/supercollider/sc3-plugins/releases/download/Version-3.8.0/sc3-plugins_OSX_SC3.8_692f92f.zip"); //download current version of sc-plugins for mac
+<p>Then, evaluate this code by putting the cursor on the same line and then pressing <em>shift+return</em>. If you don't want to do this every time you want to access the material and want the material to be there when you start SuperCollider, then go to: <em>File-&gt;Open startup file</em> and paste the code there and save the file. Next time you open SuperCollider, the materials will be there!
+<p>You should also download and install the <a href="https://github.com/supercollider/sc3-plugins/releases">Synthesis Plugins and Extensions</a>.
+<p>For quick installation of the plugins in Mac, evaluate each line of code individually in SuperCollider:<pre class='code prettyprint lang-sc'>"open https://github.com/supercollider/sc3-plugins/releases/download/Version-3.8.0/sc3-plugins_OSX_SC3.8_692f92f.zip".unixCmd; //download current version of sc-plugins for mac
 ("open " ++ "~/Downloads/sc3-plugins_OSX_SC3.8_692f92f.zip".standardizePath.shellQuote).unixCmd;
 //open zip file
 ("mv " ++ "~/Downloads/SC3plugins/".standardizePath.shellQuote ++ " " ++ (Platform.userExtensionDir++ "/SC3plugins/").shellQuote).unixCmd; //move the folder to where it belongs</pre>
 
 <p>Additionally, you might want to install some third-party packages called <a href="./../Classes/Quarks.html">Quarks</a>.
-<p>You might also want to use other software platforms and integrate them in your workflow with SuperCollider. Here are some suggestions:<ul>
-<li>Digital Audio Workstations (recording, editing, MIDI and processing):<pre class='code prettyprint lang-sc'>Computer.url("http://www.reaper.fm/"); //Reaper (free - or very cheap...)
-Computer.url("http://www.apple.com/uk/logic-pro/"); //Logic
-Computer.url("http://www.avid.com/pro-tools"); //ProTools</pre>
-
-<p><li>Synthesis, processing and performance environments:<pre class='code prettyprint lang-sc'>Computer.url("https://www.ableton.com/"); //Ableton Live
-Computer.url("https://www.native-instruments.com/en/products/komplete/synths/reaktor-6/"); //Reaktor
-Computer.url("http://www.audiomulch.com/");//AudioMulch
-Computer.url("http://www.plogue.com/products/bidule/"); //Bidule</pre>
+<p><strong>Other software</strong>
+<p>You will need to use an application to send audio between differnt software applications for your first project. For this, you can use <a href="https://soundflower.en.softonic.com/mac">SoundFlower</a> (Mac only), or <a href="http://jackaudio.org/downloads/">JACK</a> (Win, Linux, Mac) or <a href="https://virtual-audio-cable.en.softonic.com/">Virtual Audio Cable</a> (Windows).
+<p>You might also want to use other software applications in this module.
+<p>Here are some suggestions of software you might want to use:<ul>
+<li>Digital Audio Workstations (recording, editing, MIDI and processing):<ul>
+<li><a href="http://www.reaper.fm/">Reaper</a> (free - or very cheap...)<li><a href="http://www.apple.com/uk/logic-pro/">Logic</a><li><a href="http://www.avid.com/pro-tools">ProTools</a><li><a href="https://www.ableton.com/">Ableton Live</a></ul>
 
 <p><li>Audio analysis:<pre class='code prettyprint lang-sc'>Computer.url("http://www.klingbeil.com/spear/"); //Spear (free)
 Computer.url("http://sonicvisualiser.org/"); //Sonic Visualiser (free)
@@ -136,7 +134,7 @@ Computer.url("http://gibber.cc/"); //Gibber (web browser - javascript based)</pr
 
 <p><li>Interactive Audio for Web Development (javascript)<pre class='code prettyprint lang-sc'>Computer.url("https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API"); //Web Audio API</pre>
 
-<p><li>Apps:<pre class='code prettyprint lang-sc'>Computer.url("https://itunes.apple.com/gb/app/touchosc/id288120394?mt=8"); //TouchOSC
+<p><li>iPhone/iPad Apps:<pre class='code prettyprint lang-sc'>Computer.url("https://itunes.apple.com/gb/app/touchosc/id288120394?mt=8"); //TouchOSC
 Computer.url("https://itunes.apple.com/gb/app/lemur/id481290621?mt=8"); //Lemur</pre>
 </ul>
 
