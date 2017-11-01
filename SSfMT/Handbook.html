@@ -42,7 +42,7 @@
 <ul class='toc'></ul><li class='toc2'><a href='#SuperCollider%20Links'>SuperCollider Links</a></li>
 <ul class='toc'></ul></ul></ul></div><div class='image'><img src='emsplay.png'/><br><b>EMS Studio in London</b></div>
 <dl>
-<dt>BA(Hons) Music<dt>BA(Hons) Music and Sound Recording<dt>Department of Music<dt>University of York<dt>2017-2018<dd></dl>
+<dt>BA(Hons) Music and Sound Recording<dt>Department of Music<dt>University of York<dt>2017-2018<dd></dl>
 <h2><a class='anchor' name='Module%20Outline'>Module Outline</a></h2>
 <ul>
 <li><strong>Module</strong>: Software Systems for Music Technology<li><strong>Module Credits</strong>: 20<li><strong>Module Leader</strong>:<ul>
@@ -65,7 +65,7 @@
 <h2><a class='anchor' name='Module%20Overview'>Module Overview</a></h2>
 <h3><a class='anchor' name='Module%20Description'>Module Description</a></h3>
 
-<p>Something here<h3><a class='anchor' name='Module%20Aims'>Module Aims</a></h3>
+<p>This module will introduce audio software design and programming concepts for digital synthesis, signal processing and control systems. You will first be introduced to electronic music concepts and their historical and cultural context as well as gaining understanding and hands-on experience in modular synthesis. You will then be introduced to digital systems and computer music: this will include learning the basics about computer programming and the history of making music with early computers. We will look at the principles of computer programming with a programming language called SuperCollider. SuperCollider is a powerful language for writing real-time audio processing, synthesis and control systems for music and audio. You will learn the basics of SuperCollider and you will design and build your own software systems for music performance, composition and production that will be demonstrated in practice at a showcasing event. This module therefore provides with various learning objectives that are valuable for your future: 1) it will give you an understanding of electronic and computer music principles and historical contexts, 2) you will start learning how to write computer code, which is a highly sought skill that can be transferable across many professions 3) you will have a better understanding of how computer music software works and how it is built, 4) you will gain practical and theoretical knowledge of sound synthesis and signal processing, 5) you will learn how to make your own software systems for performance, composition and production.<h3><a class='anchor' name='Module%20Aims'>Module Aims</a></h3>
 
 <p>This module aims to:<ul>
 <li>provide an introduction to the state of the art in audio software systems for music technology, including the study of different approaches to software design, programming, and their historical context in computer music, popular music production and live electronic performance<li>describe and explain digital sound synthesis and signal processing techniques – how audio effects and synthesis techniques work and what factors influence their sonic character.<li>introduce control systems for music programming, for example those used in algorithmic composition.</ul>
@@ -87,15 +87,19 @@
 <h2><a class='anchor' name='Course%20Materials'>Course Materials</a></h2>
 <h3><a class='anchor' name='Resources'>Resources</a></h3>
 
-<p><strong>Library</strong>: You will be expected to research and write a technical report for this module and this will require finding academic sources (books, journals, etc.) at the library. Online library resources: The library provides a series of online resources that you can access through the library website. You can reach the website by evaluating the code below (shift + return):<pre class='code prettyprint lang-sc'>"open http://www.york.ac.uk/library/".unixCmd; //replace "open" for "start" in windows</pre>
+<p><strong>Library</strong>: You will be expected to research and write a technical report for this module and this will require finding academic sources (books, journals, etc.) at the library. Online library resources: The library provides a series of online resources that you can access through the library website. You can reach the website by following this <a href="http://www.york.ac.uk/library/">link</a>.
+<p><a href="http://subjectguides.york.ac.uk/az.php">E-resources</a> include a large collection of useful <a href="http://yorsearch.york.ac.uk/primo_library/libweb/action/dlSearch.do?&institution=44YORK&azSearch=true&fn=almaAzSearch&query=facet_atoz%2Cexact%2CA">e-journal</a> articles and <a href="http://subjectguides.york.ac.uk/c.php?g=484076&p=3310241">e-books</a> as well as other great music resources including streamable audio and video, electronic scores and databases that you can find by following this <a href="http://subjectguides.york.ac.uk/c.php?g=484041&p=3547049">link.</a>
+<p><strong>Software</strong>: For this module, you will need to download two pieces of software: <em>VCV Rack</em> and <em>SuperCollider</em>. They are both open source and free!
+<p><strong>VCV Rack</strong>
+<p>You can download <em>VCV Rack</em> <a href="https://vcvrack.com/">here</a>.
+<p>You should also download and install the third-party plugins, which you can find <a href="https://github.com/VCVRack/Rack/wiki/List-of-plugins">here</a>.
+<p>The instuctions install the plugins can be found <a href="https://github.com/VCVRack/Rack/wiki/Installing-Plugins">here</a>. For Mac, you'll have to go to folder where the application is and press <em>ctr+click</em> on the <strong>Rack</strong> icon - then select <em>Show Package Contents</em>, this will open a folder in the finder. Then go to: <em>Contents-&gt;Resources-&gt;plugins</em>. Then unzip the <em>VCV Rack</em> plugins and drop the unziped folder contents into the <em>Contents/Resources/plugins</em> folder.
+<p><strong>SuperCollider</strong>
+<p>In this module, you'll learn how to work with the SuperCollider programming language. SuperCollider is free and you can download the latest version <a href="http://supercollider.github.io/download">here</a>.
+<p>You should also download and install the <a href="https://github.com/supercollider/sc3-plugins/releases">Synthesis Plugins and Extensions</a>.
+<p>Once you download SuperCollider, you can access the module material by evaluating this code with <em>shift+return</em>:<pre class='code prettyprint lang-sc'>HelpBrowser.goTo("https://freuben.github.io/york/SSfMT");</pre>
 
-<p><a href="http://subjectguides.york.ac.uk/az.php">E-resources</a> include a large collection of useful <a href="http://yorsearch.york.ac.uk/primo_library/libweb/action/dlSearch.do?&institution=44YORK&azSearch=true&fn=almaAzSearch&query=facet_atoz%2Cexact%2CA">e-journal</a> articles and <a href="http://subjectguides.york.ac.uk/c.php?g=484076&p=3310241">e-books</a> as well as other great music resources including streamable audio and video, electronic scores and databases that you can find in the link below:<pre class='code prettyprint lang-sc'>Computer.url("http://subjectguides.york.ac.uk/c.php?g=484041&amp;p=3547049");</pre>
-
-<p><strong>Software</strong>: In this module, you will learn how to work with the SuperCollider programming language. SuperCollider is free and you can download the latest version here:<pre class='code prettyprint lang-sc'>Computer.url("http://supercollider.github.io/download");</pre>
-
-<p>You should also download and install the Synthesis Plugins and Extensions:<pre class='code prettyprint lang-sc'>Computer.url("https://github.com/supercollider/sc3-plugins/releases");</pre>
-
-<p>For quick installation for Mac, evaluate each line of code individually:<pre class='code prettyprint lang-sc'>Computer.url("https://github.com/supercollider/sc3-plugins/releases/download/Version-3.8.0/sc3-plugins_OSX_SC3.8_692f92f.zip"); //download current version of sc-plugins for mac
+<p>For quick installation of the plugins in Mac, evaluate each line of code individually in SuperCollider:<pre class='code prettyprint lang-sc'>"open https://github.com/supercollider/sc3-plugins/releases/download/Version-3.8.0/sc3-plugins_OSX_SC3.8_692f92f.zip"); //download current version of sc-plugins for mac
 ("open " ++ "~/Downloads/sc3-plugins_OSX_SC3.8_692f92f.zip".standardizePath.shellQuote).unixCmd;
 //open zip file
 ("mv " ++ "~/Downloads/SC3plugins/".standardizePath.shellQuote ++ " " ++ (Platform.userExtensionDir++ "/SC3plugins/").shellQuote).unixCmd; //move the folder to where it belongs</pre>
