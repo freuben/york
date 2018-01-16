@@ -79,7 +79,7 @@
 <li><a href="./../SSfMT/Assignments/Seminar Presentation.html">Seminar Presentation</a>.<li><a href="./../SSfMT.html#Formative%20Tasks">Reading and practical tasks</a>.<li>Independent learning.</ol>
 
 <p><li><strong>Summative</strong>:<ol>
-<li><a href="./../SSfMT/Assignments/Software System.html">Software System</a> (50%) written in the SuperCollider programming language.<li><a href="./../SSfMT/Assignments/Technical Report.html">Technical Report</a> (40%)<li><a href="./../SSfMT/Assignments/Presentation">Presentation/Concert</a> (10%) using the software system.</ol>
+<li><a href="./../SSfMT/Assignments/Software System.html">Software System</a> (50%) written in the SuperCollider programming language.<li><a href="./../SSfMT/Assignments/Technical Report.html">Technical Report</a> (40%)<li><a href="./../SSfMT/Assignments/Presentation.html">Presentation/Concert</a> (10%) using the software system.</ol>
 
 <p>You can read all the <strong>Assignment Briefs and Criteria</strong> <a href="./../SSfMT/Assignment Briefs.html">here</a>.</ul>
 
@@ -125,6 +125,9 @@
 //open zip file
 ("mv " ++ "~/Downloads/SC3plugins/".standardizePath.shellQuote ++ " " ++ (Platform.userExtensionDir++ "/SC3plugins/").shellQuote).unixCmd; //move the folder to where it belongs</pre>
 
+<p>If that doesn't work, download the <a href="https://github.com/supercollider/sc3-plugins/releases">Synthesis Plugins and Extensions</a>, open them and install them in the Extensions folder. You can find out where this folder is by evaluating this code<pre class='code prettyprint lang-sc'>Platform.userExtensionDir;</pre>
+
+<p>Move the plugins folder to this directory. If the directory doesn't exist, then create it.
 <p>Additionally, you might want to install some third-party packages called <a href="./../Classes/Quarks.html">Quarks</a>.
 <p>Go to <a href="./../SSfMT/Handbook.html#SuperCollider%20Links">SuperCollider Links</a> for code examples and other interesting information.
 <p><strong>Other software</strong>
