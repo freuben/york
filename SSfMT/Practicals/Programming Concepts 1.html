@@ -30,7 +30,7 @@
 <ul class='toc'></ul><li class='toc2'><a href='#Evaluation'>Evaluation</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Programming%20Concepts'>Programming Concepts</a></li>
 <ul class='toc'><li class='toc2'><a href='#Comments'>Comments</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Syntax%20Colorize'>Syntax Colorize</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Syntax%20Colourise'>Syntax Colourise</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Simple%20Numbers,%20Simple%20Math'>Simple Numbers, Simple Math</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Variables'>Variables</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Global%20Variables'>Global Variables</a></li>
@@ -47,10 +47,10 @@
 <h3><a class='anchor' name='Before%20we%20start'>Before we start</a></h3>
 <div class='warning'><span class='warninglabel'>WARNING:</span> Computers don't speak human!</div><div class='warning'><span class='warninglabel'>WARNING:</span> Code can be annoying for humans!</div>
 <p>Code in SC is written in the SC Language – a computer language! Computer languages are NOT like the human languages we speak – they have different rules and it’s important that you learn them. You would be surprised how some students think they can just write in plain English telling the computer what to do!! :-\
-<p>So, remember, code is different from human languages. A challenge of writing computer code is also that if you make any mistakes, the code will not run… Therefore, the code needs to have no mistakes (typos, spelling, syntax, etc.) in order for the computer to ‘understand’ and run the code. Computers are (still) not as smart as us (we can sometimes still understand incorrect language by someone how’s just learning… but unfortunately computers can’t).
+<p>So, remember, code is different from human languages. A challenge of writing computer code is also that if you make any mistakes, the code will not run… Therefore, the code needs to have no mistakes (typos, spelling, syntax, etc.) in order for the computer to ‘understand’ and run the code. Computers are (still) not as smart as us (we can sometimes still understand incorrect language by someone who is just learning… but unfortunately computers can’t).
 <p>But, we all still make mistakes writing code (obiously at the beginning you will make more mistakes). Fortunately, the computer will point out approximately where in your code you made a mistake through an Error message (more on this later).
 <p>Therefore, with SC we have to be patient at the beginning! The learning curve might seem a bit steeper than learning other software, but as you will see: if your persevere it will pay off!
-<p>I will be looking at the Mac version of SuperCollider. There are slight variations (in shortcuts for example) in the SuperCollider version for Linux and Windows. They are not substantial though as the SuperCollider IDE.<h3><a class='anchor' name='SuperCollider%20IDE'>SuperCollider IDE</a></h3>
+<p>I will be looking at the Mac version of SuperCollider. There are slight variations (in shortcuts for example) in the SuperCollider version for Linux and Windows. They are not substantial though in the SuperCollider IDE.<h3><a class='anchor' name='SuperCollider%20IDE'>SuperCollider IDE</a></h3>
 
 <p><a href="./../../Guides/SCIde.html">The SuperCollider IDE</a> (Integrated Development Environment) is a cross-platform coding environment based on Qt (cross-platform software development tool).<h3><a class='anchor' name='Getting%20Help'>Getting Help</a></h3>
 
@@ -89,7 +89,8 @@ lines
 ".postln
 )</pre>
 
-<p>Evaluate the next piece of code by clicking next to the brackets:<pre class='code prettyprint lang-sc'>(
+<p>Instead of double clicking to select the code within the brackets, you can also evaluate with <em>cmd + return</em>:<div class='note'><span class='notelabel'>NOTE:</span> Notice that if you try to do the same with <em>shift + return</em> this will not work. This shortcut is to evaluate only one line of code, or code that is already selected.</div>
+<p>Copy this code to an empty document and then try evaluating by putting the cursor within th brackets and then <em>cmd + return</em>. Then try it with <em>shift + return</em>. See the difference!<pre class='code prettyprint lang-sc'>(
 {var n;
     n=10;
     Resonz.ar(
@@ -123,10 +124,10 @@ lines
 
 <p><strong>Remember</strong>: To stop the sound, press <em>cmd + .</em>
 <p>The computer ignores the comment (if you erase the comment it has no effect in the programme). If you forget to put the <code class='code prettyprint lang-sc'>//</code> before the comment, <code class='code prettyprint lang-sc'>/* */</code> around the comment, you will get an error though because your talking a different language here that is not for computers!<div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcuts: <em>cmd + /</em> = comment or uncomment selection</div>
-<p><strong>Exercise</strong>: copy the text bellow into an empty Document, then:<pre class='code prettyprint lang-sc'>try commenting this text and then uncomment it back!</pre>
-<h3><a class='anchor' name='Syntax%20Colorize'>Syntax Colorize</a></h3>
+<p><strong>Exercise</strong>: copy the text bellow into an empty Document, then try to comment it in and out:<pre class='code prettyprint lang-sc'>try commenting this text and then uncomment it back!</pre>
+<h3><a class='anchor' name='Syntax%20Colourise'>Syntax Colourise</a></h3>
 
-<p>Your code will be color-coded according to the SC language syntax!<h3><a class='anchor' name='Simple%20Numbers,%20Simple%20Math'>Simple Numbers, Simple Math</a></h3>
+<p>Your code will be colour-coded according to the SC language syntax! Notice you can change these colours if you go<h3><a class='anchor' name='Simple%20Numbers,%20Simple%20Math'>Simple Numbers, Simple Math</a></h3>
 
 <p>SimpleNumber is the base class for numbers representing one dimentional value including integers and floats.<pre class='code prettyprint lang-sc'>1 //evaluate
 0.5</pre>
@@ -197,23 +198,23 @@ a = 4; //change this with values between 1 and 100.
 
 <p>Functions are operations that can be stored without running them, and to be evaluated at any time. They define a context, without the necessity to detail everything: what and when. Functions are written within this type of brackets: {code}<pre class='code prettyprint lang-sc'>{1 + 2} //this is a function</pre>
 
-<p>Ones defined, functions may be evaluated by adding “.value” at the end of the function.<pre class='code prettyprint lang-sc'>{1 + 2}.value; //gives result
+<p>Ones defined, functions may be evaluated by adding “.()” at the end of the function.<pre class='code prettyprint lang-sc'>{1 + 2}.(); //gives result
 a = {1 + 2 * 3} //store a function in global variable “a”
-a.value //runs the function and gives result</pre>
+a.() //runs the function and gives result</pre>
 <h3><a class='anchor' name='Arguments'>Arguments</a></h3>
 
 <p>Functions may have arguments. Arguments don’t need to be defined at the time of defining the function. They can also change when the function is run.
 <p>Arguments can be expressed as:<pre class='code prettyprint lang-sc'>f = {arg a,b; a*b} //defines function “f”
 
-f.value(10,2) //runs function “f” with values 10 and 2 as arguments
-f.value(3,5) //runs same function with different values as arguments (getting a different result!)</pre>
+f.(10,2) //runs function “f” with values 10 and 2 as arguments
+f.(3,5) //runs same function with different values as arguments (getting a different result!)</pre>
 
 <p>Arguments may have default values that can be defined within the function. This default values will be used if the argument is not specified when evaluating the function:<pre class='code prettyprint lang-sc'>f = {arg a=2,b=4; a*b} //defines function “f”
-f.value; //uses all default arguments
-f.value(3); //changes the first argument, but uses the second as default since it is not defined
-f.value(3,5); //changes both default arguments
-f.value(a: 3, b:5); //same as above but specifies which arguments the values are changing
-f.value(b:5); //changes only argument b</pre>
+f.(); //uses all default arguments
+f.(3); //changes the first argument, but uses the second as default since it is not defined
+f.(3,5); //changes both default arguments
+f.(a: 3, b:5); //same as above but specifies which arguments the values are changing
+f.(b:5); //changes only argument b</pre>
 
 <p>Functions may have also have variables. Variables are different to arguments, as they do have to be defined while the function is defined and they cannot change. Arguments on the other hand don’t need to be defined and can change every time the function is evaluated.<pre class='code prettyprint lang-sc'>(
 f = {arg a=2,b=4;
@@ -223,7 +224,7 @@ result = a + b / num;
 }
 )
 
-f.value(7,8) //only the arguments can change</pre>
+f.(7,8) //only the arguments can change</pre>
 
 <p>Functions can also be evaluated iteratively:<pre class='code prettyprint lang-sc'>1.do{"Hello".postln}; //evaluates function ones
 10.do{"Hello".postln}; //evaluates function 10 times</pre>
@@ -240,7 +241,7 @@ Env.sine.plot
 Env.linen.plot
 Env.triangle.plot</pre>
 
-<p>So, capitalized words are objects and ones they are colorized, they are blue! These objects are like the boxes in Max and they respond differently to the stuff you “connect to them”. Messages on the other hand are written in low-case letters and follow an object with a period (.) in front of them. The messages that are associated to the object make the object behave/respond differently according to the “meaning” of the message.
+<p>So, capitalized words are objects and ones they are colourised, they are blue! These objects are like the boxes in Max and they respond differently to the stuff you “connect to them”. Messages on the other hand are written in low-case letters and follow an object with a period (.) in front of them. The messages that are associated to the object make the object behave/respond differently according to the “meaning” of the message.
 <p>There are a few objects that are not expressed as capitalized words. For example numbers are also objects! They also respond differently to different messages:<pre class='code prettyprint lang-sc'>0.5.sin //sine of 0.5
 0.5.cos //cosine of 0.5
 60.midicps //midi numbers to cycles per second (frequency)
