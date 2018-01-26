@@ -216,6 +216,9 @@ f.(3,5); //changes both default arguments
 f.(a: 3, b:5); //same as above but specifies which arguments the values are changing
 f.(b:5); //changes only argument b</pre>
 
+<p>Arguments can also be declared like this:<pre class='code prettyprint lang-sc'>f = {|a,b| a*b};
+f.(2,8)</pre>
+
 <p>Functions may have also have variables. Variables are different to arguments, as they do have to be defined while the function is defined and they cannot change. Arguments on the other hand don’t need to be defined and can change every time the function is evaluated.<pre class='code prettyprint lang-sc'>(
 f = {arg a=2,b=4;
 var num, result;
@@ -228,7 +231,7 @@ f.(7,8) //only the arguments can change</pre>
 
 <p>Functions can also be evaluated iteratively:<pre class='code prettyprint lang-sc'>1.do{"Hello".postln}; //evaluates function ones
 10.do{"Hello".postln}; //evaluates function 10 times</pre>
-
+<div class='note'><span class='notelabel'>NOTE:</span> The message (see below) <code class='code prettyprint lang-sc'>.postln</code> posts an object or result in the Post window. It's a very useful tool for debugging.</div>
 <p>Exercise: 1. Write a function with arguments and variables 2. Write a function that is evaluated through iteratition<h3><a class='anchor' name='Objects%20and%20Messages'>Objects and Messages</a></h3>
 
 <p>The SC Language is an Object Oriented Programming (OOP) language. Most things that do anything in SC are objects that receive messages. In SC the objects start with uppercase letters and messages with lowercase letters. Usually messages follow objects and are separated by a period.<pre class='code prettyprint lang-sc'>Env.sine; //object Env (envelope), with message sine (a type of envelope)</pre>
@@ -356,6 +359,14 @@ b[0] //returns the item at index number 0
 b[0]= 74 //assigns 74 in index 0
 
 b //has changed</pre>
+
+<p>It is also possible to iterate through a collection with the message <code class='code prettyprint lang-sc'>do</code> and then a function with the arguments item and index.<pre class='code prettyprint lang-sc'>[100,150,200,300,400].do{|item| (item+rrand(10,20)).postln };
+
+a = Array.rand(10,0,100);
+a.do{|item, index| [item, index].postln };
+
+b = Array.series(10,0,1);
+b.do{|item, index| (item * index).postln };</pre>
 
 <p>for more methods that respond to collections, see the help files for:<pre class='code prettyprint lang-sc'>Collection
 ArrayedCollection

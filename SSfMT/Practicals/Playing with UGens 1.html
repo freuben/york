@@ -25,6 +25,7 @@
 <ul class='toc'><li class='toc1'><a href='#UGens'>UGens</a></li>
 <ul class='toc'><li class='toc2'><a href='#Booting%20the%20Server'>Booting the Server</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#UGen%20arguments'>UGen arguments</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Printing%20UGen%20values'>Printing UGen values</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Combining%20signals'>Combining signals</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Multi-channel%20expansion%20(and%20contraction)'>Multi-channel expansion (and contraction)</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#MouseX,%20MouseY'>MouseX, MouseY</a></li>
@@ -38,8 +39,8 @@
 
 <p>Unit Generators or UGens are objects that generate numbers very fast and run in a lower level programming language (C++) for efficiency purposes. The numbers run at a sample level and are used for synthesis/analysis of audio. To see the available UGens (unit generators) evaluate the following:<pre class='code prettyprint lang-sc'>      UGen.dumpClassSubtree</pre>
 <div class='note'><span class='notelabel'>NOTE:</span> UGens are objects, therefore they are written starting with Upper-case letters.</div>
-<p>UGens can run at audio rate (sampling rate): with the message <code class='code prettyprint lang-sc'>.ar</code>
-<p>or control rate: with the message <code class='code prettyprint lang-sc'>.kr</code>
+<p>UGens can run at audio rate (sampling rate - 44.1kz): with the message <code class='code prettyprint lang-sc'>.ar</code>
+<p>or control rate (64/sampling rate): with the message <code class='code prettyprint lang-sc'>.kr</code>
 <p>Within a function, UGens can produce audio and control signals
 <p>Each UGen has a help file that explains what it does.<pre class='code prettyprint lang-sc'>SinOsc //select and cmd + d</pre>
 <h3><a class='anchor' name='Booting%20the%20Server'>Booting the Server</a></h3>
@@ -54,7 +55,7 @@ s.quit; //to quit the server</pre>
 {SinOsc.ar}.play
 {SinOsc.ar(mul: 0.2)}.scope</pre>
 
-<p><strong>Remember</strong>: to stop the sound: <em>cmd + . (period)</em><div class='note'><span class='notelabel'>NOTE:</span> UGens need the messege <code class='code prettyprint lang-sc'>.ar</code> (for audio rate) or <code class='code prettyprint lang-sc'>.kr</code> (for control rate).</div>
+<p><strong>Remember</strong>: to stop the sound: <em>cmd + . (period)</em><div class='note'><span class='notelabel'>NOTE:</span> UGens need the messege <code class='code prettyprint lang-sc'>.ar</code> (for audio rate) or <code class='code prettyprint lang-sc'>.kr</code> (for control rate). You will want to use control rate for UGens that are controlling a parameter of another UGen (e.g. an oscillator used to modulate frequency of another one) and audio rate for UGens that will go through D/A conversion to produce sound</div>
 <p>To get help for SinOsc, select it and <em>cmd + d</em>.
 <p>UGens may have one or a list of arguments (10,2,3) that are written after the message and are separated by commas<pre class='code prettyprint lang-sc'>{SinOsc.ar(mul: 0.1)}.scope
 {SinOsc.ar(220,0,0.3)}.scope //args: freq, phase, mul</pre>
@@ -62,7 +63,11 @@ s.quit; //to quit the server</pre>
 <p>To use different values for arguments, without specifying the value for the preceding ones, you may use the following notation:<pre class='code prettyprint lang-sc'>{SinOsc.ar(220, mul: 0.3)}.scope</pre>
 
 <p>instead of:<pre class='code prettyprint lang-sc'>{SinOsc.ar(220, 0, 0.3)}.scope</pre>
-<h3><a class='anchor' name='Combining%20signals'>Combining signals</a></h3>
+<h3><a class='anchor' name='Printing%20UGen%20values'>Printing UGen values</a></h3>
+
+<p>If you would like to print some of the values for a UGen, you can use the message <code class='code prettyprint lang-sc'>.poll</code>:<pre class='code prettyprint lang-sc'>{SinOsc.kr(0.1).poll}.scope //posts values between -1 and 1
+{SinOsc.ar(200).poll(50)}.scope //poll arg can be changed to set amount of val printed per second</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> The <code class='code prettyprint lang-sc'>.poll</code> message can be very useful for debugging</div><h3><a class='anchor' name='Combining%20signals'>Combining signals</a></h3>
 
 <p>The argument for a UGen can be another UGen:<pre class='code prettyprint lang-sc'>{Pulse.ar(Saw.kr(MouseX.kr(0.2,100), mul: 50, add: 400/4), 0.5, mul: SinOsc.kr(1, mul:0.5, add:1))}.scope;</pre>
 

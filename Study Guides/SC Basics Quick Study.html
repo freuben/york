@@ -112,7 +112,8 @@ b</pre>
 <p>Basic SynthDef format:<pre class='code prettyprint lang-sc'>SynthDef("name", {Out.ar(busNumber, UGens)});</pre>
 
 <p>Same Synth as above but now in a <code class='code prettyprint lang-sc'>SynthDef</code> with the name <code class='code prettyprint lang-sc'>"SineMouse"</code>:<pre class='code prettyprint lang-sc'>(
-SynthDef("SineMouse", {arg out=0; var signal;
+SynthDef("SineMouse", {arg out=0;
+var signal;
 signal = SinOsc.ar(MouseX.kr(100,10000, 'exponential'),0,0.2);
 Out.ar(out, signal);
 }).add;

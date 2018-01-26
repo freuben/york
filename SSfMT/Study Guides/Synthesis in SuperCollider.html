@@ -1,0 +1,319 @@
+<html><head><title>Synthesis in SuperCollider</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider SSFMT/STUDY GUIDES (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/SSfMT'>Tutorials/SSfMT</a></div>
+<h1>Synthesis in SuperCollider</h1>
+<div id='summary'>Software Systems for Music Technology</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Practicals/Playing with UGens 1.html">Playing with UGens 1</a>, <a href="./../../SSfMT/Practicals/Playing with UGens 2.html">Playing with UGens 2</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Signals%20and%20Fixed%20Waveforms'>Signals and Fixed Waveforms</a></li>
+<ul class='toc'><li class='toc2'><a href='#Basic%20arithmetic%20operations%20on%20signals'>Basic arithmetic operations on signals</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Common%20periodic%20waveforms'>Common periodic waveforms</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Time-varying%20Waveform%20Synthesis'>Time-varying Waveform Synthesis</a></li>
+<ul class='toc'><li class='toc2'><a href='#Envelopes'>Envelopes</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Subtractive%20Synthesis'>Subtractive Synthesis</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Noise'>Noise</a></li>
+<ul class='toc'><li class='toc2'><a href='#Coloured%20Noise'>Coloured Noise</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Filters'>Filters</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Pass%20Filters'>Pass Filters</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Resonant%20Filters'>Resonant Filters</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Equalisation'>Equalisation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Resonance%20and%20ringing'>Resonance and ringing</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Signals%20and%20Fixed%20Waveforms'>Signals and Fixed Waveforms</a></h2>
+<h3><a class='anchor' name='Basic%20arithmetic%20operations%20on%20signals'>Basic arithmetic operations on signals</a></h3>
+<ul>
+<li>When we <em>multiply</em> a signal by a number, we change its <em>amplitude</em><li>When we <em>add</em> a number, we change its <em>axis</em></ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/signalaxis.png'/><br><b>sine wave plot</b></div>
+<ul>
+<li>We can use a signal to modulate another signal<li>We can modulate any parameter of a given signal (frequency, amplitude, phase, etc.)<li>We can also add two signals together (additive synthesis)<li>We can also multiply two signals (ring modulation)</ul>
+<h3><a class='anchor' name='Common%20periodic%20waveforms'>Common periodic waveforms</a></h3>
+
+<p>The most common periodic fixed (waveform doesn't change in time) waveforms in classic synthesis are:<ul>
+<li>Sine Wave<li>Square Wave<li>Saw Wave<li>Triangle Wave</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/common waves.png'/><br><b>Common waveforms in synthesis</b></div>
+
+<p>They have different characteristics and complex waves (Square, Saw, Triangle).
+<p><strong>Square Wave</strong><ul>
+<li>Odd harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum</em></ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/squarewave.png'/><br><b>Square Wave</b></div>
+<pre class='code prettyprint lang-sc'>FreqScope.new(400, 200, 0); //frequency scope
+
+(
+{var sinArr, size, freq, array;
+sinArr = [];
+size = 100; //try replacing with low number like 4
+freq = 100;
+array = Array.series(size,1,2); //odd harmonics
+array.do{|item|
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,0.5*(1/item))); // 1/harmonicNum
+};
+sinArr.sum;
+}.scope;
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> This approach is for demonstration purposes. Use the <code class='code prettyprint lang-sc'>UGen</code> below if you just want to use a square wave</div>
+<p>SC has a square wave <code class='code prettyprint lang-sc'>UGen</code>:<pre class='code prettyprint lang-sc'>{Pulse.ar(100, 0.5, 1, 0)}.scope//args: freq, width, mul, add</pre>
+
+<p><strong>Saw Wave</strong><ul>
+<li>Odd and even harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum/2</em></ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/sawwave.png'/><br><b>Saw Wave</b></div>
+<pre class='code prettyprint lang-sc'>(
+{var sinArr, size, freq;
+sinArr = [];
+size = 100; //try replacing with low number like 4
+freq = 100;
+(Array.series(size,1,1)).do{|item|
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,0.5*(1/item/2)));
+};
+sinArr.sum;
+}.scope;
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> This approach is for demonstration purposes. Use the UGen below if you just want to use a saw wave</div>
+<p>SC has a saw wave <code class='code prettyprint lang-sc'>UGen</code>:<pre class='code prettyprint lang-sc'>{Saw.ar(100, 1, 0)}.scope//args: freq, mul, add</pre>
+
+<p><strong>Triangle Wave</strong><ul>
+<li>Odd harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum/harmonicNum</em><li>Polarity switches from positive to negative amplitude from harmonic to harmonic</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/trianglewave.png'/><br><b>Triangle Wave</b></div>
+<pre class='code prettyprint lang-sc'>(
+{var sinArr, size, freq;
+sinArr = [];
+size = 100; //try replacing with low number like 4
+freq = 100;
+(Array.series(size,1,2)).do{|item, index|
+if(index.even, {
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,0.5*(1/item/item)));
+}, {
+sinArr = sinArr.add(SinOsc.ar(freq * item,0,(0.5*(1/item/item)).neg));
+});
+};
+sinArr.sum;
+}.scope;
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> This approach is for demonstration purposes. Use the <code class='code prettyprint lang-sc'>UGen</code> below if you just want to use a triangle wave</div>
+<p>SC has a triangle wave <code class='code prettyprint lang-sc'>UGen</code>:<pre class='code prettyprint lang-sc'>{LFTri.ar(100, 0, 1, 0)}.scope//args: freq, iphase, mul, add</pre>
+<h2><a class='anchor' name='Time-varying%20Waveform%20Synthesis'>Time-varying Waveform Synthesis</a></h2>
+
+<p>Changing amplitude of a signal in time is important to make it interesting!  For this, we need:<ul>
+<li>Signals to create time-varying waveforms<li>Envelopes - functions of time (generates a line through a table specifying time and amplitude points)<li>Amplitude envelopes need to be multiplied with the “sounding” signal<li>Introducing time-varying UGens in a patch both in amplitude and frequency for more interesting results<li>Table-look up oscillators have 3 different inputs: amplitude, frequency and waveform</ul>
+<h3><a class='anchor' name='Envelopes'>Envelopes</a></h3>
+<ul>
+<li>An envelope is a function in time that describes a line or curve<li>Commercial synthesisers amplitude envelopes in 4 stages<li>Attack, Decay, Sustain and Release (ADSR)<li>We still need a way of using the envelope to modify the amplitude of the “constant sounding” oscillator</ul>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/adsr.png'/><br><b>ADSR Envelope</b></div>
+<div class='note'><span class='notelabel'>NOTE:</span> It's important to understand that in the digital domain, an Envelope specifies a wavetable</div>
+<p>In SC we can make envelopes with the <code class='code prettyprint lang-sc'>Env</code> specification.<pre class='code prettyprint lang-sc'>Env([0,1,0], [1,9]).plot; //values, time
+Env.adsr.plot;
+Env.adsr(0.1,1,0.01).plot;</pre>
+
+<p>Another more complex curved envelope:<pre class='code prettyprint lang-sc'>a = Array.fill(29, {rrand(0.0,1)});
+d = Array.fill(29, {rrand(0.1,0.5)}).sort;
+a = a ++ [0];
+c = Env(a,d, curve:'sin');
+c.test.plot;</pre>
+
+<p><strong>Envelopes Generators</strong>
+<p>In order to playback envelopes in synthesis patches, we need to use an <strong>envelope generator</strong>, which reads the breakpoints we create with an Env.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/envgen.png'/><br><b>A synthesis patch with an envelope generator</b></div>
+
+<p>In SC, we use the <code class='code prettyprint lang-sc'>EnvGen</code> UGen for this purpose.<pre class='code prettyprint lang-sc'>a = Array.fill(29, {rrand(0.0,1)});
+d = Array.fill(29, {rrand(0.1,0.5)}).sort;
+a = a ++ [0];
+c = Env(a,d, curve:'sin');
+{PinkNoise.ar(1)*c.kr(2);}.play;</pre>
+
+<p>Now use envelope to control frequency:<pre class='code prettyprint lang-sc'>    {LFTri.ar(c.kr(2).linlin(0,1,200,2000))*c.kr(2);}.play;
+//example from above with same envelope
+    {LFNoise1.ar(c.kr(2).linlin(0,1,200,2000))*c.kr(2);}.play;</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> The message <code class='code prettyprint lang-sc'>.linlin</code> scales numbers between two ranges of values specified as the arugments <code class='code prettyprint lang-sc'>inMin, inMax, outMin, outMax</code></div>
+<p><h2><a class='anchor' name='Subtractive%20Synthesis'>Subtractive Synthesis</a></h2>
+<ul>
+<li>Method of Sound Synthesis<li>Frequencies are attenuated by using digital filters<li>Usually source rich in frequency content/partials/harmonics<li>Sources may include: Complex waves (such as saw (<code class='code prettyprint lang-sc'>Saw.ar</code>), square (<code class='code prettyprint lang-sc'>Pulse.ar</code>), triangle (<code class='code prettyprint lang-sc'>LFTri.ar</code>)), noises, pulses, etc.<li>Resonance can be used to create interesting effects like ringing<li>Subtract and add methods</ul>
+<h2><a class='anchor' name='Noise'>Noise</a></h2>
+<div class='image'><img src='http://24.media.tumblr.com/tumblr_mch0831jxO1rf089no1_1280.gif'/><br><b>NOISE!! - 24.media.tumblr.com</b></div>
+<ul>
+<li>Noise in signal processing may refer to two things:<li>Unwanted modification of signal (unwanted sounds)<li>Or (what we are interested now):<li>Aperiodic signals<li>Random signals<li>However with predictable spectral density<li>Predictably unpredictable...</ul>
+<h3><a class='anchor' name='Coloured%20Noise'>Coloured Noise</a></h3>
+
+<p>Noise with different spectral characteristics.
+<p><strong>White Noise</strong><ul>
+<li>Flat frequency spectrum<li>Equal power in any band of a given bandwidth (power spectral density)</ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/whitenoise.png'/><br><b>White Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{WhiteNoise.ar(0.5)!2}.scope;</pre>
+
+<p><strong>Pink Noise</strong><ul>
+<li>Flat frequency spectrum<li>Equal power in any band of a given bandwidth (power spectral density)</ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/pinknoise.png'/><br><b>Pink Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{PinkNoise.ar(0.5)!2}.scope</pre>
+
+<p><strong>Brown Noise</strong><ul>
+<li>Brownian motion<li>Random walk<li>Power density decreases 6dB per octave with increasing frequency<li>More power in lower frequencies</ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/brownnoise.png'/><br><b>Brown Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{BrownNoise.ar(0.5)!2}.scope</pre>
+
+<p><strong>Grey Noise</strong><ul>
+<li>White noise subjected to psychoacoustic equal loudness curve<li>Closer to how we hear</ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/greynoise.png'/><br><b>Grey Noise</b></div>
+
+<p><pre class='code prettyprint lang-sc'>{GrayNoise.ar(0.5)!2}.scope</pre>
+<h3><a class='anchor' name='Filters'>Filters</a></h3>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/filters.png'/><br><b>Filters remove stuff!</b></div>
+<ul>
+<li>“A digital filter is a computational process or algorithm by which a digital signal or sequence of numbers (acting as input) is transformed into a second sequence of numbers termed the output digital signal” (Rabiner et al. 1972)<li>Any digital device with an input and an output is a filter!<li>Commonly referred to devices that boost or attenuate regions of the frequency spectrum<li>Not only frequency domain, but also time domain (reverbs, delays, etc.)</ul>
+<h3><a class='anchor' name='Pass%20Filters'>Pass Filters</a></h3>
+
+<p><code class='code prettyprint lang-sc'>WhiteNoise</code> as source.<pre class='code prettyprint lang-sc'>{WhiteNoise.ar(1)!2}.scope;
+
+FreqScope.new(400, 200, 0); //frequency scope</pre>
+
+<p><strong>Hi-pass filter</strong>: Just passes high frequencies.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/hpf.png'/><br><b>High-pass Filter</b></div>
+<pre class='code prettyprint lang-sc'>{HPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000))}.scope</pre>
+
+<p><strong>Low pass filter</strong>: Just passes low frequencies.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/lpf.png'/><br><b>Low-pass Filter</b></div>
+<pre class='code prettyprint lang-sc'>{LPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000))}.scope //args: in, freq, rq</pre>
+
+<p><strong>Band pass filter</strong>: Just Passes Band<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/bpf.png'/><br><b>Band-pass Filter</b></div>
+<pre class='code prettyprint lang-sc'>{BPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(440,17600), MouseY.kr(0.001,0.9))}.scope //args: in, freq, rq</pre>
+
+<p><strong>Band reject filter</strong>: Rejects band<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/brf.png'/><br><b>Band-reject Filter</b></div>
+<pre class='code prettyprint lang-sc'>{BRF.ar(WhiteNoise.ar(0.5)!2, 11000, MouseY.kr(0.01,1.9))}.scope</pre>
+<h3><a class='anchor' name='Resonant%20Filters'>Resonant Filters</a></h3>
+<ul>
+<li>Resonance provides a boost around cut-off frequency<li>Sometimes you find the reciprocal of Q (1/Q) instead of Q<li>RHPF (Resonant High Pass Filter)<li>RLPF (Resonant Low Pass Filter)</ul>
+
+<p><strong>Resonant low pass filter</strong>:<pre class='code prettyprint lang-sc'>{RLPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope</pre>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/rlpf.png'/><br><b>Resonant Low-pass Filter</b></div>
+
+<p><strong>Resonant high pass filter</strong>:<pre class='code prettyprint lang-sc'>{RHPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope</pre>
+<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/rhpf.png'/><br><b>Resonant High-pass Filter</b></div>
+<h3><a class='anchor' name='Equalisation'>Equalisation</a></h3>
+
+<p>B EQ Filters in SC:
+<p><strong>High-pass</strong>:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiPass.ar(WhiteNoise.ar(0.5), MouseX.kr(20,22000)),0)}.scope</pre>
+
+<p><strong>Low-pass</strong>:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowPass.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000)),0)}.scope</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> The <code class='code prettyprint lang-sc'>Pan2</code> UGen is an equal power stereo panner, the second argument is position between -1 and 1</div>
+<p><strong>Shelf Filters</strong>:<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/shelf.png'/><br><b>Low and High Shelf Filters</b></div>
+
+<p><strong>Low-shelf</strong>:
+<p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -20), 0)}.scope //arg: in, freq. reciprocal of s (slope) = 1/s</pre>
+
+<p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowShelf.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 20), 0)}.scope //reciprocal of s (slope) = 1/s</pre>
+
+<p><strong>Hi-shelf</strong>:
+<p>Cut -10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -10), 0)}.scope //reciprocal of s (slope) = 1/s</pre>
+
+<p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -20),0)}.scope</pre>
+
+<p>Boost 10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.25)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 10),0)}.scope</pre>
+
+<p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 20), 0)}.scope</pre>
+
+<p><strong>Parametric</strong>:<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/parametric.png'/><br><b>Parametric Filter - Boost and Cut</b></div>
+
+<p>Cut -10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), -10),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), -20),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p>Boost 10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.25)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), 10),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), 20),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
+
+<p><strong>Multiband EQ</strong><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/multiband.png'/><br><b>Multiband Filter by fabfilter</b></div>
+
+<p>By combining different filters, you can produce a multiband EQ.<pre class='code prettyprint lang-sc'>(
+a = {arg lag=10, hpfreq=100,hpq=0.71,lsfreq=80,lsdb=10,lss=1.1,p1freq=43,p1db=0,
+    p1q=6,p2freq=86,p2db=0,p2q=6,p3freq=129,p3db=0,p3q=6,p4freq=172,p4db=0,
+    p4q=6,hsfreq=2000,hsdb=0,hss=0.1,lpfreq=20000,lpq=0.71,byp1=0,byp2=0,
+    byp3=0,byp4=0,byp5=0,byp6=0,byp7=0,byp8=0,vol=0.5;
+    var signal;
+    signal = WhiteNoise.ar(0.25);
+    signal = BHiPass.ar(signal,hpfreq.lag(lag),(1/hpq.lag(lag)))*byp1.linlin(0,1,1,0) + (signal*byp1);
+    signal = BLowShelf.ar(signal,lsfreq.lag(lag),(1/lss.lag(lag)), lsdb.lag(lag))*byp2.linlin(0,1,1,0)
+    + (signal*byp2);
+    signal = BPeakEQ.ar(signal,p1freq.lag(lag),(1/p1q.lag(lag)), p1db.lag(lag))*byp3.linlin(0,1,1,0)
+    + (signal*byp3);
+    signal = BPeakEQ.ar(signal,p2freq.lag(lag),(1/p2q.lag(lag)),p2db.lag(lag))*byp4.linlin(0,1,1,0)
+    + (signal*byp4);
+    signal = BPeakEQ.ar(signal,p3freq.lag(lag),(1/p3q.lag(lag)),p3db.lag(lag))*byp5.linlin(0,1,1,0)
+    + (signal*byp5);
+    signal = BPeakEQ.ar(signal,p4freq.lag(lag),(1/p4q.lag(lag)),p4db.lag(lag))*byp6.linlin(0,1,1,0)
+    + (signal*byp6);
+    signal = BHiShelf.ar(signal,hsfreq.lag(lag),(1/hss.lag(lag)), hsdb.lag(lag))*byp7.linlin(0,1,1,0)
+    + (signal*byp7);
+    signal = BLowPass.ar(signal,lpfreq.lag(lag),(1/lpq.lag(lag)))*byp8.linlin(0,1,1,0)
+    + (signal*byp8);
+    Pan2.ar(signal,0)*vol;
+}.scope;
+)
+
+//the lag message/argument produces a linear ramp between values at a given duration
+a.set(\p1db,20, \p1q,10.0, \p1freq, 800);
+a.set(\p2db,20, \p2q,10.0, \p2freq, 800*2);
+a.set(\p3db,20, \p3q,10.0, \p3freq, 800*3);
+a.set(\p4db,20, \p4q,10.0, \p4freq, 800*4);
+
+a.set(\byp1, 1, \lsfreq, 82,\lsdb,10,\lss,0.2,\p1freq,220,\p1db, -10);
+
+a.set(\hpfreq, 440, \hpq, 6)</pre>
+<h3><a class='anchor' name='Resonance%20and%20ringing'>Resonance and ringing</a></h3>
+
+<p>Resonance exhibits ringing.<pre class='code prettyprint lang-sc'>{Resonz.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope //resonant high
+
+{Impulse.ar(MouseX.kr(0.5,10))!2*0.5}.scope
+
+{Resonz.ar(Impulse.ar(1,0,20), MouseX.kr(440,10000), MouseY.kr(0.0001,0.01))!2*10}.scope //resonant filter ringing
+
+{Ringz.ar(Impulse.ar(1,0,1), MouseX.kr(440,10000), 0.5)!2 }.scope //same but specify ring times</pre>
+
+<p><code class='code prettyprint lang-sc'>Klank</code> and <code class='code prettyprint lang-sc'>DynKlank</code> are banks of resonators in SC.<pre class='code prettyprint lang-sc'>(
+{
+Klank.ar([ // the multichannel-expansion
+        `[[500, 1078, 1201.5, 1723], nil, [1, 1, 0.5, 0.3]], // left channel
+        `[[700, 1071, 1053, 1723], nil, [1, 1, 1, 1]] // right channel
+    ], Impulse.ar([1.5, 1.875], 0, 0.1))
+}.play
+)</pre>
+
+<p>With <code class='code prettyprint lang-sc'>DynKlank</code> you can change parameters dynamically.<pre class='code prettyprint lang-sc'>(
+// change freqs and ringtimes with mouse
+{    var freqs, ringtimes;
+    freqs = [800, 1071, 1153, 1723] * MouseX.kr(0.5, 2, 1);
+    ringtimes = [1, 1, 1, 1] * MouseY.kr(0.1, 10, 1);
+    DynKlank.ar(`[freqs, nil, ringtimes ], Impulse.ar(2, 0, 0.1))
+}.play;
+)
+
+(
+// set them from outside later with Control UGen:
+a = {
+    var freqs, ringtimes;
+    freqs = Control.names([\freqs]).kr([800, 1071, 1153, 1723]);
+    ringtimes = Control.names([\ringtimes]).kr([1, 1, 1, 1]);
+    DynKlank.ar(`[freqs, nil, ringtimes ], Impulse.ar(2, 0, 0.1));
+        }.play
+)
+
+a.setn(\freqs, Array.rand(4, 500, 2000));
+a.setn(\ringtimes, Array.rand(4, 0.2, 4) );</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Study Guides/Synthesis in SuperCollider.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Study Guides/Synthesis in SuperCollider.schelp</a><br>link::SSfMT/Study Guides/Synthesis in SuperCollider::<br>sc version: 3.8.0</div></div></body></html>
