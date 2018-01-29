@@ -88,22 +88,22 @@ o.numBuffers;</pre>
 <p>Buffers can also be accessed with the <code class='code prettyprint lang-sc'>Buffer</code> class (which may be more convenient than the messaging style)
 <p><code class='code prettyprint lang-sc'>Buffer.read</code> allocates a buffer and reads a sound file into it.<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "/Users/federicoreuben/Music/MastersExamples/11 Debra.aiff"); //change to your soundfile path
 
-{ PlayBuf.ar(2, b.bufnum, 1, loop: 1) }.scope</pre>
+{ PlayBuf.ar(2, b.bufnum, 1, loop: 1) }.scope;</pre>
 
-<p>Mouse control of rate (transposition)<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(1, b.bufnum, MouseX.kr(0.5,2), loop: 1) }.scope
+<p>Mouse control of rate (transposition)<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(1, b.bufnum, MouseX.kr(0.5,2), loop: 1) }.scope;
 
-b.bufnum   // returns buffer number
-b.numChannels   // returns the number of channels in the buffer
+b.bufnum;   // returns buffer number
+b.numChannels;   // returns the number of channels in the buffer
 
-b.free  // return the memory and free buffer ID, IMPORTANT</pre>
+b.free;  // return the memory and free buffer ID, IMPORTANT</pre>
 
 <p><code class='code prettyprint lang-sc'>BufRateScale</code>
 <p>File being read into a buffer may have a different sample than SC is using
 <p><code class='code prettyprint lang-sc'>BufRateScale.kr(bufnum)</code> returns a ratio to adjust the playback of the sound file (for example with different sampling rates).<pre class='code prettyprint lang-sc'>b = Buffer.read(s, "/Users/federicoreuben/Music/MastersExamples/04 4 bit 9d api+e+6 [126.26].wav"); //change to your sound file path</pre>
 
-<p>to scale the playback:<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1) }.scope
+<p>to scale the playback:<pre class='code prettyprint lang-sc'>{ PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum), loop: 1) }.scope;
 
-b.free</pre>
+b.free;</pre>
 
 <p><code class='code prettyprint lang-sc'>BufFrames</code>
 <p><code class='code prettyprint lang-sc'>BufFrames.kr(bufnum)</code> returns the current number of allocated frames
@@ -112,7 +112,7 @@ b.free</pre>
 var start = 1/2;
 { PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum),
     startPos: BufFrames.kr(b.bufnum) * start, loop: 1)
-}.scope
+}.scope;
 )</pre>
 
 <p>note that loop returns to the beginning in the above example
@@ -123,23 +123,23 @@ var start = 1/2;
 { PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum),
     Impulse.kr(1/3),
     startPos: BufFrames.kr(b.bufnum) * start, loop: 0)
-}.scope
+}.scope;
 )</pre>
 
 <p>Using a trigger with looping:
 <p>the trigger should occur with a frequency that is
 <p>(serverSampleRate / numberOfFrames) * rateScale
-<p>Server's sample rate:<pre class='code prettyprint lang-sc'>s.sampleRate</pre>
+<p>Server's sample rate:<pre class='code prettyprint lang-sc'>s.sampleRate;</pre>
 <pre class='code prettyprint lang-sc'>(
 var start = 1/2;
 { PlayBuf.ar(2, b.bufnum, BufRateScale.kr(b.bufnum),
     Impulse.kr(s.sampleRate / (BufFrames.kr(b.bufnum) * start) *
         BufRateScale.kr(b.bufnum)),
     startPos: BufFrames.kr(b.bufnum) * start, loop: 1)
-}.scope
+}.scope;
 )
 
-b.free</pre>
+b.free;</pre>
 
 <p><strong>Exercise</strong>:<ol>
 <li>Play with <code class='code prettyprint lang-sc'>PlayBuf</code> loading sound files (uncompressed) and changing the rate with different values.<li>Use another UGen to modulate the rate.<li>Add an envelope to PlayBuf with different random starting points.</ol>
@@ -147,21 +147,20 @@ b.free</pre>
 b = Buffer.loadDialog; //choose sound file
 
 (
-SynthDef("envPlay", {arg freqMod=1;
-    var signal, env;
-    signal = PlayBuf.ar(2,b.bufnum, Rand(0.5,4), startPos: BufFrames.kr(b.bufnum)*Rand(0,1));
+a = {var signal, env;
+    signal = PlayBuf.ar(b.numChannels,b.bufnum, Rand(0.5,4), startPos: BufFrames.kr(b.bufnum)*Rand(0,1));
     env = EnvGen.kr(Env.perc(0.01,0.1), doneAction:2);
-    Out.ar([0,1], signal * env * 0.2);
-}).send(s);
+    signal * env * 0.2;
+}; //a function to play small grains of sound from a buffer
 )
 
 (
 {
 inf.do{
-Synth("envPlay");
-rrand(0.1,0.01).yield;
-}
-}.fork;
+a.play;
+rrand(0.1,0.01).yield; //wait time specificed as random numbers betweem 0.01 to 0.1
+};
+}.fork; //the message .fork will start a Routine, a function where you can stecify events in time
 )</pre>
 <h3><a class='anchor' name='DiskIn'>DiskIn</a></h3>
 
@@ -194,9 +193,9 @@ x.free; b.close; b.free;    // close and free</pre>
 
 <p><code class='code prettyprint lang-sc'>Osc</code> is a table-lookup oscillator.<pre class='code prettyprint lang-sc'>b = Buffer.alloc(s, 4096, 1); //buffer with 4096 values
 b.sine1(1.0!6, true, true, true); //add 6 harmonics
-b.plot
+b.plot;
 
-{Osc.ar(b.bufnum, [80,80.2], 0, 0.2)}.play;
+{Osc.ar(b.bufnum, [80,80.2], 0, 0.2)}.play; //detuned left/right
 
 b.sine1(1.0/[1,2,3,4,5,6], true, true, true); //add 6 harmonics with decaying amplitudes
 
@@ -205,9 +204,13 @@ b.plot
 
 b.sine1(Array.rand(16,0,1.0).postln, true, true, true); //change wavetable with random amplitude in partials
 
-{Osc.ar(b.bufnum, MouseX.kr(100,1000), 0, 0.2)}.play;
+{Osc.ar(b.bufnum, MouseX.kr(100,1000), 0, 0.2)!2}.play;
 
-{Osc.ar(b.bufnum, [80,80.2], 0, 0.2)}.play;
+(
+{var gate;
+    gate = Decay.kr(Impulse.kr(MouseX.kr(1,10)), 0.01);
+    Osc.ar(b.bufnum, [80,80.2], 0, 0.2)*Env.perc.kr(0,gate)}.play;
+)
 
 b.sine1(1.0/(1..10), true, true, true);
 b.plot;
@@ -239,12 +242,10 @@ b.plot;
 b.plot;
 
 (
-{
-    Shaper.ar(
+{Shaper.ar(
         b,
         SinOsc.ar(440, 0.5pi, MouseX.kr(0,1)), //input cosine wave
-        0.5 //scale output down because otherwise it goes between -1.05 and 0.5, distorting...
-    )
+    0.5)!2; //scale output down because otherwise it goes between -1.05 and 0.5, distorting...
 }.scope;
 )
 
@@ -254,8 +255,8 @@ b.free;</pre>
 b.cheby([1, 0.5, 1, 0.125]);
 
 (
-{     var    sig = Shaper.ar(b, SinOsc.ar(440, 0, 0.4));
-    sig ! 2
+{var sig = Shaper.ar(b, SinOsc.ar(440, 0, MouseX.kr(0,1)));
+    sig ! 2;
 }.scope;
 )
 
@@ -266,22 +267,16 @@ b.free;</pre>
 //size must be power of two plus 1
 t = Signal.chebyFill(513,[1, 0.5, 1, 0.125]);
 
-// linear function
-t.plot
-
-t = Signal.sineFill(513,[1, 0.5, 1, 0.125]);
-
-t.plot
-
-
 // t.asWavetableNoWrap will convert it to the official Wavetable format at next power of two size
 b.sendCollection(t.asWavetableNoWrap);  // may also use loadCollection here
 
-b.plot
+b.plot;
 
 (
-{     var    sig = Shaper.ar(b, SinOsc.ar(440, 0, 0.4));
-    sig ! 2
+{var gate, sig;
+    gate = LFPulse.kr(1);
+    sig = Shaper.ar(b, SinOsc.ar(440, 0, MouseX.kr(0,1)));
+    sig*Env.adsr.kr(0, gate) ! 2;
 }.scope;
 )
 
@@ -290,18 +285,21 @@ b.free;</pre>
 <p>Get creative with your transfer functions:<pre class='code prettyprint lang-sc'>b = Buffer.alloc(s, 1024, 1);
 
 // or, for an arbitrary transfer function, create the data at 1/2 buffer size + 1
-t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.0, 1.0) });
+t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.0, 1.0) }); // linear function
 
-// linear function
-t.plot
+t = Signal.fill(513, { |i| i = rrand(-1.0, 1.0) }); //random numbers between -1 and 1
+
+t.plot;
 
 // t.asWavetable will convert it to the official Wavetable format at twice the size
 b.sendCollection(t.asWavetableNoWrap);  // may also use loadCollection here
 
 // shaper has no effect because of the linear transfer function
 (
-{     var    sig = Shaper.ar(b, SinOsc.ar(440, 0, 0.4));
-    sig ! 2
+{var gate, sig;
+    gate = Decay.kr(Impulse.kr(MouseY.kr(1,10)), 0.01);
+    sig = Shaper.ar(b, SinOsc.ar(440, 0, MouseX.kr(0,1)));
+    sig*Env.adsr.kr(0, gate) ! 2;
 }.scope;
 )
 
@@ -309,30 +307,39 @@ b.sendCollection(t.asWavetableNoWrap);  // may also use loadCollection here
 (
 a = Signal.fill(256, { |i|
     var t = i/255.0;
-    t + (0.1 * (max(t, 0.1) - 0.1) * sin(2pi * t * 80 + sin(2pi * 25.6 * t)))
-})
+    t + (0.1 * (max(t, 0.1) - 0.1) * sin(2pi * t * 80 + sin(2pi * 25.6 * t)));
+});
 );
 
-a.plot
+a.plot;
 
 d = (a.copy.reverse.neg) ++(Signal[0])++ a;
 
-d.plot
+d.plot;
 
-d.size    //must be buffer size/2 + 1, so 513 is fine
+d.size;    //must be buffer size/2 + 1, so 513 is fine
 
 b.sendCollection(d.asWavetableNoWrap);  // may also use loadCollection here
 
-b.plot // wavetable format!
+b.plot; // wavetable format!
 
 // test shaper
 (
-{
-    Shaper.ar(
-        b,
-        SinOsc.ar(440, 0.5, MouseX.kr(0,0.9))
-    )
-}.scope
+{var gate, sig;
+    gate = Decay.kr(Dust.kr(8), 0.01);
+    sig = Shaper.ar(b, SinOsc.ar(440, 0, MouseX.kr(0,0.9)));
+    sig*Env.perc(0.005,0.5).kr(0, gate) ! 2;
+}.scope;
+).scope;
+
+//try the distortion with you input (left is unaffectes, right distorted)
+//be careful, use headphones to avoid feedback
+(
+{var in, dist;
+    in = SoundIn.ar(0);
+    dist =    Shaper.ar(b, in*MouseX.kr(0,0.9));
+    (in*MouseX.kr(0.9,0)) + dist;
+}.scope;
 )</pre>
 <div class='note'><span class='notelabel'>NOTE:</span> This examples are taken from the <code class='code prettyprint lang-sc'>Shaper</code> help file</div><h3><a class='anchor' name='Additive%20through%20Summation'>Additive through Summation</a></h3>
 <div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/summation.png'/><br><b>Additive Synthesis Patch</b></div>
@@ -341,17 +348,18 @@ b.plot // wavetable format!
 <li>Addition of partials<li>Overtones, Harmonics<li>Inharmonic partials<li>Fixed-wave/periodic signals are limited - they can only represent a steady-state spectrum<li>Acoustic sound has a time-varying spectrum (changes millisecond by millisecond)<li>A time-varying timbre is usually more tantalising to the ear than a constant spectrum (Grey, 1975)</ul>
 
 <p><strong>Example in SC</strong><pre class='code prettyprint lang-sc'>(
-SynthDef(\addSynth, {arg freq=40, amp=0.5, lag=30; var signal;
-    signal = SinOsc.ar(freq.lag(lag),0,amp.lag(lag));
-    Out.ar([0,1],signal)
-}).send(s);
+~synth = {arg freq=40, amp=0.5, lag=30;
+    SinOsc.ar(freq.lag(lag),0,amp.lag(lag))!2; //lag creates a linear ramp
+ };
 )
 
 (
-~arr = Array.fill(12, {rrand(200,10000)}).sort;
+~arr = Array.fill(12, {rrand(200,1000)}).sort;
 ~synthArr = [];
 ~arr.do{|item|
-    ~synthArr = ~synthArr.add(Synth(\addSynth, [\freq, item, \amp, 0.5/~arr.size]));
+    ~synthArr = ~synthArr.add(
+        ~synth.play(args: [\freq, item, \amp, 0.5/~arr.size]) ;
+    );
 }
 )
 
@@ -368,37 +376,36 @@ SynthDef(\addSynth, {arg freq=40, amp=0.5, lag=30; var signal;
 <li>Driving functions for synthesis algorithms:<li>Imported/mapped from another domain<li>Generated by user constraints<li>Generated by interactive systems<li>Entered by user<li>Etc.</ul>
 
 <p><strong>Example in SC</strong>:<pre class='code prettyprint lang-sc'>(
-SynthDef(\addSynth, {arg freq=40, amp=0.5, lag=0.01, atk=0.1,dec=0.2,sus=0.5,rel=1.0,gate=1, vol=0.05;
+~synth =  {arg freq=40, amp=0.5, atk=0.1,dec=0.2,sus=0.5,rel=1.0,gate=1, vol=0.05;
     var signal, env;
-    signal = SinOsc.ar(freq.lag(lag),0,amp.lag(lag));
-    env = EnvGen.kr(Env.adsr(atk,dec,sus,rel), gate);
-    Out.ar([0,1],signal*env*vol);
-}).send(s);
+    signal = SinOsc.ar(freq,0,amp);
+    env = Env.adsr(atk,dec,sus,rel).kr(2, gate);
+    (signal*env*vol)!2;
+};
 )
 
 (
-~size = 100; //100 change number of oscillators
-~arr = Array.fill(~size, {rrand(200,10000)}).sort;
-~envArr = [Array.rand(~size,0.1,2.6),Array.rand(~size,0.3,0.6), Array.rand(~size,0.8,1.0), Array.rand(~size,0.1,10.0)];
+~rout = {inf.do{
+    ~size = rrand(10,40).postln; //change number of oscillators
+    ~arr = Array.fill(~size, {rrand(21,127.0).midicps}).sort.postln;
+~envArr = [Array.rand(~size,0.1,2.6), Array.rand(~size,0.3,0.6), Array.rand(~size,0.8,1.0), Array.rand(~size,0.1,10.0)];
+    ~newEnvArr = [];
+~envArr.do{|arr|
+    ~newEnvArr = ~newEnvArr.add(arr.sort.reverse);
+};
 ~synthArr = [];
 ~arr.do{|item, index|
-    ~synthArr = ~synthArr.add(Synth(\addSynth, [\freq, item, \amp, (rrand(0.5,0.1)/(~arr.size)), \atk, ~envArr[0][index].postln, \dec, ~envArr[1][index], \sus, ~envArr[2][index], \rel, ~envArr[3][index], \lag, 0.1])); //change lag time
+    ~synthArr = ~synthArr.add(~synth.play(args: [\freq, item, \amp, (rrand(0.5,0.1)/(~arr.size/4)), \atk, ~newEnvArr[0][index], \dec, ~newEnvArr[1][index], \sus, ~newEnvArr[2][index], \rel, ~newEnvArr[3][index]]));
 };
-
-~rout = {inf.do{
-    ~arr = [~arr[0]] ++ Array.fill(~arr.size-1,{rrand(~arr[0],~arr[0]*20)});
-    ~synthArr.do{|item, index| item.set(\freq, ~arr[index], \amp, rrand(0.5,0.1))};
-    0.01.yield; //change wait time
+    rrand(1, 1.5).yield;
+    ~synthArr.do{|item, index| item.set(\gate, 0)};
+    rrand(3.5, 6.0).yield;
 }}.fork;
 )
 
-
-~synthArr.do{|item, index| item.set(\gate, 0)};
 ~rout.stop;
 
-~synthArr.do{|item, index| item.free};</pre>
-
-<p><strong>Additive Analysis/Resynthesis</strong> techniques can be used as a form of Additive Synthesis.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/analysis_resynthesis.png'/><br><b>Analysis/Resynthesis Model</b></div>
+~synthArr.do{|item, index| item.free}; //if hanging</pre>
 <h2><a class='anchor' name='Multiple%20Wavetable%20Synthesis'>Multiple Wavetable Synthesis</a></h2>
 
 <p><strong>Discussion</strong>:<ul>
@@ -408,14 +415,14 @@ SynthDef(\addSynth, {arg freq=40, amp=0.5, lag=0.01, atk=0.1,dec=0.2,sus=0.5,rel
 <li>Simple idea really: crossfade between 2 or more fixed waveforms during event<li>Sound “mutates” from one source to another over time</ul>
 <div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/wavetable_crossfading.png'/><br><b>Wavetable crossfading</b></div>
 <pre class='code prettyprint lang-sc'>(
-SynthDef(\wavecross1, {arg freq=440, attack=0.01, dec=0.4, sus=0.3, sus2=0.4, rel=2, vol=0.5;
+a = {arg freq=440, attack=0.01, dec=0.4, sus=0.3, sus2=0.4, rel=2, vol=0.5;
     var wave1, wave2, wave3, wave4;
     var env1,env2,env3,env4, globalEnv;
-    env1 = EnvGen.kr(Env.new([0,1,0],[attack,dec]));
-    env2 = EnvGen.kr(Env.new([0,0,1,0],[attack,dec,sus]));
-    env3 = EnvGen.kr(Env.new([0,0,1,0],[attack+dec,sus,sus2]));
-    env4 = EnvGen.kr(Env.new([0,0,1,0],[attack+dec+sus,sus2,rel]));
-    globalEnv = EnvGen.kr(Env.new([0,1,0.5,0.5,0.4,0],[attack,dec,sus,sus2,rel]));
+    env1 = Env([0,1,0],[attack,dec]).kr;
+    env2 = Env([0,0,1,0],[attack,dec,sus]).kr;
+    env3 = Env([0,0,1,0],[attack+dec,sus,sus2]).kr;
+    env4 = Env([0,0,1,0],[attack+dec+sus,sus2,rel]).kr;
+    globalEnv = Env.new([0,1,0.5,0.5,0.4,0],[attack,dec,sus,sus2,rel]).kr(2);
 
     wave1 = Pulse.ar(freq)*env1;
     wave2 = Formant.ar(freq)*env2;
@@ -428,24 +435,23 @@ SynthDef(\wavecross1, {arg freq=440, attack=0.01, dec=0.4, sus=0.3, sus2=0.4, re
     //wave3 = PinkNoise.ar*env3;
     //wave4 = BrownNoise.ar*env4;
 
-    Out.ar(0, Pan2.ar((wave1 + wave2 + wave3 + wave4))*globalEnv*vol);
-}).send(s);
+    Pan2.ar([wave1, wave2, wave3, wave4].sum)*globalEnv*vol;
+};
 )
 
-Synth(\wavecross1, [\freq, 440]);
-Synth(\wavecross1, [\freq, 880]);
-
+a.play(args: [\freq, 440]);
+a.play(args: [\freq, 880]);
 
 (
 {12.do{
-    Synth(\wavecross1, [\freq, (Scale.major.degrees+[60,72].choose).choose.midicps]);
+    a.play(args: [\freq, (Scale.major.degrees+[60,72].choose).choose.midicps]);
     0.8.yield;
 }}.fork;
 )
 
 (//detuned synths
 {24.do{
-    Synth(\wavecross1, [\freq, rrand(200,800), \attack, rrand(0.01,0.05), \dec, rrand(0.2,0.4), \sus,rrand(0.1,0.3), \sus2, rrand(0.1,0.3), \rel, rrand(0.4,2.1), \vol, rrand(0.1,0.5)]);
+    a.play(args: [\freq, rrand(200,800), \attack, rrand(0.01,0.05), \dec, rrand(0.2,0.4), \sus,rrand(0.1,0.3), \sus2, rrand(0.1,0.3), \rel, rrand(0.4,2.1), \vol, rrand(0.1,0.5)]);
     0.2.yield;
 }}.fork;
 )</pre>
@@ -457,34 +463,34 @@ Synth(\wavecross1, [\freq, 880]);
 <li>Wavetable staking or wave stacking is a variation of additive synthesis, but:<li>Instead of sine waves, wave stacking uses different more complex signals (usually sampled) “stacked” together to create new timbre<li>Each waveform has its own amplitude envelope causing spectral changes during event<li>Storing waveforms in table-lookup oscillators<li>Also combined with wavetable crossfade for more internal motion<li>Wave stacking is similar to additive with different complex signals</ul>
 <div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/wavestacking.png'/><br><b>Wavestacking patch</b></div>
 <pre class='code prettyprint lang-sc'>(
-SynthDef(\wavestack1, {arg freq=440, attack=0.1, sus=0.3, rel=2, vol=0.5;
+a =  {arg freq=440, attack=0.1, sus=0.3, rel=2, vol=0.5;
     var globalEnv, harm, signal, envArr;
     var wave1, wave2, wave3, wave4;
-    globalEnv = EnvGen.kr(Env.linen(attack,sus,rel), doneAction:2);
+    globalEnv = Env.linen(attack,sus,rel).kr(2);
     [attack,sus,rel].sum*[[0.3,0.6,0.1],[0.1,0.5,0.4],[0.01,0.3,0.69],[0.8,0.1,0.1]].do{|item| envArr = envArr.add(Env.linen(item[0], item[1], item[2]))};
     harm = [1,2,3,4];
-    wave1 = Pulse.ar(freq*harm[3])*EnvGen.kr(envArr[0]);
-    wave2 = Formant.ar(freq*harm[1])*EnvGen.kr(envArr[1]);
-    wave3 = Saw.ar(freq*harm[2])*EnvGen.kr(envArr[2]);
-    wave4 = SinOsc.ar(freq*harm[0])*EnvGen.kr(envArr[3]);
+    wave1 = Pulse.ar(freq*harm[3])*envArr[0].kr;
+    wave2 = Formant.ar(freq*harm[1])*envArr[1].kr;
+    wave3 = Saw.ar(freq*harm[2])*envArr[2].kr;
+    wave4 = SinOsc.ar(freq*harm[0])*envArr[3].kr;
     signal = ((wave1 + wave2 + wave3 + wave4)/4)*globalEnv;
-    Out.ar(0, Pan2.ar(signal*vol*2));
-}).send(s);
+    Pan2.ar(signal*vol*2);
+}
 )
 
-Synth(\wavestack1, [\freq, 440]);
-Synth(\wavestack1, [\freq, 880]);
+a.play(args: [\freq, 440]);
+a.play(args: [\freq, 880]);
 
 (
 {12.do{
-    Synth(\wavestack1, [\freq, (Scale.major.degrees+[60,72].choose).choose.midicps]);
+    a.play(args: [\freq, (Scale.major.degrees+[60,72].choose).choose.midicps]);
     0.8.yield;
 }}.fork;
 )
 
 (//detuned synths
 {24.do{
-    Synth(\wavestack1, [\freq, rrand(200,800), \attack, rrand(0.01,0.05), \dec, rrand(0.2,0.4), \sus,rrand(0.1,0.3), \sus2, rrand(0.1,0.3), \rel, rrand(0.4,2.1), \vol, rrand(0.1,0.5)]);
+    a.play(args: [\freq, rrand(200,800), \attack, rrand(0.01,0.05), \dec, rrand(0.2,0.4), \sus,rrand(0.1,0.3), \sus2, rrand(0.1,0.3), \rel, rrand(0.4,2.1), \vol, rrand(0.1,0.5)]);
     0.2.yield;
 }}.fork;
 )</pre>
@@ -599,6 +605,37 @@ var carrierFreq = 400, modFreq = 50, deviation = 100;
 <li><a href="https://en.wikipedia.org/wiki/John_Chowning">John Chowning</a> (1967)<li><a href="https://en.wikipedia.org/wiki/Yamaha_DX7">Yamaha DX7</a><li>Cheap in CPU</ul>
 
 <p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/fm5.png'/><br><b>Yamaha DX7</b></div>
+<pre class='code prettyprint lang-sc'>(
+{var carrfreq, modfreq, harmonicity, modindex;
+//fc is frequency of carrier
+//fm is frequency of modulator
+carrfreq= MouseY.kr(330,550);
+harmonicity= MouseX.kr(0,10).round(1);
+modindex= MouseY.kr(0.0,10.0); //which is really modulation amplitude/modulation frequency, acts as brightness control as energy distribution changed over components
+modfreq= carrfreq*harmonicity; //since harmonicity is an integer,
+SinOsc.ar(carrfreq+(SinOsc.ar(modfreq)*modfreq*modindex), 0.0,0.1);
+}.play
+)
+
+(
+a = {arg carrfreq=400, harmonicity=4, modindex=1, atk=0.01, rel=1;
+    var modfreq, env;
+modfreq= carrfreq*harmonicity;
+    env = Env.perc(atk, rel).kr(2);
+SinOsc.ar(carrfreq+(SinOsc.ar(modfreq)*modfreq*modindex), 0.0,0.5)*env;
+}
+)
+
+a.play(args: [\harmonicity, rrand(2,10).postln]); //evaluate several times
+a.play(args: [\modindex, rrand(2,20.0).postln]); //evaluate several times
+
+(
+{inf.do{
+    a.play(args: [\harmonicity, rrand(2,10.0), \modindex, rrand(2,20.0), \freq, (Scale.minor.degrees.choose+36).midicps, \atk, rrand(0.001,0.1), \rel, rrand(0.4,1) ]);
+    [0.2,0.4,0.1,0.8].choose.yield;
+};
+}.fork;
+)</pre>
 <h3><a class='anchor' name='Phase%20modulation'>Phase modulation</a></h3>
 
 <p>Similar to FM, but we modulate the phase instead of the frequency:
@@ -613,15 +650,15 @@ var carrierFreq = 400, modFreq = 50, deviation = 100;
 
 (
 var carrierFreq = 400, modFreq = 50, index = 3, decayTime = 5;
-{ EnvGen.kr(Env.perc(0.001,decayTime,0.2),1,doneAction: 2) *
+{ Env.perc(0.001,decayTime,0.2).kr(2) *
     PMOsc.ar(carrierFreq, modFreq, index,0);
 }.scope
 )
 
 (
 var carrierFreq = 400, modFreq,cmRatio = 1.5, index = 3, decayTime = 5;
-modFreq = (carrierFreq * cmRatio.reciprocal).postln;
-{ EnvGen.kr(Env.perc(0.001,decayTime,0.2),1,doneAction: 2) *
+modFreq = (carrierFreq * 1/cmRatio).postln;
+{ Env.perc(0.001,decayTime,0.2).kr(2) *
     PMOsc.ar(carrierFreq, modFreq, index,0);
 }.scope
 )</pre>
