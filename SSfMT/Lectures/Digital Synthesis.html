@@ -168,13 +168,11 @@ rrand(0.1,0.01).yield; //wait time specificed as random numbers betweem 0.01 to 
 <p>using <code class='code prettyprint lang-sc'>Buffer object</code>
 <p>(server, path, startFrame, numChannels)<pre class='code prettyprint lang-sc'>b = Buffer.cueSoundFile(s, "/Users/federicoreuben/Music/MastersExamples/05 180db_ [130].wav", 0, 2); //or your own path
 
-x = { DiskIn.ar(2, b.bufnum) }.play;
+x = {DiskIn.ar(2, b.bufnum) }.play;
 
 b.close;    // close file
 
 //try another file:
-
-code::
 b.cueSoundFile("/Users/federicoreuben/Music/MastersExamples/7 Broken Train.aiff", 0, 2); //or your own path
 
 x.free; b.close; b.free;    // close and free</pre>
@@ -662,5 +660,8 @@ modFreq = (carrierFreq * 1/cmRatio).postln;
     PMOsc.ar(carrierFreq, modFreq, index,0);
 }.scope
 )</pre>
+
+<p>See also:<ul>
+<li><code class='code prettyprint lang-sc'>SinOscFB</code> for feedback FM; a bit of the output is leaked back into the frequency input<li><code class='code prettyprint lang-sc'>Vibrato</code> to add vibrato (slow frequency modulation) potentially at some delay after onset</ul>
 
 <p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Lectures/Digital Synthesis.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Lectures/Digital Synthesis.schelp</a><br>link::SSfMT/Lectures/Digital Synthesis::<br>sc version: 3.8.0</div></div></body></html>
