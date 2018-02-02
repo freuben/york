@@ -241,15 +241,14 @@ SynthDescLib.global.browse;
 )</pre>
 <h3><a class='anchor' name='Karplus-Strong%20as%20SynthDef'>Karplus-Strong as SynthDef</a></h3>
 <pre class='code prettyprint lang-sc'>(
-SynthDef("Karplus", {
-    arg midiPitch = 69, decayTime = 2.0;
+SynthDef("Karplus", {arg bus=0, midiPitch = 69, decayTime = 2.0;
     var burstEnv, att = 0, dec = 0.001, signalOut, delayTime;
     delayTime = midiPitch.midicps.reciprocal;
     burstEnv = EnvGen.kr(Env.perc(att, dec));
     signalOut = CombL.ar(WhiteNoise.ar(burstEnv), delayTime, delayTime, decayTime);
     DetectSilence.ar(signalOut, doneAction: 2);
-    Out.ar(0,signalOut);
-}).send(s)
+    Out.ar(bus,signalOut);
+}).send
 )</pre>
 
 <p>From this example:<ul>
