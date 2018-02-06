@@ -22,7 +22,8 @@
 <div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Practicals/Programming Concepts 1.html">Programming Concepts 1</a></div>
 </div>
 <div id='toc'>
-<ul class='toc'><li class='toc1'><a href='#Scaling%20and%20mapping'>Scaling and mapping</a></li>
+<ul class='toc'><li class='toc1'><a href='#Error%20messages'>Error messages</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Scaling%20and%20mapping'>Scaling and mapping</a></li>
 <ul class='toc'><li class='toc2'><a href='#Scaling%20values'>Scaling values</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#ControlSpec'>ControlSpec</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Control%20Structures'>Control Structures</a></li>
@@ -34,13 +35,19 @@
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Creating%20and%20Manipulating%20Collections'>Creating and Manipulating Collections</a></li>
 <ul class='toc'><li class='toc2'><a href='#Creating%20Collections'>Creating Collections</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Data%20Analysis%20and%20Manipulation%20with%20Collections'>Data Analysis and Manipulation with Collections</a></li>
-<ul class='toc'></ul></ul><li class='toc1'><a href='#Working%20with%20MIDIOut'>Working with MIDIOut</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Strings%20and%20Symbols'>Strings and Symbols</a></li>
+<ul class='toc'><li class='toc2'><a href='#Strings'>Strings</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Symbols'>Symbols</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Working%20with%20MIDIOut'>Working with MIDIOut</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#Extensions%20and%20Quarks'>Extensions and Quarks</a></li>
 <ul class='toc'><li class='toc2'><a href='#sc3-plugins'>sc3-plugins</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Third%20party%20websites'>Third party websites</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Installation'>Installation</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Quarks'>Quarks</a></li>
-<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Scaling%20and%20mapping'>Scaling and mapping</a></h2>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Error%20messages'>Error messages</a></h2>
+
+<p>An important way of finding out about why your code is not running, is by carefully reading the Error messages in the post window. The Error message will tell you approximately where the mistake is and the type of error the computer is finding in your code.
+<p>Error messages are a vital tool for debugging your code!<h2><a class='anchor' name='Scaling%20and%20mapping'>Scaling and mapping</a></h2>
 <h3><a class='anchor' name='Scaling%20values'>Scaling values</a></h3>
 
 <p><strong>mapping</strong>: lineal and exponential
@@ -302,7 +309,43 @@ y.postln;
 
 <p><strong>differentiate</strong>
 <p>Returns a collection with the pairwise difference between all elements.<pre class='code prettyprint lang-sc'>[3, 4, 1, 1].differentiate;</pre>
-<div class='note'><span class='notelabel'>NOTE:</span> For handling <strong>multidimensional</strong> arrays, see this helpfile: <code class='code prettyprint lang-sc'>J concepts in SC</code>.</div><h2><a class='anchor' name='Working%20with%20MIDIOut'>Working with MIDIOut</a></h2>
+<div class='note'><span class='notelabel'>NOTE:</span> For handling <strong>multidimensional</strong> arrays, see this helpfile: <code class='code prettyprint lang-sc'>J concepts in SC</code>.</div><h2><a class='anchor' name='Strings%20and%20Symbols'>Strings and Symbols</a></h2>
+<h3><a class='anchor' name='Strings'>Strings</a></h3>
+
+<p>A <code class='code prettyprint lang-sc'>String</code> is a type of collection representing an array of characters (<code class='code prettyprint lang-sc'>Char</code>). It is a way of generating and processing text.
+<p>Strings are written literally using double quotes:<pre class='code prettyprint lang-sc'>"this is a string".postln;</pre>
+
+<p>Each character is assigned a ASCII value.<pre class='code prettyprint lang-sc'>"open https://en.wikipedia.org/wiki/ASCII".unixCmd; //wikipedia about ascii</pre>
+
+<p>You can access a string's ASCII values as a collection:<pre class='code prettyprint lang-sc'>"this is a string".ascii;</pre>
+
+<p>Strings are a good way of finding and replacing pieces of text:<pre class='code prettyprint lang-sc'>"These are several words".find("are").postln; //returns index value from the beginning to the end of the string
+"These words are several words".findBackwards("words"); //index from end to beginning
+"These are several words which are fish".findAll("are").postln; //if the string you are looking for repeats in the text
+"Here are several words which are fish".replace("are", "were"); //replace a word with another word</pre>
+
+<p>You can also use some messages for normal collections on strings<pre class='code prettyprint lang-sc'>a = "hello word";
+a.scramble
+a.reverse
+a.do{|item| {SinOsc.ar(item.ascii.midicps.postln, 0, 0.4)/a.size}.play };</pre>
+
+<p>You can split text and rearrange words<pre class='code prettyprint lang-sc'>a = "These are several words";
+a.split($ );
+b = a.split($ ).scramble.asString; //as an array
+b.replace("[ ", "").replace(" ]", "").replace(",", "");</pre>
+
+<p>You can use strings as commands for your unix or dos terminal<pre class='code prettyprint lang-sc'>"open http://mally.stanford.edu/~sr/computing/basic-unix.html".unixCmd;</pre>
+
+<p>You can generate and modify text as well as evaluating it:<pre class='code prettyprint lang-sc'>a = {SinOsc.ar(440)};
+b = a.cs; //turns function to string
+c = b.replace("SinOsc", "Saw"); //change your string
+d = c.interpret; //interprets string as code (a Function)
+d.play //play the function</pre>
+<h2><a class='anchor' name='Symbols'>Symbols</a></h2>
+
+<p>A <code class='code prettyprint lang-sc'>Symbol</code> is a name that is guaranteed to be unique. In other words it is a word that is not a collection, but one identifier. You use the \ to define a symbol.<pre class='code prettyprint lang-sc'>\thisSymbol</pre>
+
+<p>Symbols are useful for names of <code class='code prettyprint lang-sc'>SynthDef</code>, or keys for <code class='code prettyprint lang-sc'>Patterns</code>, <code class='code prettyprint lang-sc'>Ndefs</code>, etc.<h2><a class='anchor' name='Working%20with%20MIDIOut'>Working with MIDIOut</a></h2>
 
 <p>MIDI support in SuperCollider is fairly thorough and all MIDI devices accessible to your OS are accessible to SC.
 <p>There are several classes the are used to directly work with MIDI: <code class='code prettyprint lang-sc'>MIDIClient, MIDIFunc, MIDIdef, MIDIOut, MIDIEndPoint</code> and <code class='code prettyprint lang-sc'>MIDIIn</code>.
