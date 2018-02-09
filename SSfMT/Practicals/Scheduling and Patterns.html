@@ -19,7 +19,7 @@
 <div id='summary'>Software Systems for Music Technology</div>
 </div>
 <div class='subheader'>
-<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Practicals/Programming Concepts 1.html">Programming Concepts 1</a>, <a href="./../../SSfMT/Practicals/Programming Concepts 2">Programming Concepts 2</a></div>
+<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Practicals/Programming Concepts 1.html">Programming Concepts 1</a>, <a href="./../../SSfMT/Lectures/Programming Concepts 2.html">Programming Concepts 2</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#Patterns'>Patterns</a></li>
@@ -456,6 +456,22 @@ stepsPerOctave:    12.0    //
 detune:        0.0,    // detune in Hertz
 harmonic:    1.0    // harmonic ratio
 octaveRatio:    2.0    // size of the octave (can be used with the Scale class)</pre>
+
+<p>For events to work well with your own SynthDefs, you should use a <code class='code prettyprint lang-sc'>SynthDef</code> with a particular structure and (at least) the following arguments:
+<p><code class='code prettyprint lang-sc'>out, freq, amp, pan, gate</code>
+<p>And should look something like this:<pre class='code prettyprint lang-sc'>(
+SynthDef(\sawme, {arg out=0, pan=0, freq=440, amp=0.1, gate=1;
+    var sig;
+    sig = Saw.ar(freq)*amp;
+    sig = sig*Env.adsr(0.01,0.1,0.6,0.5).kr(2, gate);
+    sig = Pan2.ar(sig, pan);
+    Out.ar(out, sig);
+}).add
+)
+
+( //now try the synth with Pbind
+Pbind(\instrument, \sawme, \degree, Prand((0..7), inf), \scale, Scale.mixolydian(Tuning.just), \pan, Pseq([-1,1], inf), \legato, Pwrand([0.1, 1], [0.9,0.1], inf), \dur, 0.1).play;
+)</pre>
 <h2><a class='anchor' name='Music%20with%20Patterns'>Music with Patterns</a></h2>
 
 <p>Now we can do more musical and complex things with Patterns, like playing several of them at the same time.
@@ -515,7 +531,7 @@ a.stop;</pre>
 (
 ~notepat = Pseq([60,64,66,69,67,64,60,57], inf);
 ~melodypat = Pbind(\midinote, ~notepat);
-~modpat = Pset(\midinote, ~notepatt-24, ~melodypat);
+~modpat = Pset(\midinote, ~notepat-24, ~melodypat);
 Pset(\amp, 1, ~modpat).play;
 )</pre>
 
@@ -524,7 +540,7 @@ Pset(\amp, 1, ~modpat).play;
 (
 ~melodypat = Pbind(\midinote, Pseq([60,64,66,69,67,64,60,57], inf));
 
-Pbindf(~melodypat, \dur, Pseq([0.75,0.5,0.5,0.25,0.75,0.5,0.5,0.25].scramble, inf)*0.3, \instrument, \perkysine).play;
+Pbindf(~melodypat, \dur, Pseq([0.75,0.5,0.5,0.25,0.75,0.5,0.5,0.25].scramble, inf)*0.3, \instrument, \sawme).play;
 )</pre>
 
 <p>Now, let's start to do some pattern live coding (changing patterns on the fly). This is a lot of fun and can be useful for your projects! For this, we need a class called <code class='code prettyprint lang-sc'>Pdef</code>
@@ -548,12 +564,22 @@ a = PatternConductor(Pdef(\mypattern, p));
 a.play;
 )
 (
+Pdef(\mypattern).quant = 4;
 ~transp = rrand(0,11).postln;
 ~basspat2 = Pbindf(~basspat, \ctranspose, ~transp, \legato, 0.8);
 ~melodypat2 = Pbindf(~melodypat, \ctranspose, ~transp, \legato, 0.3);
-Pdef(\mypattern, Ppar([ ~melodypat2, ~basspat2],inf)).quant(4); //quantize
+Pdef(\mypattern, Ppar([ ~melodypat2, ~basspat2],inf)); //quantize
 )
 a.stop;</pre>
+
+<p><code class='code prettyprint lang-sc'>Pdefn(key, pat)</code>
+<p>Creates a pattern definition that you can use to change and 'argument' of a pattern.<pre class='code prettyprint lang-sc'>Pdefn(\x, Pbrown(0, 6, 0.1, inf));
+Pbind(\note, Pdefn(\x), \dur, 0.3).play;
+Pbind(\note, Pdefn(\x), \dur, 0.1, \ctranspose, 15).play;
+// now change the definition
+Pdefn(\x, Pseq([0, 3, 5, 7, 9, 11], inf));
+Pdefn(\x, Pseq([0, 3, 3, 7], inf) + Pseq([0, [0, 3], [0, 5, 7]], inf));
+Pdefn(\x, Pbrown(-12, 12, 0.25, inf));</pre>
 <h3><a class='anchor' name='Scales%20and%20Tuning'>Scales and Tuning</a></h3>
 
 <p>Another example, a variation on the minimalist one above. This example uses the <code class='code prettyprint lang-sc'>Scale</code> and <code class='code prettyprint lang-sc'>Tuning</code> classes. These classes can save you some time counting intervals and figuring tuning ratios. Basically, SC makes the calculations for you! Each class has many different types of Scales and Tuning systems. Check the helpfile of both classes!
@@ -561,13 +587,13 @@ a.stop;</pre>
 Tuning.directory;</pre>
 
 <p>Now, let's combine the <code class='code prettyprint lang-sc'>Scale</code> and <code class='code prettyprint lang-sc'>Tuning</code> classes with patterns!<pre class='code prettyprint lang-sc'>Pdef(\minimal).play;
-Pdef(\minimal).quant(4);
+Pdef(\minimal).quant = 4;
 (
 ~tuning = Tuning.just;
 ~scale = (0..7);
 ~triad = [~scale[0], ~scale[2], ~scale[4]];
-~par1 = Pbind(\instrument, \perkysine, \scale, Scale.major(~tuning), \degree, Pseq(~scale.scramble,inf), \dur, 0.2, \legato, 0.5, \amp, 0.7);
-~par2 = Pbind(\degree, Pseq(~triad,inf), \ctranspose, -12, \dur, 0.3, \legato, 0.8);
+~par1 = Pbind(\instrument, \sawme, \scale, Scale.major(~tuning), \degree, Pseq(~scale.scramble,inf), \dur, 0.2, \legato, 0.5, \amp, 0.1);
+~par2 = Pbind(\degree, Pseq(~triad,inf), \ctranspose, -12, \dur, 0.3, \legato, 0.1);
 ~par3 = Pbind(\degree, Pseq((~triad+0.2).reverse,inf), \ctranspose, -12, \dur, 0.4, \legato, 0.3);
 Pdef(\minimal, Ppar([~par1, ~par2, ~par3]));
 )
@@ -579,15 +605,15 @@ a = Buffer.loadDialog;
 b = Buffer.loadDialog;
 
 (
-SynthDef("playGrain", {arg bufnum=0, time=0.1, rate=1, start=0, out=0;
+SynthDef(\playGrain, {arg bufnum=0, time=0.1, rate=1, start=0, out=0;
     var sig;
     sig = PlayBuf.ar(2, bufnum, rate, startPos: BufFrames.kr(bufnum)*start)
-    * EnvGen.ar(Env.linen(0.01,time,0.1), doneAction:2);
+    * Env.linen(0.01,time,0.1).kr(2);
     Out.ar(out,sig);
 }).add;
 )
 
-Synth("playGrain", [\bufnum, a.bufnum, \start, 0.9]);
+Synth(\playGrain, [\bufnum, a.bufnum, \start, 0.9]);
 
 ~bufSeq = Pseq([a,a,a,b,b,b], inf);
 
@@ -616,7 +642,7 @@ Pdef(\pattern, Ppar([~pat1, ~pat2], inf));
 
 Pdef(\pattern, Ppar([~pat1, ~pat2, ~pat3], inf));
 
-~conduct.tempo = 1.7; //change tempo
+~conduct.tempo = 1.5; //change tempo
 
 Scale.directory;
 Tuning.directory;
@@ -625,11 +651,21 @@ Tuning.directory;
 ~scale = Scale.phrygian(~tuning);
 ~notes = (0..5);
 
-~pat4 = Pbind(\scale, ~scale, \degree, Prand(~notes,inf), \ctranspose, -12, \amp, 2, \dur, Prand([2/3,1/3],inf), \legato, 0.05);
+Pdefn(\trasp, -12); //pdefn allows you to change just one argument of the pattern
+~pat4 = Pbind(\scale, ~scale, \degree, Prand(~notes,inf), \ctranspose, Pdefn(\trasp), \amp, 2, \dur, Prand([2/3,1/3],inf), \legato, 0.05);
 
 Pdef(\pattern, Ppar([~pat1, ~pat2, ~pat3, ~pat4], inf));
+Pdefn(\trasp, Prand([-12,6,0,-6],inf));
 
 Pdef(\pattern, Ppar([~pat2,~pat4], inf));
+Pdefn(\trasp, Prand((-24..24),inf));
+
+Pdef(\pattern, Ppar([~pat1, ~pat2, ~pat3, ~pat4], inf));
+Pdefn(\trasp, -12);
+
+~conduct.pause;
+
+~conduct.play;
 
 ~conduct.stop;</pre>
 <div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Practicals/Scheduling and Patterns.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Practicals/Scheduling and Patterns.schelp</a><br>link::SSfMT/Practicals/Scheduling and Patterns::<br>sc version: 3.8.0</div></div></body></html>
