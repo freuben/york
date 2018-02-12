@@ -19,7 +19,7 @@
 <div id='summary'>Software Systems for Music Technology</div>
 </div>
 <div class='subheader'>
-<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Lectures/Digital Effects">Digital Effects</a>, <a href="./../../SSfMT/Practicals/Buses and Ndefs">Buses and Ndefs</a></div>
+<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Lectures/Digital Effects">Digital Effects</a>, <a href="./../../SSfMT/Practicals/Buses and Ndefs.html">Buses and Ndefs</a></div>
 </div>
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#Library%20of%20FXs%20for%20you!'>Library of FXs for you!</a></li>
@@ -296,7 +296,7 @@
         kernel= WeaklyNonlinear.ar(signal,0,1,1,freq*2,0,0,alpha,3,0,0);
         kernel2= WeaklyNonlinear2.ar(signal,0,1,1,freq*2,0,0,alpha,3,0,0);
         signal2 = Convolution.ar(kernel+signal,kernel2, 2048, 0.0005)
-        * EnvGen.kr(Env.asr(0.01, 1.0, 0.01), Amplitude.kr(signal));
+        * Env.asr(0.01, 1.0, 0.01).kr(0,Amplitude.kr(signal));
         signal3 = Limiter.ar(signal2*adjVol);
         adjVol * ((signal3*mix.linlin(0,1,0,1))+(signal*mix.linlin(0,1,1,0)));}, "fede violence weakly",
     [{|val| val}, {|val| val.linlin(0,1,-0.1,0.1).round(0.001)}]
@@ -416,7 +416,7 @@
 
 ~fxArg = {arg filter='dl1', filterArg=0;
     var filterArgument;
-    filterArgument = ~fxArgs.value(filter)[filterArg];
+    filterArgument = ~fxArgs.(filter)[filterArg];
     if(filterArgument.notNil, {
         filterArgument
     }, {
@@ -428,9 +428,9 @@
     var index, result;
     index = ~fxs.flop[0].indexOf(filter);
     if(index.notNil, {
-        result = (~fxs.flop[3][index][filterArg]).value(val);
+        result = (~fxs.flop[3][index][filterArg]).(val);
         if(bool, {
-            [~fxArg.value(filter, filterArg), result].postln;
+            [~fxArg.(filter, filterArg), result].postln;
         });
         result
     }, {"filter not found".warn; nil});
@@ -438,8 +438,8 @@
 
 ~setFxNdef = {arg ndef, filter='dl1', filterArg=0, val=0, bool=true;
     var getValue, getKey;
-    getValue = ~setFxArg.value(filter,filterArg,val,bool);
-    getKey = ~fxArg.value(filter, filterArg).asSymbol;
+    getValue = ~setFxArg.(filter,filterArg,val,bool);
+    getKey = ~fxArg.(filter, filterArg).asSymbol;
     if(getValue.notNil, {
         if(getKey.notNil, {
     ndef.set(getKey, getValue);
@@ -463,11 +463,11 @@ Ndef(\fx2).fadeTime = 1;
 
 Ndef(\sound1, {Dust.ar(5)}); //dust in Ndef
 
-~fxNames.value; //lists all fxs
+~fxNames.(); //lists all fxs
 
 ~fx1 = \fds1; //select fx
 
-Ndef(\fx1, ~getFx.value(Ndef(\sound1), ~fx1) ); //put fx in ndef
+Ndef(\fx1, ~getFx.(Ndef(\sound1), ~fx1) ); //put fx in ndef
 
 Ndef(\master, {Pan2.ar(Ndef(\fx1).ar(1), 0) }); //master fader
 
@@ -476,22 +476,22 @@ Ndef(\fx1).controlKeysValues; //see current values in ndef
 Ndef(\fx1).set(\mix, 0.5); //set values manualy
 
 //with assigned mapping (values 0-1)
-Ndef(\fx1).set(\mix, ~setFxArg.value(~fx1,0,1));
+Ndef(\fx1).set(\mix, ~setFxArg.(~fx1,0,1));
 
-~fxArgs.value(~fx1); //returns fx arguments
+~fxArgs.(~fx1); //returns fx arguments
 
-~setFxNdef.value(Ndef(\fx1), ~fx1, 1, 0.4); //set fx argument at index 1
+~setFxNdef.(Ndef(\fx1), ~fx1, 1, 0.4); //set fx argument at index 1
 
 
 Ndef(\sound2, {Saw.ar(400)*0.01}); //another ndef
 
-~fxNames.value; //lists all fxs
+~fxNames.(); //lists all fxs
 
 ~fx2 = \dl2; //choose fx
 
-Ndef(\fx2, ~getFx.value(Ndef(\sound2), ~fx2) );
+Ndef(\fx2, ~getFx.(Ndef(\sound2), ~fx2) );
 
-~setFxNdef.value(Ndef(\fx2), ~fx2, 1, 0.75); //set value for fx2
+~setFxNdef.(Ndef(\fx2), ~fx2, 1, 0.75); //set value for fx2
 
 //both sounds in master
 (
