@@ -28,7 +28,7 @@
 <ul class='toc'></ul><li class='toc2'><a href='#Distortion'>Distortion</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Hard%20Clipping'>Hard Clipping</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Soft%20Clipping'>Soft Clipping</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Other%20Distorion%20Shapes'>Other Distorion Shapes</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Other%20Distortion%20Shapes'>Other Distortion Shapes</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Intermodulation%20distortion'>Intermodulation distortion</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Equalisation'>Equalisation</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Dynamics%20Processing'>Dynamics Processing</a></li>
@@ -52,7 +52,7 @@ a.set(\lagTime, 10);
 a.set(\vol, 0);
 a.set(\vol, -inf);</pre>
 
-<p>You can use an aplitude follower to change the amplitude of one signal with another signal.<pre class='code prettyprint lang-sc'>(
+<p>You can use an amplitude follower to change the amplitude of one signal with another signal.<pre class='code prettyprint lang-sc'>(
 a = {arg vol=0; var sig;
     sig = SoundIn.ar(0)!2*vol.dbamp;
     Pulse.ar(LFNoise1.ar(1).range(200,2000))
@@ -60,21 +60,15 @@ a = {arg vol=0; var sig;
 }.play;
 )</pre>
 
-<p><code class='code prettyprint lang-sc'>Normalizer</code> takes the maximum value of a signal and normalises it to a given value with a look-ahead buffer (internal). You can determine the lengh of the look-ahead buffer with the duration argument.<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
+<p><code class='code prettyprint lang-sc'>Normalizer</code> takes the maximum value of a signal and normalises it to a given value with a look-ahead buffer (internal). You can determine the length of the look-ahead buffer with the duration argument.<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
 a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 1) }.play;
 a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 0.1) }.play;
 a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 0.0001) }.play;</pre>
 
-<p>You also do off-line processing to normalise sound files. You can bulk normalise soundfiles as well!<pre class='code prettyprint lang-sc'>(
-~paths = [
-"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_bass.aif",
-"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_drums.aif",
-"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_FX.aif",
-"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_guitar.aif",
-"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_voice.aif"
-];
-~outDir = "/Users/federicoreuben/Music/Sounds/radionormal";
-SoundFile.groupNormalize(~paths, ~outDir);
+<p>You also do off-line processing to normalise sound files.<pre class='code prettyprint lang-sc'>(
+~path = "/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_FX.aif";
+~outDir = "/Users/federicoreuben/Music/Sounds/radionormal/radiohead_FX.aif";
+SoundFile.normalize(~path, ~outDir, "wav", maxAmp:1);
 )</pre>
 <h3><a class='anchor' name='Distortion'>Distortion</a></h3>
 <ul>
@@ -145,7 +139,7 @@ b.sendCollection(t.asWavetableNoWrap);
 <p>A simpler way of doing soft clipping distortion:<pre class='code prettyprint lang-sc'>{ SinOsc.ar(300, 0, MouseX.kr(0.5,5)).softclip * 0.5 }.scope; //soft clipping
 
 { (SoundIn.ar(0)*MouseX.kr(0.1,80,1)).softclip * 0.2}.scope;</pre>
-<h3><a class='anchor' name='Other%20Distorion%20Shapes'>Other Distorion Shapes</a></h3>
+<h3><a class='anchor' name='Other%20Distortion%20Shapes'>Other Distortion Shapes</a></h3>
 
 <p>You can use other shaping functions to distort signals with different results.
 <p><strong>abs. max, squared, cubed</strong><pre class='code prettyprint lang-sc'>(
@@ -225,15 +219,15 @@ b = Buffer.loadDialog;
 
 <p><strong>Soft and Hard Knees</strong><ul>
 <li>Hard Knee and Soft Knee determines the bend in the response curve of the transfer function<li>Knee is related to how smooth the transition is from uncompressed to compressed modes<li>Soft knee is more gradual while hard knee is more sudden</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_knee.png'/><br><b>Soft and Hard Knee represented in trasfer function</b></div>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_knee.png'/><br><b>Soft and Hard Knee represented in transfer function</b></div>
 
 <p>In SuperCollider you can use <code class='code prettyprint lang-sc'>Compander</code> as a general purpose hard-knee dynamics processor.<pre class='code prettyprint lang-sc'>//dynamics processor
 b = Buffer.loadDialog;
 (
 a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
-    var sig;
+var sig;
 sig = PlayBuf.ar(b.numChannels, b.bufnum);
-    Compander.ar(sig, sig, thresh.dbamp, 1, 1/ratio, atkTime, relTime, 1+(mkgain));
+Compander.ar(sig, sig, thresh.dbamp, 1, 1/ratio, atkTime, relTime, 1+(mkgain));
 }.scope;
 )
 a.set(\thresh, -30, \ratio, 2, \mkgain, 5.dbamp); //compress at ratio 2:1
@@ -244,9 +238,9 @@ a.set(\thresh, -20, \ratio, 30, \mkgain, 5.dbamp); //limiter (ratio 30:1)
 
 (
 a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
-    var sig;
+var sig;
 sig = PlayBuf.ar(b.numChannels, b.bufnum);
-    Compander.ar(sig, sig, thresh.dbamp, ratio, 1, atkTime, relTime, 1+(mkgain));
+Compander.ar(sig, sig, thresh.dbamp, ratio, 1, atkTime, relTime, 1+(mkgain));
 }.scope;
 )
 a.set(\thresh, -18, \ratio, 10, \mkgain, 0.2);  //noise gate
@@ -256,10 +250,10 @@ a.set(\thresh, -10, \ratio, 0.1, \mkgain, -0.25);  //sustainer
 c = Buffer.loadDialog;
 (
 a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
-    var sig1, sig2, lagTime=1;
-  sig1 = PlayBuf.ar(b.numChannels, b.bufnum);
-    sig2 = PlayBuf.ar(c.numChannels, c.bufnum);
-    Compander.ar(sig1, sig2, thresh.dbamp.lag(lagTime), 1, 1/ratio.lag(lagTime), atkTime.lag(lagTime), relTime.lag(lagTime), 1+(mkgain.dbamp.lag(lagTime)));
+var sig1, sig2, lagTime=1;
+sig1 = PlayBuf.ar(b.numChannels, b.bufnum);
+sig2 = PlayBuf.ar(c.numChannels, c.bufnum);
+Compander.ar(sig1, sig2, thresh.dbamp.lag(lagTime), 1, 1/ratio.lag(lagTime), atkTime.lag(lagTime), relTime.lag(lagTime), 1+(mkgain.dbamp.lag(lagTime)));
 }.scope;
 )
 a.set(\lagTime, 10);
@@ -372,27 +366,27 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 <p><strong>Short Delay</strong><ul>
 <li>0-20ms<li>Combfiltering<li>Sound localisation<li>Flanger</ul>
 
-<p><strong>Delay and Interferance</strong><ul>
+<p><strong>Delay and Interference</strong><ul>
 <li>Short Delay may cause constructive and destructive interference<li>Period = 1/Frequency<li>Doubling and cancelations happen at certain other higher frequencies as well<li>For any given delay time, certain frequencies line up and produce constructive and destructive interference</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_ampdoubling.png'/><br><b>Amplitude Doubling</b></div>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_ampcancel.png'/><br><b>Amplitude Cancelling</b></div>
-<pre class='code prettyprint lang-sc'>    (
-    //constructive and destructive interference
+<pre class='code prettyprint lang-sc'>(
+//constructive and destructive interference
 {var input, delay, mod;
     input = SinOsc.ar(440,0,0.5);
     mod = MouseX.kr(0.5,1.0);
     delay = DelayL.ar(input, 1/440*mod, 1/440*mod);
     input + delay;
 }.scope
-    )</pre>
+)</pre>
 <ul>
 <li>For a given delay time (t), frequencies doubled are described by integer increments divided by the delay time (1/t, 2/t, 3/t, etc.)<li>Frequencies that cancel are one-half period shifted (0.5/t, 1.5/t,2.5/t, etc.)<li>Signal with 1ms delay has spectral peaks at 1kHz, 2kHz, 3kHz, etc., and cancels at 500Hz, 1kHz, 1.5kHz, etc.<li>Signal with 2ms delay has spectral peaks at 500Hz, 1kHz, 1.5kHz, etc., and cancels at 250Hz, 750Hz, 1.25kHz, etc.</ul>
 
 <p><strong>Comb Filter</strong><ul>
 <li>Alters frequency content through short delay (weird EQ rather than echo)<li>Has the shape of a comb (therefore comb filter!)<li>Comb filtering is on a linear scale, not logarithmic<li>With complex signals, only very short delays are audible (20ms or less)</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_comb.png'/><br><b>Amplitude Cancelling</b></div>
-<pre class='code prettyprint lang-sc'>    (
-    //comb effect
+<pre class='code prettyprint lang-sc'>(
+//comb effect
 {var input, delay;
     input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
     delay = DelayL.ar(input, 1/1000, 1/1000);
@@ -409,24 +403,9 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 }.scope
 )
 
-{ CombL.ar(Decay.ar(Dust.ar(1,0.5), 0.2, WhiteNoise.ar), 0.2, 0.2, 3) }.play;</pre>
+{CombL.ar(Decay.ar(Dust.ar(1,0.5), 0.2, WhiteNoise.ar), 0.2, 0.2, 3) }.play;</pre>
 <ul>
 <li>Comb filtering happens all the time in “real life” at the studio because of early reflections<li>Not as pronounced partly because walls absorb energy, therefore the reflections are much quieter and not so much comb filtering is heard (studios use sound absorbing materials to reduce comb filtering effect)<li>Purposely trying to create comb filtering in the studio (through mic placement)<li>Comb filtering different from instrument to instrument - sometimes desired, sometimes we try to avoid it</ul>
-
-<p><strong>Delays and Sound Localisation</strong><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_localisation.png'/><br><b>Short delays in sound localisation</b></div>
-<ul>
-<li>We use reflections as cue to localisation (the ears’ ability to find the location a sound is emanating from)<li>For example, if we have a sound we play in right and left speakers, then we hear it as coming from the centre<li>If we put a small delay (0.2 to 10ms) in the right speaker sound, we hear the sound as coming from the left<li>The Haas Effect</ul>
-<pre class='code prettyprint lang-sc'>//delay and sound localisation
-{var input, delay;
-    input = PinkNoise.ar*EnvGen.kr(Env.perc(0.01,0.2));
-[input, input]
-}.play //centre
-
-{var input, delay;
-    input = PinkNoise.ar*EnvGen.kr(Env.perc(0.01,0.2));
-    delay = DelayL.ar(input, 0.01, 0.01)*0.5;
-    [input, delay];
-}.play //left</pre>
 
 <p><strong>Phaser</strong>
 <p>In a Phaser, a signal is sent through an allpass filter, not filtering anything out, but just shifting the phase of the sound by delaying it. This sound is then added to the original signal. If the phase is 180 degrees, the sound is cancelled out, but if it is less than that, it will create variations in the spectra.<pre class='code prettyprint lang-sc'>e = Buffer.loadDialog;
@@ -482,7 +461,6 @@ SynthDef(\flanger, { arg out=0, in=0, delay=0.1, depth=0.08, rate=0.06, fdbk=0.0
 )
 
 // audioIn on audio bus nr 10
-
 {Out.ar(10, SoundIn.ar(0))}.play(s, addAction:\addToHead)
 
 a = Synth(\flanger, [\in, 10], addAction:\addToTail)
@@ -534,7 +512,7 @@ SynthDef(\chorus, { arg inbus=10, outbus=0, predelay=0.08, speed=0.05, depth=0.1
     var in, sig, modulators, numDelays = 12;
     in = In.ar(inbus, 1) * numDelays.reciprocal;
     modulators = Array.fill(numDelays, {arg i;
-          LFPar.kr(speed * rrand(0.94, 1.06), ph_diff * i, depth, predelay);});
+  LFPar.kr(speed * rrand(0.94, 1.06), ph_diff * i, depth, predelay);});
     sig = DelayC.ar(in, 0.5, modulators);
     sig = sig.sum; //Mix(sig);
     Out.ar(outbus, sig!2); // output in stereo
