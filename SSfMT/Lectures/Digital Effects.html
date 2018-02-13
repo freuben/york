@@ -65,7 +65,7 @@ a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 1) }.play;
 a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 0.1) }.play;
 a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 0.0001) }.play;</pre>
 
-<p>You also do off-line processing to normalise sound files.<pre class='code prettyprint lang-sc'>(
+<p>You also can do off-line processing to normalise sound files.<pre class='code prettyprint lang-sc'>(
 ~path = "/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_FX.aif";
 ~outDir = "/Users/federicoreuben/Music/Sounds/radionormal/radiohead_FX.aif";
 SoundFile.normalize(~path, ~outDir, "wav", maxAmp:1);
@@ -180,7 +180,7 @@ Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).fold2(1) }).plot;
 { (SinOsc.ar(300, 0, 0.2)*MouseX.kr(0.1,80,1)).wrap2(1) * 0.2 }.scope(1);</pre>
 <h3><a class='anchor' name='Intermodulation%20distortion'>Intermodulation distortion</a></h3>
 <ul>
-<li>Harmonic distortion is caused when using sine waves or relatively simple signals<li>Non-linear devices / functions have profound effect on complex signals<li>Harmonics generated are not limited to odd and even multiples of frequency components<li>Intermodulation distortion, energy at frequencies related to the sum and difference of spectral components</ul>
+<li>Harmonic distortion is caused when using sine waves or relatively simple signals<li>Non-linear devices / functions have profound effect on complex signals<li>Harmonics generated are not limited to odd and even multiples of frequency components<li>Intermodulation distortion: energy at frequencies related to the sum and difference of spectral components</ul>
 <pre class='code prettyprint lang-sc'>//intermodulation distortion with sound files
 b = Buffer.loadDialog;
 
@@ -206,7 +206,7 @@ b = Buffer.loadDialog;
 <li>Threshold<li>Ratio<li>Attack<li>Release<li>Make-up Gain<li>Other: Knee, Circuit Type, Peak/RMS, Link, Analog, Meter, Auto, PDR, Key, Dry/Mix, Punch, etc.</ul>
 
 <p><strong>Threshold and Ratio</strong><ul>
-<li>Threshold: Specifies level above which the signal is reduced. Usually specified in dB. If signal doesn’t cross threshold, then no compression takes place<li>Ratio: amount of attenuation of the signal ones it passes the threshold. If a ratio of 2:1 is established, the signal above the threshold is attenuated by half. If it is 6:1, then 6dB over the threshold would become 1dB</ul>
+<li>Threshold: Specifies level above which the signal is reduced. Usually specified in dB. If signal doesn’t cross threshold, then no compression takes place<li>Ratio: amount of attenuation of the signal once it passes the threshold. If a ratio of 2:1 is established, the signal above the threshold is attenuated by half. If it is 6:1, then 6dB over the threshold would become 1dB</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_thresh.png'/><br><b>Threshold and ratio in transfer function</b></div>
 
 <p><strong>Limiters</strong><ul>
@@ -214,15 +214,15 @@ b = Buffer.loadDialog;
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/limiter_func.png'/><br><b>Limiter transfer function</b></div>
 
 <p><strong>Attack and Release</strong><ul>
-<li>Imagine a “virtual fader” - it takes time to change the gain<li>Attack is how fast the compressor starts working (how long it takes to pull the “fader” down) after the signal crosses the threshold and release is the speed at which it goes back to unity gain (time for “fader” to go back to its original position)</ul>
+<li>Imagine a “virtual fader” - it takes time to change the gain<li>Attack is how fast the compressor starts working (how long it takes to pull the “fader” down) after the signal crosses the threshold<li>Release is the speed at which it goes back to unity gain (time for “fader” to go back to its original position)</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_atkrel.png'/><br><b>Attack and release time</b></div>
 
 <p><strong>Soft and Hard Knees</strong><ul>
 <li>Hard Knee and Soft Knee determines the bend in the response curve of the transfer function<li>Knee is related to how smooth the transition is from uncompressed to compressed modes<li>Soft knee is more gradual while hard knee is more sudden</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_knee.png'/><br><b>Soft and Hard Knee represented in transfer function</b></div>
 
-<p>In SuperCollider you can use <code class='code prettyprint lang-sc'>Compander</code> as a general purpose hard-knee dynamics processor.<pre class='code prettyprint lang-sc'>//dynamics processor
-b = Buffer.loadDialog;
+<p>In SuperCollider you can use <code class='code prettyprint lang-sc'>Compander</code> as a general purpose hard-knee dynamics processor.<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
+//dynamics processor
 (
 a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
 var sig;
@@ -235,7 +235,7 @@ a.set(\thresh, -30, \ratio, 0.5, \mkgain, -0.75); //expander at ratio 2:1
 a.set(\thresh, -30, \ratio, 10, \mkgain, 10.dbamp); //limiter (ratio 10:1)
 a.set(\thresh, -20, \ratio, 30, \mkgain, 5.dbamp); //limiter (ratio 30:1)
 
-
+//change the slopeBelow
 (
 a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
 var sig;
@@ -246,8 +246,8 @@ Compander.ar(sig, sig, thresh.dbamp, ratio, 1, atkTime, relTime, 1+(mkgain));
 a.set(\thresh, -18, \ratio, 10, \mkgain, 0.2);  //noise gate
 a.set(\thresh, -10, \ratio, 0.1, \mkgain, -0.25);  //sustainer
 
-//ducking/signal chain and lag signals
 c = Buffer.loadDialog;
+//ducking/signal chain and lag signals
 (
 a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
 var sig1, sig2, lagTime=1;
@@ -280,7 +280,7 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_tape.png'/><br><b>Tape Delay</b></div>
 
 <p><strong>Delay Feedback</strong><ul>
-<li>Feedback involves routing the delayed signal to the input of the delay line If delay line is 100ms, then echoes at 100, 200, 300, etc. (multiply delay time by increments of 1 (1,2,3,etc.)<li>By attenuating the signal we get decay in echoes - if the feedback control is attenuated by 6db, then each echo will be 6 db quieter</ul>
+<li>Feedback involves routing the delayed signal to the input of the delay line<li>If delay line is 100ms, then echoes at 100, 200, 300, etc. (multiply delay time by increments of 1 (1,2,3,etc.)<li>By attenuating the signal we get decay in echoes - if the feedback control is attenuated by 6db, then each echo will be 6 db quieter</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_feedback.png'/><br><b>Tape Delay Feedback</b></div>
 
 <p><strong>Tape Delay features</strong><ul>
@@ -297,50 +297,57 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 {var sig = SoundIn.ar(0);
     DelayL.ar(sig, 10, MouseX.kr(0.1,10.0).lag(3)); //args: in, maxdelaytime, delaytime
 }.play;
+)
+
+(
+{var sig;
+sig = Decay.ar(Impulse.ar(2), 0.1, PinkNoise.ar);
+sig + DelayL.ar(sig, 10, MouseX.kr(0.1,10.0).lag(3));
+}.play;
 )</pre>
 
 <p><strong>Multitap Delay</strong><ul>
 <li>Multitap Delay has more than 1 read pointer or tap<li>Read pointer taps at any point in queue - delays smaller than length of queue<li>Variable time delay effects</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_multitap.png'/><br><b>Multitap Delay Buffer</b></div>
 
-<p>In SuperCollider you can use the <code class='code prettyprint lang-sc'>MultiTap</code> UGen for multitap delays. The arguments are: <code class='code prettyprint lang-sc'>timesArr, levelsArr, in, mul, add, buffer</code>.<pre class='code prettyprint lang-sc'>    (
-        {var sig;
-            sig = Decay.ar(Impulse.ar(2), 0.1, PinkNoise.ar);
-                MultiTap.ar(`[0.1, 0.2, 0.3, 0.4], `[0.1, 0.2, 0.4, 0.8],
-                        sig, bufnum: LocalBuf(s.sampleRate))
-        }.play
-    )
+<p>In SuperCollider you can use the <code class='code prettyprint lang-sc'>MultiTap</code> UGen for multitap delays. The arguments are: <code class='code prettyprint lang-sc'>timesArr, levelsArr, in, mul, add, buffer</code>.<pre class='code prettyprint lang-sc'>(
+{var sig;
+sig = Decay.ar(Impulse.ar(2), 0.1, PinkNoise.ar);
+MultiTap.ar(`[0.1, 0.2, 0.3, 0.4], `[0.1, 0.2, 0.4, 0.8],
+sig, bufnum: LocalBuf(s.sampleRate))
+}.play
+)
 
-    (
-        {var sig;
-            sig = SoundIn.ar(0);
-            MultiTap.ar(`[0.2, 0.4, 0.6, 0.8], `[0.1, 0.2, 0.4, 0.8],
-                sig, bufnum: LocalBuf(s.sampleRate))
-        }.play
-    )</pre>
+(
+{var sig;
+sig = SoundIn.ar(0);
+MultiTap.ar(`[0.2, 0.4, 0.6, 0.8], `[0.1, 0.2, 0.4, 0.8],
+sig, bufnum: LocalBuf(s.sampleRate))
+}.play
+)</pre>
 
 <p><strong>Delay modulation</strong><ul>
 <li>Delay becomes more interesting when we modulate the delay time<li>Usually modulated by low frequency signal like a sine or triangle wave (but could be anything in theory)<li><em>Rate</em>: Modulation speed - how fast the delay time changes<li><em>Depth</em>: Controls how much delay (from shortest to longest delays implemented) - 5ms, 50ms, or more...<li><em>Shape</em> Shape of modulating signal (usually sine or triangle wave)</ul>
-<pre class='code prettyprint lang-sc'>    b = Buffer.loadDialog;
-    (
-        {var input, delay;
-            input = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
-            delay = DelayL.ar(input, 10, MouseX.kr(0.1,10.0).lag(3)); //move mouse!
-            input + delay;
-        }.play;
-    )
+<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
+(
+{var input, delay;
+input = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
+delay = DelayL.ar(input, 10, MouseX.kr(0.1,10.0).lag(3)); //move mouse!
+input + delay;
+}.play;
+)
 
-    (
-        {var input, delay, mod;
-            input = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
-            mod = SinOsc.ar(MouseX.kr(0.1,1).lag(3));
-            //mod =LFNoise1.ar(MouseX.kr(0.1,3).lag(3));
-            /*mod = PlayBuf.ar(2,b.bufnum, MouseX.kr(0.0,0.05).lag(3), startPos:20*44100);*/
-            delay = DelayL.ar(input, 10, mod.linlin(-1,1,0.0,MouseY.kr(0,10).lag(3)));
-            //delay;
-            input + delay / 2;
-        }.play;
-    )</pre>
+(
+{var input, delay, mod;
+input = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
+mod = SinOsc.ar(MouseX.kr(0.1,1).lag(3));
+/*mod =LFNoise1.ar(MouseX.kr(0.1,3).lag(3));*/
+/*mod = PlayBuf.ar(2,b.bufnum, MouseX.kr(0.0,0.05).lag(3), startPos:20*44100);*/
+delay = DelayL.ar(input, 10, mod.linlin(-1,1,0.0,MouseY.kr(0,10).lag(3)));
+//delay;
+input + delay / 2;
+}.play;
+)</pre>
 <h3><a class='anchor' name='Delay%20Effects'>Delay Effects</a></h3>
 <ul>
 <li>Short Delay (less than to about 20ms)<li>Medium Delay (between about 20-50ms)<li>Long Delay (about 50ms or greater)</ul>
@@ -348,20 +355,20 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 
 <p><strong>Long Delay</strong><ul>
 <li>Echo<li>Support<li>Slap Echo (about 80-200ms with little or no feedback)<li>Emphasis<li>Groove</ul>
-<pre class='code prettyprint lang-sc'>    (
-        a = {arg length=0.2;
-            var sig, org, delay;
-            org = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
-            sig = HPF.ar(org, 400);
-            sig = LPF.ar(org, 5000);
-            sig = sig.tanh;
-            delay = DelayL.ar(sig, 10, length);
-            org + delay;
-        }.play;
-    )
+<pre class='code prettyprint lang-sc'>(
+a = {arg length=0.2;
+var sig, org, delay;
+org = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
+sig = HPF.ar(org, 400);
+sig = LPF.ar(org, 5000);
+sig = sig.tanh;
+delay = DelayL.ar(sig, 10, length);
+org + delay;
+}.play;
+)
 
-    a.set(\length, 0.2);
-    a.set(\length, 0.08);</pre>
+a.set(\length, 0.2);
+a.set(\length, 0.08);</pre>
 
 <p><strong>Short Delay</strong><ul>
 <li>0-20ms<li>Combfiltering<li>Sound localisation<li>Flanger</ul>
@@ -388,18 +395,18 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 <pre class='code prettyprint lang-sc'>(
 //comb effect
 {var input, delay;
-    input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
-    delay = DelayL.ar(input, 1/1000, 1/1000);
-    input + delay;
+input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
+delay = DelayL.ar(input, 1/1000, 1/1000);
+input + delay;
 }.scope
 )
 
 (
 //or using CombL
 {var input, delay;
-    input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
-    delay = CombL.ar(input, 1/1000, 1/1000, 0);
-    input + delay;
+input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
+delay = CombL.ar(input, 1/1000, 1/1000, 0);
+input + delay;
 }.scope
 )
 
@@ -407,13 +414,13 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 <ul>
 <li>Comb filtering happens all the time in “real life” at the studio because of early reflections<li>Not as pronounced partly because walls absorb energy, therefore the reflections are much quieter and not so much comb filtering is heard (studios use sound absorbing materials to reduce comb filtering effect)<li>Purposely trying to create comb filtering in the studio (through mic placement)<li>Comb filtering different from instrument to instrument - sometimes desired, sometimes we try to avoid it</ul>
 
-<p><strong>Phaser</strong>
-<p>In a Phaser, a signal is sent through an allpass filter, not filtering anything out, but just shifting the phase of the sound by delaying it. This sound is then added to the original signal. If the phase is 180 degrees, the sound is cancelled out, but if it is less than that, it will create variations in the spectra.<pre class='code prettyprint lang-sc'>e = Buffer.loadDialog;
+<p><strong>Phaser</strong><ul>
+<li>A Phaser uses an allpass filter, not filtering anything out but just shifting the phase of the sound by delaying it.<li>This sound is then added to the original signal.<li>If the phase is 180 degrees, the sound is cancelled out<li>If it is less than that, it will create variations in the spectra.</ul>
+<pre class='code prettyprint lang-sc'>e = Buffer.loadDialog;
 
 (
-{var signal;
-var phase = MouseX.kr(0.000022675,0.01, 1); // from a sample resolution to 10 ms delay line
-var ph;
+{var signal, phase, ph;
+phase = MouseX.kr(0.000022675,0.01, 1); // from a sample resolution to 10 ms delay line
 signal = PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1);
 ph = AllpassL.ar(PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1), 4, phase+(0.01.rand), 0);
 (signal + ph).dup
@@ -421,16 +428,13 @@ ph = AllpassL.ar(PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1), 4, 
 )
 
 (
-{
-var signal;
-var ph;
+{var signal, ph;
 signal = PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1);
 ph = AllpassC.ar(
-        PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1),
-        4,
-        LFPar.kr(0.1, 0, 1).range(0.000022675,0.01), // a circle every 10 seconds
-        0); // experiment with what happens if you increase the decay length
- (signal + ph).dup // we add them together and route to two speakers
+PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1), 4,
+LFPar.kr(0.1, 0, 1).range(0.000022675,0.01), // a circle every 10 seconds
+0); // experiment with what happens if you increase the decay length
+(signal + ph).dup // we add them together and route to two speakers
 }.play
 )</pre>
 
