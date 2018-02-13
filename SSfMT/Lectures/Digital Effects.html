@@ -1,0 +1,557 @@
+<html><head><title>Digital Effects</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider SSFMT/LECTURES (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/SSfMT'>Tutorials/SSfMT</a></div>
+<h1>Digital Effects</h1>
+<div id='summary'>Software Systems for Music Technology</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Practicals/Playing with UGens 1.html">Playing with UGens 1</a>, <a href="./../../SSfMT/Lectures/Digital Synthesis.html">Digital Synthesis</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Digital%20Effects'>Digital Effects</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Amplitude-based%20effects'>Amplitude-based effects</a></li>
+<ul class='toc'><li class='toc2'><a href='#Volume%20control%20and%20normalisation'>Volume control and normalisation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Distortion'>Distortion</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Hard%20Clipping'>Hard Clipping</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Soft%20Clipping'>Soft Clipping</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Other%20Distorion%20Shapes'>Other Distorion Shapes</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Intermodulation%20distortion'>Intermodulation distortion</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Equalisation'>Equalisation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Dynamics%20Processing'>Dynamics Processing</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Time-based%20effects'>Time-based effects</a></li>
+<ul class='toc'><li class='toc2'><a href='#Delay%20Lines'>Delay Lines</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Delay%20Effects'>Delay Effects</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Digital%20Effects'>Digital Effects</a></h2>
+
+<p>SuperCollider is a powerful environment for Digital Signal Processing (DSP) - the digital modification of information signals through mathematical operations. In the case of audio, these signals can be obtained through A/D conversion or generated synthetically. Digital effects therefore transform and shape waveforms through different operations in the amplitude and time domains.<h2><a class='anchor' name='Amplitude-based%20effects'>Amplitude-based effects</a></h2>
+
+<p>Amplitude-based effects are operations that are conducted on signals to change their amplitude values. In the digital domain, this is usually achieved through a transfer function. In audio, amplitude-based effects include:<ul>
+<li>Volume control<li>Normalisation<li>Distortion<li>Equalisation<li>Compression<li>Limiting<li>Expansion<li>Gating</ul>
+<h3><a class='anchor' name='Volume%20control%20and%20normalisation'>Volume control and normalisation</a></h3>
+
+<p>You can control volume through multiplication of signals. In SuperCollider you can multiply a signal through a constant value or by modulating the amplitude through another signal (modulation).<pre class='code prettyprint lang-sc'>a = {arg vol=0; SoundIn.ar(0)!2*vol.dbamp}.play;
+a.set(\vol, -20);</pre>
+
+<p>Lagging (linear ramp) a signal will produce a smoother change in volume<pre class='code prettyprint lang-sc'>a = {arg vol=0, lagTime=0.1; SinOsc.ar!2*vol.dbamp.lag(lagTime)}.play;
+a.set(\vol, -20);
+a.set(\lagTime, 10);
+a.set(\vol, 0);
+a.set(\vol, -inf);</pre>
+
+<p>You can use an aplitude follower to change the amplitude of one signal with another signal.<pre class='code prettyprint lang-sc'>(
+a = {arg vol=0; var sig;
+    sig = SoundIn.ar(0)!2*vol.dbamp;
+    Pulse.ar(LFNoise1.ar(1).range(200,2000))
+    *Amplitude.ar(sig); //env follower
+}.play;
+)</pre>
+
+<p><code class='code prettyprint lang-sc'>Normalizer</code> takes the maximum value of a signal and normalises it to a given value with a look-ahead buffer (internal). You can determine the lengh of the look-ahead buffer with the duration argument.<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
+a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 1) }.play;
+a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 0.1) }.play;
+a = {Normalizer.ar(PlayBuf.ar(b.numChannels, b.bufnum), 1, 0.0001) }.play;</pre>
+
+<p>You also do off-line processing to normalise sound files. You can bulk normalise soundfiles as well!<pre class='code prettyprint lang-sc'>(
+~paths = [
+"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_bass.aif",
+"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_drums.aif",
+"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_FX.aif",
+"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_guitar.aif",
+"/Users/federicoreuben/Music/Sounds/radiohead_tracks/radiohead_voice.aif"
+];
+~outDir = "/Users/federicoreuben/Music/Sounds/radionormal";
+SoundFile.groupNormalize(~paths, ~outDir);
+)</pre>
+<h3><a class='anchor' name='Distortion'>Distortion</a></h3>
+<ul>
+<li>Exceed the maximum amplitude value of a signal on the amplitude axis, will also affect its shape<li>Overdriving the signal causes distortion<li>Changing the shape of a signal may cause a distortion of its frequency content<li>If we consider complex waves, we may conclude that by shaping the waveform, it’s possible to introduce new frequencies (harmonic or not!)</ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/distortion1.png'/><br><b>Distortion</b></div>
+
+<p>In SuperCollider there are several ways of distorting a signal. The most versatile way of generating distortion is with transfer (or shaping) functions.
+<p><strong>Shaping Functions</strong>:<ul>
+<li>Plotting output amplitude vs input amplitude<li>Linear Functions:</ul>
+
+<p><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/shape_nochange.png'/><br><b>No gain change</b></div>
+<pre class='code prettyprint lang-sc'>b = Buffer.alloc(s, 1024, 1);
+(
+// line between -1 and 1
+t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.0, 1.0) });
+t.plot;
+// t.asWavetable will convert it to the official Wavetable format at twice the size
+b.sendCollection(t.asWavetableNoWrap);
+)
+// shaper has no effect because of the linear transfer function
+(
+{var sig = Shaper.ar(b, SinOsc.ar(330, 0, 0.4)); sig ! 2}.scope;
+)</pre>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/shape_gainup.png'/><br><b>Gain scaled up</b></div>
+<pre class='code prettyprint lang-sc'>(
+// line between -1.5 and 1.5
+t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5) });
+t.plot;
+b.sendCollection(t.asWavetableNoWrap);
+)
+
+(
+{var sig = Shaper.ar(b, SinOsc.ar(300, 0, 0.4)); sig ! 2}.scope;
+)</pre>
+<h3><a class='anchor' name='Hard%20Clipping'>Hard Clipping</a></h3>
+<ul>
+<li>Like a square wave, a hard clipped sine wave synthesises harmonics (odd harmonics)<li>Therefore the term harmonic distortion<li>In hard clipping, signal reaches max abruptly</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/hardclip1.png'/><br><b>Clipping transfer function</b></div>
+<pre class='code prettyprint lang-sc'>(
+t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).clip(-1,1) }); //notice the .clip message
+t.plot;
+b.sendCollection(t.asWavetableNoWrap);
+)
+
+(
+{var sig = Shaper.ar(b, SinOsc.ar(300, 0, MouseX.kr(0.5,5)))*0.5; sig ! 2}.scope;
+)</pre>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/hardclip2.png'/><br><b>Hard clipping</b></div>
+
+<p>A simpler way of doing hard clipping distortion:<pre class='code prettyprint lang-sc'>{ SinOsc.ar(300, 0, MouseX.kr(0.5,5)).clip(-1,1) * 0.5 }.scope; //hard clipping
+
+{ (SoundIn.ar(0)*MouseX.kr(0.1,80,1)).clip(-1,1) * 0.2}.scope;</pre>
+<h3><a class='anchor' name='Soft%20Clipping'>Soft Clipping</a></h3>
+<ul>
+<li>Less abrupt, different shape / different recipe for amplitude of harmonics (still odd harmonics)</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/softclip.png'/><br><b>Soft clipping</b></div>
+<pre class='code prettyprint lang-sc'>(
+t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).softclip(-1,1) }); //notice the .softclip message
+t.plot;
+b.sendCollection(t.asWavetableNoWrap);
+)
+
+(
+{var sig = Shaper.ar(b, SinOsc.ar(300, 0, MouseX.kr(0.5,5)))*0.5; sig ! 2}.scope;
+)</pre>
+
+<p>A simpler way of doing soft clipping distortion:<pre class='code prettyprint lang-sc'>{ SinOsc.ar(300, 0, MouseX.kr(0.5,5)).softclip * 0.5 }.scope; //soft clipping
+
+{ (SoundIn.ar(0)*MouseX.kr(0.1,80,1)).softclip * 0.2}.scope;</pre>
+<h3><a class='anchor' name='Other%20Distorion%20Shapes'>Other Distorion Shapes</a></h3>
+
+<p>You can use other shaping functions to distort signals with different results.
+<p><strong>abs. max, squared, cubed</strong><pre class='code prettyprint lang-sc'>(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1, 1).abs }).plot;
+{ SinOsc.ar(300, 0, 0.5).abs }.scope;
+)
+(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1, 1).max(0) }).plot;
+{ SinOsc.ar(300, 0, 0.5).max(0) }.scope;
+)
+(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1, 1).squared }).plot;
+{ SinOsc.ar(300, 0).squared * 0.5 }.scope;
+)
+(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1, 1).cubed }).plot;
+{ SinOsc.ar(300, 0).cubed * 0.5 }.scope;
+)</pre>
+
+<p>More clipping distortions:<pre class='code prettyprint lang-sc'>(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).distort }).plot;
+{ (SinOsc.ar(300, 0, 0.2)*MouseX.kr(0.1,80,1)).distort * 0.5 }.scope;
+)
+(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).clip2(1) }).plot;
+{ (SinOsc.ar(300, 0, 0.2)*MouseX.kr(0.1,80,1)).clip2(1) * 0.5 }.scope;
+)
+//fold operation:
+1.5.fold2(1)
+1.2.fold2(1)
+(
+Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).fold2(1) }).plot;
+{ (SinOsc.ar(300, 0, 0.2)*MouseX.kr(0.1,80,1)).fold2(1) * 0.5 }.scope;
+)
+//wrap operation:
+1.5.wrap2(1)
+1.2.wrap2(1)
+{ (SinOsc.ar(300, 0, 0.2)*MouseX.kr(0.1,80,1)).wrap2(1) * 0.2 }.scope(1);</pre>
+<h3><a class='anchor' name='Intermodulation%20distortion'>Intermodulation distortion</a></h3>
+<ul>
+<li>Harmonic distortion is caused when using sine waves or relatively simple signals<li>Non-linear devices / functions have profound effect on complex signals<li>Harmonics generated are not limited to odd and even multiples of frequency components<li>Intermodulation distortion, energy at frequencies related to the sum and difference of spectral components</ul>
+<pre class='code prettyprint lang-sc'>//intermodulation distortion with sound files
+b = Buffer.loadDialog;
+
+{ (PlayBuf.ar(2, b.bufnum)*MouseX.kr(0.1,80,1)).distort * 0.2 }.scope;
+{ (PlayBuf.ar(2, b.bufnum)*MouseX.kr(0.1,80,1)).clip2(1) * 0.2 }.scope;
+{ (PlayBuf.ar(2, b.bufnum)*MouseX.kr(0.1,80,1)).fold2(1) * 0.2 }.scope;
+{ (PlayBuf.ar(2, b.bufnum)*MouseX.kr(0.1,80,1)).wrap2(1) * 0.2 }.scope;
+
+{ (PlayBuf.ar(2, b.bufnum)* MouseX.kr(0.2,1)).abs }.scope;
+{ (PlayBuf.ar(2, b.bufnum)* MouseX.kr(0.2,1)).max(0) }.scope;
+{ (PlayBuf.ar(2, b.bufnum)* MouseX.kr(0.2,1)).squared }.scope;
+{ (PlayBuf.ar(2, b.bufnum)* MouseX.kr(0.2,1)).cubed }.scope;</pre>
+<h3><a class='anchor' name='Equalisation'>Equalisation</a></h3>
+
+<p>Here you can learn about <a href="./../../SSfMT/Study Guides/Synthesis in SuperCollider.html#Filters">EQ and Filters</a><h3><a class='anchor' name='Dynamics%20Processing'>Dynamics Processing</a></h3>
+
+<p>Dynamic processors:<ul>
+<li>Automated gain control (AGC)<li>Like an automatic volume fader<li>Compressors are automated volume control processors that reduce the louder parts of a signal after crossing a certain threshold: this is known as downward compression<li>Upward compression (less common), signal bellow a threshold gets louder<li>Compressors reduce the dynamic range, expanders increase the dynamic range</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_wave.png'/><br><b>Compressors reduce dynamic range!</b></div>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_func.png'/><br><b>Compressor gain transfer function</b></div>
+
+<p>Dynamic processors usually have the following features:<ul>
+<li>Threshold<li>Ratio<li>Attack<li>Release<li>Make-up Gain<li>Other: Knee, Circuit Type, Peak/RMS, Link, Analog, Meter, Auto, PDR, Key, Dry/Mix, Punch, etc.</ul>
+
+<p><strong>Threshold and Ratio</strong><ul>
+<li>Threshold: Specifies level above which the signal is reduced. Usually specified in dB. If signal doesn’t cross threshold, then no compression takes place<li>Ratio: amount of attenuation of the signal ones it passes the threshold. If a ratio of 2:1 is established, the signal above the threshold is attenuated by half. If it is 6:1, then 6dB over the threshold would become 1dB</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_thresh.png'/><br><b>Threshold and ratio in transfer function</b></div>
+
+<p><strong>Limiters</strong><ul>
+<li>Theoretically, limiters are compressors with a ratio higher than 10:1 (therefore they might be referred to as compressor/limiter)<li>A brickwall limiter would have a ratio of ∞:1</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/limiter_func.png'/><br><b>Limiter transfer function</b></div>
+
+<p><strong>Attack and Release</strong><ul>
+<li>Imagine a “virtual fader” - it takes time to change the gain<li>Attack is how fast the compressor starts working (how long it takes to pull the “fader” down) after the signal crosses the threshold and release is the speed at which it goes back to unity gain (time for “fader” to go back to its original position)</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_atkrel.png'/><br><b>Attack and release time</b></div>
+
+<p><strong>Soft and Hard Knees</strong><ul>
+<li>Hard Knee and Soft Knee determines the bend in the response curve of the transfer function<li>Knee is related to how smooth the transition is from uncompressed to compressed modes<li>Soft knee is more gradual while hard knee is more sudden</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_knee.png'/><br><b>Soft and Hard Knee represented in trasfer function</b></div>
+
+<p>In SuperCollider you can use <code class='code prettyprint lang-sc'>Compander</code> as a general purpose hard-knee dynamics processor.<pre class='code prettyprint lang-sc'>//dynamics processor
+b = Buffer.loadDialog;
+(
+a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
+    var sig;
+sig = PlayBuf.ar(b.numChannels, b.bufnum);
+    Compander.ar(sig, sig, thresh.dbamp, 1, 1/ratio, atkTime, relTime, 1+(mkgain));
+}.scope;
+)
+a.set(\thresh, -30, \ratio, 2, \mkgain, 5.dbamp); //compress at ratio 2:1
+a.set(\thresh, -30, \ratio, 0.5, \mkgain, -0.75); //expander at ratio 2:1
+a.set(\thresh, -30, \ratio, 10, \mkgain, 10.dbamp); //limiter (ratio 10:1)
+a.set(\thresh, -20, \ratio, 30, \mkgain, 5.dbamp); //limiter (ratio 30:1)
+
+
+(
+a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
+    var sig;
+sig = PlayBuf.ar(b.numChannels, b.bufnum);
+    Compander.ar(sig, sig, thresh.dbamp, ratio, 1, atkTime, relTime, 1+(mkgain));
+}.scope;
+)
+a.set(\thresh, -18, \ratio, 10, \mkgain, 0.2);  //noise gate
+a.set(\thresh, -10, \ratio, 0.1, \mkgain, -0.25);  //sustainer
+
+//ducking/signal chain and lag signals
+c = Buffer.loadDialog;
+(
+a = {arg thresh=0, ratio=2, atkTime=0.01, relTime=0.1, mkgain=0;
+    var sig1, sig2, lagTime=1;
+  sig1 = PlayBuf.ar(b.numChannels, b.bufnum);
+    sig2 = PlayBuf.ar(c.numChannels, c.bufnum);
+    Compander.ar(sig1, sig2, thresh.dbamp.lag(lagTime), 1, 1/ratio.lag(lagTime), atkTime.lag(lagTime), relTime.lag(lagTime), 1+(mkgain.dbamp.lag(lagTime)));
+}.scope;
+)
+a.set(\lagTime, 10);
+a.set(\thresh, -30, \ratio, 2, \mkgain, 20); //ratio 2:1
+a.set(\thresh, -30, \ratio, 20, \mkgain, 30); //ratio 20:1
+a.set(\thresh, -30, \ratio, 0.5, \mkgain, 15); //expanding</pre>
+
+<p>There is also a lookahead Limiter in SuperCollider<pre class='code prettyprint lang-sc'>(
+a = {arg level=1, mkgain=0;
+    var sig, dur;
+    dur = 1;
+    sig = PlayBuf.ar(b.numChannels, b.bufnum);
+    Limiter.ar(sig, level, dur)*(1+mkgain);
+}.play
+)
+a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
+<h2><a class='anchor' name='Time-based%20effects'>Time-based effects</a></h2>
+<h3><a class='anchor' name='Delay%20Lines'>Delay Lines</a></h3>
+<ul>
+<li>What is delay?<li>What is the difference between analog and digital delays?<li>Analog circuit components: inductors and capacitors<li>Digital: uses computer memory</ul>
+
+<p><strong>Tape Delay</strong><ul>
+<li>Delays in studios started to be used by “misusing” tape machines (time from record head to playback head)<li>Physical space between heads, speed of tape machines and volume</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_tape.png'/><br><b>Tape Delay</b></div>
+
+<p><strong>Delay Feedback</strong><ul>
+<li>Feedback involves routing the delayed signal to the input of the delay line If delay line is 100ms, then echoes at 100, 200, 300, etc. (multiply delay time by increments of 1 (1,2,3,etc.)<li>By attenuating the signal we get decay in echoes - if the feedback control is attenuated by 6db, then each echo will be 6 db quieter</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_feedback.png'/><br><b>Tape Delay Feedback</b></div>
+
+<p><strong>Tape Delay features</strong><ul>
+<li>Wet/Dry and Input/Output Level Controls<li>Modulation and Feedback Levels<li>Tape as filter: Tape recorders have uneven frequency response - they have a high-frequency roll-off (sounds like LPF - cutoff depends on tape speed and quality) - Echoes sound progressively darker (and as if they are further)</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_feedback2.png'/><br><b>Tape Delay Features</b></div>
+
+<p><strong>Digital Delay Lines</strong><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_digital.png'/><br><b>A Digital Delay</b></div>
+<ul>
+<li>“A digital delay unit or digital delay line (DDL) takes in a stream of input samples and stores them for a brief period before sending them out again. Mixing a delayed sound with original undelayed signal can cause a variety of musical effects.” (Roads, 1996)<li>Data structure that is an efficient way of implementing delay line:<li>Circular queue: list of sequential memory locations containing samples<li>Old samples replaced by new samples<li>Simple delay lines have 1 read pointer</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_buffer.png'/><br><b>Circular Buffer</b></div>
+
+<p><pre class='code prettyprint lang-sc'>//simple delay line
+(
+{var sig = SoundIn.ar(0);
+    DelayL.ar(sig, 10, MouseX.kr(0.1,10.0).lag(3)); //args: in, maxdelaytime, delaytime
+}.play;
+)</pre>
+
+<p><strong>Multitap Delay</strong><ul>
+<li>Multitap Delay has more than 1 read pointer or tap<li>Read pointer taps at any point in queue - delays smaller than length of queue<li>Variable time delay effects</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_multitap.png'/><br><b>Multitap Delay Buffer</b></div>
+
+<p>In SuperCollider you can use the <code class='code prettyprint lang-sc'>MultiTap</code> UGen for multitap delays. The arguments are: <code class='code prettyprint lang-sc'>timesArr, levelsArr, in, mul, add, buffer</code>.<pre class='code prettyprint lang-sc'>    (
+        {var sig;
+            sig = Decay.ar(Impulse.ar(2), 0.1, PinkNoise.ar);
+                MultiTap.ar(`[0.1, 0.2, 0.3, 0.4], `[0.1, 0.2, 0.4, 0.8],
+                        sig, bufnum: LocalBuf(s.sampleRate))
+        }.play
+    )
+
+    (
+        {var sig;
+            sig = SoundIn.ar(0);
+            MultiTap.ar(`[0.2, 0.4, 0.6, 0.8], `[0.1, 0.2, 0.4, 0.8],
+                sig, bufnum: LocalBuf(s.sampleRate))
+        }.play
+    )</pre>
+
+<p><strong>Delay modulation</strong><ul>
+<li>Delay becomes more interesting when we modulate the delay time<li>Usually modulated by low frequency signal like a sine or triangle wave (but could be anything in theory)<li><em>Rate</em>: Modulation speed - how fast the delay time changes<li><em>Depth</em>: Controls how much delay (from shortest to longest delays implemented) - 5ms, 50ms, or more...<li><em>Shape</em> Shape of modulating signal (usually sine or triangle wave)</ul>
+<pre class='code prettyprint lang-sc'>    b = Buffer.loadDialog;
+    (
+        {var input, delay;
+            input = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
+            delay = DelayL.ar(input, 10, MouseX.kr(0.1,10.0).lag(3)); //move mouse!
+            input + delay;
+        }.play;
+    )
+
+    (
+        {var input, delay, mod;
+            input = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
+            mod = SinOsc.ar(MouseX.kr(0.1,1).lag(3));
+            //mod =LFNoise1.ar(MouseX.kr(0.1,3).lag(3));
+            /*mod = PlayBuf.ar(2,b.bufnum, MouseX.kr(0.0,0.05).lag(3), startPos:20*44100);*/
+            delay = DelayL.ar(input, 10, mod.linlin(-1,1,0.0,MouseY.kr(0,10).lag(3)));
+            //delay;
+            input + delay / 2;
+        }.play;
+    )</pre>
+<h3><a class='anchor' name='Delay%20Effects'>Delay Effects</a></h3>
+<ul>
+<li>Short Delay (less than to about 20ms)<li>Medium Delay (between about 20-50ms)<li>Long Delay (about 50ms or greater)</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_effects.png'/><br><b>Different types of Delay Effects</b></div>
+
+<p><strong>Long Delay</strong><ul>
+<li>Echo<li>Support<li>Slap Echo (about 80-200ms with little or no feedback)<li>Emphasis<li>Groove</ul>
+<pre class='code prettyprint lang-sc'>    (
+        a = {arg length=0.2;
+            var sig, org, delay;
+            org = PlayBuf.ar(2,b.bufnum, startPos:20*44100);
+            sig = HPF.ar(org, 400);
+            sig = LPF.ar(org, 5000);
+            sig = sig.tanh;
+            delay = DelayL.ar(sig, 10, length);
+            org + delay;
+        }.play;
+    )
+
+    a.set(\length, 0.2);
+    a.set(\length, 0.08);</pre>
+
+<p><strong>Short Delay</strong><ul>
+<li>0-20ms<li>Combfiltering<li>Sound localisation<li>Flanger</ul>
+
+<p><strong>Delay and Interferance</strong><ul>
+<li>Short Delay may cause constructive and destructive interference<li>Period = 1/Frequency<li>Doubling and cancelations happen at certain other higher frequencies as well<li>For any given delay time, certain frequencies line up and produce constructive and destructive interference</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_ampdoubling.png'/><br><b>Amplitude Doubling</b></div>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_ampcancel.png'/><br><b>Amplitude Cancelling</b></div>
+<pre class='code prettyprint lang-sc'>    (
+    //constructive and destructive interference
+{var input, delay, mod;
+    input = SinOsc.ar(440,0,0.5);
+    mod = MouseX.kr(0.5,1.0);
+    delay = DelayL.ar(input, 1/440*mod, 1/440*mod);
+    input + delay;
+}.scope
+    )</pre>
+<ul>
+<li>For a given delay time (t), frequencies doubled are described by integer increments divided by the delay time (1/t, 2/t, 3/t, etc.)<li>Frequencies that cancel are one-half period shifted (0.5/t, 1.5/t,2.5/t, etc.)<li>Signal with 1ms delay has spectral peaks at 1kHz, 2kHz, 3kHz, etc., and cancels at 500Hz, 1kHz, 1.5kHz, etc.<li>Signal with 2ms delay has spectral peaks at 500Hz, 1kHz, 1.5kHz, etc., and cancels at 250Hz, 750Hz, 1.25kHz, etc.</ul>
+
+<p><strong>Comb Filter</strong><ul>
+<li>Alters frequency content through short delay (weird EQ rather than echo)<li>Has the shape of a comb (therefore comb filter!)<li>Comb filtering is on a linear scale, not logarithmic<li>With complex signals, only very short delays are audible (20ms or less)</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_comb.png'/><br><b>Amplitude Cancelling</b></div>
+<pre class='code prettyprint lang-sc'>    (
+    //comb effect
+{var input, delay;
+    input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
+    delay = DelayL.ar(input, 1/1000, 1/1000);
+    input + delay;
+}.scope
+)
+
+(
+//or using CombL
+{var input, delay;
+    input = SinOsc.ar(MouseX.kr(20,10000),0,0.5);
+    delay = CombL.ar(input, 1/1000, 1/1000, 0);
+    input + delay;
+}.scope
+)
+
+{ CombL.ar(Decay.ar(Dust.ar(1,0.5), 0.2, WhiteNoise.ar), 0.2, 0.2, 3) }.play;</pre>
+<ul>
+<li>Comb filtering happens all the time in “real life” at the studio because of early reflections<li>Not as pronounced partly because walls absorb energy, therefore the reflections are much quieter and not so much comb filtering is heard (studios use sound absorbing materials to reduce comb filtering effect)<li>Purposely trying to create comb filtering in the studio (through mic placement)<li>Comb filtering different from instrument to instrument - sometimes desired, sometimes we try to avoid it</ul>
+
+<p><strong>Delays and Sound Localisation</strong><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_localisation.png'/><br><b>Short delays in sound localisation</b></div>
+<ul>
+<li>We use reflections as cue to localisation (the ears’ ability to find the location a sound is emanating from)<li>For example, if we have a sound we play in right and left speakers, then we hear it as coming from the centre<li>If we put a small delay (0.2 to 10ms) in the right speaker sound, we hear the sound as coming from the left<li>The Haas Effect</ul>
+<pre class='code prettyprint lang-sc'>//delay and sound localisation
+{var input, delay;
+    input = PinkNoise.ar*EnvGen.kr(Env.perc(0.01,0.2));
+[input, input]
+}.play //centre
+
+{var input, delay;
+    input = PinkNoise.ar*EnvGen.kr(Env.perc(0.01,0.2));
+    delay = DelayL.ar(input, 0.01, 0.01)*0.5;
+    [input, delay];
+}.play //left</pre>
+
+<p><strong>Phaser</strong>
+<p>In a Phaser, a signal is sent through an allpass filter, not filtering anything out, but just shifting the phase of the sound by delaying it. This sound is then added to the original signal. If the phase is 180 degrees, the sound is cancelled out, but if it is less than that, it will create variations in the spectra.<pre class='code prettyprint lang-sc'>e = Buffer.loadDialog;
+
+(
+{var signal;
+var phase = MouseX.kr(0.000022675,0.01, 1); // from a sample resolution to 10 ms delay line
+var ph;
+signal = PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1);
+ph = AllpassL.ar(PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1), 4, phase+(0.01.rand), 0);
+(signal + ph).dup
+}.play
+)
+
+(
+{
+var signal;
+var ph;
+signal = PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1);
+ph = AllpassC.ar(
+        PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1),
+        4,
+        LFPar.kr(0.1, 0, 1).range(0.000022675,0.01), // a circle every 10 seconds
+        0); // experiment with what happens if you increase the decay length
+ (signal + ph).dup // we add them together and route to two speakers
+}.play
+)</pre>
+
+<p><strong>Flanger</strong><ul>
+<li>Very short delay (0-10ms) modulated via three delay modulation controls<li>Audible combfiltering<li>Modulation produces swept comb filter effect</ul>
+<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_flanger.png'/><br><b>Flanger</b></div>
+
+<p><pre class='code prettyprint lang-sc'>(
+SynthDef(\flanger, { arg out=0, in=0, delay=0.1, depth=0.08, rate=0.06, fdbk=0.0, decay=0.0;
+    var input, maxdelay, maxrate, dsig, mixed, local;
+    maxdelay = 0.013;
+    maxrate = 10.0;
+    input = In.ar(in, 1);
+    local = LocalIn.ar(1);
+    dsig = AllpassL.ar( // the delay (you could use AllpassC (put 0 in decay))
+        input + (local * fdbk),
+        maxdelay * 2,
+        LFPar.kr( // very similar to SinOsc (try to replace it) - Even use LFTri
+            rate * maxrate,
+            0,
+            depth * maxdelay,
+            delay * maxdelay),
+        decay);
+    mixed = input + dsig;
+    LocalOut.ar(mixed);
+    Out.ar([out, out+1], mixed);
+}).add;
+)
+
+// audioIn on audio bus nr 10
+
+{Out.ar(10, SoundIn.ar(0))}.play(s, addAction:\addToHead)
+
+a = Synth(\flanger, [\in, 10], addAction:\addToTail)
+
+a.set(\delay, 0.04)
+a.set(\depth, 0.04)
+a.set(\rate, 0.01)
+a.set(\fdbk, 0.08)
+a.set(\decay, 0.01)
+
+// or if you prefer a buffer:
+
+b = Buffer.loadDialog; // replace this sound with a nice sounding one !!!
+
+{Out.ar(10, PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1))}.play(addAction:\addToHead)
+
+a = Synth(\flanger, [\in, 10], addAction:\addToTail)
+
+a.set(\delay, 0.04)
+a.set(\depth, 0.04)
+a.set(\rate, 1)
+a.set(\fdbk, 0.08)
+a.set(\decay, 0.01)
+
+// a parameter explosion results in a Chorus like effect:
+a.set(\decay, 0)
+a.set(\delay, 0.43)
+a.set(\depth, 0.2)
+a.set(\rate, 0.1)
+a.set(\fdbk, 0.08)
+
+// or just go mad:
+a.set(\delay, 0.93)
+a.set(\depth, 0.9)
+a.set(\rate, 0.8)
+a.set(\fdbk, 0.8)</pre>
+
+<p><strong>Medium Delay</strong><ul>
+<li>Medium delays still not perceived as clear echo<li>We start perceiving original and delayed sound as two events at around 50-60ms<li>Doubling<li>Chorus</ul>
+
+<p><strong>Doubling</strong><ul>
+<li>Coming from double tracking idea<li>Orchestral or ensemble sound<li>Layering and doubling tracks can be simulated through delay (usually 20-60ms)<li>Modulation brings “reality” to double tracking<li>Multitaps are often used for doubling effect, each modulated at own rate and panned</ul>
+
+<p><strong>Chorus</strong><ul>
+<li>Chorus is an alternative name for modulated medium delays<li>Several different delays between 20-50ms<li>Effect tries to simulate choir effect - therefore “chorus”<li>Good to create textures and generate different timbre</ul>
+<pre class='code prettyprint lang-sc'>// a simple chorus
+(
+SynthDef(\chorus, { arg inbus=10, outbus=0, predelay=0.08, speed=0.05, depth=0.1, ph_diff=0.5;
+    var in, sig, modulators, numDelays = 12;
+    in = In.ar(inbus, 1) * numDelays.reciprocal;
+    modulators = Array.fill(numDelays, {arg i;
+          LFPar.kr(speed * rrand(0.94, 1.06), ph_diff * i, depth, predelay);});
+    sig = DelayC.ar(in, 0.5, modulators);
+    sig = sig.sum; //Mix(sig);
+    Out.ar(outbus, sig!2); // output in stereo
+}).add
+)
+
+{Out.ar(10, SoundIn.ar(0))}.play(addAction:\addToHead)
+
+b = Buffer.loadDialog;
+
+{Out.ar(10, PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1))}.play(addAction:\addToHead)
+
+a = Synth(\chorus, addAction:\addToTail)
+
+a.set(\predelay, 0.02);
+a.set(\speed, 0.22);
+a.set(\depth, 0.5);
+a.set(\pd_diff, 0.7);
+a.set(\predelay, 0.2);</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Lectures/Digital Effects.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Lectures/Digital Effects.schelp</a><br>link::SSfMT/Lectures/Digital Effects::<br>sc version: 3.8.0</div></div></body></html>
