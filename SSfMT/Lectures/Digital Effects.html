@@ -72,7 +72,7 @@ SoundFile.normalize(~path, ~outDir, "wav", maxAmp:1);
 )</pre>
 <h3><a class='anchor' name='Distortion'>Distortion</a></h3>
 <ul>
-<li>Exceed the maximum amplitude value of a signal on the amplitude axis, will also affect its shape<li>Overdriving the signal causes distortion<li>Changing the shape of a signal may cause a distortion of its frequency content<li>If we consider complex waves, we may conclude that by shaping the waveform, it’s possible to introduce new frequencies (harmonic or not!)</ul>
+<li>Exceeding the maximum amplitude value of a signal on the amplitude axis, will also affect its shape<li>Overdriving the signal causes distortion<li>Changing the shape of a signal may cause a distortion of its frequency content<li>If we consider complex waves, we may conclude that by shaping the waveform, it’s possible to introduce new frequencies (harmonic or not!)</ul>
 
 <p><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/distortion1.png'/><br><b>Distortion</b></div>
 
@@ -106,7 +106,7 @@ b.sendCollection(t.asWavetableNoWrap);
 )</pre>
 <h3><a class='anchor' name='Hard%20Clipping'>Hard Clipping</a></h3>
 <ul>
-<li>Like a square wave, a hard clipped sine wave synthesises harmonics (odd harmonics)<li>Therefore the term harmonic distortion<li>In hard clipping, signal reaches max abruptly</ul>
+<li>Like a square wave, a hard clipped sine wave synthesises harmonics (odd harmonics)<li>Therefore the term harmonic distortion<li>In hard clipping, a signal reaches the maximum abruptly</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/hardclip1.png'/><br><b>Clipping transfer function</b></div>
 <pre class='code prettyprint lang-sc'>(
 t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).clip(-1,1) }); //notice the .clip message
@@ -142,7 +142,7 @@ b.sendCollection(t.asWavetableNoWrap);
 <h3><a class='anchor' name='Other%20Distortion%20Shapes'>Other Distortion Shapes</a></h3>
 
 <p>You can use other shaping functions to distort signals with different results.
-<p><strong>abs. max, squared, cubed</strong><pre class='code prettyprint lang-sc'>(
+<p><strong>abs, max, squared, cubed</strong><pre class='code prettyprint lang-sc'>(
 Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1, 1).abs }).plot;
 { SinOsc.ar(300, 0, 0.5).abs }.scope;
 )
@@ -206,7 +206,7 @@ b = Buffer.loadDialog;
 <li>Threshold<li>Ratio<li>Attack<li>Release<li>Make-up Gain<li>Other: Knee, Circuit Type, Peak/RMS, Link, Analog, Meter, Auto, PDR, Key, Dry/Mix, Punch, etc.</ul>
 
 <p><strong>Threshold and Ratio</strong><ul>
-<li>Threshold: Specifies level above which the signal is reduced. Usually specified in dB. If signal doesn’t cross threshold, then no compression takes place<li>Ratio: amount of attenuation of the signal once it passes the threshold. If a ratio of 2:1 is established, the signal above the threshold is attenuated by half. If it is 6:1, then 6dB over the threshold would become 1dB</ul>
+<li>Threshold: Specifies level above which the signal is reduced. Usually specified in dB. If the signal doesn’t cross the threshold, then no compression takes place<li>Ratio: amount of attenuation of the signal once it passes the threshold. If a ratio of 2:1 is established, the signal above the threshold is attenuated by half. If it is 6:1, then 6dB over the threshold would become 1dB</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_thresh.png'/><br><b>Threshold and ratio in transfer function</b></div>
 
 <p><strong>Limiters</strong><ul>
@@ -214,7 +214,7 @@ b = Buffer.loadDialog;
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/limiter_func.png'/><br><b>Limiter transfer function</b></div>
 
 <p><strong>Attack and Release</strong><ul>
-<li>Imagine a “virtual fader” - it takes time to change the gain<li>Attack is how fast the compressor starts working (how long it takes to pull the “fader” down) after the signal crosses the threshold<li>Release is the speed at which it goes back to unity gain (time for “fader” to go back to its original position)</ul>
+<li>Imagine a “virtual fader” - it takes time to change the gain<li>Attack is how fast the compressor starts working (how long it takes to pull the “fader” down) after the signal crosses the threshold<li>Release is the speed at which it goes back to unity gain (time for the “fader” to go back to its original position)</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_atkrel.png'/><br><b>Attack and release time</b></div>
 
 <p><strong>Soft and Hard Knees</strong><ul>
@@ -289,7 +289,9 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 
 <p><strong>Digital Delay Lines</strong><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_digital.png'/><br><b>A Digital Delay</b></div>
 <ul>
-<li>“A digital delay unit or digital delay line (DDL) takes in a stream of input samples and stores them for a brief period before sending them out again. Mixing a delayed sound with original undelayed signal can cause a variety of musical effects.” (Roads, 1996)<li>Data structure that is an efficient way of implementing delay line:<li>Circular queue: list of sequential memory locations containing samples<li>Old samples replaced by new samples<li>Simple delay lines have 1 read pointer</ul>
+<li>“A digital delay unit or digital delay line (DDL) takes in a stream of input samples and stores them for a brief period before sending them out again. Mixing a delayed sound with original undelayed signal can cause a variety of musical effects.” (Roads, 1996)<li>Data structure that is an efficient way of implementing delay line:<ul>
+<li>Circular queue: list of sequential memory locations containing samples<li>Old samples replaced by new samples<li>Simple delay lines have 1 read pointer</ul>
+</ul>
 <div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_buffer.png'/><br><b>Circular Buffer</b></div>
 
 <p><pre class='code prettyprint lang-sc'>//simple delay line
@@ -347,7 +349,26 @@ delay = DelayL.ar(input, 10, mod.linlin(-1,1,0.0,MouseY.kr(0,10).lag(3)));
 //delay;
 input + delay / 2;
 }.play;
-)</pre>
+)
+
+(
+a = {arg rate=0.5, depth=1, shape=1, delay=1;
+var input, mod, mod1, mod2, mod3, mod4, maxdelay;
+maxdelay = 5;
+input = PlayBuf.ar(2,b.bufnum);
+mod1 = LFPar.kr(rate, 0, depth * maxdelay, delay * maxdelay);
+mod2 = LFTri.kr(rate, 0, depth * maxdelay, delay * maxdelay);
+mod3 = LFSaw.kr(rate, 0, depth * maxdelay, delay * maxdelay);
+mod4 = LFPulse.kr(rate, 0, 0.5, depth * maxdelay, delay * maxdelay);
+mod = Select.kr(shape,[mod1,mod2,mod3,mod4]);
+delay = DelayL.ar(input, maxdelay*2, mod);
+input + delay;
+}.play;
+)
+
+a.set(\delay, 0.04); //change delay time
+a.set(\depth, 0.04); //change depth
+a.set(\shape, 2); //0 to 3 for different mod shapes</pre>
 <h3><a class='anchor' name='Delay%20Effects'>Delay Effects</a></h3>
 <ul>
 <li>Short Delay (less than to about 20ms)<li>Medium Delay (between about 20-50ms)<li>Long Delay (about 50ms or greater)</ul>
@@ -411,27 +432,25 @@ input + delay;
 )
 
 {CombL.ar(Decay.ar(Dust.ar(1,0.5), 0.2, WhiteNoise.ar), 0.2, 0.2, 3) }.play;</pre>
-<ul>
-<li>Comb filtering happens all the time in “real life” at the studio because of early reflections<li>Not as pronounced partly because walls absorb energy, therefore the reflections are much quieter and not so much comb filtering is heard (studios use sound absorbing materials to reduce comb filtering effect)<li>Purposely trying to create comb filtering in the studio (through mic placement)<li>Comb filtering different from instrument to instrument - sometimes desired, sometimes we try to avoid it</ul>
 
 <p><strong>Phaser</strong><ul>
 <li>A Phaser uses an allpass filter, not filtering anything out but just shifting the phase of the sound by delaying it.<li>This sound is then added to the original signal.<li>If the phase is 180 degrees, the sound is cancelled out<li>If it is less than that, it will create variations in the spectra.</ul>
-<pre class='code prettyprint lang-sc'>e = Buffer.loadDialog;
+<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
 
 (
 {var signal, phase, ph;
 phase = MouseX.kr(0.000022675,0.01, 1); // from a sample resolution to 10 ms delay line
-signal = PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1);
-ph = AllpassL.ar(PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1), 4, phase+(0.01.rand), 0);
+signal = PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1);
+ph = AllpassL.ar(PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1), 4, phase+(0.01.rand), 0);
 (signal + ph).dup
 }.play
 )
 
 (
 {var signal, ph;
-signal = PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1);
+signal = PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1);
 ph = AllpassC.ar(
-PlayBuf.ar(1, e.bufnum, BufRateScale.kr(e.bufnum), loop:1), 4,
+PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1), 4,
 LFPar.kr(0.1, 0, 1).range(0.000022675,0.01), // a circle every 10 seconds
 0); // experiment with what happens if you increase the decay length
 (signal + ph).dup // we add them together and route to two speakers
@@ -449,10 +468,10 @@ SynthDef(\flanger, { arg out=0, in=0, delay=0.1, depth=0.08, rate=0.06, fdbk=0.0
     maxrate = 10.0;
     input = In.ar(in, 1);
     local = LocalIn.ar(1);
-    dsig = AllpassL.ar( // the delay (you could use AllpassC (put 0 in decay))
+    dsig = AllpassL.ar(
         input + (local * fdbk),
         maxdelay * 2,
-        LFPar.kr( // very similar to SinOsc (try to replace it) - Even use LFTri
+        LFPar.kr( // similar to SinOsc
             rate * maxrate,
             0,
             depth * maxdelay,
@@ -464,7 +483,7 @@ SynthDef(\flanger, { arg out=0, in=0, delay=0.1, depth=0.08, rate=0.06, fdbk=0.0
 }).add;
 )
 
-// audioIn on audio bus nr 10
+// audioIn on audio bus 10
 {Out.ar(10, SoundIn.ar(0))}.play(s, addAction:\addToHead)
 
 a = Synth(\flanger, [\in, 10], addAction:\addToTail)
@@ -476,8 +495,7 @@ a.set(\fdbk, 0.08)
 a.set(\decay, 0.01)
 
 // or if you prefer a buffer:
-
-b = Buffer.loadDialog; // replace this sound with a nice sounding one !!!
+b = Buffer.loadDialog;
 
 {Out.ar(10, PlayBuf.ar(1, b.bufnum, BufRateScale.kr(b.bufnum), loop:1))}.play(addAction:\addToHead)
 
@@ -489,14 +507,12 @@ a.set(\rate, 1)
 a.set(\fdbk, 0.08)
 a.set(\decay, 0.01)
 
-// a parameter explosion results in a Chorus like effect:
 a.set(\decay, 0)
 a.set(\delay, 0.43)
 a.set(\depth, 0.2)
 a.set(\rate, 0.1)
 a.set(\fdbk, 0.08)
 
-// or just go mad:
 a.set(\delay, 0.93)
 a.set(\depth, 0.9)
 a.set(\rate, 0.8)
@@ -518,8 +534,8 @@ SynthDef(\chorus, { arg inbus=10, outbus=0, predelay=0.08, speed=0.05, depth=0.1
     modulators = Array.fill(numDelays, {arg i;
   LFPar.kr(speed * rrand(0.94, 1.06), ph_diff * i, depth, predelay);});
     sig = DelayC.ar(in, 0.5, modulators);
-    sig = sig.sum; //Mix(sig);
-    Out.ar(outbus, sig!2); // output in stereo
+    sig = sig.sum;
+    Out.ar(outbus, sig!2);
 }).add
 )
 
