@@ -23,7 +23,7 @@
 </div>
 <div id='toc'>
 <ul class='toc'></ul></div>
-<p>A library of effects, try them out!<pre class='code prettyprint lang-sc'>(
+<p>A library of effects, try them out! First, you'll need to load them by evaluating the code below.<pre class='code prettyprint lang-sc'>(
 var fx;
 fx =  [ [ 'pch', {arg in, pitchRatio=1.0, pitchDispertion=0.0, timeDispersion=0.0001,
         lag=5.0, winSize=0.02;
@@ -271,7 +271,17 @@ fx =  [ [ 'pch', {arg in, pitchRatio=1.0, pitchDispertion=0.0, timeDispersion=0.
         minFreq = ((freq[0] * transp).fold2(1000)).abs.max(20);
         sig = Gendy1.ar(ampdist.max(0).min(6), durDist, adParam, ddParam, minFreq,(minFreq*maxMul).min(1000),ampScale,durScale,50,kNum)*amp;
         ((sig*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)))
-    } ] ];
+} ], ['flg', { arg in, delay=0.1, depth=0.08, rate=0.06, fdbk=0.0, decay=0.0;
+    var maxdelay, maxrate, dsig, mixed, local;
+    maxdelay = 0.013;
+    maxrate = 10.0;
+    local = LocalIn.ar(1);
+    dsig = AllpassL.ar(in + (local * fdbk), maxdelay * 2, LFPar.kr(rate * maxrate, 0,
+    depth * maxdelay, delay * maxdelay), decay);
+    mixed = in + dsig;
+    LocalOut.ar(mixed);
+    mixed;
+}] ];
 ~fxList = {fx.flop[0]};
 ~getFx = {arg key; var index;
     index = fx.flop[0].indexOf(key); if(index.notNil, {
@@ -279,9 +289,9 @@ fx =  [ [ 'pch', {arg in, pitchRatio=1.0, pitchDispertion=0.0, timeDispersion=0.
 }, {"effect not found"}); };
 ~insert = {arg key=\master, slot=0, func; ("Ndef(" ++ key.cs ++ ")[" ++ (slot+1).abs.cs ++ "] = 'filter'  -&gt; " ++ func.cs).postln.interpret;};
 ~removeInsert = {arg key=\master, slot=0; Ndef(key).removeAt( (slot+1).abs ); };
-)
+)</pre>
 
-Ndef(\master).play;
+<p>Now start using the effects!<pre class='code prettyprint lang-sc'>Ndef(\master).play;
 Ndef(\master).fadeTime = 1;
 Ndef(\master, {SoundIn.ar(0)}); //channel one from your audio interface
 ~fxList.() //available effects
@@ -317,12 +327,18 @@ Ndef(\master).set(\num, 1);
 Ndef(\master).controlKeys;
 Ndef(\master).set(\thresh, 70, \adjVol, 1.5);
 
-~insert.(\master, 0, ~getFx.(~fxList.().last));
-Ndef(\master).set(\mix, 1);
-Ndef(\master).set(\thresh, 10, \adjVol, 1.5);
-
-~removeInsert.(\master, 0);
 ~removeInsert.(\master, 1);
 
-Ndef.clear(2);</pre>
+~insert.(\master, 0, ~getFx.(~fxList.().last));
+Ndef(\master).controlKeys;
+Ndef(\master).set(\wet1, 1);
+Ndef(\master).set(\delay, 0.04);
+Ndef(\master).set(\depth, 0.04);
+Ndef(\master).set(\rate, 0.8);
+Ndef(\master).set(\fdbk, 0.08);
+Ndef(\master).set(\decay, 0.01);
+
+~removeInsert.(\master, 0);
+
+Ndef.clear(2); //clear all Ndefs with a fadeTime of 2</pre>
 <div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Code Examples/Simple FX.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Code Examples/Simple FX.schelp</a><br>link::SSfMT/Code Examples/Simple FX::<br>sc version: 3.8.0</div></div></body></html>
