@@ -1,0 +1,328 @@
+<html><head><title>Simple FX</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider SSFMT/CODE EXAMPLES (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/SSfMT'>Tutorials/SSfMT</a></div>
+<h1>Simple FX</h1>
+<div id='summary'>Software Systems for Music Technology</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../SSfMT.html">Software Systems for Music Technology</a>, <a href="./../../SSfMT/Lectures/Digital Effects.html">Digital Effects</a>, <a href="./../../SSfMT/Practicals/Buses and Ndefs.html">Buses and Ndefs</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'></ul></div>
+<p>A library of effects, try them out!<pre class='code prettyprint lang-sc'>(
+var fx;
+fx =  [ [ 'pch', {arg in, pitchRatio=1.0, pitchDispertion=0.0, timeDispersion=0.0001,
+        lag=5.0, winSize=0.02;
+        PitchShift.ar(in, winSize, pitchRatio.lag(lag), pitchDispertion, timeDispersion)
+    } ], [ 'pch2', {arg in, centerpitch=440,bus=0, pitchDispertion=0.0, timeDispersion=0.0,
+        lag=0.1, winSize=0.1;
+        var freq, hasFreq;
+        # freq, hasFreq = Pitch.kr(SoundIn.ar(bus.round(1)), ampThreshold: 0.0, median: 7);
+        PitchShift.ar(in, winSize, (freq/centerpitch).lag(lag), pitchDispertion, timeDispersion);
+    } ], [ 'pch3', {arg in, centerpitch=440, bus=0, adjvol=4, pitchDispertion=0.0,
+        timeDispersion=0.0001, lag=0.1, winSize=0.02;
+        var freq, hasFreq, input, amp;
+        input = SoundIn.ar(bus.round(1));
+        amp = Amplitude.kr(input, 0.05, 0.05);
+        # freq, hasFreq = Pitch.kr(input, ampThreshold: 0.0, median: 7);
+        PitchShift.ar(in, winSize, (freq/centerpitch).lag(lag), pitchDispertion, timeDispersion)
+        *(amp*adjvol);
+    } ], [ 'ctp1', {arg in, rate=1, pitchDispersion=0.0, timeDispersion=0.0001, lag=0.01,
+        windowSize=0.02;
+        var freq, hasFreq, latch1, latch2, latch3, input, maxDelay=12;
+        input = in;
+        #freq, hasFreq = Pitch.kr(input);
+        latch1 = Latch.ar(freq, Impulse.kr(rate));
+        latch2 = DelayL.kr(Latch.ar(freq, Impulse.kr(rate)), maxDelay, 1/rate);
+        latch3 = (latch1.cpsmidi - (latch1.cpsmidi - latch2.cpsmidi)).midicps.min(20000).max(20);
+        PitchShift.ar(input, windowSize, (latch1/latch3)[0].lag(lag), pitchDispersion, timeDispersion;)
+        + (input/2);
+    } ], [ 'ctp2', {arg in, rate=1, pitchDispersion=0.0, timeDispersion=0.0001, lag=0.01,
+        windowSize=0.02;
+        var freq, hasFreq, latch1, latch2, latch3, input, maxDelay=12;
+        input = in;
+        #freq, hasFreq = Pitch.kr(input);
+        latch1 = Latch.ar(freq, Impulse.kr(rate));
+        latch2 = DelayL.kr(Latch.ar(freq, Impulse.kr(rate)), maxDelay, 1/rate);
+        latch3 = (latch1.cpsmidi - (latch1.cpsmidi - latch2.cpsmidi)).midicps.min(20000).max(20);
+        PitchShift.ar(input, windowSize, (latch1/latch3)[0].lag(lag), pitchDispersion, timeDispersion;);
+    } ], [ 'cbg', {arg in, decayTime=0.5, freq=10, lag=5.0; CombL.ar(in * (LFNoise0.ar(freq.lag(lag)) &gt; 0),
+        0.2, 0.2, decayTime);
+    } ], [ 'lpf', {arg in, freq=20000, lag=0.1; LPF.ar(in, freq.lag(lag));} ], [ 'hpf', {arg in, freq=10, lag=0.1; HPF.ar(in, freq.lag(lag));} ], [ 'eq8', {arg in, freq1=30, freq2=80, freq3=200, freq4=500, freq5=1200, freq6=3500,
+        freq7=10000, freq8=17000, gain1=1, gain2=0, gain3=0, gain4=0, gain5=0, gain6=0,
+        gain7=0, gain8=0, q1=0.71, q2=1.10, q3=0.98, q4=0.71, q5=0.71, q6=0.71, q7=0.71,
+        q8=0.71, on1=0, on2=1, on3=1, on4=1, on5=1, on6=1, on7=1, on8=0, lag=0.5,
+        master=0, lagPass=0.1;
+        var signal, input;
+        input = in;
+        signal = (on1.linlin(0,1,1,0).lag(lagPass)*input) + (on1.lag(lagPass)*
+            ((gain1.linlin(0,1,1,0.0).lag(lagPass)*BHiPass.ar(input,freq1.lag(lag),1/q1.lag(lag)))+ (gain1.lag(lagPass)*BHiPass4.ar(input,freq1.lag(lag),1/q1.lag(lag)));));
+        signal = (on2.linlin(0,1,1,0).lag(lagPass)*signal) + (on2.lag(lagPass)
+            *BLowShelf.ar(signal,freq2.lag(lag),1/(q2/2).lag(lag),gain2.lag(lag)));
+        signal = (on3.linlin(0,1,1,0).lag(lagPass)*signal) + (on3.lag(lagPass)
+            *BPeakEQ.ar(signal,freq3.lag(lag),1/(q3).lag(lag),gain3.lag(lag)));
+        signal = (on4.linlin(0,1,1,0).lag(lagPass)*signal) + (on4.lag(lagPass)
+            *BPeakEQ.ar(signal,freq4.lag(lag),1/(q4).lag(lag),gain4.lag(lag)));
+        signal = (on5.linlin(0,1,1,0).lag(lagPass)*signal) + (on5.lag(lagPass)
+            *BPeakEQ.ar(signal,freq5.lag(lag),1/(q5).lag(lag),gain5.lag(lag)));
+        signal = (on6.linlin(0,1,1,0).lag(lagPass)*signal) + (on6.lag(lagPass)
+            *BPeakEQ.ar(signal,freq6.lag(lag),1/(q6).lag(lag),gain6.lag(lag)));
+        signal = (on7.linlin(0,1,1,0).lag(lagPass)*signal) + (on7.lag(lagPass)
+            *BHiShelf.ar(signal,freq7.lag(lag),1/(q7/2).lag(lag),gain7.lag(lag)));
+        signal = (on8.linlin(0,1,1,0).lag(lagPass)*signal) + (on8.lag(lagPass)*
+            ((gain8.linlin(0,1,1,0.0).lag(lagPass)*BLowPass.ar(input,freq8.lag(lag),1/q8.lag(lag)))+
+                (gain8.lag(lagPass)*BLowPass4.ar(input,freq8.lag(lag),1/q8.lag(lag)));));
+        signal * master.dbamp;
+    } ], [ 'ds1', {arg in, drive=1, adjVol=1, lag=0.1; var lagdr; lagdr = drive.lag(lag);((in*lagdr).distort
+        * (lagdr.sqrt/lagdr))*adjVol} ], [ 'ds2', {arg in, drive=1, adjVol=1, lag=0.1; var lagdr; lagdr = drive.lag(lag);((in*lagdr).softclip
+        * (lagdr.sqrt/lagdr))*adjVol} ], [ 'ds3', {arg in, drive=1, adjVol=1, lag=0.1; var lagdr; lagdr = drive.lag(lag);((in*lagdr).clip2(1)
+        * (lagdr.sqrt/lagdr))*adjVol} ], [ 'ds4', {arg in, drive=1, adjVol=1, lag=0.1; var lagdr; lagdr = drive.lag(lag);((in*lagdr).fold2(1)
+        * (lagdr.sqrt/lagdr))*adjVol} ], [ 'ds5', {arg in, drive=1, adjVol=1, lag=0.1; var lagdr; lagdr = drive.lag(lag);((in*lagdr).wrap2(1)
+        * (lagdr.sqrt/lagdr))*adjVol} ], [ 'rvb', {arg in, mix=0, room=0, damp=0.0, lag=0.0, adjVol=1; FreeVerb.ar(in, mix.lag(lag),
+        room.lag(lag), damp.lag(lag))*adjVol
+    } ], [ 'gvb', {arg in, roomsize = 10, revtime = 3, damping = 0.5, inputbw =  0.5, spread = 15,
+        drylevel = 1, earlyreflevel = 0.7, taillevel = 0.5, maxroomsize = 300, mul = 1, add = 0;
+        GVerb.ar(in, roomsize, revtime, damping, inputbw, spread, drylevel, earlyreflevel,
+            taillevel, maxroomsize, mul, add);
+    } ], [ 'amp', {arg in, bus=0, adjVol=1, lag=0.1;
+        (in*Amplitude.kr(SoundIn.ar(bus.round(1))).lag(lag))*adjVol
+    } ], [ 'dl1', {arg in, delayTime=0, decayTime=1;CombL.ar(in,12,delayTime,decayTime);
+    } ], [ 'dl2', {arg in, mul=1, freq=0.25, lag=0.1, decayTime=0, lag2=1;
+        CombL.ar(in,12,LFNoise1.kr(freq.lag(lag), 1*(mul.lag(lag2)/2),
+            0+(mul.lag(lag2)/2)).lag(lag),decayTime);
+    } ], [ 'cv1', {arg in, mix=0, bus=0, frameSize=1024, adjVol=1;
+        var signal, input;
+        input = in;
+        signal = SoundIn.ar(bus.round(1));(Convolution.ar(input,signal,frameSize,adjVol*0.15)*mix)
+        +(input*mix.linlin(0,1,1,0))} ], [ 'cv2', {arg in, mix=0, bus=0, frameSize=1024, adjVol=1;
+        var signal, input;
+        input = in;
+        signal = SoundIn.ar(bus.round(1));(Convolution.ar(signal,input,frameSize,adjVol*0.15)*mix)
+        +(input*mix.linlin(0,1,1,0))} ], [ 'lcv1', {arg in, mix=0, buffer=1, rate=1, frameSize=1024, adjVol=1;
+        var signal, input;
+        input = in;
+        signal = PlayBuf.ar(1,buffer.round(1), rate, loop:1);
+        (Convolution.ar(signal,input,frameSize,adjVol*0.15)*mix)+(input*mix.linlin(0,1,1,0));
+    } ], [ 'lcv2', {arg in, mix=0, buffer=1, rate=1, frameSize=1024, adjVol=1;
+        var signal, input;
+        input = in;
+        signal = PlayBuf.ar(1,buffer.round(1), rate, loop:1);
+        (Convolution.ar(input,signal,frameSize,adjVol*0.15)*mix)+(input*mix.linlin(0,1,1,0))} ], [ 'mmp', {arg in, mix=0, bus=0, adjVol=1, frameSize=2048;
+        var inA, chainA, chainB, chain, input;
+        input = in;
+        inA = SoundIn.ar(bus.round(1));
+        chainA = FFT(LocalBuf(frameSize), input);
+        chainB = FFT(LocalBuf(frameSize), inA);
+        chain = PV_MagMul(chainA, chainB);
+        adjVol * ((IFFT(chain)*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));
+    } ], [ 'frz', {arg in, freeze=0, adjVol=1, frameSize=2048;
+        var chain;
+        chain = FFT(LocalBuf(frameSize), in);
+        chain = PV_MagFreeze(chain, freeze);
+        adjVol * IFFT(chain);} ], [ 'mga', {arg in, thresh=0, adjVol=1, frameSize=2048;
+        var chain;
+        chain = FFT(LocalBuf(frameSize), in);
+        chain = PV_MagAbove(chain, thresh);
+        adjVol * IFFT(chain);} ], [ 'srt', {arg in, mix=0, adjVol=1;
+        var chain, origmagsphases, magsphases, input;
+        input = in;
+        chain = FFT(LocalBuf(1024), input);
+        origmagsphases = UnpackFFT(chain, 1024, 0, 250).clump(2).flop;
+        magsphases = [origmagsphases[0][30..] ++ origmagsphases[0][..30],
+            origmagsphases[1][30..] ++ origmagsphases[1][..30]];
+        magsphases = magsphases.size.switch(
+            1, {magsphases ++ origmagsphases[1]},
+            2, {magsphases},
+            {[magsphases, origmagsphases[1]]}
+        );
+        magsphases = magsphases.flop.flatten;
+        chain = PackFFT(chain, 1024, magsphases, 0, 250, 0);
+        adjVol * ((IFFT(chain)*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));
+    } ], [ 'sdf', {arg in, mix=0, adjVol=1;
+        var chain, origmagsphases, magsphases, input;
+        input = in;
+        chain = FFT(LocalBuf(1024), input);
+        origmagsphases = UnpackFFT(chain, 1024, 0, 250).clump(2).flop;
+        magsphases = [origmagsphases[0].differentiate, origmagsphases[1].differentiate];
+        magsphases = magsphases.size.switch(
+            1, {magsphases ++ origmagsphases[1]},
+            2, {magsphases},
+            {[magsphases, origmagsphases[1]]}
+        );
+        magsphases = magsphases.flop.flatten;
+        chain = PackFFT(chain, 1024, magsphases, 0, 250, 0);
+        adjVol * ((IFFT(chain)*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));
+    } ], [ 'srv', {arg in, mix=0, adjVol=1;
+        var chain, origmagsphases, magsphases, input;
+        input = in;
+        chain = FFT(LocalBuf(1024), input);
+        origmagsphases = UnpackFFT(chain, 1024, 0, 250).clump(2).flop;
+        magsphases = [origmagsphases[0].reverse, origmagsphases[1].reverse];
+        magsphases = magsphases.size.switch(
+            1, {magsphases ++ origmagsphases[1]},
+            2, {magsphases},
+            {[magsphases, origmagsphases[1]]}
+        );
+        magsphases = magsphases.flop.flatten;
+        chain = PackFFT(chain, 1024, magsphases, 0, 250, 0);
+        adjVol * ((IFFT(chain)*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));
+    } ], [ 'ssq', {arg in, mix=0, adjVol=1;
+        var chain, magsphases, input;
+        input = in;
+        chain = FFT(LocalBuf(1024), input);
+        magsphases = UnpackFFT(chain, 1024);
+        magsphases = magsphases.collect(_.sqrt);
+        chain = PackFFT(chain, 1024, magsphases);
+        adjVol * ((IFFT(chain)*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));
+    } ], [ 'gate', {arg in, gates=1, adjVol=1; Gate.ar(in, gates.round(1))*adjVol} ], [ 'lmt', {arg in, thresh=1, slopeAbove=1, slopeBelow=1, attack=0.0,
+        release=0.02, preVol=1, postVol=1;
+        Compander.ar(in*preVol, thresh: thresh, slopeBelow: slopeBelow, slopeAbove: slopeAbove,
+            clampTime: attack, relaxTime: release)*postVol;
+    } ], [ 'cmp', {arg in, thresh=0, ratio=1, preVol=1, attack=0.01, release=0.02, slopeBelow=1,
+        postVol=1;
+        Compander.ar(in*preVol, thresh: thresh, slopeBelow: slopeBelow, slopeAbove: 1/ratio,
+            clampTime: attack, relaxTime: release)*postVol;} ], [ 'lpc1', {arg in, mix=0, num=64, adjVol=1;
+        var signal, input;
+        input = in;
+        signal = LPCError.ar(input, num);
+        adjVol * ((signal*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));
+    } ], [ 'fds1', {arg in, mix=0, alpha= -0.001, adjVol=1;
+        var kernel, kernel2, signal, signal2, signal3, freq, hasFreq;
+        signal = in;
+        #freq, hasFreq = Pitch.kr(signal);
+        kernel= WeaklyNonlinear.ar(signal,0,1,1,freq*2,0,0,alpha,3,0,0);
+        kernel2= WeaklyNonlinear2.ar(signal,0,1,1,freq*2,0,0,alpha,3,0,0);
+        signal2 = Convolution.ar(kernel+signal,kernel2, 2048, 0.0005)
+        * Env.asr(0.01, 1.0, 0.01).kr(0,Amplitude.kr(signal));
+        signal3 = Limiter.ar(signal2*adjVol);
+        adjVol * ((signal3*mix.linlin(0,1,0,1))+(signal*mix.linlin(0,1,1,0)));} ], [ 'fds2', {arg in, mix=0, num=64, adjVol=1;
+        var kernel, signal, signal2, signal3, input;
+        input = in;
+        kernel = LPCError.ar(input, input.linlin(-1,1,num,1));
+        signal = Convolution.ar(input,kernel, 2048);
+        signal2 = LPCError.ar(signal, input.linlin(-1,1,1,num));
+        signal3 = ((signal2+(input.clip2(0.05)*0.05))).clip2(1.0);
+        adjVol * ((signal3*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));} ], [ 'vol', {arg in, gain1=0, gain2=0;
+        in*gain1.dbamp*gain2.dbamp;} ], [ 'rm1', {arg in, mix=0, freq=493.8833, sinamp=0.5, lagTime=10, adjVol=1;
+        var signal, input;
+        input = in;
+        signal = input*SinOsc.ar(freq.lag(lagTime),0,sinamp);
+        adjVol * ((signal*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));} ], [ 'rm2', {arg in, mix=0, sinamp=0.5, lagTime=0.1, adjVol=1;
+        var signal, freq, hasFreq, input;
+        input = in;
+        # freq, hasFreq = Pitch.kr(input, ampThreshold: 0.0, median: 7);
+        signal = input*SinOsc.ar(freq.lag(lagTime),0,sinamp);
+        adjVol * ((signal*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));} ], [ 'rm3', {arg in, mix=0, adjVol=1, sinamp=1.0, lagTime=0.1;
+        var signal, freq, hasFreq, amp, input;
+        input = in;
+        # freq, hasFreq = Pitch.kr(input, ampThreshold: 0.0, median: 7);
+        amp = Amplitude.kr(input, 0.05, 0.05);
+        signal = input*SinOsc.ar(freq.lag(lagTime),0,sinamp*amp);
+        adjVol * ((signal*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));} ], [ 'bpf', {arg in, vol=1, q=30, mix=1, lagTime=40;
+        var signal, input, freq=622.25;
+        input = in;
+        signal = BPF.ar(input, freq, q.lag(lagTime))*q.lag(lagTime).linlin(0.01,30,10,1);
+        vol.dbamp * ((signal*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)));} ], [ 'chr1', {arg in, mix=0, depth=0.1, predelay=0.08, speed=0.05, ph_diff=0.5, lagTime=0.1;
+        var soundin, input, sig, modulators, numDelays = 12;
+        soundin = in;
+        input = soundin * numDelays.reciprocal;
+        modulators = Array.fill(numDelays, {arg i;
+            LFPar.kr(speed * rrand(0.94, 1.06), ph_diff * i, depth.lag(lagTime),
+                predelay.lag(lagTime));});
+        sig = DelayC.ar(input, 2.0, modulators);
+        sig = sig.sum;
+        sig = sig * 3;
+        ((sig*mix.linlin(0,1,0,1))+(soundin*mix.linlin(0,1,1,0)))
+    } ], [ 'chr2', {arg in, mix=0, depth=0.1, predelay=0.08, speed=0.05, ph_diff=0.5, lagTime=0.1;
+        var input, sig, soundin, modulators, numDelays = 24;
+        soundin = in;
+        input = soundin * numDelays.reciprocal;
+        modulators = Array.fill(numDelays, {arg i;
+            LFPar.kr(speed * rrand(0.94, 1.06), ph_diff * i, depth.lag(lagTime),
+                predelay.lag(lagTime));});
+        sig = DelayC.ar(input, 7.0, modulators);
+        sig = sig.sum;
+        sig = sig * 3;
+        ((sig*mix.linlin(0,1,0,1))+(soundin*mix.linlin(0,1,1,0)))
+    } ], [ 'cut1', {arg in, freq=3, decayTime=0.025; var trig;
+        trig = Decay.kr(Impulse.kr(freq), decayTime);
+        Gate.ar(in, trig)} ], [ 'cut2', {arg in, freq=3, decayTime=0.025; var trig;
+        trig = Decay.kr(Dust.kr(freq), decayTime);
+        Gate.ar(in, trig)} ], [ 'gdy1', {arg in, mix=0, maxMul=1, ampdist=2, durDist=3, adParam=1, ddParam=1,
+        ampScale=0.5, durScale=0.0, kNum=40, transp=1;
+        var freq, hasFreq, amp, minFreq, sig, input;
+        input = in;
+        #freq, hasFreq = Pitch.kr(input, minFreq: 20, ampThreshold: 0.0, median: 7);
+        amp = Amplitude.kr(input, 0.05, 0.05).lag(0.1);
+        minFreq = ((freq[0] * transp).fold2(1000)).abs.max(20);
+        sig = Gendy1.ar(ampdist.max(0).min(6), durDist, adParam, ddParam, minFreq,(minFreq*maxMul).min(1000),ampScale,durScale,50,kNum)*amp;
+        ((sig*mix.linlin(0,1,0,1))+(input*mix.linlin(0,1,1,0)))
+    } ] ];
+~fxList = {fx.flop[0]};
+~getFx = {arg key; var index;
+    index = fx.flop[0].indexOf(key); if(index.notNil, {
+        fx.flop[1][index];
+}, {"effect not found"}); };
+~insert = {arg key=\master, slot=0, func; ("Ndef(" ++ key.cs ++ ")[" ++ (slot+1).abs.cs ++ "] = 'filter'  -&gt; " ++ func.cs).postln.interpret;};
+~removeInsert = {arg key=\master, slot=0; Ndef(key).removeAt( (slot+1).abs ); };
+)
+
+Ndef(\master).play;
+Ndef(\master).fadeTime = 1;
+Ndef(\master, {SoundIn.ar(0)}); //channel one from your audio interface
+~fxList.() //available effects
+~insert.(\master, 0, ~getFx.(\pch)) //try this effect
+Ndef(\master).controlKeys; //arguments you can change
+Ndef(\master).set(\pitchRatio, 4);
+//or if you don't want to use input, use a play buffer
+b = Buffer.loadDialog;
+Ndef(\master)[0] = {PlayBuf.ar(b.numChannels, b.bufnum, loop: 1)};
+
+~fxList.()[0]; //first effect in the list
+~fxList.()[1]; //second effect
+
+~insert.(\master, 0, ~getFx.(~fxList.()[15].postln ) ); //change index after ~fxList to go through the effects
+
+~insert.(\master, 0, ~getFx.(\gvb ) );
+Ndef(\master).controlKeys; //get args
+Ndef(\master).set(\wet1, 0.1); //mix wet/dry signal
+
+~fxList.()
+~insert.(\master, 0, ~getFx.(\frz ) ); //choose last effect
+Ndef(\master).set(\freeze, 1);
+Ndef(\master).set(\wet1, 1); //mix wet/dry signal
+Ndef(\master).set(\freeze, [0,1].choose.postln);
+
+~insert.(\master, 0, ~getFx.(\fds2 ) );
+Ndef(\master).set(\mix, 0.5);
+Ndef(\master).controlKeys;
+
+Ndef(\master).set(\num, 1);
+
+~insert.(\master, 1, ~getFx.(\mga ) ); //next insert
+Ndef(\master).controlKeys;
+Ndef(\master).set(\thresh, 70, \adjVol, 1.5);
+
+~insert.(\master, 0, ~getFx.(~fxList.().last));
+Ndef(\master).set(\mix, 1);
+Ndef(\master).set(\thresh, 10, \adjVol, 1.5);
+
+~removeInsert.(\master, 0);
+~removeInsert.(\master, 1);
+
+Ndef.clear(2);</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Code Examples/Simple FX.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Code Examples/Simple FX.schelp</a><br>link::SSfMT/Code Examples/Simple FX::<br>sc version: 3.8.0</div></div></body></html>
