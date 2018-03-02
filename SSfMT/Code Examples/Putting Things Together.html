@@ -49,6 +49,7 @@ s.waitForBoot({ //boots server
 ~waveBuffer = Buffer.alloc(s, 4096, 1);
 ~waveBuffer.sine1(1.0/(1,3..1000), true, true, true); //fill it up
 
+
 s.sync; //wait for buffers to load
 
 //your synthdefs for patterns:
@@ -242,24 +243,29 @@ MIDIIn.connectAll;
 
 s.sync;
 
-//control spec
-~dbSpec = [-inf, 6, \db, 0, -inf, " dB"].asSpec;
-~dbFunc = {arg amp=1; ~dbSpec.map(amp).postln.dbamp };
-
 //midi cc
 
 MIDIdef.cc(\slider1, {arg ...args; "chan1: ".post;
-                Ndef(\chan1).set(\amp, ~dbFunc.do(args[0].linlin(0,127,0,1.0) ) );
+                Ndef(\chan1).set(\amp,
+                /*args.postln;*/
+                args[0].linlin(0,127,0,1.0).postln  );
     }, 1); //maps to cc number 1
-MIDIdef.cc(\slider2, {arg ...args; "chan1: ".post;
-                Ndef(\chan2).set(\amp, ~dbFunc.do(args[0].linlin(0,127,0,1.0) ) );
-    }, 3); //maps to cc number 2
-MIDIdef.cc(\slider3, {arg ...args; "chan1: ".post;
-                Ndef(\chan3).set(\amp, ~dbFunc.do(args[0].linlin(0,127,0,1.0) ) );
-    }, 5); //maps to cc number 3
-MIDIdef.cc(\slider4, {arg ...args; "chan1: ".post;
-                Ndef(\chan4).set(\amp, ~dbFunc.do(args[0].linlin(0,127,0,1.0) ) );
-    }, 7); //maps to cc number 4
+MIDIdef.cc(\slider2, {arg ...args; "chan2: ".post;
+                Ndef(\chan2).set(\amp, args[0].linlin(0,127,0,1.0).postln );
+    }, 2); //maps to cc number 2
+MIDIdef.cc(\slider3, {arg ...args; "chan3: ".post;
+         Ndef(\chan3).set(\amp,
+                args[0].linlin(0,127,0,1.0).postln  );
+    }, 3); //maps to cc number 3
+MIDIdef.cc(\slider4, {arg ...args; "chan4: ".post;
+        Ndef(\chan4).set(\amp,
+                args[0].linlin(0,127,0,1.0).postln  );
+    }, 4); //maps to cc number 4
+MIDIdef.cc(\slider5, {arg ...args; "chan5: ".post;
+                Ndef(\chan5).set(\amp,
+            args[0].linlin(0,127,0,1.0).postln  );
+    }, 5); //maps to cc number 5
+
 
 //midi note
 s.sync;
@@ -328,12 +334,13 @@ OSCdef(\fader4, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderD');*/
 
 //mixer amplitudes
 (
-Ndef(\chan1).xset(\amp, 0.7);
+Ndef(\chan1).set(\amp, 0.0);
 Ndef(\chan2).xset(\amp, 0.8);
 Ndef(\chan3).xset(\amp, 0.8);
 Ndef(\chan4).xset(\amp, 0.5);
 Ndef(\chan5).xset(\amp, 0.5);
 )
+
 
 
 Ndef(\sound1).set(\bufnum, ~buffers[rrand(0, ~buffers.size-1)].postln, \amp, 0.2);
