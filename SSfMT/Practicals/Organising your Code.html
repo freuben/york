@@ -1,4 +1,4 @@
-<html><head><title>Putting Things Together</title>
+<html><head><title>Organising your Code</title>
 <link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
 <link rel='stylesheet' href='./../../frontend.css' type='text/css' />
 <link rel='stylesheet' href='./../../custom.css' type='text/css' />
@@ -13,9 +13,9 @@
 <body onload='fixTOC();prettyPrint()'>
 <div class='contents'>
 <div class='header'>
-<div id='label'>SuperCollider SSFMT/CODE EXAMPLES (extension)</div>
+<div id='label'>SuperCollider SSFMT/PRACTICALS (extension)</div>
 <div id='categories'><a href='./../../Browse.html#Tutorials/SSfMT'>Tutorials/SSfMT</a></div>
-<h1>Putting Things Together</h1>
+<h1>Organising your Code</h1>
 <div id='summary'>Software Systems for Music Technology</div>
 </div>
 <div class='subheader'>
@@ -25,7 +25,7 @@
 <ul class='toc'><li class='toc1'><a href='#Organising%20your%20code'>Organising your code</a></li>
 <ul class='toc'></ul></ul></div><h2><a class='anchor' name='Organising%20your%20code'>Organising your code</a></h2>
 
-<p>This is an example of how you should aim to organise your code for your final project. Study this code below carefully and feel free to use it or adjust it. The code runs through a routine that evaluates all of the different parts of the code - that way the computer will take care of evaluation before you start the program (and performing!). I advise you to use this as a template or model for organising your own code.<pre class='code prettyprint lang-sc'>(
+<p>This is an example of how you should aim to organise your code for your final project. Study the code below carefully looking at the different components and sections of the program. Feel free to use this code or adjust it. The code runs through a routine that evaluates all of the different parts of the program - that way the computer will take care of evaluation so that everything is ready before you start performing! I advise you to use this as a template or model for organising your own code.<pre class='code prettyprint lang-sc'>(
 s.waitForBoot({ //boots server
     //routine function (.fork) to evaluate your code:
     {
@@ -123,7 +123,9 @@ s.waitForBoot({ //boots server
 
         ~abstractBuffer = {arg bufnum, rate=1, amp=0.5, duration=10, lo=0.4, hi=2;
                         var sig;
-                        sig = PlayBuf.ar(2, bufnum, LFNoise1.kr(rate).range(lo,hi), Dust.kr(SinOsc.kr(rate).range(0.4,2)), TRand.kr(0, 44100*duration, Impulse.kr(rate)), loop: 1);
+                        sig = PlayBuf.ar(2, bufnum, LFNoise1.kr(rate).range(lo,hi),
+                Dust.kr(SinOsc.kr(rate).range(0.4,2)), TRand.kr(0, 44100*duration, Impulse.kr(rate)),
+                loop: 1);
                         sig*amp;
         }; //playing with playbuf
 
@@ -147,7 +149,8 @@ s.waitForBoot({ //boots server
 
         ~scamble = (0..7).scramble;
         Pdef(\drums, Ppar([
-                        Pbind(\instrument, \eightoeightkick, \freq, 50.midicps, \dur, 0.25, \amp, Pdefn(\kick) ),
+                        Pbind(\instrument, \eightoeightkick, \freq, 50.midicps, \dur, 0.25,
+                \amp, Pdefn(\kick) ),
                         Pbind(\instrument, \handclapsmash, \dur, 0.25, \amp, Pdefn(\clap)),
                         Pbind(\instrument, \bassfoundation, \degree, Pseq(~scamble, inf), \dur, 0.25,
                 \amp, Pdefn(\bassamp), \scale, Scale.mixolydian, \octave, 2, \ctranspose, 0)
@@ -160,15 +163,18 @@ s.waitForBoot({ //boots server
         Pdefn(\prophet, Pdefn(\bass) );
 
         Pdef(\pads, Ppar([
-                        Pbind(\instrument, \plastickystrings, \dur, 1, \amp, Pdefn(\clap)*1.25, \degree, Pdefn(\chord1), \scale, Scale.mixolydian, \stretch, 2, \pan, -0.8 ),
-                        Pbind(\instrument, \plastickystrings, \dur, 1, \amp, Pdefn(\kick)*0.15, \degree, Pdefn(\chord2), \scale, Scale.mixolydian, \stretch, 2, \octave, 6, \pan, 0.8),
-                        Pbind(\instrument, \prophet5pwmstrings, \degree, Pdefn(\prophet), \dur, 1, \amp, 0.2, \scale, Scale.mixolydian, \ctranspose, 0)
+                        Pbind(\instrument, \plastickystrings, \dur, 1, \amp, Pdefn(\clap)*1.25,
+                \degree, Pdefn(\chord1), \scale, Scale.mixolydian, \stretch, 2, \pan, -0.8 ),
+                        Pbind(\instrument, \plastickystrings, \dur, 1, \amp, Pdefn(\kick)*0.15,
+                \degree, Pdefn(\chord2), \scale, Scale.mixolydian, \stretch, 2, \octave, 6, \pan, 0.8),
+                        Pbind(\instrument, \prophet5pwmstrings, \degree, Pdefn(\prophet), \dur, 1,
+                \amp, 0.2, \scale, Scale.mixolydian, \ctranspose, 0)
                 ] );
         );
 
         Ndef.ar(\master, 2); //stereo ndef for master
 
-        ~chans = [\chan1, \chan2, \chan3, \chan4, \chan5]; //add more channels here if necessary
+        ~chans = [\chan1, \chan2, \chan3, \chan4, \chan5]; //add more channels if necessary
         ~chans.do{|item| Ndef.ar(item,2) };
         ~ndefs = ~chans.collect{|item| Ndef(item) };
 
@@ -303,7 +309,8 @@ s.waitForBoot({ //boots server
 
         //monophonic
         MIDIdef.noteOn(\keysOn, {arg ...args; args.postln;
-                    Ndef(\sound5).spawn(extraArgs: [\freq, args[1].midicps, \gate, 1, \amp, args[0].linlin(0,127,0,1)*0.7, \pan, args[1].linlin(0,127,-1,1)])
+                    Ndef(\sound5).spawn(extraArgs: [\freq, args[1].midicps, \gate, 1,
+        \amp, args[0].linlin(0,127,0,1)*0.7, \pan, args[1].linlin(0,127,-1,1)])
                 }, srcID: ~getUID.("Akai LPD8 Wireless"););
 
         MIDIdef.noteOff(\keysOff, {arg ...args; args.postln;
@@ -354,10 +361,14 @@ s.waitForBoot({ //boots server
             }
             {args[1] == 4} {
                 "sound 2".postln;
-                Ndef(\sound2).set(\bufnum, ~waveBuffer, \lfofreq, [4, 8, 16].choose, \freq, (Scale.mixolydian.degrees+48).choose.midicps, \amp, 3, \cutoffset, [2,3,4,6,8].choose);
+                Ndef(\sound2).set(\bufnum, ~waveBuffer, \lfofreq, [4, 8, 16].choose,
+                    \freq, (Scale.mixolydian.degrees+48).choose.midicps, \amp, 3,
+                    \cutoffset, [2,3,4,6,8].choose);
                 Ndef(\sound2, ~oscSynth);
                 Tdef(\bass, { inf.do{
-                    Ndef(\sound2).set(\bufnum, ~waveBuffer, \lfofreq, [4, 8, 16].choose, \freq, (Scale.mixolydian.degrees+48).choose.midicps, \amp, 3, \cutoffset, [2,3,4,6,8].choose);
+                    Ndef(\sound2).set(\bufnum, ~waveBuffer, \lfofreq, [4, 8, 16].choose,
+                        \freq, (Scale.mixolydian.degrees+48).choose.midicps, \amp, 3,
+                        \cutoffset, [2,3,4,6,8].choose);
                     [4,8,2].choose.yield;
                 }
                 }).play;
@@ -466,7 +477,7 @@ s.waitForBoot({ //boots server
         /*HIDdef.element(\try, {|...args| args.postln;});*/
 
         //osc messages
-        /*OSCdef(\fader1, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderA'); //key, func, path
+        /*OSCdef(\fader1, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderA');
         OSCdef(\fader2, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderB');
         OSCdef(\fader3, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderC');
         OSCdef(\fader4, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderD');*/
@@ -476,4 +487,4 @@ s.waitForBoot({ //boots server
 });
 
 )</pre>
-<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Code Examples/Putting Things Together.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Code Examples/Putting Things Together.schelp</a><br>link::SSfMT/Code Examples/Putting Things Together::<br>sc version: 3.8.0</div></div></body></html>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Practicals/Organising your Code.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/SSfMT/Practicals/Organising your Code.schelp</a><br>link::SSfMT/Practicals/Organising your Code::<br>sc version: 3.8.0</div></div></body></html>
