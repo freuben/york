@@ -39,19 +39,19 @@
 <h3><a class='anchor' name='Basic%20arithmetic%20operations%20on%20signals'>Basic arithmetic operations on signals</a></h3>
 <ul>
 <li>When we <em>multiply</em> a signal by a number, we change its <em>amplitude</em><li>When we <em>add</em> a number, we change its <em>axis</em></ul>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/signalaxis.png'/><br><b>sine wave plot</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/signalaxis.png'/><br><b>sine wave plot</b></div>
 <ul>
 <li>We can use a signal to modulate another signal<li>We can modulate any parameter of a given signal (frequency, amplitude, phase, etc.)<li>We can also add two signals together (additive synthesis)<li>We can also multiply two signals (ring modulation)</ul>
 <h3><a class='anchor' name='Common%20periodic%20waveforms'>Common periodic waveforms</a></h3>
 
 <p>The most common periodic fixed (waveform doesn't change in time) waveforms in classic synthesis are:<ul>
 <li>Sine Wave<li>Square Wave<li>Saw Wave<li>Triangle Wave</ul>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/common waves.png'/><br><b>Common waveforms in synthesis</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/common waves.png'/><br><b>Common waveforms in synthesis</b></div>
 
 <p>They have different characteristics and complex waves (Square, Saw, Triangle).
 <p><strong>Square Wave</strong><ul>
 <li>Odd harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum</em></ul>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/squarewave.png'/><br><b>Square Wave</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/squarewave.png'/><br><b>Square Wave</b></div>
 <pre class='code prettyprint lang-sc'>FreqScope.new(400, 200, 0); //frequency scope
 
 (
@@ -72,7 +72,7 @@ sinArr.sum;
 <p><strong>Saw Wave</strong><ul>
 <li>Odd and even harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum/2</em></ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/sawwave.png'/><br><b>Saw Wave</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/sawwave.png'/><br><b>Saw Wave</b></div>
 <pre class='code prettyprint lang-sc'>(
 {var sinArr, size, freq;
 sinArr = [];
@@ -89,7 +89,7 @@ sinArr.sum;
 
 <p><strong>Triangle Wave</strong><ul>
 <li>Odd harmonics<li>Amplitude of each harmonic is multiplied by <em>1/harmonicNum/harmonicNum</em><li>Polarity switches from positive to negative amplitude from harmonic to harmonic</ul>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/trianglewave.png'/><br><b>Triangle Wave</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/trianglewave.png'/><br><b>Triangle Wave</b></div>
 <pre class='code prettyprint lang-sc'>(
 {var sinArr, size, freq;
 sinArr = [];
@@ -114,7 +114,7 @@ sinArr.sum;
 <h3><a class='anchor' name='Envelopes'>Envelopes</a></h3>
 <ul>
 <li>An envelope is a function in time that describes a line or curve<li>Commercial synthesisers amplitude envelopes in 4 stages<li>Attack, Decay, Sustain and Release (ADSR)<li>We still need a way of using the envelope to modify the amplitude of the “constant sounding” oscillator</ul>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/adsr.png'/><br><b>ADSR Envelope</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/adsr.png'/><br><b>ADSR Envelope</b></div>
 <div class='note'><span class='notelabel'>NOTE:</span> It's important to understand that in the digital domain, an Envelope specifies a wavetable</div>
 <p>In SC we can make envelopes with the <code class='code prettyprint lang-sc'>Env</code> specification.<pre class='code prettyprint lang-sc'>Env([0,1,0], [1,9]).plot; //values, time
 Env.adsr.plot;
@@ -127,7 +127,7 @@ c = Env(a,d, curve:'sin');
 c.test.plot;</pre>
 
 <p><strong>Envelopes Generators</strong>
-<p>In order to playback envelopes in synthesis patches, we need to use an <strong>envelope generator</strong>, which reads the breakpoints we create with an Env.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/envgen.png'/><br><b>A synthesis patch with an envelope generator</b></div>
+<p>In order to playback envelopes in synthesis patches, we need to use an <strong>envelope generator</strong>, which reads the breakpoints we create with an Env.<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/envgen.png'/><br><b>A synthesis patch with an envelope generator</b></div>
 
 <p>In SC, we use the <code class='code prettyprint lang-sc'>EnvGen</code> UGen for this purpose.<pre class='code prettyprint lang-sc'>a = Array.fill(29, {rrand(0.0,1)});
 d = Array.fill(29, {rrand(0.1,0.5)}).sort;
@@ -152,32 +152,32 @@ c = Env(a,d, curve:'sin');
 <p><strong>White Noise</strong><ul>
 <li>Flat frequency spectrum<li>Equal power in any band of a given bandwidth (power spectral density)</ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/whitenoise.png'/><br><b>White Noise</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/whitenoise.png'/><br><b>White Noise</b></div>
 
 <p><pre class='code prettyprint lang-sc'>{WhiteNoise.ar(0.5)!2}.scope;</pre>
 
 <p><strong>Pink Noise</strong><ul>
 <li>Flat frequency spectrum<li>Equal power in any band of a given bandwidth (power spectral density)</ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/pinknoise.png'/><br><b>Pink Noise</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/pinknoise.png'/><br><b>Pink Noise</b></div>
 
 <p><pre class='code prettyprint lang-sc'>{PinkNoise.ar(0.5)!2}.scope</pre>
 
 <p><strong>Brown Noise</strong><ul>
 <li>Brownian motion<li>Random walk<li>Power density decreases 6dB per octave with increasing frequency<li>More power in lower frequencies</ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/brownnoise.png'/><br><b>Brown Noise</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/brownnoise.png'/><br><b>Brown Noise</b></div>
 
 <p><pre class='code prettyprint lang-sc'>{BrownNoise.ar(0.5)!2}.scope</pre>
 
 <p><strong>Grey Noise</strong><ul>
 <li>White noise subjected to psychoacoustic equal loudness curve<li>Closer to how we hear</ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/greynoise.png'/><br><b>Grey Noise</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/greynoise.png'/><br><b>Grey Noise</b></div>
 
 <p><pre class='code prettyprint lang-sc'>{GrayNoise.ar(0.5)!2}.scope</pre>
 <h2><a class='anchor' name='Filters'>Filters</a></h2>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/filters.png'/><br><b>Filters remove stuff!</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/filters.png'/><br><b>Filters remove stuff!</b></div>
 <ul>
 <li>“A digital filter is a computational process or algorithm by which a digital signal or sequence of numbers (acting as input) is transformed into a second sequence of numbers termed the output digital signal” (Rabiner et al. 1972)<li>Any digital device with an input and an output is a filter!<li>Commonly referred to devices that boost or attenuate regions of the frequency spectrum<li>Not only frequency domain, but also time domain (reverbs, delays, etc.)</ul>
 <h3><a class='anchor' name='Pass%20Filters'>Pass Filters</a></h3>
@@ -186,26 +186,26 @@ c = Env(a,d, curve:'sin');
 
 FreqScope.new(400, 200, 0); //frequency scope</pre>
 
-<p><strong>Hi-pass filter</strong>: Just passes high frequencies.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/hpf.png'/><br><b>High-pass Filter</b></div>
+<p><strong>Hi-pass filter</strong>: Just passes high frequencies.<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/hpf.png'/><br><b>High-pass Filter</b></div>
 <pre class='code prettyprint lang-sc'>{HPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000))}.scope</pre>
 
-<p><strong>Low pass filter</strong>: Just passes low frequencies.<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/lpf.png'/><br><b>Low-pass Filter</b></div>
+<p><strong>Low pass filter</strong>: Just passes low frequencies.<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/lpf.png'/><br><b>Low-pass Filter</b></div>
 <pre class='code prettyprint lang-sc'>{LPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000))}.scope //args: in, freq, rq</pre>
 
-<p><strong>Band pass filter</strong>: Just Passes Band<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/bpf.png'/><br><b>Band-pass Filter</b></div>
+<p><strong>Band pass filter</strong>: Just Passes Band<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/bpf.png'/><br><b>Band-pass Filter</b></div>
 <pre class='code prettyprint lang-sc'>{BPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(440,17600), MouseY.kr(0.001,0.9))}.scope //args: in, freq, rq</pre>
 
-<p><strong>Band reject filter</strong>: Rejects band<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/brf.png'/><br><b>Band-reject Filter</b></div>
+<p><strong>Band reject filter</strong>: Rejects band<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/brf.png'/><br><b>Band-reject Filter</b></div>
 <pre class='code prettyprint lang-sc'>{BRF.ar(WhiteNoise.ar(0.5)!2, 11000, MouseY.kr(0.01,1.9))}.scope</pre>
 <h3><a class='anchor' name='Resonant%20Filters'>Resonant Filters</a></h3>
 <ul>
 <li>Resonance provides a boost around cut-off frequency<li>Sometimes you find the reciprocal of Q (1/Q) instead of Q<li>RHPF (Resonant High Pass Filter)<li>RLPF (Resonant Low Pass Filter)</ul>
 
 <p><strong>Resonant low pass filter</strong>:<pre class='code prettyprint lang-sc'>{RLPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope</pre>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/rlpf.png'/><br><b>Resonant Low-pass Filter</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/rlpf.png'/><br><b>Resonant Low-pass Filter</b></div>
 
 <p><strong>Resonant high pass filter</strong>:<pre class='code prettyprint lang-sc'>{RHPF.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.001,0.9))}.scope</pre>
-<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/rhpf.png'/><br><b>Resonant High-pass Filter</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/rhpf.png'/><br><b>Resonant High-pass Filter</b></div>
 <h3><a class='anchor' name='Equalisation'>Equalisation</a></h3>
 
 <p>B EQ Filters in SC:
@@ -213,7 +213,7 @@ FreqScope.new(400, 200, 0); //frequency scope</pre>
 
 <p><strong>Low-pass</strong>:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowPass.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000)),0)}.scope</pre>
 <div class='note'><span class='notelabel'>NOTE:</span> The <code class='code prettyprint lang-sc'>Pan2</code> UGen is an equal power stereo panner, the second argument is position between -1 and 1</div>
-<p><strong>Shelf Filters</strong>:<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/shelf.png'/><br><b>Low and High Shelf Filters</b></div>
+<p><strong>Shelf Filters</strong>:<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/shelf.png'/><br><b>Low and High Shelf Filters</b></div>
 
 <p><strong>Low-shelf</strong>:
 <p>Cut -20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BLowShelf.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), -20), 0)}.scope //arg: in, freq. reciprocal of s (slope) = 1/s</pre>
@@ -229,7 +229,7 @@ FreqScope.new(400, 200, 0); //frequency scope</pre>
 
 <p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BHiShelf.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000), MouseY.kr(0.5,10.0), 20), 0)}.scope</pre>
 
-<p><strong>Parametric</strong>:<div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/parametric.png'/><br><b>Parametric Filter - Boost and Cut</b></div>
+<p><strong>Parametric</strong>:<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/parametric.png'/><br><b>Parametric Filter - Boost and Cut</b></div>
 
 <p>Cut -10db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.5)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), -10),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
 
@@ -239,7 +239,7 @@ FreqScope.new(400, 200, 0); //frequency scope</pre>
 
 <p>Boost 20db:<pre class='code prettyprint lang-sc'>{Pan2.ar(BPeakEQ.ar(WhiteNoise.ar(0.1)!2, MouseX.kr(20,22000,1).poll, MouseY.kr(0.1,10.0), 20),0)}.scope //reciprocal of q (bandwidth / cutoffFreq)</pre>
 
-<p><strong>Multiband EQ</strong><div class='image'><img src='http://federicoreuben.com/computerdotplay/guides/guide2/multiband.png'/><br><b>Multiband Filter by fabfilter</b></div>
+<p><strong>Multiband EQ</strong><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/guides/guide2/multiband.png'/><br><b>Multiband Filter by fabfilter</b></div>
 
 <p>By combining different filters, you can produce a multiband EQ.<pre class='code prettyprint lang-sc'>(
 a = {arg lag=10, hpfreq=100,hpq=0.71,lsfreq=80,lsdb=10,lss=1.1,p1freq=43,p1db=0,
