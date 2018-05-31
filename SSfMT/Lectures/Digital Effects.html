@@ -74,13 +74,13 @@ SoundFile.normalize(~path, ~outDir, "wav", maxAmp:1);
 <ul>
 <li>Exceeding the maximum amplitude value of a signal on the amplitude axis, will also affect its shape<li>Overdriving the signal causes distortion<li>Changing the shape of a signal may cause a distortion of its frequency content<li>If we consider complex waves, we may conclude that by shaping the waveform, it’s possible to introduce new frequencies (harmonic or not!)</ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/distortion1.png'/><br><b>Distortion</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/distortion1.png'/><br><b>Distortion</b></div>
 
 <p>In SuperCollider there are several ways of distorting a signal. The most versatile way of generating distortion is with transfer (or shaping) functions.
 <p><strong>Shaping Functions</strong>:<ul>
 <li>Plotting output amplitude vs input amplitude<li>Linear Functions:</ul>
 
-<p><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/shape_nochange.png'/><br><b>No gain change</b></div>
+<p><div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/shape_nochange.png'/><br><b>No gain change</b></div>
 <pre class='code prettyprint lang-sc'>b = Buffer.alloc(s, 1024, 1);
 (
 // line between -1 and 1
@@ -93,7 +93,7 @@ b.sendCollection(t.asWavetableNoWrap);
 (
 {var sig = Shaper.ar(b, SinOsc.ar(330, 0, 0.4)); sig ! 2}.scope;
 )</pre>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/shape_gainup.png'/><br><b>Gain scaled up</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/shape_gainup.png'/><br><b>Gain scaled up</b></div>
 <pre class='code prettyprint lang-sc'>(
 // line between -1.5 and 1.5
 t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5) });
@@ -107,7 +107,7 @@ b.sendCollection(t.asWavetableNoWrap);
 <h3><a class='anchor' name='Hard%20Clipping'>Hard Clipping</a></h3>
 <ul>
 <li>Like a square wave, a hard clipped sine wave synthesises harmonics (odd harmonics)<li>Therefore the term harmonic distortion<li>In hard clipping, a signal reaches the maximum abruptly</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/hardclip1.png'/><br><b>Clipping transfer function</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/hardclip1.png'/><br><b>Clipping transfer function</b></div>
 <pre class='code prettyprint lang-sc'>(
 t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).clip(-1,1) }); //notice the .clip message
 t.plot;
@@ -117,7 +117,7 @@ b.sendCollection(t.asWavetableNoWrap);
 (
 {var sig = Shaper.ar(b, SinOsc.ar(300, 0, MouseX.kr(0.5,5)))*0.5; sig ! 2}.scope;
 )</pre>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/hardclip2.png'/><br><b>Hard clipping</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/hardclip2.png'/><br><b>Hard clipping</b></div>
 
 <p>A simpler way of doing hard clipping distortion:<pre class='code prettyprint lang-sc'>{ SinOsc.ar(300, 0, MouseX.kr(0.5,5)).clip(-1,1) * 0.5 }.scope; //hard clipping
 
@@ -125,7 +125,7 @@ b.sendCollection(t.asWavetableNoWrap);
 <h3><a class='anchor' name='Soft%20Clipping'>Soft Clipping</a></h3>
 <ul>
 <li>Less abrupt, different shape / different recipe for amplitude of harmonics (still odd harmonics)</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/softclip.png'/><br><b>Soft clipping</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/softclip.png'/><br><b>Soft clipping</b></div>
 <pre class='code prettyprint lang-sc'>(
 t = Signal.fill(513, { |i| i.linlin(0.0, 512.0, -1.5, 1.5).softclip(-1,1) }); //notice the .softclip message
 t.plot;
@@ -199,27 +199,27 @@ b = Buffer.loadDialog;
 
 <p>Dynamic processors:<ul>
 <li>Automated gain control (AGC)<li>Like an automatic volume fader<li>Compressors are automated volume control processors that reduce the louder parts of a signal after crossing a certain threshold: this is known as downward compression<li>Upward compression (less common), signal bellow a threshold gets louder<li>Compressors reduce the dynamic range, expanders increase the dynamic range</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_wave.png'/><br><b>Compressors reduce dynamic range!</b></div>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_func.png'/><br><b>Compressor gain transfer function</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/compress_wave.png'/><br><b>Compressors reduce dynamic range!</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/compress_func.png'/><br><b>Compressor gain transfer function</b></div>
 
 <p>Dynamic processors usually have the following features:<ul>
 <li>Threshold<li>Ratio<li>Attack<li>Release<li>Make-up Gain<li>Other: Knee, Circuit Type, Peak/RMS, Link, Analog, Meter, Auto, PDR, Key, Dry/Mix, Punch, etc.</ul>
 
 <p><strong>Threshold and Ratio</strong><ul>
 <li>Threshold: Specifies level above which the signal is reduced. Usually specified in dB. If the signal doesn’t cross the threshold, then no compression takes place<li>Ratio: amount of attenuation of the signal once it passes the threshold. If a ratio of 2:1 is established, the signal above the threshold is attenuated by half. If it is 6:1, then 6dB over the threshold would become 1dB</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_thresh.png'/><br><b>Threshold and ratio in transfer function</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/compress_thresh.png'/><br><b>Threshold and ratio in transfer function</b></div>
 
 <p><strong>Limiters</strong><ul>
 <li>Theoretically, limiters are compressors with a ratio higher than 10:1 (therefore they might be referred to as compressor/limiter)<li>A brickwall limiter would have a ratio of ∞:1</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/limiter_func.png'/><br><b>Limiter transfer function</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/limiter_func.png'/><br><b>Limiter transfer function</b></div>
 
 <p><strong>Attack and Release</strong><ul>
 <li>Imagine a “virtual fader” - it takes time to change the gain<li>Attack is how fast the compressor starts working (how long it takes to pull the “fader” down) after the signal crosses the threshold<li>Release is the speed at which it goes back to unity gain (time for the “fader” to go back to its original position)</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_atkrel.png'/><br><b>Attack and release time</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/compress_atkrel.png'/><br><b>Attack and release time</b></div>
 
 <p><strong>Soft and Hard Knees</strong><ul>
 <li>Hard Knee and Soft Knee determines the bend in the response curve of the transfer function<li>Knee is related to how smooth the transition is from uncompressed to compressed modes<li>Soft knee is more gradual while hard knee is more sudden</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/compress_knee.png'/><br><b>Soft and Hard Knee represented in transfer function</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/compress_knee.png'/><br><b>Soft and Hard Knee represented in transfer function</b></div>
 
 <p>In SuperCollider you can use <code class='code prettyprint lang-sc'>Compander</code> as a general purpose hard-knee dynamics processor.<pre class='code prettyprint lang-sc'>b = Buffer.loadDialog;
 //dynamics processor
@@ -277,22 +277,22 @@ a.set(\level, 0.1, \mkgain, 15.dbamp);</pre>
 
 <p><strong>Tape Delay</strong><ul>
 <li>Delays in studios started to be used by “misusing” tape machines (time from record head to playback head)<li>Physical space between heads, speed of tape machines and volume</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_tape.png'/><br><b>Tape Delay</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_tape.png'/><br><b>Tape Delay</b></div>
 
 <p><strong>Delay Feedback</strong><ul>
 <li>Feedback involves routing the delayed signal to the input of the delay line<li>If delay line is 100ms, then echoes at 100, 200, 300, etc. (multiply delay time by increments of 1 (1,2,3,etc.)<li>By attenuating the signal we get decay in echoes - if the feedback control is attenuated by 6db, then each echo will be 6 db quieter</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_feedback.png'/><br><b>Tape Delay Feedback</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_feedback.png'/><br><b>Tape Delay Feedback</b></div>
 
 <p><strong>Tape Delay features</strong><ul>
 <li>Wet/Dry and Input/Output Level Controls<li>Modulation and Feedback Levels<li>Tape as filter: Tape recorders have uneven frequency response - they have a high-frequency roll-off (sounds like LPF - cutoff depends on tape speed and quality) - Echoes sound progressively darker (and as if they are further)</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_feedback2.png'/><br><b>Tape Delay Features</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_feedback2.png'/><br><b>Tape Delay Features</b></div>
 
-<p><strong>Digital Delay Lines</strong><div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_digital.png'/><br><b>A Digital Delay</b></div>
+<p><strong>Digital Delay Lines</strong><div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_digital.png'/><br><b>A Digital Delay</b></div>
 <ul>
 <li>“A digital delay unit or digital delay line (DDL) takes in a stream of input samples and stores them for a brief period before sending them out again. Mixing a delayed sound with original undelayed signal can cause a variety of musical effects.” (Roads, 1996)<li>Data structure that is an efficient way of implementing delay line:<ul>
 <li>Circular queue: list of sequential memory locations containing samples<li>Old samples replaced by new samples<li>Simple delay lines have 1 read pointer</ul>
 </ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_buffer.png'/><br><b>Circular Buffer</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_buffer.png'/><br><b>Circular Buffer</b></div>
 
 <p><pre class='code prettyprint lang-sc'>//simple delay line
 (
@@ -310,7 +310,7 @@ sig + DelayL.ar(sig, 10, MouseX.kr(0.1,10.0).lag(3));
 
 <p><strong>Multitap Delay</strong><ul>
 <li>Multitap Delay has more than 1 read pointer or tap<li>Read pointer taps at any point in queue - delays smaller than length of queue<li>Variable time delay effects</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_multitap.png'/><br><b>Multitap Delay Buffer</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_multitap.png'/><br><b>Multitap Delay Buffer</b></div>
 
 <p>In SuperCollider you can use the <code class='code prettyprint lang-sc'>MultiTap</code> UGen for multitap delays. The arguments are: <code class='code prettyprint lang-sc'>timesArr, levelsArr, in, mul, add, buffer</code>.<pre class='code prettyprint lang-sc'>(
 {var sig;
@@ -372,7 +372,7 @@ a.set(\shape, 2); //0 to 3 for different mod shapes</pre>
 <h3><a class='anchor' name='Delay%20Effects'>Delay Effects</a></h3>
 <ul>
 <li>Short Delay (less than to about 20ms)<li>Medium Delay (between about 20-50ms)<li>Long Delay (about 50ms or greater)</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_effects.png'/><br><b>Different types of Delay Effects</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_effects.png'/><br><b>Different types of Delay Effects</b></div>
 
 <p><strong>Long Delay</strong><ul>
 <li>Echo<li>Support<li>Slap Echo (about 80-200ms with little or no feedback)<li>Emphasis<li>Groove</ul>
@@ -396,8 +396,8 @@ a.set(\length, 0.08);</pre>
 
 <p><strong>Delay and Interference</strong><ul>
 <li>Short Delay may cause constructive and destructive interference<li>Period = 1/Frequency<li>Doubling and cancelations happen at certain other higher frequencies as well<li>For any given delay time, certain frequencies line up and produce constructive and destructive interference</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_ampdoubling.png'/><br><b>Amplitude Doubling</b></div>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_ampcancel.png'/><br><b>Amplitude Cancelling</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_ampdoubling.png'/><br><b>Amplitude Doubling</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_ampcancel.png'/><br><b>Amplitude Cancelling</b></div>
 <pre class='code prettyprint lang-sc'>(
 //constructive and destructive interference
 {var input, delay, mod;
@@ -412,7 +412,7 @@ a.set(\length, 0.08);</pre>
 
 <p><strong>Comb Filter</strong><ul>
 <li>Alters frequency content through short delay (weird EQ rather than echo)<li>Has the shape of a comb (therefore comb filter!)<li>Comb filtering is on a linear scale, not logarithmic<li>With complex signals, only very short delays are audible (20ms or less)</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_comb.png'/><br><b>Amplitude Cancelling</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_comb.png'/><br><b>Amplitude Cancelling</b></div>
 <pre class='code prettyprint lang-sc'>(
 //comb effect
 {var input, delay;
@@ -459,7 +459,7 @@ LFPar.kr(0.1, 0, 1).range(0.000022675,0.01), // a circle every 10 seconds
 
 <p><strong>Flanger</strong><ul>
 <li>Very short delay (0-10ms) modulated via three delay modulation controls<li>Audible combfiltering<li>Modulation produces swept comb filter effect</ul>
-<div class='image'><img src='http://federicoreuben.com/SSfMT/Lectures/DigitalEffects/delay_flanger.png'/><br><b>Flanger</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/DigitalEffects/delay_flanger.png'/><br><b>Flanger</b></div>
 
 <p><pre class='code prettyprint lang-sc'>(
 SynthDef(\flanger, { arg out=0, in=0, delay=0.1, depth=0.08, rate=0.06, fdbk=0.0, decay=0.0;
