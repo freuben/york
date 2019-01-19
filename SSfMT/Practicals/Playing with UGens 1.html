@@ -128,7 +128,7 @@ s.quit; //to quit the server</pre>
 
 <p>Using MouseY too:<pre class='code prettyprint lang-sc'>(
 {SinOsc.ar(freq: MouseX.kr(100,2000, 'exponential'),
-    mul: MouseY.kr(0.1,0.01))  // in the upper part of the screen amp is higher
+    mul: MouseY.kr(0.01,0.1))  // in the upper part of the screen amp is higher
 }.scope
 )</pre>
 
