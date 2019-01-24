@@ -76,7 +76,7 @@ s.quit; //to quit the server</pre>
 <p><strong>Discussion</strong>:<ul>
 <li><code class='code prettyprint lang-sc'>mul</code> can be seen as the <em>range</em><li>the values for <code class='code prettyprint lang-sc'>SinOsc</code> are between -1.0 and 1.0<li>if <code class='code prettyprint lang-sc'>mul == 4</code>, then they oscillate between -4.0 and 4.0<li><code class='code prettyprint lang-sc'>add</code> can be seen as the <em>center</em><li>normal values between -1.0 and 1.0<li><code class='code prettyprint lang-sc'>add</code>, if <code class='code prettyprint lang-sc'>add == 2</code>, then values between 1.0 and 3.0<li>In the example above, the oscillator modulates between 350 Hz (400-50) and 450 Hz (400+50) every second.</ul>
 
-<p>Other examples of modulations with <code class='code prettyprint lang-sc'>SicOsc</code>.<pre class='code prettyprint lang-sc'>{SinOsc.ar(SinOsc.kr(0.5,0,100,500),0,0.5)}.scope;
+<p>Other examples of modulations with <code class='code prettyprint lang-sc'>SinOsc</code>.<pre class='code prettyprint lang-sc'>{SinOsc.ar(SinOsc.kr(0.5,0,100,500),0,0.5)}.scope;
 //mouse changes frequency of moduling oscillator:
 {SinOsc.ar(SinOsc.kr(MouseX.kr(0.1, 10),0,100,500),0,0.5)}.scope;</pre>
 
