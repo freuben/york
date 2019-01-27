@@ -210,17 +210,6 @@ Pbind(\instrument,\strum,
 ).play
 )</pre>
 
-<p><code class='code prettyprint lang-sc'>Prand(list, repeats)</code>
-<p>Repeats for this pattern refers to the number of values returned, not the number of cycles.<pre class='code prettyprint lang-sc'>(
-a = Prand([60,64,67,69],10).asStream;
-12.do({a.next.postln})
-)
-
-(
-p = Prand((48 ..72), inf); // pattern repeats forever: inf
-Pbind(\instrument, \perkysine, \midinote, p, \dur, 0.1, \amp, 0.1).play
-)</pre>
-
 <p><code class='code prettyprint lang-sc'>Pwrand(lists, weights, repeats)</code>
 <p>Weighted random choice
 <p>weights is a list of probabilities (0-1)<pre class='code prettyprint lang-sc'>(
@@ -239,17 +228,6 @@ Pbind(\instrument, \perkysine, \midinote, p, \dur, 0.1, \amp, 0.1).play;
 )</pre>
 
 <p><code class='code prettyprint lang-sc'>normalizeSum</code> normalizes the values so the sum of the <code class='code prettyprint lang-sc'>Array</code> is 1.
-<p><code class='code prettyprint lang-sc'>Pxrand(lists, repeats)</code>
-<p>returns 1 item at random but does not repeat twice in a row.<pre class='code prettyprint lang-sc'>(
-a = Pxrand([60,61,62],10).asStream;
-a.nextN(10)
-)</pre>
-
-<p>The <code class='code prettyprint lang-sc'>nextN</code> message when sent to a stream will collect n values in an <code class='code prettyprint lang-sc'>Array</code>.<pre class='code prettyprint lang-sc'>(
-p  = Pxrand([60,61,62],20);
-Pbind(\instrument, \perkysine, \midinote, p, \dur, 0.1, \amp, 0.1).play;
-)</pre>
-
 <p><code class='code prettyprint lang-sc'>Pstutter(n, pattern)</code>
 <p>repeats each element n times<pre class='code prettyprint lang-sc'>(
 a = Pstutter(2, Pseq([1,2,3],inf)).asStream;
@@ -492,7 +470,7 @@ basspat = Pbind(
         \dur, 1
 );
 
-Ppar([ melodypat, basspat ]).play);
+Ppar([ melodypat, basspat ]).play;
 )</pre>
 
 <p>Now, let's add a conductor to our patterns.
@@ -535,7 +513,7 @@ a.stop;</pre>
 Pset(\amp, 1, ~modpat).play;
 )</pre>
 
-<p>You can modify a <code class='code prettyprint lang-sc'>Pbind</code> with a <code class='code prettyprint lang-sc'>Pbindf</code>.<pre class='code prettyprint lang-sc'>Pbindf(pattern, pairs)
+<p>You can modify a <code class='code prettyprint lang-sc'>Pbind</code> with a <code class='code prettyprint lang-sc'>Pbindf</code>. <code class='code prettyprint lang-sc'>Pbindf</code> therefore adds values to an existing <code class='code prettyprint lang-sc'>Pbind</code> stream.<pre class='code prettyprint lang-sc'>Pbindf(pattern, pairs)
 
 (
 ~melodypat = Pbind(\midinote, Pseq([60,64,66,69,67,64,60,57], inf));
@@ -573,7 +551,7 @@ Pdef(\mypattern, Ppar([ ~melodypat2, ~basspat2],inf)); //quantize
 a.stop;</pre>
 
 <p><code class='code prettyprint lang-sc'>Pdefn(key, pat)</code>
-<p>Creates a pattern definition that you can use to change and 'argument' of a pattern.<pre class='code prettyprint lang-sc'>Pdefn(\x, Pbrown(0, 6, 0.1, inf));
+<p>Creates a pattern definition that you can use to change an 'argument' of a pattern.<pre class='code prettyprint lang-sc'>Pdefn(\x, Pbrown(0, 6, 0.1, inf));
 Pbind(\note, Pdefn(\x), \dur, 0.3).play;
 Pbind(\note, Pdefn(\x), \dur, 0.1, \ctranspose, 15).play;
 // now change the definition
