@@ -1,0 +1,715 @@
+<html><head><title>OnViolence</title>
+<link rel='stylesheet' href='./scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./frontend.css' type='text/css' />
+<link rel='stylesheet' href='./custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./scdoc.js' type='text/javascript'></script>
+<script src='./docmap.js' type='text/javascript'></script>
+<script src='./prettify.js' type='text/javascript'></script>
+<script src='./lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='.';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider  (extension)</div>
+<div id='categories'><a href='./Browse.html#GUI>Views'>GUI>Views</a></div>
+<h1>OnViolence</h1>
+<div id='summary'>On Violence Class</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./Classes/OnViolence Classes/AlgorithmicScore">AlgorithmicScore</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#description'>Description</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#classmethods'>Class methods</a></li>
+<ul class='toc'><li class='toc3'><a href='#*new'>new</a> </li>
+</ul><li class='toc1'><a href='#examples'>Examples</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='description'>Description</a></h2>
+
+<p>Main class for On Violence (2012) for piano, live elec­tron­ics, com­puter dis­play and sen­sors<h2><a class='anchor' name='classmethods'>Class Methods</a></h2>
+<h3 class='cmethodname'><span class='methprefix'>*</span><a name='*new' href='./Overviews/Methods.html#new'>new</a> </h3>
+<div class='method'>
+<p>Create a new OnViolence</div><h2><a class='anchor' name='examples'>Examples</a></h2>
+<pre class='code prettyprint lang-sc'>"perform".myScript.appleScript; //script for performance
+
+s.bootAndMIDI;
+
+~violence = OnViolence(audioIn: 0); //ins: audioIn (onset detection)
+
+~violence.startNodes(out1:0, out2:0); //out1 is PA stereo, out 2 is to guitar amp - pan -1 grito pan 1 motor
+
+~violence.readyToStart(176, 2.0); //initial tempo, thresh
+
+//wait until Rei sets her computer
+
+//change name to rei's computer!!
+//~violence.connect("Rei-Nakamuras-MacBook-Air");
+//~violence.connect("tremmac56150"); //conect to my computer
+
+~violence.connect("127.0.0.1") //connect to local computer
+
+~violence.sendArray;
+
+~violence.startMIDI;
+//check thresh in controller
+//thresh: 0.939301
+
+//or open Max patch!
+
+~violence.thresh(3.0); //change onset ratio
+~violence.thresh(0.3);
+
+~violence.currentTempo; //get current tempo from tracker
+
+//practice
+//ones its done, you can reset nodes
+~violence.resetNodeProxies; //reset node proxies
+
+~violence.silenceNodeProxies;
+
+~violence.silenceWagnerNodes; //silence to wagnerAlgo synths
+
+~violence.silenceGritos = true; //silence gritos
+~violence.silenceGritos = false; //back to gritos
+
+~violence.metalOn = 2; //turn metal bangs off;
+
+~lastSecVol = 0.5; //volume last section
+
+~violence.motor.pedalOff;
+
+~violence.pnosoloStop; //stop piano solo routine
+
+~violence.mixer2; //metal, scream1, scream2, scream3, scream4, motor, wagner1, wagner2, wagner3, wagner4, buxta, parsifal
+
+
+~violence.funcPlay(1,0,1,0);
+
+~violence.metal.spawn([\amp, 0.3, \recBuf, ~violence.bufferArr[[0,1,2].choose].bufnum, \rate, rrand(0.8,1.2), \pan, 0]);
+
+
+//vols:
+~violence.grito4.set(\globamp, 0.3);
+~violence.motor.vol(2);
+
+//score
+(
+~tempo = 176;
+~lastSecVol = 0.55;
+//~violence.trigAmp(0.1);
+~rout = {var count=1; //start count
+
+(731-count).do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+
+if(count &lt; 730, {
+case
+//[ /page, 1 ]
+{count == 1} {~violence.pedalOffFunc(1);} //measure 1 [ /pedalDown, 1 ]
+//[ /page, 2 ]
+//[ /page, 3 ]
+//[ /page, 4 ]
+{count == 101} {~violence.pedalOnFunc(1);} //measure 51 [ /pedalUp, 4 ]
+{count == 109} {~violence.pedalOffFunc(2);} //measure 55 [ /pedalDown, 2 ]
+{count == 117} {~violence.pedalOnFunc(2);} //measure 59 [ /pedalUp, 5 ]
+//[ /page, 5 ]
+{count == 125} {~violence.pedalOffFunc(3);} //measure 63 [ /pedalDown, 3 ]
+{count == 133} {~violence.pedalOnFunc(3);} //measure 67 [ /pedalUp, 6 ]
+{count == 141} {~violence.pedalOffFunc(4);} //measure 71 [ /pedalDown, 4 ]
+{count == 153} {~violence.pedalOnFunc(4);} //measure 77 [ /pedalUp, 7 ]
+//[ /page, 6 ]
+{count == 161} {~violence.pedalOffFunc(5);} //measure 81 [ /pedalDown, 5 ]
+//[ /page, 7 ]
+{count == 223} {~violence.pedalOnFunc(5);} //measure 112 [ /pedalUp, 9 ]
+//[ /page, 8 ]
+{count == 231} {~violence.pedalOffFunc(6);} //measure 116 [ /pedalDown, 6 ]
+{count == 239} {~violence.pedalOnFunc(6);} //measure 120 [ /pedalUp, 10 ]
+{count == 247} {~violence.pedalOffFunc(7);} //measure 124 [ /pedalDown, 7 ]
+{count == 254} {~violence.pedalOnFunc(7);} //measure 127 [ /pedalUp, 11 ]
+//[ /page, 9 ]
+{count == 261} {~violence.pedalOffFunc(8);} //measure 131 [ /pedalDown, 8 ]
+{count == 268} {~violence.pedalOnFunc(8);} //measure 134 [ /pedalUp, 12 ]
+{count == 275} {~violence.pedalOffFunc(9);} //measure 138 [ /pedalDown, 9 ]
+{count == 281} {~violence.pedalOnFunc(9);} //measure 141 [ /pedalUp, 13 ]
+//[ /page, 10 ]
+{count == 287} {~violence.pedalOffFunc(10);} //measure 144 [ /pedalDown, 10 ]
+{count == 293} {~violence.pedalOnFunc(10);} //measure 147 [ /pedalUp, 14 ]
+{count == 299} {~violence.pedalOffFunc(11);} //measure 150 [ /pedalDown, 11 ]
+{count == 304} {~violence.pedalOnFunc(11);} //measure 152 [ /pedalUp, 15 ]
+{count == 309} {~violence.pedalOffFunc(12);} //measure 155 [ /pedalDown, 12 ]
+{count == 314} {~violence.pedalOnFunc(12);} //measure 157 [ /pedalUp, 16 ]
+//[ /page, 11 ]
+{count == 319} {~violence.pedalOffFunc(13);} //measure 160 [ /pedalDown, 13 ]
+{count == 323} {~violence.pedalOnFunc(13);} //measure 162 [ /pedalUp, 17 ]
+{count == 327} {~violence.pedalOffFunc(14);} //measure 164 [ /pedalDown, 14 ]
+{count == 331} {~violence.pedalOnFunc(14);} //measure 166 [ /pedalUp, 18 ]
+{count == 335} {~violence.pedalOffFunc(15);} //measure 168 [ /pedalDown, 15 ]
+{count == 339} {~violence.pedalOnFunc(15);} //measure 170 [ /pedalUp, 19 ]
+{count == 343} {~violence.pedalOffFunc(16);} //measure 172 [ /pedalDown, 16 ]
+{count == 345} {~violence.pedalOnFunc(16);} //measure 173 [ /pedalUp, 20 ]
+//[ /page, 12 ]
+{count == 349} {~violence.pedalOnFunc(17);} //measure 175 [ /pedalUp, 21 ]
+{count == 353} {~violence.pedalOffFunc(17);} //measure 177 [ /pedalDown, 17 ]
+{count == 355} {~violence.pedalOnFunc(18);} //measure 178 [ /pedalUp, 22 ]
+{count == 359} {~violence.pedalOffFunc(18);} //measure 180 [ /pedalDown, 18 ]
+{count == 361} {~violence.pedalOnFunc(19);} //measure 181 [ /pedalUp, 23 ]
+{count == 365} {~violence.pedalOffFunc(19);} //measure 183 [ /pedalDown, 19 ]
+{count == 367} {~violence.pedalOnFunc(20);} //measure 184 [ /pedalUp, 24 ]
+{count == 371} {~violence.pedalOffFunc(20);} //measure 186 [ /pedalDown, 20 ]
+{count == 373} {~violence.pedalOnFunc(21);} //measure 187 [ /pedalUp, 25 ]
+{count == 377} {~violence.pedalOffFunc(21);} //measure 189 [ /pedalDown, 21 ]
+{count == 379} {~violence.pedalOnFunc(22);} //measure 190 [ /pedalUp, 26 ]
+//[ /page, 13 ]
+{count == 383} {~violence.pedalOffFunc(22);} //measure 192 [ /pedalDown, 22 ]
+{count == 385} {~violence.pedalOnFunc(23);} //measure 193 [ /pedalUp, 27 ]
+{count == 389} {~violence.pedalOffFunc(23);} //measure 195 [ /pedalDown, 23 ]
+{count == 391} {~violence.pedalOnFunc(24);} //measure 196 [ /pedalUp, 28 ]
+{count == 395} {~violence.pedalOffFunc(24);} //measure 198 [ /pedalDown, 24 ]
+{count == 397} {~violence.pedalOnFunc(25);} //measure 199 [ /pedalUp, 29 ]
+{count == 401} {~violence.pedalOffFunc(25);} //measure 201 [ /pedalDown, 25 ]
+{count == 403} {~violence.pedalOnFunc(26);} //measure 202 [ /pedalUp, 30 ]
+{count == 407} {~violence.pedalOffFunc(26);} //measure 204 [ /pedalDown, 26 ]
+{count == 409} {~violence.pedalOnFunc(27);} //measure 205 [ /pedalUp, 31 ]
+{count == 413} {~violence.pedalOffFunc(27);} //measure 207 [ /pedalDown, 27 ]
+{count == 415} {~violence.pedalOnFunc(28);} //measure 208 [ /pedalUp, 32 ]
+//[ /page, 14 ]
+{count == 419} {~violence.pedalOffFunc(28);} //measure 210 [ /pedalDown, 28 ]
+{count == 421} {~violence.pedalOnFunc(29);} //measure 211 [ /pedalUp, 33 ]
+{count == 425} {~violence.pedalOffFunc(29);} //measure 213 [ /pedalDown, 29 ]
+{count == 427} {~violence.pedalOnFunc(30);} //measure 214 [ /pedalUp, 34 ]
+{count == 431} {~violence.pedalOffFunc(30);} //measure 216 [ /pedalDown, 30 ]
+{count == 433} {~violence.pedalOnFunc(31);} //measure 217 [ /pedalUp, 35 ]
+{count == 437} {~violence.pedalOffFunc(31);} //measure 219 [ /pedalDown, 31 ]
+{count == 439} {~violence.pedalOnFunc(32);} //measure 220 [ /pedalUp, 36 ]
+{count == 443} {~violence.pedalOffFunc(32);} //measure 222 [ /pedalDown, 32 ]
+{count == 445} {~violence.pedalOnFunc(33);} //measure 223 [ /pedalUp, 37 ]
+{count == 449} {~violence.pedalOffFunc(33);} //measure 225 [ /pedalDown, 33 ]
+{count == 451} {~violence.pedalOnFunc(34);} //measure 226 [ /pedalUp, 38 ]
+//[ /page, 15 ]
+{count == 455} {~violence.pedalOffFunc(34);} //measure 228 [ /pedalDown, 34 ]
+{count == 457} {~violence.pedalOnFunc(35);} //measure 229 [ /pedalUp, 39 ]
+{count == 461} {~violence.pedalOffFunc(35);} //measure 231 [ /pedalDown, 35 ]
+{count == 463} {~violence.pedalOnFunc(36);} //measure 232 [ /pedalUp, 40 ]
+{count == 467} {~violence.pedalOffFunc(36);} //measure 234 [ /pedalDown, 36 ]
+{count == 469} {~violence.pedalOnFunc(37);} //measure 235 [ /pedalUp, 41 ]
+//[ /page, 16 ]
+{count == 475} {~violence.pedalOffFunc(37);} //measure 238 [ /pedalDown, 37 ]
+//[ /page, 17 ]
+{count == 507} {~violence.pedalOnFunc(38);} //measure 254 [ /pedalUp, 43 ]
+//[ /page, algoScore 1 rand 9 ]
+//[ /page, 18 ]
+{count == 513} {~violence.pedalOffFunc(38);} //measure 255 [ /pedalDown, 38 ]
+{count == 522} {~violence.pedalOnFunc(39);} //measure 259 [ /pedalUp, 44 ]
+//[ /page, algoScore 2 rand 9 ]
+//[ /page, 19 ]
+{count == 526} {~violence.pedalOffFunc(39);} //measure 260 [ /pedalDown, 39 ]
+{count == 527} {~violence.pedalOnFunc(40);} //measure 261 [ /pedalUp, 45 ]
+//[ /page, algoScore 3 rand 9 ]
+//[ /page, algoScore 3 rand 3 ]
+//[ /page, 20 ]
+{count == 535} {~violence.pedalOffFunc(40);} //measure 262 [ /pedalDown, 40 ]
+{count == 538} {~violence.pedalOnFunc(41);} //measure 263 [ /pedalUp, 46 ]
+//[ /page, algoScore 5 rand 4 ]
+//[ /page, 21 ]
+{count == 547} {~violence.pedalOffFunc(41);} //measure 264 [ /pedalDown, 41 ]
+{count == 558} {~violence.pedalOnFunc(42);} //measure 269 [ /pedalUp, 47 ]
+//[ /page, algoScore 6 rand 5 ]
+//[ /page, algoScore 6 rand 1 ]
+//[ /page, 22 ]
+{count == 564} {~violence.pedalOffFunc(42);} //measure 270 [ /pedalDown, 42 ]
+{count == 577} {~violence.pedalOnFunc(43);} //measure 277 [ /pedalUp, 48 ]
+//[ /page, algoScore 8 rand 9 ]
+//[ /page, 23 ]
+{count == 584} {~violence.pedalOffFunc(43);} //measure 278 [ /pedalDown, 43 ]
+{count == 588} {~violence.pedalOnFunc(44);} //measure 280 [ /pedalUp, 49 ]
+//[ /page, algoScore 9 rand 7 ]
+//[ /page, 24 ]
+{count == 590} {~violence.pedalOffFunc(44);} //measure 281 [ /pedalDown, 44 ]
+{count == 593} {~violence.pedalOnFunc(45);} //measure 283 [ /pedalUp, 50 ]
+//[ /page, algoScore 10 rand 9 ]
+//[ /page, algoScore 10 rand 6 ]
+//[ /page, 25 ]
+{count == 597} {~violence.pedalOffFunc(45);} //measure 284 [ /pedalDown, 45 ]
+{count == 599} {~violence.pedalOnFunc(46);} //measure 285 [ /pedalUp, 51 ]
+//[ /page, algoScore 12 rand 8 ]
+//[ /page, algoScore 12 rand 2 ]
+//[ /page, algoScore 12 rand 7 ]
+//[ /page, 26 ]
+{count == 607} {~violence.pedalOffFunc(46);} //measure 287 [ /pedalDown, 46 ]
+{count == 617} {~violence.pedalOnFunc(47);} //measure 292 [ /pedalUp, 52 ]
+//[ /page, algoScore 15 rand 8 ]
+//[ /page, algoScore 15 rand 3 ]
+//[ /page, 27 ]
+{count == 632} {~violence.pedalOffFunc(47);} //measure 293 [ /pedalDown, 47 ]
+{count == 634} {~violence.pedalOnFunc(48);} //measure 294 [ /pedalUp, 53 ]
+//[ /page, algoScore 17 rand 2 ]
+//[ /page, 28 ]
+{count == 639} {~violence.pedalOffFunc(48);} //measure 295 [ /pedalDown, 48 ]
+{count == 648} {~violence.pedalOnFunc(49);} //measure 299 [ /pedalUp, 54 ]
+//[ /page, algoScore 18 rand 2 ]
+//[ /page, algoScore 18 rand 2 ]
+//[ /page, 29 ]
+{count == 650} {~violence.pedalOffFunc(49);} //measure 300 [ /pedalDown, 49 ]
+{count == 655} {~violence.pedalOnFunc(50);} //measure 303 [ /pedalUp, 55 ]
+//[ /page, algoScore 20 rand 3 ]
+//[ /page, algoScore 20 rand 0 ]
+//[ /page, 30 ]
+{count == 667} {~violence.pedalOffFunc(50);} //measure 304 [ /pedalDown, 50 ]
+{count == 678} {~violence.pedalOnFunc(51);} //measure 309 [ /pedalUp, 56 ]
+//[ /page, algoScore 22 rand 6 ]
+//[ /page, 31 ]
+{count == 687} {~violence.pedalOffFunc(51);} //measure 310 (perc) [ /pedalDown, 51 ]
+//[ /page, perc 0 rand 7 ]
+{count == 696} {~violence.pedalOnFunc(52);} //measure 311 [ /pedalUp, 57 ]
+//[ /page, algoScore 23 rand 0 ]
+//[ /page, 32 ]
+{count == 704} {~violence.pedalOffFunc(52);} //measure 312 (perc) [ /pedalDown, 52 ]
+//[ /page, perc 1 rand 9 ]
+{count == 711} {~violence.pedalOnFunc(53);} //measure 313 [ /pedalUp, 58 ]
+//[ /page, algoScore 24 rand 8 ]
+//[ /page, 33 ]
+{count == 722} {~violence.pedalOffFunc(53);} //measure 314 [ /pedalDown, 53 ]
+//[ /page, perc 2 rand 4 ]
+;
+
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+
+(60/~tempo).yield;
+count = count + 1;
+
+}, {
+
+"new section".postln;
+count = 731;
+~violence.pedalOnFunc(54); //measure 315 [ /pedalUp, 59 ]
+//[ /page, algoScore 25 rand 8 ]
+13.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+//[ /page, partials 1 ]
+(5.47*(176/~tempo)).yield;
+//[ /page, 34 ]
+~violence.pedalOffFunc(54); //measure 316 [ /pedalDown, 54 ]
+//[ /page, perc 3 rand 4 ]
+13.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+~violence.pedalOnFunc(55); //measure 317 [ /pedalUp, 60 ]
+//[ /page, algoScore 26 rand 1 ]
+13.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+//[ /page, 35 ]
+~violence.pedalOffFunc(55); //measure 318 [ /pedalDown, 55 ]
+//[ /page, perc 4 rand 9 ]
+7.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+~violence.pedalOnFunc(56); //measure 318 [ /pedalUp, 61 ]
+//[ /page, partials 2 ]
+(7.17*(176/~tempo)).yield;
+//[ /page, 36 ]
+~violence.pedalOffFunc(56); //measure 320 [ /pedalDown, 56 ]
+//[ /page, perc 5 rand 6 ]
+7.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+~violence.pedalOnFunc(57); //measure 321 [ /pedalUp, 62 ]
+//[ /page, partials 3 ]
+(3.07*(176/~tempo)).yield;
+//[ /page, 37 ]
+~violence.pedalOffFunc(57); //measure 322 [ /pedalDown, 57 ]
+//[ /page, perc 6 rand 9 ]
+31.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+~violence.pedalOnFunc(58); //measure 323 [ /pedalUp, 63 ]
+//[ /page, partials 4 ]
+(6.42*(176/~tempo)).yield;
+//[ /page, 38 ]
+~violence.pedalOffFunc(58); //measure 324 [ /pedalDown, 58 ]
+//[ /page, perc 7 rand 0 ]
+9.do{
+("count: " ++ count).postln;
+("stepGlob: " ++ ~violence.stepGlob).postln;
+case
+{~violence.metalOn == 1} {~violence.trigBang1}
+{~violence.metalOn == 0} {~violence.trigBang2};
+(60/~tempo).yield;
+count = count + 1;
+};
+~violence.pedalOnFunc(59); ///measure 325 [ /pedalUp, 64 ]
+//[ /page, partials 5 ]
+(7.5*(176/~tempo)).yield;
+//[ /page, 39 ]
+~violence.pedalOffFunc(59); //measure 326 [ /pedalDown, 59 ]
+(15.5*(176/~tempo)).yield;
+~violence.pedalOnFunc(60); //measure 327 [ /pedalUp, 65 ]
+//[ /page, 40 ]
+(3.75*(176/~tempo)).yield;
+~violence.pedalOffFunc(60); //measure 329 wagner** [ /pedalUp, 66 ]
+//[ /page, improv 1 ]
+(64*(176/~tempo)).yield;
+//[ /page, 41 ]
+~violence.pedalOnFunc(61); //measure 330 [ /pedalDown, 61 ]
+"SOLO PIANO".postln;
+(3.75*(176/~tempo)).yield;
+//[ /page, 42 ]
+//measure 332 [ /pedalDown, 62 ]:
+~violence.lastSection(1);
+(60/128 * (12 * 3)).yield;
+//measure 343 [ /pedalUp, 68 ]:
+~violence.lastSection(2);
+//[ /page, movie 1 ]
+(44.73).yield;
+//[ /page, 43 ]
+//measure 344 [ /pedalDown, 63 ]:
+~violence.lastSection(3);
+(60/128 * 14).yield;
+//measure 347 [ /pedalUp, 69 ]:
+~violence.lastSection(4);
+//[ /page, movie 2 ]
+(33.93).yield;
+//[ /page, 44 ]
+//measure 348 [ /pedalDown, 64 ]:
+~violence.lastSection(5);
+(60/128 * (8 * 4)).yield;
+//measure 356 [ /pedalUp, 70 ]:
+~violence.lastSection(6);
+//[ /page, improv 2 ]
+(14.55).yield;
+//[ /page, 45 ]
+//measure 357 [ /pedalDown, 65 ]:
+~violence.lastSection(7);
+(60/128 * ((7 * 4)+3.5)).yield;
+//[ /page, 46 ]
+//measure 364 [ /pedalUp, 72 ]:
+~violence.lastSection(8);
+//[ /page, movie 3 ]
+(13.45).yield;
+//[ /page, 47 ]
+//measure 365 [ /pedalDown, 66 ]:
+~violence.lastSection(9);
+(60/128 * ((6 * 4)+4.75)).yield;
+//[ /page, 48 ]
+//measure 372 [ /pedalUp, 74 ]:
+~violence.lastSection(10);
+//[ /page, partials 6 ]
+(5.67).yield;
+//[ /page, 49 ]
+//measure 373 [ /pedalDown, 67 ]:
+~violence.lastSection(11);
+(60/128 * ((3 * 4)+2)).yield;
+//measure 376 [ /pedalUp, 75 ]:
+~violence.lastSection(12);
+//[ /page, movie 4 ]
+(8.34).yield;
+//[ /page, 50 ]
+//measure 377 [ /pedalDown, 68 ]:
+~violence.lastSection(13);
+(60/128 * ((5 * 4)+4.5)).yield;
+//measrue 383 [ /pedalUp, 76 ]:
+~violence.lastSection(14);
+//[ /page, algoScore 27 rand 4 ]
+//[ /page, partials 7 ]
+(11.83).yield;
+//[ /page, 51 ]
+//measure 384 [ /pedalDown, 69 ]:
+~violence.lastSection(15);
+(60/128 * ((4 * 4)+1)).yield;
+//measure 388 [ /pedalUp, 77 ]:
+~violence.lastSection(16);
+//[ /page, algoScore 28 rand 9 ]
+(2.66).yield;
+//[ /page, 52 ]
+"SOLO".postln;
+(60/128 * (14.75)).yield;
+//measure 392 [ /pedalUp, 78 ]:
+~violence.lastSection(17);
+//[ /page, algoScore 29 rand 3 ]
+(1.37).yield;
+//[ /page, 53 ]
+//measure 393 [ /pedalDown, 71 ]:
+~violence.lastSection(18);
+(60/128 * ((6 * 4)+1)).yield;
+//[ /page, 54 ]
+//measure 400 [ /pedalDown, 72 ]:
+~violence.lastSection(19);
+(60/128 * (3 * 7)).yield;
+//measure 403 [ /pedalDown, 73 ]:
+~violence.lastSection(20);
+(60/128 * (3 * 7)).yield;
+//[ /page, 55 ]
+//measure 406 [ /pedalDown, 74 ]:
+~violence.lastSection(21);
+(60/128 * (5 * 7)).yield;
+//measure 411 [ /pedalDown, 75 ]:
+~violence.lastSection(22);
+(60/128 * (3 * 7)).yield;
+//measure 414 [ /pedalUp, 81 ]:
+~violence.lastSection(23);
+//[ /page, end ]
+
+});
+
+};
+
+}.fork
+)
+
+~rout.stop
+
+~lastSecVol = 0.5; //volume last section
+
+~violence.resetNodeProxies; //reset node proxies
+
+~violence.silenceNodeProxies;
+
+~violence.silenceWagnerNodes;
+
+~violence.pedalOnFunc(1);
+
+~violence.remove;
+
+~violence.startNodes(grito4Out:0, motorOut:0);
+
+~violence.readyToStart;
+
+
+~measure = 344;
+(~measure * 2) - 1;
+
+
+~rout.stop;
+~violence.metalOn = 2;
+
+
+////////////////////////////////////////////////
+
+n = NetAddr("127.0.0.1", 57120);
+
+n.sendMsg("/pedalUp", 1);
+n.sendMsg("/pedalDown", 1);
+n.sendMsg("/pedalUp", 2);
+n.sendMsg("/pedalDown", 2);
+
+n.sendMsg("/sensorUp", 0);
+n.sendMsg("/sensorUp", 127);
+n.sendMsg("/sensorSide", 2);
+
+////////////////////////////////////////////////
+
+
+MIDIdef.cc(\behringer, {arg ...args;
+    var volSpec, masterVol;
+    volSpec = [-inf, 6, \db, 0, -inf, " dB"].asSpec;
+
+    case
+    {args[1] == 94}{
+
+        masterVol = volSpec.map(args[0].linlin(0,122,1,0)).postln;
+
+        ~violence.master1.setVol(masterVol);
+        ~violence.master2.setVol(masterVol);
+        } //main volumen
+
+    }, srcID: 970490220);
+
+
+MIDIdef.cc(\behringer, {arg ...args;
+    var volSpec, masterVol;
+    volSpec = [-inf, 6, \db, 0, -inf, " dB"].asSpec;
+
+    case
+    {args[1] == 1}{~violence.metal.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln) }
+    {args[1] == 2}{~violence.grito1.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.grito2.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.grito3.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.metal.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln); }
+    {args[1] == 3}{~violence.grito4.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln); }
+    {args[1] == 4}{~violence.motor.vol(args[0].linlin(0,127,0,2).round(0.02).postln) }
+    {args[1] == 5}{~violence.metal.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.wagner1.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.wagner2.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.wagner3.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+                ~violence.wagner4.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln);
+        }
+    {args[1] == 6}{~violence.buxtahude.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln) }
+    {args[1] == 7}{~violence.parsifal.set(\globamp, args[0].linlin(0,127,0,2).round(0.02).postln) };
+    //{args[1] == 88}{~violence.metal.set(\globamp, volSpec.map(args[0].linlin(0,127,0,1)).postln) };
+
+    });
+
+MIDIdef.cc(\behringer, {arg ...args; args.postln;});
+MIDIIn.doControlAction(1, 1, 81, 90);
+m = MIDIOut.newByName("BCF2000", "Port 1");
+(81..88).do{|item| m.control(0,item,65) }
+
+
+(1..8).do{|item| var value=63; m.control(0,item,value); MIDIIn.doControlAction(970490220, 0, item, value); }
+
+(81..88).do{|item| var value=63; m.control(0,item,value); MIDIIn.doControlAction(970490220, 0, item, value);}
+
+MIDIdef.freeAll;
+
+"finish".myScript.appleScript; //script after performance
+
+
+////////////////////////////////////
+
+//Huddersfield-Cambridge setup
+(
+~violence.prepare(pianoOut: 0, metalOut: 4, grito1Out: 1, grito2Out: 2, grito3Out: 3, grito4Out:7, motorOut: 6, wagner1Out: 2, wagner2Out: 0, wagner3Out: 0, wagner4Out: 2, buxtaOut: 0, parsifalOut: 2); //outs: piano, metal, grito1, grito2, grito3, grito4, motor,wagner1,wagner2,wagner3,wagner4,buxta,parsifal
+)
+
+
+~violence.mixer; //global amplitude mixer
+
+~violence.readyToStart(156, 0.13, 1); //firstTempo, onsetThresh, page, pedalDown, pedalUp
+
+~violence.readyToStart(156, 0.13, \pedal, 51, 51);//firstTempo, onsetThresh, page, pedalDown, pedalUp
+
+~violence.readyToStart(156, 0.13, \pedal, 59, 59);//firstTempo, onsetThresh, page, pedalDown, pedalUp
+
+~violence.readyToStart(156, 0.13, 16);//firstTempo, onsetThresh, page =&gt; notice the change in onsetThresh
+
+~violence.remove; //to stop
+
+~violence.keyboardPedal; //instead of midi pedal, use letters q and a
+~violence.keyboardPedalOff; //turn it off
+
+~violence.mixer2; //a specific amp mixer
+
+
+
+~violence.algoVersion
+
+~violence.funcPage(17) //change page number
+~violence.changePedalNum(16,16) //args:  pedalDown, pedalUp
+
+~violence.changeLocation(5,3,3) //args: page, pedalDown, pedalUp
+
+~violence.funcAlgoScore(4,18,176);
+~violence.funcAlgoScore(3,18,176);
+
+
+
+//restart
+~violence.prepare(0,0,2,2,2,3,4);
+~violence.readyToStart(5,3,3);//page, pedalDown, pedalUp
+
+~violence.remove;
+
+//change volumes
+~violence.piano.set(\globamp, 0); //piano
+~violence.metal.set(\globamp, 0); //metal
+~violence.grito1.set(\globamp, 0.0); //pvplayVoc
+~violence.grito2.set(\globamp, 0.0); //pvplayGrito
+~violence.grito3.set(\globamp, 4.0); //pvplayBet
+
+
+
+~violence.pedalOffFunc;
+
+~violence.pedalOnFunc;
+
+"finish".myScript.appleScript; //script after performance
+
+///////////////////////////////////////////////////////////
+
+(
+~violence = OnViolence(audioIn: 1,
+ampIn: 1.0, volMetal: 1.0, volScream1: 1.5, volScream2: 0.5, volScream3: 0.9, volScream4: 1.0, volMotor: 1.0, volWagner1: 0.2, volWagner2: 0.2, volWagner3: 0.2, volWagner4: 0.2, volBuxta:1.0, volParsifal: 0.9); //ins: audioIn, audioInOnset
+//vol: pianoVol, metalVol, grito1Vol, grito2Vol, grito3Vol, grito4Vol, volMotor, volWagner1, volWagner2, volWagner3, volWagner4, buxtahude, parsifal
+)
+
+//~version = Array.fill(26, {rrand(1,10)}); //random versions
+~version = [ 8, 7, 10, 9, 2, 1, 6, 9, 8, 4, 7, 1, 10, 7, 9, 8, 7, 2, 7, 7, 7, 2, 10, 1, 9, 4 ]; //to practise a specific version, write the array...
+
+~violence.selectFiles(~version); //this takes a few seconds
+
+
+//~violence.sendVersion; //make sure the message is recived in computer2
+
+//(
+//~violence.prepare(pianoOut: 0, metalOut: 0, grito1Out: 2, grito2Out: 2, grito3Out: 2, grito4Out:3, motorOut: 4, wagner1Out: 5, wagner2Out: 5, wagner3Out: 5, wagner4Out: 5, buxtaOut: 5, parsifalOut: 5); //outs: piano, metal, grito1, grito2, grito3, grito4, motor,wagner1,wagner2,wagner3,wagner4,buxta,parsifal
+//)
+
+//~violence.prepare(0,0,0,0,0,1,1,0,0,0,0); //for built in demo
+
+///////////////////////////////////////////////////////////
+//sketches
+
+
+~violence.pnosoloProb;
+~violence.pnosoloVelGate;
+~violence.pnosoloAdjVol;
+~violence.pnosoloTempoAdj;
+~violence.pnosoloTranspAdj;
+~violence.pnosoloVol;
+
+~violence.pnosoloStart;
+
+~violence.pnosoloProb = 0.4;
+~violence.pnosoloAdjVol = 0.5;
+~violence.pnosoloVelGate = 20;
+
+~violence.pnosoloStop;
+
+~violence.chunksAdjTime = 0.9;
+
+~violence.chunksVolAdj = 0.4;
+
+~violence.chunkPlayer(\chunk1, 1.0); //chunk, vol
+
+~violence.chunkPlayer(\chunk13, 1.0, 0.5/1.2); //chunk, vol, dur
+
+~violence.chunksAdjDur = 1.2;
+
+~violence.buxsynthAdjTime = 0.9;
+~violence.buxtaSynthPlayer(0, 0.7);
+
+~violence.buxtasynths.objects[8].set(\vol, 0.5);</pre>
+
+<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/OnViolence/HelpSource/OnViolence.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/OnViolence/HelpSource/OnViolence.schelp</a><br>link::OnViolence::<br>sc version: 3.8.0</div></div></body></html>
