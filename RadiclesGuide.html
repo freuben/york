@@ -23,52 +23,21 @@
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#Installing%20Radicles'>Installing Radicles</a></li>
 <ul class='toc'><li class='toc2'><a href='#Download%20and%20Install%20SuperCollider%20and%20Plugins'>Download and Install SuperCollider and Plugins</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Install%20Radicles%20Quark'>Install Radicles Quark</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Module%20Information'>Module Information</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Lectures'>Lectures</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Formative%20Tasks'>Formative Tasks</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#SuperCollider%20Resources'>SuperCollider Resources</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Code%20Examples'>Code Examples</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Study%20Guides'>Study Guides</a></li>
-<ul class='toc'></ul></ul><li class='toc1'><a href='#Links'>Links</a></li>
-<ul class='toc'></ul></ul></div><h2><a class='anchor' name='Installing%20Radicles'>Installing Radicles</a></h2>
+<ul class='toc'></ul><li class='toc2'><a href='#Download%20and%20Install%20Radicles'>Download and Install Radicles</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Installing%20Radicles'>Installing Radicles</a></h2>
 
 <p>Follow these instructions to install the Radicles system.<h3><a class='anchor' name='Download%20and%20Install%20SuperCollider%20and%20Plugins'>Download and Install SuperCollider and Plugins</a></h3>
 <ol>
-<li>Download SuperCollider here: <a href="https://supercollider.github.io/download">https://supercollider.github.io/download</a><li>Install SuperCollider in your computer (e.g. in MacOS: open zip file, drop it in Applications Folder)<li>Download SC3-Plugins here: <a href="https://github.com/supercollider/sc3-plugins/releases">https://github.com/supercollider/sc3-plugins/releases</a><li>Open SuperCollider and access this page in the program by copying the following code and then evaluating it with <em>shift+return</em>:<pre class='code prettyprint lang-sc'>HeldBrowse.url();</pre>
+<li>Download SuperCollider here: <a href="https://supercollider.github.io/download">https://supercollider.github.io/download</a><li>Install SuperCollider in your computer (e.g. in MacOS: open zip file, drop it in Applications Folder)<li>Download SC3-Plugins here: <a href="https://github.com/supercollider/sc3-plugins/releases">https://github.com/supercollider/sc3-plugins/releases</a><li>Open the SuperCollider Application. Copy the following code from this website and paste it in a SuperCollider document:<pre class='code prettyprint lang-sc'>HelpBrowser.goTo("https://freuben.github.io/york/RadiclesGuide");</pre>
 
-<p><li>Install the plugins by:<ol>
+<p>Run the code by putting the cursor in the same line as the code and then evaluating it with <em>shift+return</em>:<li>Install the plugins by:<ol>
 <li>finding out where the SuperCollider Extensions folder is. You can find this by the following piece of code to SuperCollider and then evaluating the code this with <em>shift+return</em>:<pre class='code prettyprint lang-sc'>Platform.userExtensionDir;</pre>
 
-<p><li>droping the downloaded folder in the specified path. If the directory doesn't exist in your computer, create a directory called "Extensions" (and make sure you spell it correctly, otherwise it won't work)</ol>
+<p><li>opening downloaded zip file, then droping the folder in the specified path. If the directory doesn't exist in your computer, create a directory called "Extensions" (and make sure you spell it correctly, otherwise it won't work)</ol>
 </ol>
-<h3><a class='anchor' name='Install%20Radicles%20Quark'>Install Radicles Quark</a></h3>
+<h3><a class='anchor' name='Download%20and%20Install%20Radicles'>Download and Install Radicles</a></h3>
+<ol>
+<li>Evaluate the following code (<em>shift+return</em>):<pre class='code prettyprint lang-sc'>Quarks.gui;</pre>
 
-<p>6.<h3><a class='anchor' name='Module%20Information'>Module Information</a></h3>
-<ul>
-<li><a href="./SSfMT/Handbook.html">Handbook</a><li><a href="./SSfMT/Handbook.html#Module%20Overview">Module Overview</a><li><a href="./SSfMT/Handbook.html#Assessment">Assessment</a><li><a href="./SSfMT/Handbook.html#Course%20Materials">Course Materials</a><li><a href="./SSfMT/Assignment Briefs.html">Assignment Briefs</a><li><a href="./SSfMT/moduleplan.htm">Module Plan</a></ul>
-
-<p><h3><a class='anchor' name='Lectures'>Lectures</a></h3>
-<ul>
-<li><a href="./SSfMT/Lectures/Introduction to Module.html">Introduction to Module</a><li><a href="./SSfMT/Practicals/Modular Synthesis 1.html">Modular Synthesis 1</a><li><a href="./SSfMT/Practicals/Modular Synthesis 2.html">Modular Synthesis 2</a><li><a href="./SSfMT/Practicals/Programming Concepts 1.html">Programming Concepts 1</a><li><a href="./SSfMT/Lectures/Programming Concepts 2.html">Programming Concepts 2</a><li><a href="./SSfMT/Practicals/Playing with UGens 1.html">Playing with UGens 1</a><li><a href="./SSfMT/Practicals/Playing with UGens 2.html">Playing with UGens 2</a><li><a href="./SSfMT/Practicals/Scheduling and Patterns.html">Scheduling and Patterns</a><li><a href="./SSfMT/Practicals/Buses and Ndefs.html">Buses and Ndefs</a><li><a href="./SSfMT/Practicals/Interfacing.html">Interfacing</a><li><a href="./SSfMT/Practicals/Organising your Code.html">Organising your Code</a></ul>
-
-<p><h3><a class='anchor' name='Formative%20Tasks'>Formative Tasks</a></h3>
-<ul>
-<li><a href="./SSfMT/Tasks/Task 1.html">Task 1</a> - Due 25/11<li><a href="./SSfMT/Tasks/Task 2.html">Task 2</a> - Due 2/12<li><a href="./SSfMT/Tasks/Task 3.html">Task 3</a> - Due 14/1</ul>
-
-<p><h3><a class='anchor' name='SuperCollider%20Resources'>SuperCollider Resources</a></h3>
-<ul>
-<li><a href="./SSfMT/Study Guides/Synthesis in SuperCollider.html">Synthesis in SuperCollider</a><li><a href="./SSfMT/Lectures/Digital Synthesis.html">Digital Synthesis</a><li><a href="./SSfMT/Lectures/Digital Effects.html">Digital Effects</a><li><a href="./SSfMT/Study Guides/Buffer Tricks.html">Buffer Tricks</a></ul>
-
-<p><h3><a class='anchor' name='Code%20Examples'>Code Examples</a></h3>
-<ul>
-<li><a href="./SSfMT/Code Examples/Code for Fun.html">Code for Fun</a><li><a href="./SSfMT/Code Examples/MIDI Out Fun.html">MIDI Out Fun</a><li><a href="./SSfMT/Code Examples/MIDI File Fun.html">MIDI File Fun</a><li><a href="./SSfMT/Code Examples/Simple FX.html">Simple FX</a><li><a href="./SSfMT/Code Examples/Synth Fun.html">Synth Fun</a><li><a href="./SSfMT/Code Examples/MIDI Synthesiser.html">MIDI Synthesiser</a><li><a href="./SSfMT/Code Examples/Mixing Things.html">Mixing Things</a></ul>
-
-<p><h3><a class='anchor' name='Study%20Guides'>Study Guides</a></h3>
-<ul>
-<li><a href="./SSfMT/Study Guides/SC Basics Quick Study.html">SC Basics Quick Study</a><li><a href="./SSfMT/Study Guides/Deconstructing SC code.html">Deconstructing SC code</a></ul>
-<h2><a class='anchor' name='Links'>Links</a></h2>
-<ul>
-<li><a href="https://www.mstrcyork.org/">Music, Science and Technology Research Cluster (mstrc)</a><li><a href="https://www.york.ac.uk/music/research/music-science-technology/research-groups/technologies-musical-creativity">Technologies for Musical Creativity Group (TMCG)</a><li><a href="https://algorave.com/">Algoraves</a><li><a href="https://yorkshiresoundwomen.com/">Yorkshire Sound Women Network (YSWN)</a></ul>
-
-<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp</a><br>link::RadiclesGuide::<br>sc version: 3.8.0</div></div></body></html>
+<p>This will open a window with a list of Quarks, which are SuperCollider libraries written by thrid-parties.<li>In the list, look for "Radicles" and select it by clicking on the add (+) buttom. This will download and intall the Quark.<li>In the same window, click on the "Recompile class library" buttom in the upper left-side of the Quarks window.<li>Download the main Radicles Files here:</ol>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp</a><br>link::RadiclesGuide::<br>sc version: 3.8.0</div></div></body></html>
