@@ -1,4 +1,4 @@
-<html><head><title>Radicles Guide to Installation</title>
+<html><head><title>Radicles Installation Guide</title>
 <link rel='stylesheet' href='./scdoc.css' type='text/css' />
 <link rel='stylesheet' href='./frontend.css' type='text/css' />
 <link rel='stylesheet' href='./custom.css' type='text/css' />
@@ -15,7 +15,7 @@
 <div class='header'>
 <div id='label'>SuperCollider  (extension)</div>
 <div id='categories'><a href='./Browse.html#Tutorials/RadiclesGuide'>Tutorials/RadiclesGuide</a></div>
-<h1>Radicles Guide to Installation</h1>
+<h1>Radicles Installation Guide</h1>
 <div id='summary'>RadiclesGuide</div>
 </div>
 <div class='subheader'>
@@ -24,6 +24,7 @@
 <ul class='toc'><li class='toc1'><a href='#Installing%20Radicles'>Installing Radicles</a></li>
 <ul class='toc'><li class='toc2'><a href='#Download%20and%20Install%20SuperCollider%20and%20Plugins'>Download and Install SuperCollider and Plugins</a></li>
 <ul class='toc'></ul><li class='toc2'><a href='#Download%20and%20Install%20Radicles'>Download and Install Radicles</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Checking%20the%20install%20worked'>Checking the install worked</a></li>
 <ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Installing%20Radicles'>Installing Radicles</a></h2>
 
 <p>Follow these instructions to install the Radicles system.<h3><a class='anchor' name='Download%20and%20Install%20SuperCollider%20and%20Plugins'>Download and Install SuperCollider and Plugins</a></h3>
@@ -33,11 +34,24 @@
 <p>Run the code by putting the cursor in the same line as the code and then evaluating it with <em>shift+return</em>:<li>Install the plugins by:<ol>
 <li>finding out where the SuperCollider Extensions folder is. You can find this by the following piece of code to SuperCollider and then evaluating the code this with <em>shift+return</em>:<pre class='code prettyprint lang-sc'>Platform.userExtensionDir;</pre>
 
-<p><li>opening downloaded zip file, then droping the folder in the specified path. If the directory doesn't exist in your computer, create a directory called "Extensions" (and make sure you spell it correctly, otherwise it won't work)</ol>
+<p><li>opening downloaded zip file, then dropping the folder in the specified path. If the directory doesn't exist in your computer, create a directory called "Extensions" (and make sure you spell it correctly, otherwise it won't work)</ol>
 </ol>
 <h3><a class='anchor' name='Download%20and%20Install%20Radicles'>Download and Install Radicles</a></h3>
 <ol>
 <li>Evaluate the following code (<em>shift+return</em>):<pre class='code prettyprint lang-sc'>Quarks.gui;</pre>
 
-<p>This will open a window with a list of Quarks, which are SuperCollider libraries written by thrid-parties.<li>In the list, look for "Radicles" and select it by clicking on the add (+) buttom. This will download and intall the Quark.<li>In the same window, click on the "Recompile class library" buttom in the upper left-side of the Quarks window.<li>Download the main Radicles Files here:</ol>
-<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp</a><br>link::RadiclesGuide::<br>sc version: 3.8.0</div></div></body></html>
+<p>This will open a window with a list of Quarks, which are SuperCollider libraries written by third-parties.<li>In the list, look for "Radicles" and select it by clicking on the add (+) button. This will download and install the Quark.<li>In the same window, click on the "Recompile class library" button in the upper left-side of the Quarks window. This will reset SuperCollider and load the Quark.<li>Download (and unzip) the RadiclesFiles folder here: <a href="http://www.squib-box.com/fr/Radicles/RadiclesFiles.zip">http://www.squib-box.com/fr/Radicles/RadiclesFiles.zip</a><li>Place this folder in the SuperCollider Extensions folder (same folder you placed the SC3-Plugins). Remember this folder should be in the path that can be accessed by evaluating the code below: (<em>shift+return</em>):<pre class='code prettyprint lang-sc'>Platform.userExtensionDir;</pre>
+</ol>
+<h3><a class='anchor' name='Checking%20the%20install%20worked'>Checking the install worked</a></h3>
+<ol>
+<li>Start the system by evaluating this piece of code (<em>shift+return</em>):<pre class='code prettyprint lang-sc'>Radicles.start;</pre>
+
+<p><li>This should bring a new window up. In that window, type:<pre class='code prettyprint lang-sc'>start 2</pre>
+
+<p>and press return. (Some code should be posted in the SuperCollider window.<li>Then type:<pre class='code prettyprint lang-sc'>    mix</pre>
+
+<p> This should open a mixer interface window.<li>Finally, type:<pre class='code prettyprint lang-sc'>    pl 1 drums1</pre>
+
+<p> This should play the sound file called "drums1.wav".<li>If that seems to work, then you're good. If something doesn't work, then let me know and I'll come to help.</ol>
+<div class='note'><span class='notelabel'>NOTE:</span> <strong>Well done!! You've now installed the Radicles System!! Enjoy! :)</strong></div>
+<p><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/SSfMT/HelpSource/RadiclesGuide.schelp</a><br>link::RadiclesGuide::<br>sc version: 3.8.0</div></div></body></html>
