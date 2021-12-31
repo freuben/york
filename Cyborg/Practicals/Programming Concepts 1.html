@@ -1,0 +1,380 @@
+<html><head><title>Programming Concepts 1</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider CYBORG/PRACTICALS (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/Cyborg'>Tutorials/Cyborg</a></div>
+<h1>Programming Concepts 1</h1>
+<div id='summary'>Cyborg Music</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../Cyborg.html">Cyborg Music</a>, <a href="./../../Cyborg/Handbook.html#Course%20Materials">Course Materials</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Getting%20Started'>Getting Started</a></li>
+<ul class='toc'><li class='toc2'><a href='#Before%20we%20start'>Before we start</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#SuperCollider%20IDE'>SuperCollider IDE</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Getting%20Help'>Getting Help</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Keyboard%20Shortcuts'>Keyboard Shortcuts</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Evaluation'>Evaluation</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Programming%20Concepts'>Programming Concepts</a></li>
+<ul class='toc'><li class='toc2'><a href='#Comments'>Comments</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Syntax%20Colourise'>Syntax Colourise</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Simple%20Numbers,%20Simple%20Math'>Simple Numbers, Simple Math</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Variables'>Variables</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Global%20Variables'>Global Variables</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Punctuation'>Punctuation</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Exercises'>Exercises</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Intermezzo'>Intermezzo</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Back%20to%20programming...'>Back to programming...</a></li>
+<ul class='toc'><li class='toc2'><a href='#Functions'>Functions</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Arguments'>Arguments</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Objects%20and%20Messages'>Objects and Messages</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Collections'>Collections</a></li>
+<ul class='toc'><li class='toc2'><a href='#Exercises'>Exercises</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Getting%20Started'>Getting Started</a></h2>
+<h3><a class='anchor' name='Before%20we%20start'>Before we start</a></h3>
+<div class='warning'><span class='warninglabel'>WARNING:</span> Computers don't speak human!</div><div class='warning'><span class='warninglabel'>WARNING:</span> Code can be annoying for humans!</div>
+<p>Code in SC is written in the SC Language – a computer language! Computer languages are NOT like the human languages we speak – they have different rules and it’s important that you learn them. You would be surprised how some students think they can just write in plain English telling the computer what to do!! :-\
+<p>So, remember, code is different from human languages. A challenge of writing computer code is also that if you make any mistakes, the code will not run… Therefore, the code needs to have no mistakes (typos, spelling, syntax, etc.) in order for the computer to ‘understand’ and run the code. Computers are (still) not as smart as us (we can sometimes still understand incorrect language by someone who is just learning… but unfortunately computers can’t).
+<p>But, we all still make mistakes writing code (obiously at the beginning you will make more mistakes). Fortunately, the computer will point out approximately where in your code you made a mistake through an Error message (more on this later).
+<p>Therefore, with SC we have to be patient at the beginning! The learning curve might seem a bit steeper than learning other software, but as you will see: if your persevere it will pay off!
+<p>I will be looking at the Mac version of SuperCollider. There are slight variations (in shortcuts for example) in the SuperCollider version for Linux and Windows. They are not substantial though in the SuperCollider IDE.<h3><a class='anchor' name='SuperCollider%20IDE'>SuperCollider IDE</a></h3>
+
+<p><a href="http://doc.sccode.org/Guides/SCIde.html">The SuperCollider IDE</a> (Integrated Development Environment) is a cross-platform coding environment based on Qt (cross-platform software development tool).<h3><a class='anchor' name='Getting%20Help'>Getting Help</a></h3>
+
+<p>The most important thing in SC is where to find the help documentation. Of course, you can look in the Help in the Menu bar, but also it is helpful to know the shortcut to get your help files. In Mac you can do that with <em>cmd + d</em>. In Windows <em>ctrl</em> is used instead of <em>cmd</em>. Also if you select a Class that you want to search documentation for, you have to select the word and then press <em>cmd + d</em>.<div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcut: <em>cmd + d</em></div>
+<p>Example:
+<p>Select the word bellow and then press <em>cmd + d</em>.<pre class='code prettyprint lang-sc'>SinOsc</pre>
+
+<p>This will take you to the help file of this class, which is a simple sine oscillator<h3><a class='anchor' name='Keyboard%20Shortcuts'>Keyboard Shortcuts</a></h3>
+
+<p>If you want to know all of the keyboard shortcuts across different platforms (MacOS,Windows,Linuxs) you might want to look at the Keyboard Shortcuts helpfile by selecting the two words bello and then pressing cmd + d<pre class='code prettyprint lang-sc'>Keyboard Shortcuts</pre>
+<h3><a class='anchor' name='Evaluation'>Evaluation</a></h3>
+<div class='note'><span class='notelabel'>NOTE:</span> The Post window is the window where all the errors and other useful data are printed.</div>
+<p><strong>Always keep an eye on it!</strong><div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcuts:
+<p><em>cmd + p</em> = Post Window to Front
+<p><em>shift + cmd + p</em> = Clear Post Window</div>
+<p>When it comes to running code or evaluating it, you have to select the code that you want to evaluate (or if all of the code is in one line, position the cursor in the line you want to evaluate) and then press cmd + return or shift + return<div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcut: <em>cmd + return or shift + return</em> = Evaluate</div>
+<p>Run the code bellow by put the cursor in the line where the code is and then evaluate it several times:<pre class='code prettyprint lang-sc'>("I am a " ++ ["frog", "cat", "horse"].choose).postln</pre>
+
+<p>Look at the post window!
+<p>Now run this line:<pre class='code prettyprint lang-sc'>31+13</pre>
+
+<p>The answer is returned in the post window!
+<p>Sometimes, code is longer than one line; therefore you have to select all of it for it to run.
+<p>Select <strong>all</strong> the following code, and evaluate it.<pre class='code prettyprint lang-sc'>s.waitForBoot({var tune;
+    tune = [60,60,62,64,60,64,62,55,
+    60,60,62,64,73,60.4,59.6];
+    Pbind(\midinote, Pseq(tune,1),
+    \amp, 0.8,
+    \dur, 0.2).play;
+});</pre>
+
+<p>Another way of selecting code that exceeds one line is by putting the code you want to select within parenthesis () – with this type of brackets! – and then double clicking next to the parenthesis:<pre class='code prettyprint lang-sc'>(
+"code
+accross
+different
+lines
+".postln
+)</pre>
+
+<p>Instead of double clicking to select the code within the brackets, you can also evaluate with <em>cmd + return</em>:<div class='note'><span class='notelabel'>NOTE:</span> Notice that if you try to do the same with <em>shift + return</em> this will not work. This shortcut is to evaluate only one line of code, or code that is already selected.</div>
+<p>Copy this code to an empty document and then try evaluating by putting the cursor within th brackets and then <em>cmd + return</em>. Then try it with <em>shift + return</em>. See the difference!<pre class='code prettyprint lang-sc'>(
+{var n;
+    n=10;
+    Resonz.ar(
+        Mix.arFill(n,{
+            var freq, numcps;
+            freq= rrand(50,560.3);
+            numcps= rrand(2,20);
+            Pan2.ar(Gendy1.ar(6.rand, 6.rand, 1.0.rand, 1.0.rand,
+                freq, freq, 1.0.rand, 1.0.rand, numcps,
+                SinOsc.kr(exprand(0.02,0.2), 0, numcps/2, numcps/2), 0.5/(n.sqrt)),
+            1.0.rand2)
+        }),
+        MouseX.kr(100,2000), MouseY.kr(0.01,1.0));
+}.play
+)</pre>
+
+<p>To stop the sound, press command key and then period: <em>cmd + .</em><div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcut: <em>cmd + .</em> = Kill all sound</div><h2><a class='anchor' name='Programming%20Concepts'>Programming Concepts</a></h2>
+<h3><a class='anchor' name='Comments'>Comments</a></h3>
+<pre class='code prettyprint lang-sc'>//this is a comment
+/* this is another comment */</pre>
+
+<p>Comments are made as a reminder of what the piece of code stands for. The computer doesn’t understand comments – it actually ignores them. Comments are for humans to remember something about the piece of code.
+<p><strong>Example</strong>:<pre class='code prettyprint lang-sc'>(
+{Pan2.ar(
+    SinOsc.ar(
+        MouseX.kr(440,880)
+        ,0,0.1),
+    0.0);
+}.play;  //this is a Theremin, move mouse from left to right
+)</pre>
+
+<p><strong>Remember</strong>: To stop the sound, press <em>cmd + .</em>
+<p>The computer ignores the comment (if you erase the comment it has no effect in the programme). If you forget to put the <code class='code prettyprint lang-sc'>//</code> before the comment, <code class='code prettyprint lang-sc'>/* */</code> around the comment, you will get an error though because your talking a different language here that is not for computers!<div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcuts: <em>cmd + /</em> = comment or uncomment selection</div>
+<p><strong>Exercise</strong>: copy the text bellow into an empty Document, then try to comment it in and out:<pre class='code prettyprint lang-sc'>try commenting this text and then uncomment it back!</pre>
+<h3><a class='anchor' name='Syntax%20Colourise'>Syntax Colourise</a></h3>
+
+<p>Your code will be colour-coded according to the SC language syntax! Notice you can change these colours if you go<h3><a class='anchor' name='Simple%20Numbers,%20Simple%20Math'>Simple Numbers, Simple Math</a></h3>
+
+<p>SimpleNumber is the base class for numbers representing one dimentional value including integers and floats.<pre class='code prettyprint lang-sc'>1 //evaluate
+0.5</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> We need a zero leading decimal numbers less than 0 (0.5, 0.3, etc.)</div>
+<p><pre class='code prettyprint lang-sc'>.5 //produces an error</pre>
+
+<p>Basic Math operations from left to right. Some basic operations:<pre class='code prettyprint lang-sc'>1+2
+3*2 //multiply
+5/4 //divide
+3+2/2 //left to right
+3+(2/2) //not the same! Use brackets for nested operations</pre>
+
+<p>For more basic math operations, see the following helpfiles (<em>cmd + d</em>):<pre class='code prettyprint lang-sc'>SimpleNumber
+Float
+Integer</pre>
+<h3><a class='anchor' name='Variables'>Variables</a></h3>
+
+<p>Variables can be used to break the code into separate lines. A variable is precisely that: a “container” with variable content. You may assign different content to a variable. Variables also need to be defined at the beginning of the expression. Variables have to be inside the expression and have to be evaluated within it (if we evaluate the following piece of code line by line it produces error = we need to evaluate the whole piece of code for it to work).<pre class='code prettyprint lang-sc'>( //double click next to this parenthesis
+var num1, num2, num3, numbers; //we define the variables we are going to use
+num1 = 2; //we assign number 2 to the variable called “num1”
+num2 = 3; //we assign number 3 to the variable called “num2”
+num3 = num1 * 4; //we assign the result of the multiplication of 4 times the content of variable “num1” (2)
+numbers = num1 + num2 + num3; //we add variables “num1”, “num2” and “num3”
+)</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> When naming variables, it is standard practice to give them names that will tell you something about what that variable might contain. Good examples for variables would <code class='code prettyprint lang-sc'>var name, occupation, note, value;</code> . It is also standard practice if you want to name a variable with two or more words, to capitalise the first letter of the subsecuent words - also called <code class='code prettyprint lang-sc'>CamelCase</code> and specifically for variables <code class='code prettyprint lang-sc'>lowerCamelCase</code>. For example: <code class='code prettyprint lang-sc'>var firstName, bassClef, spectralEnvelope;</code> . We do this also to make the code readible without relying on so many comments.</div><h3><a class='anchor' name='Global%20Variables'>Global Variables</a></h3>
+
+<p>Variables can be local or global. Variables that are local and have to be declared (normal variables). Global variables can be declared and accessed wherever and whenever, regardless where they are in a piece of code or when they are declared. In SC, Global Variables can be Letters a-z. We can therefore assign different content to the letters a-z and evaluate it separately.
+<p>For example:<pre class='code prettyprint lang-sc'>a = 2; //we assign the number 2 to the global variables “a”
+b = 3; //we assign the number 3 to the global variables “a”
+a + b; //this is the equivalent of 2 plus 3
+b = 4; //know lets change the content of “b”, we are now assigning 4
+a + b; //the answer now is different, it’s 6!</pre>
+
+<p>With global variables you can do complex algebraic calculations. Remember that if a global variable has not been assigned to anything, it will return nothing (represented as <em>nil</em>).<pre class='code prettyprint lang-sc'>c //evaluate this line – should return nil
+c = 3/4 //now c is 0.75
+a + b * c;</pre>
+<h3><a class='anchor' name='Punctuation'>Punctuation</a></h3>
+
+<p>By now you have seen the semicolon (;) used in computer code, but what is it doing? The semicolon is used as punctuation. It divides the code in different parts (and lines) that hold a logical progression. If you evaluate a long piece of code, you will need to use the semicolon to divide the different parts of the programme that need to be evaluated in order.
+<p>For a moment, consider this operation without the semicolon:<pre class='code prettyprint lang-sc'>(   //double click next to this parenthesis
+a = 100;
+a = a + 100;
+b = a;
+b = b / 2;
+a + b;
+)</pre>
+
+<p>It wouldn’t make sense, would it!?!? In the first line we need to know that <em>a</em> is 100 before saying that <em>a</em> equals <em>a</em> (already a hundred) plus 100 in the second line, meaning that by now <em>a</em> equals 200. Then in the third line <em>b</em> is equal to <em>a</em> (by now 200). And in the forth line <em>b</em> equals <em>b</em> (already 200) divided by 2, which equals 100. The final answer is therefore 300, the sum of <em>a</em> (by now 200) and “b” (by now 100). Without the use of the semicolon, this wouldn’t make sense! :-|<h3><a class='anchor' name='Exercises'>Exercises</a></h3>
+<ol>
+<li>Write an arithmetic operation using only local variables, make sure you use punctuation and brackets<li>Write another operation using only global variables this time (remember to give them a name that makes sense)<li>Write comments next to your code, explaining what it’s doing</ol>
+<h2><a class='anchor' name='Intermezzo'>Intermezzo</a></h2>
+
+<p>Ok, let's have a break and have some fun with this example:<pre class='code prettyprint lang-sc'>(
+{var a, c, d, s, z, y;
+d = 6; //try changing this value with numbers from 1 to 100.
+c = 5; //try changing this value with numbers from 1 to 50.
+a = 4; //change this with values between 1 and 100.
+    s = Mix.ar(Array.fill(d, { Resonz.ar(Dust.ar(2/d, 50), 200 + 3000.0.rand, 0.003)}) );
+    z = DelayN.ar(s, 0.048);
+    y = Mix.ar(CombL.ar(z, 0.1, LFNoise1.kr(Array.fill(c,{0.1.rand}), 0.04, 0.05), 15));
+    a.do({ y = AllpassN.ar(y, 0.050, [0.050.rand,0.050.rand], 1) });
+    s+(0.2*y)
+}.play
+)</pre>
+<div class='warning'><span class='warninglabel'>WARNING:</span> Remember to stop the sound with <em>cmd + .</em></div><h2><a class='anchor' name='Back%20to%20programming...'>Back to programming...</a></h2>
+
+<p>Before we continue making more music, we still need to know a couple more things…<h3><a class='anchor' name='Functions'>Functions</a></h3>
+
+<p>Functions are operations that can be stored without running them, and to be evaluated at any time. They define a context, without the necessity to detail everything: what and when. Functions are written within this type of brackets: {code}<pre class='code prettyprint lang-sc'>{1 + 2} //this is a function</pre>
+
+<p>Ones defined, functions may be evaluated by adding “.()” at the end of the function.<pre class='code prettyprint lang-sc'>{1 + 2}.(); //gives result
+a = {1 + 2 * 3} //store a function in global variable “a”
+a.() //runs the function and gives result</pre>
+<h3><a class='anchor' name='Arguments'>Arguments</a></h3>
+
+<p>Functions may have arguments. Arguments don’t need to be defined at the time of defining the function. They can also change when the function is run.
+<p>Arguments can be expressed as:<pre class='code prettyprint lang-sc'>f = {arg a,b; a*b} //defines function “f”
+
+f.(10,2) //runs function “f” with values 10 and 2 as arguments
+f.(3,5) //runs same function with different values as arguments (getting a different result!)</pre>
+
+<p>Arguments may have default values that can be defined within the function. This default values will be used if the argument is not specified when evaluating the function:<pre class='code prettyprint lang-sc'>f = {arg a=2,b=4; a*b} //defines function “f”
+f.(); //uses all default arguments
+f.(3); //changes the first argument, but uses the second as default since it is not defined
+f.(3,5); //changes both default arguments
+f.(a: 3, b:5); //same as above but specifies which arguments the values are changing
+f.(b:5); //changes only argument b</pre>
+
+<p>Arguments can also be declared like this:<pre class='code prettyprint lang-sc'>f = {|a,b| a*b};
+f.(2,8)</pre>
+
+<p>Functions may have also have variables. Variables are different to arguments, as they do have to be defined while the function is defined and they cannot change. Arguments on the other hand don’t need to be defined and can change every time the function is evaluated.<pre class='code prettyprint lang-sc'>(
+f = {arg a=2,b=4;
+var num, result;
+num = 3;
+result = a + b / num;
+}
+)
+
+f.(7,8) //only the arguments can change</pre>
+
+<p>Functions can also be evaluated iteratively:<pre class='code prettyprint lang-sc'>1.do{"Hello".postln}; //evaluates function ones
+10.do{"Hello".postln}; //evaluates function 10 times</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> The message (see below) <code class='code prettyprint lang-sc'>.postln</code> posts an object or result in the Post window. It's a very useful tool for debugging.</div>
+<p>Exercise: 1. Write a function with arguments and variables 2. Write a function that is evaluated through iteratition<h3><a class='anchor' name='Objects%20and%20Messages'>Objects and Messages</a></h3>
+
+<p>The SC Language is an Object Oriented Programming (OOP) language. Most things that do anything in SC are objects that receive messages. In SC the objects start with uppercase letters and messages with lowercase letters. Usually messages follow objects and are separated by a period.<pre class='code prettyprint lang-sc'>Env.sine; //object Env (envelope), with message sine (a type of envelope)</pre>
+
+<p>Objects might receive messages (it might receive many messages too).<pre class='code prettyprint lang-sc'>Env.perc.test.plot</pre>
+
+<p>SC is a polymorphic language: objects respond differently to a message. A message generally has some underlying meaning and it is the responsibility of each class to respond in a way appropriate to that meaning.
+<p>In the following example, the object Env responds differently to the messages: adsr, sine, linen and triangle - all generating a different type of envelops. The specific types of envelopes are therefore envelope objects.<pre class='code prettyprint lang-sc'>Env.adsr.plot
+Env.sine.plot
+Env.linen.plot
+Env.triangle.plot</pre>
+
+<p>So, capitalized words are objects and ones they are colourised, they are blue! These objects are like the boxes in Max and they respond differently to the stuff you “connect to them”. Messages on the other hand are written in low-case letters and follow an object with a period (.) in front of them. The messages that are associated to the object make the object behave/respond differently according to the “meaning” of the message.
+<p>There are a few objects that are not expressed as capitalized words. For example numbers are also objects! They also respond differently to different messages:<pre class='code prettyprint lang-sc'>0.5.sin //sine of 0.5
+0.5.cos //cosine of 0.5
+60.midicps //midi numbers to cycles per second (frequency)
+440.cpsmidi //freq to midi
+10.rand //random numbers from 0 to 10
+10.rand2 //random numbers between-10 and 10
+10.squared //square root of 10</pre>
+
+<p>For more messages that numbers respond to, again, check the help file of:<pre class='code prettyprint lang-sc'>SimpleNumber //cmd + d</pre>
+
+<p>Messages actually call a function within the object. Messages therefore also respond to arguments. Again, arguments are values (and other things too!) that can be changed to affect a function (in this case defined by the message). Using different values as arguments can therefore affect what the message does. In the following example, we are changing the argument values for the message adsr affecting the Env object. The arguments are written after the message in parenthesis and separated by commas. Here these values are changing (in order) the attack, decay, sustain and release times of the adsr envelope. With different arguments we get different adsr envelope shapes.<pre class='code prettyprint lang-sc'>Env.adsr(0.1,0.05,0.5,0.1).test.plot;
+Env.adsr(0.01,0.1,0.1,0.1).test.plot;
+Env.adsr(1.0,0.1,0.0,0.01).test.plot;</pre>
+
+<p>If no arguments are written, the object will take default values:<pre class='code prettyprint lang-sc'>Env.adsr.test.plot;</pre>
+
+<p>If you want to look at the default values, you can go to the source code and see the function that the message triggers as well as the default arguments.<pre class='code prettyprint lang-sc'>adsr //select the adsr message and press cmd + i</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> Useful Shortcut: <em>:cmd + i</em> = implementations of message (source code)</div>
+<p>In SuperCollider, as well as in other programming languages (and human languages too!), there are different ways of expressing the same thing. There are often different ways of writing something and getting the same result.
+<p>There are two main ways of writing things in SC:
+<p>receiver notation:<pre class='code prettyprint lang-sc'>    Object.message
+       440.cpsmidi.round</pre>
+
+<p>functional notation: function (argument):<pre class='code prettyprint lang-sc'>    cpsmidi(440)
+    round(cpsmidi(440))</pre>
+
+<p>These are all different ways of writing the same thing - random between two limits:<pre class='code prettyprint lang-sc'>    rrand(10,20)
+    rrand(10,20.0)
+    10.rrand(20)</pre>
+
+<p>Recap on Brackets<pre class='code prettyprint lang-sc'>(        //double click within the parenthesis to select the piece of code
+
+
+)
+
+(
+ 2
+ +
+ 2
+ *
+ 3
+)</pre>
+
+<p>Types of brackets<pre class='code prettyprint lang-sc'>(  )  //to group experssions
+
+{  }  //function
+
+[  ]  //collection (lists of data)</pre>
+
+<p>The SC language consists of a lot of nested expressions – you can select between the brackets to check the fragments of code. Double click over the different brackets in the next piece of code:<pre class='code prettyprint lang-sc'>(
+if(5 &gt; 4, {
+    if(3 &lt;=3, {
+        "well done!!".postln
+    });
+});
+)</pre>
+
+<p>Try the same with shift + cmd + b – this way you can access the different levels of code
+<p>Useful Shortcut: <em>shift + cmd + b</em> = check brackets are balanced<h2><a class='anchor' name='Collections'>Collections</a></h2>
+
+<p>Collections are lists of items (data). Like numbers, collections are objects. The items are separated by commas and are enclosed by this type of brackets: [items]
+<p>For example:<pre class='code prettyprint lang-sc'>[3,4,2,5,4]; //a collection of numbers
+[1,2,\foo,"hello"]; //this is a varied list of stuff</pre>
+
+<p>To see the different types of Collections, select:<pre class='code prettyprint lang-sc'>Collections  //double click to select</pre>
+
+<p>and <em>cmd + d</em> for help
+<p>some messages that respond to collections:<pre class='code prettyprint lang-sc'>[1,2,3,4,5,6].choose
+[1,2,3,4,5,6].scramble
+[1,2,3,4,5,6].rotate
+[1,2,3,4,5,6] + 10</pre>
+
+<p>collections can be specified with the following shortcuts:<pre class='code prettyprint lang-sc'>(1..5)
+// is the same as:
+[ 1, 2, 3, 4, 5 ]
+
+
+f = (10..20)
+f[0] //gets the first item of the list
+f[1] //gets the second item of the list
+f.last //gets the last item of the list
+f.size //tells you how many items are in the list
+
+f[1]
+// is the same as:
+f.at(1)
+
+(1,3..21) //odd numbers
+(0,2..20) //even numbers
+(0..10).nthPrime //prime numbers
+
+(1,3..8) + (1,4..8)</pre>
+
+<p>Ways of creating collections (Arrays are a kind of collection):<pre class='code prettyprint lang-sc'>Array.series(10,1,100) //arguments: size, start, step
+Array.fill(10, {rrand(400,800)})  // size, function
+Array.fill(10, rrand(400,800))  // if function not specified with brackets, then returns the same result 10 times
+Array.rand(10, 0.7,2.4); //10 random numbers between 0.7 and 2.4 with lineal distribution</pre>
+
+<p>Other ways of manipulating collections: evaluate each line and check the result in the post window:<pre class='code prettyprint lang-sc'>a = [1,3,5,6];
+a+5
+a*8
+a**2 //squared
+a.squared
+a.sqrt
+a.scramble //evaluate several times!
+a.reverse</pre>
+
+<p>Change items in an Array:<pre class='code prettyprint lang-sc'>b=[2,3,4,7]
+
+b[0] //returns the item at index number 0
+
+b[0]= 74 //assigns 74 in index 0
+
+b //has changed</pre>
+
+<p>It is also possible to iterate through a collection with the message <code class='code prettyprint lang-sc'>do</code> and then a function with the arguments item and index.<pre class='code prettyprint lang-sc'>[100,150,200,300,400].do{|item| (item+rrand(10,20)).postln };
+
+a = Array.rand(10,0,100);
+a.do{|item, index| [item, index].postln };
+
+b = Array.series(10,0,1);
+b.do{|item, index| (item * index).postln };</pre>
+
+<p>for more methods that respond to collections, see the help files for:<pre class='code prettyprint lang-sc'>Collection
+ArrayedCollection
+SequenceableCollection
+Array</pre>
+<h3><a class='anchor' name='Exercises'>Exercises</a></h3>
+
+<p>Answer the following questions:<ol>
+<li>What is the difference between local and global variables?<li>What is a function?<li>What is an argument?<li>What is Object Oriented Programming (OOP)?<li>What is an object?<li>What is a message?<li>Name some of the differences between computer and human languages.<li>How are arguments related to messages?<li>What is the semicolon for?<li>What kinds of brackets do we use in SC and for what purpose?<li>What is a collection?</ol>
+<div class='note'><span class='notelabel'>NOTE:</span> Various examples, ideas, etc. have been taken or derived from the SC documentation, Paul Berg, David Cottle, Nick Collins, and probably lots of other people in the SuperCollider community.</div><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Practicals/Programming Concepts 1.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Practicals/Programming Concepts 1.schelp</a><br>link::Cyborg/Practicals/Programming Concepts 1::<br>sc version: 3.8.0</div></div></body></html>

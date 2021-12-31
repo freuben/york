@@ -1,0 +1,245 @@
+<html><head><title>Machine Learning</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider CYBORG/SEMINARS (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/Cyborg'>Tutorials/Cyborg</a></div>
+<h1>Machine Learning</h1>
+<div id='summary'>Cyborg Music</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../Cyborg.html">Cyborg Music</a>, <a href="./../../Cyborg/Seminars/Computational Creativity and Music 2.html">Computational Creativity and Music 2</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.017.png'/></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.018.png'/><br><b>2-state Markov process</b></div>
+
+<p><pre class='code prettyprint lang-sc'>//Simple 2-state Markov Chain
+(
+~mChain = [
+[4, [4, 9], [0.3,0.7]],
+[9, [4, 9], [0.4,0.6]]
+]
+)
+
+(
+~index = ~mChain.flop[0].indexOf(4);
+{ inf.do{
+~note = ~mChain[~index][1].choose(~mChain[~index][2]);
+    Synth(\sinePerc, [\freq, (72+~note).midicps]);
+~index = ~mChain.flop[0].indexOf(~note);
+0.2.yield;
+}
+}.fork
+)</pre>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.019.png'/></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.020.png'/></div>
+<pre class='code prettyprint lang-sc'>//Zero order transition table (weighted random)
+(
+{ inf.do{
+Synth(\sinePerc, [\freq, [72, 71, 69].wchoose([0.25, 0.5, 0.25]).midicps]);
+    0.2.yield;
+};
+}.fork;
+)
+
+//another example using text as data
+//the ascii of each character of the text is used for statistical analysis
+//derived probabilities from text and converted into midi note values
+
+(
+SynthDef(\my_synth, {|dur = 1.0, amp = 1.0, freq = 440|
+    var env = EnvGen.ar(Env.new([1, 0.1, 0], [0.06, dur - 0.06]), doneAction: 2);
+    Out.ar([0, 1], SinOsc.ar([freq * 0.995, freq * 1.005], 0, env * amp))
+}).add;
+~text = "Serialism, along with John Cage's indeterminate music (music composed with the use of chance operations), and Werner Meyer-Eppler's aleatoricism, was enormously influential in post-war music. Theorists such as George Perle codified serial systems, and his 1962 text Serial Composition and Atonality became a standard work on the origins of serial composition in the work of Schoenberg, Berg and Webern.
+Several of the composers associated with Darmstadt, notably Karlheinz Stockhausen, Karel Goeyvaerts, and Henri Pousseur developed a form of serialism that initially rejected the recurring rows characteristic of twelve-tone technique, in order to eradicate any lingering traces of thematicism (Felder 1977, 92). Instead of a recurring, referential row, each musical component is subjected to control by a series of numerical proportions (Morgan 1975, 3). In Europe, the style of some serial as well as non-serial music of the early 1950s emphasized the determination of all parameters for each note independently, often resulting in widely spaced, isolated points of sound, an effect called first in German punktuelle Musik (pointist or punctual music), then in French musique ponctuelle, but quickly confused with pointillistic (German pointillistische, French pointilliste) the familiar term associated with the densely packed dots in paintings of Seurat, despite the fact that the conception was at the opposite extreme (Stockhausen and Frisius 1998, 451).
+Pieces were structured by closed sets of proportions, a method closely related to certain works from the de Stijl and Bauhaus movements in design and architecture called serial art by some writers (Bochner 1967, Gerstner 1964, Guderian 1985, Sykora 1983), specifically the paintings of Piet Mondrian, Theo van Doesburg, Bart van Leck, Georg van Tongerloo, Richard Paul Lohse, and Burgoyne Diller, who had been seeking to “avoid repetition and symmetry on all structural levels and working with a limited number of elements” (Bandur 2001, 54).
+Stockhausen described the final synthesis in this manner:
+So serial thinking is something that's come into our consciousness and will be there forever: it's relativity and nothing else. It just says: Use all the components of any given number of elements, don't leave out individual elements, use them all with equal importance and try to find an equidistant scale so that certain steps are no larger than others. It's a spiritual and democratic attitude toward the world. The stars are organized in a serial way. Whenever you look at a certain star sign you find a limited number of elements with different intervals. If we more thoroughly studied the distances and proportions of the stars we'd probably find certain relationships of multiples based on some logarithmic scale or whatever the scale may be. (Cott 1973, 101)
+Igor Stravinsky's adoption of twelve-tone serial techniques offers an example of the level of influence that serialism had after the Second World War. Previously Stravinsky had used series of notes without rhythmic or harmonic implications (Shatzkin 1977). Because many of the basic techniques of serial composition have analogs in traditional counterpoint, uses of inversion, retrograde and retrograde inversion from before the war are not necessarily indicative of Stravinsky adopting Schoenbergian techniques. However with his meeting Robert Craft and acquaintance with younger composers, Stravinsky began to consciously study Schoenberg's music, as well as the music of Webern and later composers, and began to use the techniques in his own work, using, for example, serial techniques applied to fewer than 12 notes. Over the course of the 1950s he used procedures related to Messiaen, Webern and Berg. While it is difficult to label each and every work as serial in the strict definition, every major work of the period has clear uses and references to its ideas.
+During this period, the concept of serialism influenced not only new compositions but also the scholarly analysis of the classical masters. Adding to their professional tools of sonata form and tonality, scholars began to analyze previous works in the light of serial techniques; for example they found the use of row technique in previous composers going back to Mozart and Beethoven (Jalowetz 1944, 387; Keller 1955, passim). In particular, the orchestral outburst that introduces the development section half-way through the last movement of Mozart's next-to-last symphony is a tone row that Mozart punctuates in a very modern and violent episode that Michael Steinberg called rude octaves and frozen silences (Steinberg 1998, 400).
+Furthermore, the organizing principles of serialism inspired mathematical analogues, such as uses of set theory, group theory, operators, and parametrization, for example in the post-war works of Elliott Carter, Iannis Xenakis, and Witold Lutosławski.[citation needed] Likewise, the mathematical analogues in integral serialism were influential in the development of electronic music and synthesized music. Ruth Crawford Seeger is credited with extending serial controls to parameters other than pitch and to formal planning as early as 1930–33 (Tick 2001)";
+~update = {//have to evaluate this to run new text
+~smallLetters = (97..122).asAscii;
+~capitalLetters = (65..90).asAscii;
+~probabilities = [];
+~smallLetters.do{|item, index|
+        ~probabilities = ~probabilities.add(
+            ~text.findAll(item.asString).size +
+                ~text.findAll(~capitalLetters[index]).size / ~text.size;
+    )
+    };
+~probabilities = ~probabilities++[1-~probabilities.sum];
+};
+)
+//routine to play notes
+(
+~update.value;
+{
+var note;
+inf.do{
+note = (48..(48+~probabilities.size)).wchoose((~probabilities));
+if(note == 74, {"silence".postln}, {
+Synth(\my_synth, [\freq, note.postln.midicps, \dur, 0.2])
+});
+0.2.yield;
+~update.value;
+}
+}.fork
+)
+//change text input
+~text = "Hello";
+
+~text = "Hi there";
+
+~text = "a   abc zy";
+
+~text = "aaa a aaz";
+
+~text = "a";</pre>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.021.png'/></div>
+
+<p><pre class='code prettyprint lang-sc'>Quarks.gui; //install MathLib
+
+//There are two classes for doing Markov Chains:
+MarkovSet
+MarkovSetN
+
+//simple example
+(
+m = MarkovSet([
+    [60, [67, 65, 64], [0.5,0.3, 0.2]], //element, nextElement, weights
+    [67, [60], [1]],
+    [65, [67, 64], [0.5,0.5]],
+    [64, [60,65, 67], [0.2,0.4,0.4]]
+    ]);
+)
+
+Pbind(\midinote, Pfsm2(m), \dur, 0.5).play; //Pfsm2 creates a pattern from Markov Set
+
+(
+m = MarkovSet([
+[60, [62], [1]],
+[62, [60, 63], [0.5, 0.5]],
+[63, [60, 65], [1, 1]],
+[65, [60, 65, 67], [1, 4, 1]],
+[67, [70], [1]],
+[70, [67, 69], [1, 2]],
+[69, [67, 72], [1, 2]],
+[72, [67, 72, 60], [1,4,2]]
+]);
+)
+
+~mark = Pfsm2(m).asStream;
+~dur = ~mark.collect({|item|
+    case
+    {[60,63,67,69].includes(item);} {1}
+    {[62,65,72].includes(item);} {0.5}
+    {item == 70;} {1.5}
+})
+
+Pdef(\mark, Pbind(\instrument, \sinePerc, \midinote, ~mark, \dur, ~dur*0.33)).play; //Pfsm2 creates a pattern from Markov Set
+
+//another example
+(
+m = MarkovSet([
+[60, [62], [1]],
+[62, [60, 63], [1, 1]],
+[63, [60, 65], [1, 1]],
+[65, [60, 65, 67], [1, 4, 1]],
+[67, [70], [1]],
+[70, [67, 69], [1, 2]],
+[69, [67, 72], [1, 2]],
+[72, [67, 72, 60], [1,4,2]]
+]);
+~mark = Pfsm2(m).asStream;
+~dur = ~mark.collect({|item|
+    case
+    {[60,63,67,69].includes(item);} {1}
+    {[62,65,72].includes(item);} {0.5}
+    {item == 70;} {1.5}
+})
+)
+
+Pdef(\mark, Pbind(\instrument, \sinePerc, \midinote, ~mark, \dur, ~dur*0.33))
+
+// training by a stream
+m = MarkovSet.fill(100, Pseq([1, 2, 3, 4, Prand([5, 55, 555])], inf).asStream);
+8.do { m.next(1).postln };
+8.do { m.next(4).postln };
+8.do { m.next(55).postln };
+
+// training bit by bit
+m = MarkovSet.new;
+m.read(\x, \y);
+m.read(\x, \z);
+m.read(\z, \abcde);
+m.read(\y, nil);
+
+8.do { m.next(\x).postln };
+8.do { m.next(\y).postln };
+8.do { m.next(\z).postln };
+
+m.read(\y, \mmmm);
+8.do { m.next(\y).postln }; // now it sometimes terminates
+
+m.remove(\y, \mmmm);
+8.do { m.next(\y).postln };
+
+//now a musical example:
+//this is our melody which we will train the markov with
+~notes = [ 0, 0, 7, 7, 9, 9, 7, 7, 5, 5, 4, 4, 2, 2, 0, 0 ] + 60;
+
+Pbind(\midinote, Pseq(~notes, 1), \dur, 0.3).play
+
+~pairs = ~notes.slide(2).slice;
+
+~num = (~pairs.size/2);
+~secondPair = Array.iota(~num.asInteger,2);
+~trainMe = ~pairs.reshapeLike(~secondPair);
+
+m = MarkovSet.new;
+
+~trainMe.do{|item| m.read(item[0], item[1]) };
+
+Pbind(\midinote, Pfsm2(m), \dur, 0.5).play;
+
+// 2nd order MarkovSet
+(
+m = MarkovSetN([
+            [[100, 120], [120, 130]],
+            [[120, 100], [100, 1900]]
+        ], 2);
+)
+
+8.do { m.next([100, 120]).postln };
+8.do { m.next([120, 100]).postln };
+
+// training by a stream
+m = MarkovSetN.fill(100, Pseq([1, 2, 3, 4, Prand([5, 55, 555])], inf).asStream, 2);
+8.do { m.next([1,2]).postln };
+8.do { m.next([3,4]).postln };
+8.do { m.next([4,5]).postln };</pre>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.036.png'/><br><b>David Cope - alchetron.com</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.037.png'/></div>
+
+<p><pre class='code prettyprint lang-sc'>"open http://youtu.be/yFImmDsNGdE?t=45s".unixCmd; //Tech Closeup TV
+"open http://youtu.be/t6WeiyvAiYQ".unixCmd; //Chopin style
+"open http://youtu.be/R-_9zSSQK3o".unixCmd; //Joplin style</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Machine Learning.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Machine Learning.schelp</a><br>link::Cyborg/Seminars/Machine Learning::<br>sc version: 3.8.0</div></div></body></html>

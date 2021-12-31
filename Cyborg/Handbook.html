@@ -1,0 +1,175 @@
+<html><head><title>Handbook</title>
+<link rel='stylesheet' href='./../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../scdoc.js' type='text/javascript'></script>
+<script src='./../docmap.js' type='text/javascript'></script>
+<script src='./../prettify.js' type='text/javascript'></script>
+<script src='./../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider CYBORG (extension)</div>
+<div id='categories'><a href='./../Browse.html#Tutorials/Cyborg'>Tutorials/Cyborg</a></div>
+<h1>Handbook</h1>
+<div id='summary'>Cyborg Music: Human-machine co-creativity</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../Cyborg.html">Cyborg Music</a>, <a href="./../Cyborg/Handbook.html#Course%20Materials">Course Materials</a>, <a href="./../Cyborg/Handbook.html#Assessment">Assessment</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Module%20Outline'>Module Outline</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Module%20Overview'>Module Overview</a></li>
+<ul class='toc'><li class='toc2'><a href='#Module%20Description'>Module Description</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Module%20Aims'>Module Aims</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Module%20Outcomes'>Module Outcomes</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Attendance'>Attendance</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Communication'>Communication</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Independent%20study'>Independent study</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Module%20Plan'>Module Plan</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Assessment'>Assessment</a></li>
+<ul class='toc'><li class='toc2'><a href='#Assessment%20Methods'>Assessment Methods</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Assessment%20Strategy'>Assessment Strategy</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Assessment%20Deadlines'>Assessment Deadlines</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Submission'>Submission</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Course%20Materials'>Course Materials</a></li>
+<ul class='toc'><li class='toc2'><a href='#Resources'>Resources</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Reading'>Reading</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#SuperCollider%20Links'>SuperCollider Links</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#VCV%20Rack%20and%20Modular%20Links'>VCV Rack and Modular Links</a></li>
+<ul class='toc'></ul></ul></ul></div><div class='image'><img src='cyborg.png'/><br><b>Humani Victus Instrumenta - Ars Coquinaria - metmuseum.org</b></div>
+<dl>
+<dt>Department of Music<dt>University of York<dt>Spring Term 2022<dd></dl>
+<h2><a class='anchor' name='Module%20Outline'>Module Outline</a></h2>
+<ul>
+<li><strong>Module</strong>: Software Systems for Music Technology<li><strong>Module Credits</strong>: 20<li><strong>Module Leader</strong>:<ul>
+<li><strong>Name</strong>: Dr Federico Reuben<li><strong>Email</strong>: federico.reuben@york.ac.uk</ul>
+
+<p><li><strong>Dates</strong>: November 11 2019 - April 22 2020<li><strong>Spaces</strong>: Rymer Auditorium / MRC Teaching Room<li><strong>Formative Assessment</strong>: Seminar presentation (week 10 autumn term)<li><strong>Summative Assessment</strong>: Software and Technical Report (week 1 summer term) and Seminar/Showcase (week 2 summer term)<li><strong>Contact Time</strong>: 30 hours (lectures, practicals and seminars).<li><strong>Module Feedback</strong>: Written feedback within 4 weeks of hand-in.</ul>
+<h2><a class='anchor' name='Module%20Overview'>Module Overview</a></h2>
+<h3><a class='anchor' name='Module%20Description'>Module Description</a></h3>
+
+<p>This module will introduce audio software design and programming concepts for digital synthesis, signal processing and control systems. You will first be introduced to electronic music concepts as well as gaining understanding and hands-on experience in modular synthesis with VCV Rack. You will then be introduced to digital systems and computer music: this will include learning the basics about how computation works and the fundamentals of computer programming. We will apply those principles of computer programming with a programming language called SuperCollider. SuperCollider is a powerful language for writing real-time audio processing, synthesis and control systems for music and audio. You will learn the basics of SuperCollider and you will design and build your own software systems for music performance, composition and production that will be demonstrated in practice at a showcasing event. This module therefore provides with various learning objectives that are valuable for your future: 1) it will give you an understanding of electronic and computer music principles, 2) you will start learning how to write computer code, which is a highly sought skill that can be transferable across many professions 3) you will have a better understanding of how computer music software works and how it is built, 4) you will gain practical and theoretical knowledge of sound synthesis and signal processing, 5) you will learn how to make your own software systems for performance, composition and production.<h3><a class='anchor' name='Module%20Aims'>Module Aims</a></h3>
+
+<p>This module aims to:<ul>
+<li>provide an introduction to the state of the art in audio software systems for music technology, including the study of different approaches to software design and programming<li>describe and explain digital sound synthesis and signal processing techniques – how audio effects and synthesis techniques work and what factors influence their sonic character.<li>introduce control systems for music programming, for example those used in algorithmic composition.</ul>
+
+<p><h3><a class='anchor' name='Module%20Outcomes'>Module Outcomes</a></h3>
+
+<p>By the end of the taught part of the project all students should:<ul>
+<li>understand the basics of digital audio synthesis and audio signal processing.<li>have the ability to design and program bespoke software tools for performance, composition and production within computer music programming environments.</ul>
+<h3><a class='anchor' name='Attendance'>Attendance</a></h3>
+
+<p>Attendance to all of the lectures and practicals is mandatory. Attendance will be monitored for each of these sessions. You are expected to be on time to all sessions.<h3><a class='anchor' name='Communication'>Communication</a></h3>
+
+<p>Please check your university email regularly as this will be the primary form of communication between staff and students. Also, check the module materials regularly to access lecture slides, tutorials and exercises, information about deadlines, assignment briefs, reading materials, etc. Before contacting staff members about information, check the module handbook first as most of the module information will be available to you there.<h3><a class='anchor' name='Independent%20study'>Independent study</a></h3>
+
+<p>According to university regulations, the amount of time you should devote to private study for this module is a total of 109 hours, that is at least 8 hours per week outside your assessment preparation. Therefore, during this time you should be engaging with reading material, practicing programming skills, researching on related topics, experimenting with technology and code, etc. This of course does not include your time in seminars, workshops and tutorials. In addition to this, you will be expected to spend at least 60 hours for assessment preparation to prepare your final software, technical report and seminar/showcase. This is the very minimum amount of time of independent study expected from you to pass this module.<h3><a class='anchor' name='Module%20Plan'>Module Plan</a></h3>
+
+<p>You can find the planned sessions including all lectures, practicals, presentations and assessment deadlines by following this link:<ul>
+<li><a href="./../SSfMT/moduleplan.htm">Module Plan</a></ul>
+<h2><a class='anchor' name='Assessment'>Assessment</a></h2>
+<h3><a class='anchor' name='Assessment%20Methods'>Assessment Methods</a></h3>
+<ul>
+<li><strong>Formative</strong>:<ol>
+<li><a href="./../SSfMT/Assignments/Seminar Presentation.html">Seminar Presentation</a>.<li><a href="./../SSfMT.html#Formative%20Tasks">Reading and practical tasks</a>.<li>Independent learning.</ol>
+
+<p><li><strong>Summative</strong>:<ol>
+<li><a href="./../SSfMT/Assignments/Software System.html">Software System</a> (50%) written in the SuperCollider programming language.<li><a href="./../SSfMT/Assignments/Technical Report.html">Technical Report</a> (40%)<li><a href="./../SSfMT/Assignments/Presentation.html">Presentation/Concert</a> (10%) using the software system.</ol>
+
+<p>You can read all the <strong>Assignment Briefs and Criteria</strong> <a href="./../SSfMT/Assignment Briefs.html">here</a>.</ul>
+
+<p><h3><a class='anchor' name='Assessment%20Strategy'>Assessment Strategy</a></h3>
+
+<p>The assessment criteria specific to this module will be considered and used as a measure to determine your achievement in the summative assessment process at the end of the module. <em>Lectures</em> will provide the opportunity to gain new knowledge in electronic and computer music, programming and creative applications of technology. <em>Practicals</em> will give you hands-on experience in synthesis, coding and digital audio technologies and the opportunity to creatively experiment with computers. <em>Formative assessment</em> and <em>tasks</em> will guide you through the learning process, ensuring you have the necessary knowledge and skills to complete the summative assessments. <em>Summative assessments</em> will be used to evaluate your performance in relation to module and programme outcomes. The <em>software system</em> (submitted as computer code) will provide the opportunity to demonstrate technical and creative skills and your involvement with technically challenging problems, creative processes and research activities. The <em>technical report</em> provides you with an opportunity to demonstrate your level of knowledge and understanding of relevant technical and musical concepts, debates and contexts and to present this information clearly. The <em>presentation/performance</em> will allow you to demonstrate the software system in practice and within a musical context.<h3><a class='anchor' name='Assessment%20Deadlines'>Assessment Deadlines</a></h3>
+
+<p><strong>Formative Assessment</strong>:<ul>
+<li><strong>Seminar Presentation</strong>: Monday, 2 December 2019, from 13:30-17:30 (in-class)</ul>
+
+<p><strong>Summative Assessment</strong>:<ul>
+<li><strong>Software (50%)</strong>: Tuesday, 14 April 2020 before 16:00.<li><strong>Technical Report (40%)</strong>: Tuesday, 14 April 2020 before 16:00.<li><strong>Presentation / Performance (10%)</strong>: Wednesday, 22 April 2020, event from 9:15-13:15.</ul>
+<h3><a class='anchor' name='Submission'>Submission</a></h3>
+
+<p>You will submit your work through our online submission system via the <a href="https://deposit.york.ac.uk/">Deposit Service</a>. This will include all of the files for the Software System (code and supporting materials) and PDF files containing the technical report. Whatever form your assessment takes, you must pay attention to all aspects of presentation, including the material appearance of your work.
+<p>You must create your zipped folder before using the Deposit Service.
+<p>Your zipped file should be named in the following format:
+<p><strong>ExamNumber_ModuleTitle</strong>
+<p>For example, your file name might look like: <strong>Y1234567_SoftwareSystemsForMusicTechnology</strong>.
+<p>Please include your exam number (and not your name) in the name of each document you include in your zipped file. For example, <strong>Y1234567_code</strong>.
+<p>To use the Deposit Service, you need to submit all your work as a zipped folder. You must create this before using the Deposit Service.
+<p>For a detailed explanation of how to submit your work please read the <a href="https://www.york.ac.uk/media/music/documents/handbooks/Music%20Department%20Guide%20to%20Assessment%20Submission%2019_20.pdf">Music Department Guide to Assessment Submission</a>.<h2><a class='anchor' name='Course%20Materials'>Course Materials</a></h2>
+<h3><a class='anchor' name='Resources'>Resources</a></h3>
+
+<p><strong>Library</strong>: You will be expected to research and write a technical report for this module and this will require finding academic sources (books, journals, etc.) at the library. Online library resources: The library provides a series of online resources that you can access through the library website. You can reach the website by following this <a href="http://www.york.ac.uk/library/">link</a>.
+<p><a href="http://subjectguides.york.ac.uk/az.php">E-resources</a> include a large collection of useful e-journal articles and e-books as well as other great music resources including streamable audio and video, electronic scores and databases that you can find by following this <a href="http://subjectguides.york.ac.uk/c.php?g=484041&p=3547049">link.</a>
+<p><strong>Software</strong>: For this module, you will need to download two pieces of software: VCV Rack and SuperCollider. They are both open source and free!
+<p><strong>VCV Rack</strong>
+<p>You'll need to create a VCV account to downlaod and install VCV Rack and its plugins.
+<p>You can download VCV Rack <a href="https://vcvrack.com/">here</a>.
+<p>You should also install the plugins, which you can find <a href="https://github.com/VCVRack/Rack/wiki/List-of-plugins">here</a>.
+<p>Go to <a href="./../SSfMT/Handbook.html#VCV%20Rack%20and%20Modular%20Links">VCV Rack and Modular Links</a> for free patches and other interesting information.
+<p><strong>SuperCollider</strong>
+<p>In this module, you'll learn how to work with the SuperCollider programming language. SuperCollider is free and you can download the latest version <a href="http://supercollider.github.io/download">here</a>.
+<p>Once you download SuperCollider, you can access the module material by copying and pasting this line of code into a SuperCollider document:<pre class='code prettyprint lang-sc'>HelpBrowser.goTo("https://freuben.github.io/york/SSfMT");</pre>
+
+<p>Then, evaluate this code by putting the cursor on the same line and then pressing <em>shift+return</em>. If you don't want to do this every time you want to access the material and want the material to be there when you start SuperCollider, then go to: <em>File-&gt;Open startup file</em> and paste the code there and save the file. Next time you open SuperCollider, the materials will be there!
+<p>You should also download and install the <a href="https://github.com/supercollider/sc3-plugins/releases">Synthesis Plugins and Extensions</a>.
+<p>For quick installation of the plugins in Mac, evaluate each line of code individually in SuperCollider:<pre class='code prettyprint lang-sc'>"open https://github.com/supercollider/sc3-plugins/releases/download/Version-3.8.0/sc3-plugins_OSX_SC3.8_692f92f.zip".unixCmd; //download current version of sc-plugins for mac
+("open " ++ "~/Downloads/sc3-plugins_OSX_SC3.8_692f92f.zip".standardizePath.shellQuote).unixCmd;
+//open zip file
+("mv " ++ "~/Downloads/SC3plugins/".standardizePath.shellQuote ++ " " ++ (Platform.userExtensionDir++ "/SC3plugins/").shellQuote).unixCmd; //move the folder to where it belongs</pre>
+
+<p>If that doesn't work, download the <a href="https://github.com/supercollider/sc3-plugins/releases">Synthesis Plugins and Extensions</a>, open them and install them in the Extensions folder. You can find out where this folder is by evaluating this code<pre class='code prettyprint lang-sc'>Platform.userExtensionDir;</pre>
+
+<p>Move the plugins folder to this directory. If the directory doesn't exist, then create it.
+<p>Additionally, you might want to install some third-party packages called <a href="./../Classes/Quarks.html">Quarks</a>.
+<p>Go to <a href="./../SSfMT/Handbook.html#SuperCollider%20Links">SuperCollider Links</a> for code examples and other interesting information.
+<p><strong>Other software</strong>
+<p>You might also want to use other software applications in this module.
+<p>Here are some suggestions of software you might want to use:<ul>
+<li>Digital Audio Workstations (recording, editing, MIDI and processing):<ul>
+<li><a href="http://www.reaper.fm/">Reaper</a> (free - or very cheap...)<li><a href="http://www.apple.com/uk/logic-pro/">Logic</a><li><a href="http://www.avid.com/pro-tools">ProTools</a><li><a href="https://www.ableton.com/">Ableton Live</a></ul>
+
+<p><li>Audio analysis:<ul>
+<li><a href="http://www.klingbeil.com/spear/">Spear</a> (free)<li><a href="http://sonicvisualiser.org/">Sonic Visualiser</a> (free)<li><a href="https://www.izotope.com/en/products/mix/insight.html">iZotope Insight</a></ul>
+
+<p><li>Notation:<ul>
+<li><a href="http://www.avid.com/sibelius">Sibelius</a><li><a href="http://www.finalemusic.com/">Finale</a><li><a href="http://lilypond.org/">Lilypond</a> (free - texted based engraver)</ul>
+
+<p><li>Visual programming for Audio<ul>
+<li><a href="https://puredata.info/">Pure Data</a> (free)<li><a href="https://cycling74.com/">Max</a> (free trail for 30 days)</ul>
+
+<p><li>Visual programming for Visuals<ul>
+<li><a href="https://cycling74.com/">Jitter</a> (part of Max)</ul>
+
+<p><li>Programming for Visuals<ul>
+<li><a href="https://processing.org/">Processing</a> (free)</ul>
+
+<p><li>Live coding environments<ul>
+<li><a href="https://toplap.org/tidal/">TidalCycles</a> (free - sc based)<li><a href="http://sonic-pi.net/">SonicPi</a> (free - sc based)<li><a href="http://gibber.cc/">Gibber</a> (web browser - javascript based)</ul>
+
+<p><li>Interactive Audio for Web Development (javascript)<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Web Audio API</a></ul>
+
+<p><li>iPhone/iPad Apps:<ul>
+<li><a href="https://itunes.apple.com/gb/app/touchosc/id288120394?mt=8">TouchOSC </a><a href="https://itunes.apple.com/gb/app/lemur/id481290621?mt=8">Lemur</a></ul>
+</ul>
+
+<p><strong>Equipment</strong>: For this module you can use a variety of equipment with your computer. At the Department of Music we have a range of equipment and resources that you can book for work on this module. The stores at the MRC contain microphones, portable recorders, audio interfaces, video cameras, midi controllers, audio interfaces, other human interface devices (HIDs including joysticks, game controllers, etc.) as well as cables and accessories. You can use anything you like that is made available to you by the Department. You can use the computers in the studios if you have limited access to a laptop. You can book spaces and equipment online or talk to the Department technician Ben Eyes (ben.eyes@york.ac.uk).
+<p>You may also use your own equipment for this module including your computers, audio interfaces, iPhones (or other smartphones), iPads (or other tablets), game controllers, etc. You can also purchase some specialist equipment if you desire to. If you want to continue working in computer music after this module, it might be a good idea to purchase some basic items like an audio interface and a midi controller. You can buy relatively cheap equipment for interfacing with your computer - here are some examples:<ul>
+<li><a href="http://www.ebay.co.uk/sch/Audio-MIDI-Interfaces/123445/i.html?_from=R40&_nkw=audio+interface">audio interfaces @ ebay</a><li><a href="http://www.ebay.co.uk/sch/Pro-Audio-MIDI-Controllers/178896/bn_2315660/i.html">midi controllers @ ebay</a><li><a href="http://www.ebay.co.uk/sch/Video-Game-Controllers-Attachments/117042/bn_552150/i.html">game controllers @ ebay</a><li><a href="https://www.arduino.cc/">arduino</a><li><a href="http://bela.io/">bela</a></ul>
+
+<p>If you need advice on what piece of equipment to buy for a particular purpose, talk to me or Ben, or any other technology enthusiast at the Department.<h3><a class='anchor' name='Reading'>Reading</a></h3>
+<ul>
+<li>SuperCollider <a href="./../Browse.html">helpfiles</a> and <a href="./../Help.html">documentation</a>.<li>Russ, Martin (2009) <a href="http://yorsearch.york.ac.uk/44YORK:44YORK_ALMA_DS51242483270001381">Sound Synthesis and Sampling</a>. Focal Press<li>Dodge, Charles (1997) <a href="http://www.servus.at/campus/2011/music_class/class1/Dodge__Jerse_-_Computer_Music__Synthesis__Composition__and_Performance_2._ed.pdf">Computer music: synthesis, composition, and performance</a>. Schirmer Books.<li>Roads, Curtis (1996) <a href="http://yorsearch.york.ac.uk/44YORK:44YORK_ALMA_DS21213801710001381">The Computer Music Tutorial</a>. MIT Press.<li>Puckette, Miller (2006) <a href="http://msp.ucsd.edu/techniques/latest/book.pdf">The Theory and Technique of Electronic Music</a>. World Scientific Publishing.<li>Farnell, Andy (2010) <a href="http://yorsearch.york.ac.uk/44YORK:44YORK_ALMA_DS51280202840001381">Designing Sound</a>. MIT Press.<li>Zölzer, Udo (2011) <a href="http://yorsearch.york.ac.uk/44YORK:44YORK_ALMA_DS51241939260001381">DAFX</a>. Wiley.<li>Valle, Andrea (2016) <a href="https://www.amazon.co.uk/Introduction-SuperCollider-Andrea-Valle/dp/3832540172">Introduction to SuperCollider</a>. Logos Verlag Berlin GmbH.</ul>
+<h3><a class='anchor' name='SuperCollider%20Links'>SuperCollider Links</a></h3>
+<ul>
+<li><a href="http://www.audiosynth.com/">Original SuperCollider page by James McCartney</a><li><a href="http://supercollider.github.io/pages">SuperCollider Wiki</a><li><a href="http://supercollider.github.io/community/mailing-lists">SuperCollider Mailing List - sc-users</a><li><a href="http://sccode.org/">SuperCollider code</a><li><a href="https://twitter.com/search?q=%23sc140 & open https://twitter.com/sc140tweets">sctweets</a></ul>
+<h3><a class='anchor' name='VCV%20Rack%20and%20Modular%20Links'>VCV Rack and Modular Links</a></h3>
+<ul>
+<li><a href="https://patchstorage.com/platform/vcv-rack/">VCV Rack Patches</a><li><a href="https://learningmodular.com/">Learning Modular</a><li><a href="https://mutable-instruments.net/">Mutable Instruments</a><li><a href="https://www.befaco.org">Befaco</a><li><a href="http://synthtech.com/">Synthesis Technology</a></ul>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Handbook.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Handbook.schelp</a><br>link::Cyborg/Handbook::<br>sc version: 3.8.0</div></div></body></html>
