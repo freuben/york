@@ -24,7 +24,7 @@
 <div id='toc'>
 <ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar3/seminar3.001.png'/><br><b>AI-Da</b></div>
 
-<p><a href="https://time.com/5607191/robot-artist-ai-da-artificial-intelligence-creativity/">Time article about AI-Da</a>
+<p><a href="https://time.com/5607191/robot-artist-ai-da-artificial-intelligence-creativity/">Time article about AI-Da - time.com</a>
 <p><a href="https://youtu.be/VCVgNDdlH4A">The Artist in the Machine?</a>
 <p><a href="https://youtu.be/XaZJG7jiRak">TED talk by AI-Da</a><div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/Lecture4/Lecture4.038.png'/><br><b>Peter Zinovieff with PDP-8 computer in 1965</b></div>
 
@@ -97,8 +97,10 @@ a = 4;
 b = Buffer.loadDialog(s); //you need to change the path to a soundfile in your computer
 
 (
-~barlength= 1.5876;
-~spb= (~barlength/5);
+~tempo = 180;
+~signature = 4;
+~barlength= ~tempo/120;
+~spb= (~barlength/~signature);
 ~bps= (~spb).reciprocal;
 
 ~length= b.numFrames/44100.0;
