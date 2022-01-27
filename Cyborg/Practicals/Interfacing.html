@@ -24,7 +24,7 @@
 <div id='toc'>
 <ul class='toc'><li class='toc1'><a href='#MIDIIn'>MIDIIn</a></li>
 <ul class='toc'><li class='toc2'><a href='#Receiving%20MIDIIn%20messages'>Receiving MIDIIn messages</a></li>
-<ul class='toc'></ul><li class='toc2'><a href='#Sending%20MIDI%20values%20to%20a%20Ndef'>Sending MIDI values to a Ndef</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Sending%20MIDI%20values%20to%20a%20Synth'>Sending MIDI values to a Synth</a></li>
 <ul class='toc'></ul></ul><li class='toc1'><a href='#Human%20Input%20Devices%20(HID)'>Human Input Devices (HID)</a></li>
 <ul class='toc'></ul><li class='toc1'><a href='#Open%20Sound%20Control%20(OSC)'>Open Sound Control (OSC)</a></li>
 <ul class='toc'><li class='toc2'><a href='#Sending%20OSC%20messages'>Sending OSC messages</a></li>
@@ -64,46 +64,47 @@ MIDIdef.noteOn(\testOn).free;
 
 MIDIdef(\test1).free; // free one def
 MIDIdef.freeAll; // free all registered MIDIdefs</pre>
-<h3><a class='anchor' name='Sending%20MIDI%20values%20to%20a%20Ndef'>Sending MIDI values to a Ndef</a></h3>
-<pre class='code prettyprint lang-sc'>Ndef(\theremin).play;
-
-Ndef(\theremin).fadeTime = 1;
-
-(
-Ndef(\theremin, {arg freq=440, amp=0.3, pos=0;
-    var signal;
+<h3><a class='anchor' name='Sending%20MIDI%20values%20to%20a%20Synth'>Sending MIDI values to a Synth</a></h3>
+<pre class='code prettyprint lang-sc'>(
+SynthDef(\theremin, {arg freq=440, amp=0.3, pos=0, bus=0;
+    var signal, output;
     signal = SinOsc.ar(freq.lag(0.1), 0, amp);
-    Pan2.ar(signal, pos);
-});
+    output = Out.ar(bus, Pan2.ar(signal, pos));
+}).add;
 )
 
-Ndef(\theremin).set(\freq, 300);
+a = Synth(\theremin);
+a.set(\freq, 300);
 
 (
 MIDIdef.cc(\freqs, {arg ...args; "freq: ".post;
-    Ndef(\theremin).set(\freq, args[0].linexp(0,127,100,5000).postln);
+    a.set(\freq, args[0].linexp(0,127,100,5000).postln);
     }, 16); //maps to cc number 16
 MIDIdef.cc(\amps, {arg ...args; "amp: ".post;
-    Ndef(\theremin).set(\amp, args[0].linlin(0,127,0,1.0).postln);
+    a.set(\amp, args[0].linlin(0,127,0,1.0).postln);
     }, 19); //maps to cc number 19
 MIDIdef.cc(\pos, {arg ...args; "pos: ".post;
-    Ndef(\theremin).set(\pos, args[0].linlin(0,127,-1,1.0).postln);
+    a.set(\pos, args[0].linlin(0,127,-1,1.0).postln);
     }, 18); //maps to cc number 18
 )
 
-//new ndef
+a.free;
+
+//new SynthDef
 (
-Ndef(\theremin, {arg freq=440, amp=0.3, pos=0, cutFreq=1000;
-    var signal;
+SynthDef(\theremin, {arg freq=440, amp=0.3, pos=0, cutFreq=1000, bus=0;
+    var signal, output;
     signal = Pulse.ar(freq.lag(0.1), 0.5, amp);
     signal = LPF.ar(signal, cutFreq);
-    Pan2.ar(signal, pos);
-});
+    output = Out.ar(bus, Pan2.ar(signal, pos));
+}).add;
 )
+
+a = Synth(\theremin);
 
 (
 MIDIdef.cc(\cutFreq, {arg ...args; "cutFreq: ".post;
-    Ndef(\theremin).set(\cutFreq, args[0].linexp(0,127,20,10000).postln);
+    a.set(\cutFreq, args[0].linexp(0,127,20,10000).postln);
     }, 17);
 )
 
@@ -111,7 +112,7 @@ MIDIIn.doControlAction(num: 17, val: 64); // spoof a cc (arg src, chan, num, val
 
 MIDIdef.all
 MIDIdef.freeAll;
-Ndef.clear</pre>
+a.free;</pre>
 <h2><a class='anchor' name='Human%20Input%20Devices%20(HID)'>Human Input Devices (HID)</a></h2>
 
 <p>Human input devices can be used as controllers for making music. In SuperCollider the <code class='code prettyprint lang-sc'>HID</code> and <code class='code prettyprint lang-sc'>HIDdef</code> classes handle HIDs.<pre class='code prettyprint lang-sc'>HID.findAvailable; // check which devices are attached
@@ -298,7 +299,7 @@ OSCdef(\sendTrig, { arg msg, time, addr, recvPort;
 )</pre>
 <h2><a class='anchor' name='Exercises'>Exercises</a></h2>
 <ol>
-<li>Select at least 2 types of devices (MIDI, HID, OSC) to interface with SuperCollider (for example, an iPad and a game controller)<li>Connect the devices and make sure you are receiving incoming data<li>Map the values to a set of Ndefs, SynthDef and/or Patterns.</ol>
+<li>Select at least 2 types of devices (MIDI, HID, OSC) to interface with SuperCollider (for example, an iPad and a game controller)<li>Connect the devices and make sure you are receiving incoming data<li>Map the values to a set of Synths.</ol>
 <div class='note'><span class='notelabel'>NOTE:</span> You can use the sounds, effects, etc., from the following examples: <a href="./../../Cyborg/Code Examples/Simple FX.html">Simple FX</a>, <a href="./../../Cyborg/Code Examples/Synth Fun.html">Synth Fun</a></div><h2><a class='anchor' name='Keyboard%20and%20Mouse'>Keyboard and Mouse</a></h2>
 <h3><a class='anchor' name='Triggering%20from%20the%20computer%20keyboard:'>Triggering from the computer keyboard:</a></h3>
 
