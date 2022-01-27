@@ -179,7 +179,8 @@ Pbind(\degree, ~lace, \scale, Scale.chromatic, \dur, Prand([1/6, 2/6, 3/6, 4/6, 
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.013.png'/><br><b>Iannis Xenakis - youtube.com</b></div>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.014.png'/><br><b>Formalised Music - cca.qc.ca</b></div>
 
-<p><pre class='code prettyprint lang-sc'>//Simple stochastic example
+<p><a href="https://youtu.be/SZazYFchLRI">Iannis Xenakis, Metastasis, 1964</a><div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/Lecture4/Lecture4.036.png'/><br><b>Iannis Xenakis</b></div>
+<pre class='code prettyprint lang-sc'>//Simple stochastic example
 (
 SynthDef(\sinePerc, {arg freq=400, out=0, amp=0.5;
     var sig;
@@ -209,7 +210,7 @@ Synth(\sinePerc, [\freq, ~notes.wchoose(~prob).postln.midicps]);
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.015.png'/><br><b>Gottfried Michael Koenig - 68.media.tumblr.com</b></div>
 
-<p><pre class='code prettyprint lang-sc'>//Koenig shotgun filter
+<p><a href="https://youtu.be/Yk7bXHeeKhI">Gottfried Michael Koenig, Funktion Blau, 1969</a><pre class='code prettyprint lang-sc'>//Koenig shotgun filter
 ~sound = {Synth(\sinePerc, [\freq, rrand(400,1000), \amp, rrand(0.4,0.6)])}
 ~prob = 1; //100% probability of note playing
 (
@@ -221,8 +222,7 @@ Synth(\sinePerc, [\freq, ~notes.wchoose(~prob).postln.midicps]);
 
 ~prob = 0.25; //change probability of note playing
 ~prob = 0.75;</pre>
-
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.017.png'/></div>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.018.png'/><br><b>2-state Markov process</b></div>
@@ -230,7 +230,7 @@ Synth(\sinePerc, [\freq, ~notes.wchoose(~prob).postln.midicps]);
 <p><pre class='code prettyprint lang-sc'>//Simple 2-state Markov Chain
 (
 ~mChain = [
-[4, [4, 9], [0.3,0.7]],
+[4, [4, 9], [0.3,0.7]], //element, nextElement, weights
 [9, [4, 9], [0.4,0.6]]
 ]
 )
@@ -314,165 +314,51 @@ Synth(\my_synth, [\freq, note.postln.midicps, \dur, 0.2])
 ~text = "a";</pre>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.021.png'/></div>
 
-<p><pre class='code prettyprint lang-sc'>Quarks.gui; //install MathLib
-
-//There are two classes for doing Markov Chains:
-MarkovSet
-MarkovSetN
-
-//simple example
-(
-m = MarkovSet([
-    [60, [67, 65, 64], [0.5,0.3, 0.2]], //element, nextElement, weights
-    [67, [60], [1]],
-    [65, [67, 64], [0.5,0.5]],
-    [64, [60,65, 67], [0.2,0.4,0.4]]
-    ]);
+<p><pre class='code prettyprint lang-sc'>(
+~mChain = [
+    [0, [7, 5, 4], [0.5,0.3, 0.2]], //element, nextElement, weights
+    [7, [0], [1]],
+    [5, [7, 4], [0.5,0.5]],
+    [4, [0,5, 7], [0.2,0.4,0.4]]
+    ];
 )
 
-Pbind(\midinote, Pfsm2(m), \dur, 0.5).play; //Pfsm2 creates a pattern from Markov Set
-
 (
-m = MarkovSet([
-[60, [62], [1]],
-[62, [60, 63], [0.5, 0.5]],
-[63, [60, 65], [1, 1]],
-[65, [60, 65, 67], [1, 4, 1]],
-[67, [70], [1]],
-[70, [67, 69], [1, 2]],
-[69, [67, 72], [1, 2]],
-[72, [67, 72, 60], [1,4,2]]
-]);
-)
-
-~mark = Pfsm2(m).asStream;
-~dur = ~mark.collect({|item|
-    case
-    {[60,63,67,69].includes(item);} {1}
-    {[62,65,72].includes(item);} {0.5}
-    {item == 70;} {1.5}
-})
-
-Pdef(\mark, Pbind(\instrument, \sinePerc, \midinote, ~mark, \dur, ~dur*0.33)).play; //Pfsm2 creates a pattern from Markov Set
-
-//another example
-(
-m = MarkovSet([
-[60, [62], [1]],
-[62, [60, 63], [1, 1]],
-[63, [60, 65], [1, 1]],
-[65, [60, 65, 67], [1, 4, 1]],
-[67, [70], [1]],
-[70, [67, 69], [1, 2]],
-[69, [67, 72], [1, 2]],
-[72, [67, 72, 60], [1,4,2]]
-]);
-~mark = Pfsm2(m).asStream;
-~dur = ~mark.collect({|item|
-    case
-    {[60,63,67,69].includes(item);} {1}
-    {[62,65,72].includes(item);} {0.5}
-    {item == 70;} {1.5}
-})
-)
-
-Pdef(\mark, Pbind(\instrument, \sinePerc, \midinote, ~mark, \dur, ~dur*0.33))
-
-// training by a stream
-m = MarkovSet.fill(100, Pseq([1, 2, 3, 4, Prand([5, 55, 555])], inf).asStream);
-8.do { m.next(1).postln };
-8.do { m.next(4).postln };
-8.do { m.next(55).postln };
-
-// training bit by bit
-m = MarkovSet.new;
-m.read(\x, \y);
-m.read(\x, \z);
-m.read(\z, \abcde);
-m.read(\y, nil);
-
-8.do { m.next(\x).postln };
-8.do { m.next(\y).postln };
-8.do { m.next(\z).postln };
-
-m.read(\y, \mmmm);
-8.do { m.next(\y).postln }; // now it sometimes terminates
-
-m.remove(\y, \mmmm);
-8.do { m.next(\y).postln };
-
-//now a musical example:
-//this is our melody which we will train the markov with
-~notes = [ 0, 0, 7, 7, 9, 9, 7, 7, 5, 5, 4, 4, 2, 2, 0, 0 ] + 60;
-
-Pbind(\midinote, Pseq(~notes, 1), \dur, 0.3).play
-
-~pairs = ~notes.slide(2).slice;
-
-~num = (~pairs.size/2);
-~secondPair = Array.iota(~num.asInteger,2);
-~trainMe = ~pairs.reshapeLike(~secondPair);
-
-m = MarkovSet.new;
-
-~trainMe.do{|item| m.read(item[0], item[1]) };
-
-Pbind(\midinote, Pfsm2(m), \dur, 0.5).play;
-
-// 2nd order MarkovSet
-(
-m = MarkovSetN([
-            [[100, 120], [120, 130]],
-            [[120, 100], [100, 1900]]
-        ], 2);
-)
-
-8.do { m.next([100, 120]).postln };
-8.do { m.next([120, 100]).postln };
-
-// training by a stream
-m = MarkovSetN.fill(100, Pseq([1, 2, 3, 4, Prand([5, 55, 555])], inf).asStream, 2);
-8.do { m.next([1,2]).postln };
-8.do { m.next([3,4]).postln };
-8.do { m.next([4,5]).postln };</pre>
+~index = ~mChain.flop[0].indexOf(4);
+{ inf.do{
+~note = ~mChain[~index][1].choose(~mChain[~index][2]);
+    Synth(\sinePerc, [\freq, (72+~note).midicps]);
+~index = ~mChain.flop[0].indexOf(~note);
+0.2.yield;
+}
+}.fork
+)</pre>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.022.png'/></div>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.023.png'/><br><b>Lejaren Hiller - cloudfront.net</b></div>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.024.png'/></div>
 
-<p><pre class='code prettyprint lang-sc'>"open http://youtu.be/n0njBFLQSk8".unixCmd; //Experiment 1</pre>
+<p><a href="http://youtu.be/n0njBFLQSk8">Illiac Suite, Experiment 1</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.025.png'/></div>
 
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.025.png'/></div>
+<p><a href="http://youtu.be/MrN0pOnA1x4">Illiac Suite, Experiment 2</a>
+<p><a href="http://youtu.be/cuq4smO_4Js">Illiac Suite, Experiment 3</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.026.png'/><br><b>Lejaren Hiller - computermusicblog.com</b></div>
 
-<p><pre class='code prettyprint lang-sc'>"open http://youtu.be/MrN0pOnA1x4".unixCmd; //Experiment 2
-"open http://youtu.be/cuq4smO_4Js".unixCmd; //Experiment 3</pre>
+<p><a href="http://youtu.be/QyqiSbbwHIs">Illiac Suite, Experiment 4</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.027.png'/><br><b>John Cage and Lejaren Hiller - musicainformatica.org</b></div>
 
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.026.png'/><br><b>Lejaren Hiller - computermusicblog.com</b></div>
-
-<p><pre class='code prettyprint lang-sc'>"open http://youtu.be/QyqiSbbwHIs".unixCmd; //Experiment 4</pre>
-
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.027.png'/><br><b>John Cage and Lejaren Hiller - musicainformatica.org</b></div>
-
-<p><pre class='code prettyprint lang-sc'>"open https://youtu.be/t_hTxJpWITw".unixCmd;</pre>
-
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.028.png'/><br><b>Iannis Xenakis - pinimg.com</b></div>
+<p><a href="https://youtu.be/t_hTxJpWITw">John Cage and Lejaren Hiller, HPSCHD</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.028.png'/><br><b>Iannis Xenakis - pinimg.com</b></div>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.029.png'/></div>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.030.png'/></div>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.031.png'/><br><b>Achorripsis - 4.bp.blogspot.com</b></div>
 
-<p><pre class='code prettyprint lang-sc'>"open https://youtu.be/RHQM2-MMXzY".unixCmd;</pre>
+<p><a href="https://youtu.be/RHQM2-MMXzY">Iannis Xenakis, Achorripsis</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.032.png'/><br><b>St/4 - musicengraving.de</b></div>
 
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.032.png'/><br><b>St/4 - musicengraving.de</b></div>
+<p><a href="http://youtu.be/9KsWpuqTYLU">Iannis Xenakis, St/4</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.033.png'/><br><b>Speaker layout for Analogique B - granularsynthesis.com</b></div>
 
-<p><pre class='code prettyprint lang-sc'>"open http://youtu.be/9KsWpuqTYLU".unixCmd;</pre>
+<p><a href="https://youtu.be/sOGkhekIGzo?t=195">Iannis Xenakis, Analogique B</a><div class='image'><img src='http://www.squib-box.com/fr/SSfMT/Lectures/Lecture4/Lecture4.043.png'/><br><b>Iannis Xenakis</b></div>
 
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.033.png'/><br><b>Speaker layout for Analogique B - granularsynthesis.com</b></div>
-
-<p><pre class='code prettyprint lang-sc'>"open https://youtu.be/mXIJO-af_u8".unixCmd;</pre>
-
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.034.png'/></div>
+<p><a href="https://youtu.be/nVx0PvK9TnQ">Iannis Xenakis, Polytope de Cluny, 1972-74</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.034.png'/></div>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.035.png'/></div>
 
 <p><pre class='code prettyprint lang-sc'>Quarks.gui //Install Tendency quark
