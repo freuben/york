@@ -198,7 +198,7 @@ Synth(\sinePerc, [\freq, [72, 76, 79].wchoose([0.2,0.3,0.5]).postln.midicps]);
 }.fork;
 
 ~notes = (40..99);
-~prob = Array.series(a.size, 1,1).normalizeSum;
+~prob = Array.series(~notes.size, 1,1).normalizeSum;
 (
 {
     inf.do{
@@ -536,7 +536,7 @@ Ndef(\tendency, 0);</pre>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.036.png'/></div>
 
-<p><pre class='code prettyprint lang-sc'>Quark.gui //install NatureToolKit
+<p><pre class='code prettyprint lang-sc'>Quarks.gui //install NatureToolKit
 
 //NatureToolKit includes classes like:
 ModernLife //Cellular Automata
@@ -635,7 +635,7 @@ a = LSys("baaaaaaaaaaaaaaaa", ["b&lt;a" -&gt; "b", "b" -&gt; "a"]);
 });
 )</pre>
 
-<p>For the syntax of the context sensitive rule definitions, refer to page 30 in the Algorithmic Beauty of Plants.
+<p>For the syntax of the context sensitive rule definitions, refer to page 30 in the <a href="http://algorithmicbotany.org/papers/abop/abop.pdf">Algorithmic Beauty of Plants</a>.
 <p>Branching (bracketed) examples:<pre class='code prettyprint lang-sc'>//Tree b from fig 1.24 in A.B.O.P.
 (
 a = LSys("F", ["F" -&gt; "F[+F]F[-F][F]"]);
