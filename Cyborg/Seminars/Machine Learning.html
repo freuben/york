@@ -534,7 +534,56 @@ m = MarkovSetN.fill(100, Pseq([1, 2, 3, 4, Prand([5, 55, 555])], inf).asStream, 
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.016.png'/></div>
 
-<p><a href="https://youtu.be/bfmFfD2RIcg">Neural Network In 5 Minutes</a><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.017.png'/></div>
+<p><a href="https://youtu.be/bfmFfD2RIcg">Neural Network In 5 Minutes</a>
+<p><a href="https://composerprogrammer.com/code/SCMIR.zip">Download SCMIR Library with NeuralNet Class for SuperCollider</a><pre class='code prettyprint lang-sc'>// train up Neural Net on XOR problem
+n = NeuralNet(2,2,1,0.5,1.0); //fast learning rate and initial weights -1.0 to 1.0
+
+
+(
+//approximate exclusive OR in 2000 epochs
+2000.do({
+n.train1([0,1],[1]); //train on [0,1] -&gt; 1
+n.train1([1,0],[1]); //train on [1,0] -&gt; 1
+n.train1([0,0],[0]); //train on [0,1] -&gt; 1
+n.train1([1,1],[0]); //train on [1,0] -&gt; 1
+});
+)
+
+//tests
+n.calculate([1,1]);
+n.calculate([0,0]);
+n.calculate([1,0]);
+n.calculate([0,1]);
+
+
+//train as batch process, test generalisation
+n = NeuralNet(2,2,1,0.5,1.0); //fast learning rate and initial weights -1.0 to 1.0
+
+d= [[[1,1],[0]],[[1,0],[1]], [[0,0],[0]]];//training data set in form [inputs array, outputs array]
+
+n.train(d,0.01,1000,true, 0.01); //train up, with status updates, max of 1000 epochs or total error below 0.05
+//will attempt to calculate 1 epoch each 0.01 seconds (well, actually, will delay for 0.01 between heavy calculation periods...
+
+n.isTraining=false; //interrupt
+
+
+n.calculate([1,1]); //originals
+n.calculate([0,0]);
+n.calculate([1,0]);
+
+
+n.calculate([0,1]); //generalisation in wrong place, but then, didn't give enough training examples to pick out the right error surface!
+
+
+
+//////test C external for training
+
+n = NeuralNet(2,2,1,0.5,1.0); //fast learning rate and initial weights -1.0 to 1.0
+
+d= [[[1,1],[0]],[[1,0],[1]], [[0,0],[0]]];//training data set in form [inputs array, outputs array]
+
+n.trainExt(d,0.01,1000); //train up, with status updates, max of 1000 epochs or total error</pre>
+<div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.017.png'/></div>
 
 <p><div class='image'><a href="./../../Regression vs Classification - sharpsightlabs.com"><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.018.png'/></a><br><b></b></div>
 
