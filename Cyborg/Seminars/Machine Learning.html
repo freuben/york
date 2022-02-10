@@ -22,96 +22,343 @@
 <div id='related'>See also: <a href="./../../Cyborg.html">Cyborg Music</a>, <a href="./../../Cyborg/Seminars/Computational Creativity and Music 2.html">Computational Creativity and Music 2</a></div>
 </div>
 <div id='toc'>
-<ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
+<ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.036.png'/></div>
+<pre class='code prettyprint lang-sc'>Quarks.gui //install NatureToolKit
 
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.017.png'/></div>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.018.png'/><br><b>2-state Markov process</b></div>
+//NatureToolKit includes classes like:
+ModernLife //Cellular Automata
+LSys //L-systems
+GAWorkbench //Genetic Algorithms</pre>
 
-<p><pre class='code prettyprint lang-sc'>//Simple 2-state Markov Chain
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.037.png'/><br><b>Cellular Automata - emanueleferonato.com</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.038.png'/></div>
+
+<p><pre class='code prettyprint lang-sc'>ModernLife
+// the default rule is "23/3" (Conway's Game of Life)
+a = ModernLife.new; //will pop up the window
+//press space to run/stop. c to clear, r to randomize.
+//you can also create or kill cells with mouse interaction.
+
+a = ModernLife.new(8, 500); //numDivs, winSize (pixels)
+a.userFunc_({|states, population| states.postcs; population.postln; });
+//press space
+
+// conway's gol by default
+a = ModernLife.new.play;
+a.stop;</pre>
+
+<p><strong>setRule (argRuleString)</strong>
+<p>Sets the rule for the CA system. The notation for the rule is the same used in Mirek's Cellebration. It is a string in the format x/y where x and y are sequence of unique digits between 0 and 8 (inclusive). The digits in x side (for example digit d) means that a live cell with d live neighbors will survive to the next generation (others will die), and a digits in y side (digit k as an example) means that any dead cell with k alive neighbors will come to life. With this scheme, the Conway's Game of Life is defined as "23/3" (which is the default rule).<pre class='code prettyprint lang-sc'>//maze
+a = ModernLife.new.setRule("12345/3").fps_(5).fadeAmount_(1).play;
+a.stop;
+
+//coral
+a = ModernLife.new.setRule("45678/3").fps_(25).fadeAmount_(1).play;
+a.stop;
+
+//replicator, every pattern is replicated by a copy of itself.
+//clear the scene with c and draw a pattern, press space, watch in awe.
+a = ModernLife.new.setRule("1357/1357").fps_(10).fadeAmount_(1);
+a.stop;</pre>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.039.png'/><br><b>L-system Tree - bentrubewriter.files.wordpress.com</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.040.png'/></div>
+
+<p><strong>LSystems</strong><pre class='code prettyprint lang-sc'>// simple example, fibonacci numbers
+a = LSys("A", ["A" -&gt; "B", "B" -&gt; "AB"]);
+10.do({ a.applyRules(1).postln; });</pre>
+<ul>
+<li>variables : 0, 1<li>constants: [, ]<li>axiom : 0<li>rules : (1 → 11), (0 → 1[0]0)</ul>
+
+<p><strong>Context free examples</strong>:<pre class='code prettyprint lang-sc'>//Koch Snowflake
 (
-~mChain = [
-[4, [4, 9], [0.3,0.7]],
-[9, [4, 9], [0.4,0.6]]
-]
+a = LSys("F--F--F", ["F" -&gt; "F+F--F+F"]);
+k = a.applyRules(4);
+LSPlant(80@170, 90, argAngle: 60).drawSize_(4).draw(k);
 )
 
+//Dragon Curve
 (
-~index = ~mChain.flop[0].indexOf(4);
-{ inf.do{
-~note = ~mChain[~index][1].choose(~mChain[~index][2]);
-    Synth(\sinePerc, [\freq, (72+~note).midicps]);
-~index = ~mChain.flop[0].indexOf(~note);
-0.2.yield;
-}
-}.fork
+a = LSys("L", ["L" -&gt; "L+R+", "R" -&gt; "-L-R"]);
+k = a.applyRules(11);÷
+LSPlant(180@270, 180, argAngle: 90).drawSize_(4).draw(k);
+)
+
+//Sierpinsky triangle
+(
+a = LSys("L", ["L" -&gt; "R+L+R", "R" -&gt; "L-R-L"]);
+k = a.applyRules(6);
+LSPlant(60@400, 30, argAngle: 60).drawSize_(6).draw(k);
+)
+
+//Islands and Lakes from Algorithmic Beauty of Plants fig. 1.8.
+(
+a = LSys("F+F+F+F", ["F" -&gt; "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF", "f" -&gt; "ffffff"]);
+k = a.applyRules(2);
+LSPlant(360@350, 0, argAngle: 90).drawSize_(6).draw(k);
+)
+
+//Quadratic Snowflake from A.B.O.P. fig. 1.7b
+(
+a = LSys("F", ["F" -&gt; "F+F-F-F+F"]);
+k = a.applyRules(5);
+LSPlant(20@350, 90, 90, Rect(300, 300, 530, 500), { Color.rand; }).drawSize_(2).draw(k);
+)
+
+//Fig 1.9a. from A.B.O.P.
+(
+a = LSys("F-F-F-F", ["F" -&gt; "FF-F-F-F-F-F+F"]);
+k = a.applyRules(3).postln;
+LSPlant(270@120, 90, 90, argColor: { Color.rand; }).drawSize_(6).draw(k);
 )</pre>
 
-<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.019.png'/></div>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.020.png'/></div>
-<pre class='code prettyprint lang-sc'>//Zero order transition table (weighted random)
-(
-{ inf.do{
-Synth(\sinePerc, [\freq, [72, 71, 69].wchoose([0.25, 0.5, 0.25]).midicps]);
-    0.2.yield;
-};
-}.fork;
-)
-
-//another example using text as data
-//the ascii of each character of the text is used for statistical analysis
-//derived probabilities from text and converted into midi note values
+<p><strong>Context sensitive example</strong>:<pre class='code prettyprint lang-sc'>//Signal propagation throughout a string of symbols:
 
 (
-SynthDef(\my_synth, {|dur = 1.0, amp = 1.0, freq = 440|
-    var env = EnvGen.ar(Env.new([1, 0.1, 0], [0.06, dur - 0.06]), doneAction: 2);
-    Out.ar([0, 1], SinOsc.ar([freq * 0.995, freq * 1.005], 0, env * amp))
-}).add;
-~text = "Serialism, along with John Cage's indeterminate music (music composed with the use of chance operations), and Werner Meyer-Eppler's aleatoricism, was enormously influential in post-war music. Theorists such as George Perle codified serial systems, and his 1962 text Serial Composition and Atonality became a standard work on the origins of serial composition in the work of Schoenberg, Berg and Webern.
-Several of the composers associated with Darmstadt, notably Karlheinz Stockhausen, Karel Goeyvaerts, and Henri Pousseur developed a form of serialism that initially rejected the recurring rows characteristic of twelve-tone technique, in order to eradicate any lingering traces of thematicism (Felder 1977, 92). Instead of a recurring, referential row, each musical component is subjected to control by a series of numerical proportions (Morgan 1975, 3). In Europe, the style of some serial as well as non-serial music of the early 1950s emphasized the determination of all parameters for each note independently, often resulting in widely spaced, isolated points of sound, an effect called first in German punktuelle Musik (pointist or punctual music), then in French musique ponctuelle, but quickly confused with pointillistic (German pointillistische, French pointilliste) the familiar term associated with the densely packed dots in paintings of Seurat, despite the fact that the conception was at the opposite extreme (Stockhausen and Frisius 1998, 451).
-Pieces were structured by closed sets of proportions, a method closely related to certain works from the de Stijl and Bauhaus movements in design and architecture called serial art by some writers (Bochner 1967, Gerstner 1964, Guderian 1985, Sykora 1983), specifically the paintings of Piet Mondrian, Theo van Doesburg, Bart van Leck, Georg van Tongerloo, Richard Paul Lohse, and Burgoyne Diller, who had been seeking to “avoid repetition and symmetry on all structural levels and working with a limited number of elements” (Bandur 2001, 54).
-Stockhausen described the final synthesis in this manner:
-So serial thinking is something that's come into our consciousness and will be there forever: it's relativity and nothing else. It just says: Use all the components of any given number of elements, don't leave out individual elements, use them all with equal importance and try to find an equidistant scale so that certain steps are no larger than others. It's a spiritual and democratic attitude toward the world. The stars are organized in a serial way. Whenever you look at a certain star sign you find a limited number of elements with different intervals. If we more thoroughly studied the distances and proportions of the stars we'd probably find certain relationships of multiples based on some logarithmic scale or whatever the scale may be. (Cott 1973, 101)
-Igor Stravinsky's adoption of twelve-tone serial techniques offers an example of the level of influence that serialism had after the Second World War. Previously Stravinsky had used series of notes without rhythmic or harmonic implications (Shatzkin 1977). Because many of the basic techniques of serial composition have analogs in traditional counterpoint, uses of inversion, retrograde and retrograde inversion from before the war are not necessarily indicative of Stravinsky adopting Schoenbergian techniques. However with his meeting Robert Craft and acquaintance with younger composers, Stravinsky began to consciously study Schoenberg's music, as well as the music of Webern and later composers, and began to use the techniques in his own work, using, for example, serial techniques applied to fewer than 12 notes. Over the course of the 1950s he used procedures related to Messiaen, Webern and Berg. While it is difficult to label each and every work as serial in the strict definition, every major work of the period has clear uses and references to its ideas.
-During this period, the concept of serialism influenced not only new compositions but also the scholarly analysis of the classical masters. Adding to their professional tools of sonata form and tonality, scholars began to analyze previous works in the light of serial techniques; for example they found the use of row technique in previous composers going back to Mozart and Beethoven (Jalowetz 1944, 387; Keller 1955, passim). In particular, the orchestral outburst that introduces the development section half-way through the last movement of Mozart's next-to-last symphony is a tone row that Mozart punctuates in a very modern and violent episode that Michael Steinberg called rude octaves and frozen silences (Steinberg 1998, 400).
-Furthermore, the organizing principles of serialism inspired mathematical analogues, such as uses of set theory, group theory, operators, and parametrization, for example in the post-war works of Elliott Carter, Iannis Xenakis, and Witold Lutosławski.[citation needed] Likewise, the mathematical analogues in integral serialism were influential in the development of electronic music and synthesized music. Ruth Crawford Seeger is credited with extending serial controls to parameters other than pitch and to formal planning as early as 1930–33 (Tick 2001)";
-~update = {//have to evaluate this to run new text
-~smallLetters = (97..122).asAscii;
-~capitalLetters = (65..90).asAscii;
-~probabilities = [];
-~smallLetters.do{|item, index|
-        ~probabilities = ~probabilities.add(
-            ~text.findAll(item.asString).size +
-                ~text.findAll(~capitalLetters[index]).size / ~text.size;
-    )
-    };
-~probabilities = ~probabilities++[1-~probabilities.sum];
-};
-)
-//routine to play notes
-(
-~update.value;
-{
-var note;
-inf.do{
-note = (48..(48+~probabilities.size)).wchoose((~probabilities));
-if(note == 74, {"silence".postln}, {
-Synth(\my_synth, [\freq, note.postln.midicps, \dur, 0.2])
+a = LSys("baaaaaaaaaaaaaaaa", ["b&lt;a" -&gt; "b", "b" -&gt; "a"]);
+16.do
+({
+    a.applyRules(1).postln;
 });
-0.2.yield;
-~update.value;
-}
-}.fork
+)</pre>
+
+<p>For the syntax of the context sensitive rule definitions, refer to page 30 in the <a href="http://algorithmicbotany.org/papers/abop/abop.pdf">Algorithmic Beauty of Plants</a>.
+<p>Branching (bracketed) examples:<pre class='code prettyprint lang-sc'>//Tree b from fig 1.24 in A.B.O.P.
+(
+a = LSys("F", ["F" -&gt; "F[+F]F[-F][F]"]);
+k = a.applyRules(5).postln;
+LSPlant
+    (
+        argAngle: 20,
+        argColor:
+            {
+                [
+                    Color.green(0.6.rand + 0.4),
+                    Color.gray(0.6.rand)
+                ].choose;
+            }
+    ).drawSize_(6).draw(k);
 )
-//change text input
-~text = "Hello";
 
-~text = "Hi there";
+//Tree c from fig 1.24 in A.B.O.P.
+(
+a = LSys("F", ["F" -&gt; "FF-[-F+F+F]+[+F-F-F]"]);
+k = a.applyRules(4).postln;
+LSPlant
+    (
+        argAngle: 22.5,
+        argColor:
+            {
+                [
+                    Color.green(0.6.rand + 0.4),
+                    Color.gray(0.6.rand)
+                ].choose;
+            }
+    ).drawSize_(6).draw(k);
+)
 
-~text = "a   abc zy";
 
-~text = "aaa a aaz";
+//another tree
+(
+a = LSys("F", ["F" -&gt; "FF+[+F-F-F]-[-F+F+F]"]);
+k = a.applyRules(5);
+LSPlant
+    (
+        argAngle: 22.5,
+        argColor:
+            {
+                [
+                    Color.green(0.6.rand + 0.4),
+                    Color.gray(0.6.rand)
+                ].choose;
+            }
+    ).drawSize_(6).draw(k);
+)
 
-~text = "a";</pre>
+
+(
+a = LSys("F", ["F" -&gt; "F[-FF]F[+FF]F"]);
+k = a.applyRules(5);
+LSPlant
+    (
+        argAngle: 22.5,
+        argColor:
+            {
+                [
+                    Color.green(0.6.rand + 0.4),
+                    Color.gray(0.6.rand)
+                ].choose;
+            }
+    ).drawSize_(6).draw(k);
+)
+
+//Tree f from fig 1.24 in A.B.O.P.
+(
+a = LSys("X", ["X" -&gt; "F-[[X]+X]+F[+FX]-X", "F" -&gt; "FF"]);
+k = a.applyRules(5).postln;
+LSPlant
+    (
+        argAngle: 22.5,
+        argColor:
+            {
+                [
+                    Color.green(0.6.rand + 0.4),
+                    Color.gray(0.6.rand)
+                ].choose;
+            }
+    ).drawSize_(4).draw(k);
+)</pre>
+
+<p><strong>Examples</strong>
+<p>A simple example: We want to reach to a target value (4242) with a mathematical expression composed of 17 operators and digits. So the expression is composed in [digit operator digit operator ...] formation. We are searching for the expression. poolSize is 100, and we will find the fittest expression after 100 generations.<pre class='code prettyprint lang-sc'>(
+//this will take a few seconds to complete.
+var digits = "0123456789"; //allowed digits
+var operators = "+-*/%"; //allowed operators
+var poolSize = 100, chromLength = 17;
+var target = 4242;
+var numGenerations = 100;
+var inGeneration = 0; //current generation
+var randChromFunc =
+    {
+        var randChrom = List.new;
+        chromLength.do
+        ({|cnt|
+            if(cnt.even,
+            {
+                randChrom.add(digits.choose);
+            },
+            {
+                randChrom.add(operators.choose);
+            });
+        });
+        randChrom;
+    };
+var fitnessFunc =
+    {|chrom|
+        var result;
+        chrom = chrom.as(String);
+        //if the result is inf (divide by zero etc), bigger numbers are
+        //weaker (we return the reciprocal) here so they won't be fit.
+        //We set NaN's as inf.
+        result = (chrom.interpret - target).abs;
+        if(result.isNaN, { result = inf; });
+        result.reciprocal; //smaller results (difference from target) should be fitter
+    };
+var mutationFunc =
+    {|chrom|
+        var index = chromLength.rand;
+        if(index.even, { chrom[index] = digits.choose; }, { chrom[index] = operators.choose; });
+        chrom;
+    };
+    var gaInstance = GAWorkbench(poolSize, randChromFunc, fitnessFunc, mutationFunc);
+gaInstance.mutationProb = 0.1;
+block
+({|break|
+    numGenerations.do
+    ({
+        gaInstance.rateFitness;
+        //if an exact solution is found, break the loop.
+        if(gaInstance.genePool[0].as(String).interpret == target, { break.value; });
+        gaInstance.crossover;
+        inGeneration = inGeneration + 1;
+    });
+});
+gaInstance.rateFitness;
+"Target value was % and reached value after % generations is: %"
+    .format(target, inGeneration, gaInstance.genePool[0].as(String).interpret).postln;
+("The operation was:" + gaInstance.genePool[0].as(String)).postln;
+)</pre>
+
+<p>It can be observed that the algorithm sometimes converges to an exact solution pretty quickly, and other times it gets stuck in a local optimum. To overcome that, one can use parallel GA's where more than one GAWorkbench instance works on the same problem with different initial random pools for a few generations, and then their fittest members can be mixed into a new pool to be iterated further.
+<p><strong>Another example</strong>:
+<p>Travelling salesman problem. We have 25 cities to visit, we start from the red city and want to visit each city only and only once, then come back to our origin in the shortest path possible. With a brute-force approach, one needs to check 15511210043330985984000000 different paths to find the shortest route (for 25 cities), (which is not feasible) so genetic algorithms provides us an easy search method for finding a nice enough path in very little time. This code will show the fittest route in each generation for randomly selected points in a 2d space. Be aware that there is no way to find out that a given solution is the global optimum. In fact, the method used here converges to a local optimum pretty quickly but hopefully the route will converge to something with an high fitness. The chromosome encoding scheme here is left as an exercise for the reader.<pre class='code prettyprint lang-sc'>(
+var numPoints, points, randChromFunc, mutationFunc, fitnessFunc,
+chromInterpreter, gaInstance, win, view, drawPaths, routine;
+//problem
+numPoints = 25;
+points = { 500.0.rand@500.0.rand } ! numPoints;
+//ga funcs
+randChromFunc =
+    {
+        (numPoints - 1, (numPoints - 2) .. 1).collect
+        ({|cnt|
+            (exprand(1, cnt) - 1).floor;
+        });
+    };
+
+mutationFunc =
+    {|chrom|
+        var randIndex = (chrom.size - 1).rand;
+        chrom[randIndex] = (exprand(1, (numPoints - randIndex - 2)) - 1).floor;
+        chrom;
+    };
+fitnessFunc =
+    {|chrom|
+        var pathIndexes = chromInterpreter.value(chrom);
+        var totalDistance = 0;
+        (numPoints).do
+        ({|cnt|
+            totalDistance = totalDistance + points[pathIndexes[cnt]].dist(points[pathIndexes[(cnt+1) % numPoints]]);
+        });
+        totalDistance.reciprocal; //shorter paths are better
+    };
+chromInterpreter = //this chunk of code is shared between fitness function and visualization
+    {|chrom|
+        var ptsToGo = (1, 2 .. numPoints - 1);
+        var travellerIsIn = 0;
+        var currentDistances, curDistOrders;
+        var pathIndexes = List.new;
+        (numPoints - 1).do
+        ({|inHop|
+            currentDistances =
+                ptsToGo.collect
+                ({|pntIndex|
+                    points[travellerIsIn].dist(points[pntIndex]);
+                });
+            curDistOrders = currentDistances.order.order;
+            pathIndexes.add(ptsToGo[curDistOrders.detectIndex({|item| item == chrom[inHop]; })]);
+            ptsToGo.remove(pathIndexes.last);
+            travellerIsIn = pathIndexes.last;
+        });
+        pathIndexes.add(0);
+        pathIndexes;
+    };
+gaInstance = GAWorkbench.new(100, randChromFunc, fitnessFunc, mutationFunc);
+gaInstance.mutationProb = 0.2;
+win = Window.new("TSP", Rect(300, 300, 500, 500));
+view = UserView(win, win.view.bounds).background_(Color.black)
+    .drawFunc_
+    ({
+        var fittest = gaInstance.genePool[0];
+        points.do
+        ({|pnt, cnt|
+            Pen.color = if(cnt == 0, { Color.red; }, { Color.white; });
+            Pen.fillOval(Rect(pnt.x - 4, pnt.y - 4, 8, 8));
+        });
+        drawPaths.value(fittest);
+    });
+drawPaths =
+    {|chrom|
+        var pathIndexes = chromInterpreter.value(chrom);
+            (numPoints).do
+        ({|cnt|
+            Pen.line(points[pathIndexes[cnt]], points[pathIndexes[(cnt+1) % numPoints]]);
+        });
+        Pen.stroke;
+    };
+win.front;
+win.onClose_({ routine.stop; });
+routine = {
+    inf.do
+    ({
+        gaInstance.crossover;
+        gaInstance.rateFitness;
+        win.refresh;
+        0.1.wait;
+    });
+}.fork(AppClock);
+)</pre>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
 <div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.021.png'/></div>
 
 <p><pre class='code prettyprint lang-sc'>Quarks.gui; //install MathLib
