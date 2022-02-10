@@ -22,8 +22,13 @@
 <div id='related'>See also: <a href="./../../Cyborg.html">Cyborg Music</a>, <a href="./../../Cyborg/Seminars/Computational Creativity and Music 2.html">Computational Creativity and Music 2</a></div>
 </div>
 <div id='toc'>
-<ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.036.png'/></div>
-<pre class='code prettyprint lang-sc'>Quarks.gui //install NatureToolKit
+<ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.001.png'/><br><b>A robot learning - forbes.com</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.002.png'/><br><b>Artificial Intelligence, Machine Learning and Deep Learning - medium.com</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.003.png'/></div>
+
+<p><pre class='code prettyprint lang-sc'>Quarks.gui //install NatureToolKit
 
 //NatureToolKit includes classes like:
 ModernLife //Cellular Automata
@@ -31,7 +36,8 @@ LSys //L-systems
 GAWorkbench //Genetic Algorithms</pre>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.037.png'/><br><b>Cellular Automata - emanueleferonato.com</b></div>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.038.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.038.png'/></div>
 
 <p><pre class='code prettyprint lang-sc'>ModernLife
 // the default rule is "23/3" (Conway's Game of Life)
@@ -62,7 +68,8 @@ a = ModernLife.new.setRule("1357/1357").fps_(10).fadeAmount_(1);
 a.stop;</pre>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.039.png'/><br><b>L-system Tree - bentrubewriter.files.wordpress.com</b></div>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.040.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.040.png'/></div>
 
 <p><strong>LSystems</strong><pre class='code prettyprint lang-sc'>// simple example, fibonacci numbers
 a = LSys("A", ["A" -&gt; "B", "B" -&gt; "AB"]);
@@ -208,7 +215,13 @@ LSPlant
             }
     ).drawSize_(4).draw(k);
 )</pre>
+<div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.004.png'/><br><b>Chromosome DNA Gene - wikipedia.org</b></div>
 
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.005.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.006.png'/></div>
+
+<p><strong>Genetic Algorithms</strong>
 <p><strong>Examples</strong>
 <p>A simple example: We want to reach to a target value (4242) with a mathematical expression composed of 17 operators and digits. So the expression is composed in [digit operator digit operator ...] formation. We are searching for the expression. poolSize is 100, and we will find the fittest expression after 100 generations.<pre class='code prettyprint lang-sc'>(
 //this will take a few seconds to complete.
@@ -285,7 +298,6 @@ randChromFunc =
             (exprand(1, cnt) - 1).floor;
         });
     };
-
 mutationFunc =
     {|chrom|
         var randIndex = (chrom.size - 1).rand;
@@ -358,8 +370,20 @@ routine = {
     });
 }.fork(AppClock);
 )</pre>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.021.png'/></div>
+<div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.007.png'/><br><b>Music AI - blog.prototypr.io</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.023.png'/><br><b>Lejaren Hiller - cloudfront.net</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.024.png'/></div>
+
+<p><a href="http://youtu.be/n0njBFLQSk8">Illiac Suite, Experiment 1</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.025.png'/></div>
+
+<p><a href="http://youtu.be/MrN0pOnA1x4">Illiac Suite, Experiment 2</a>
+<p><a href="http://youtu.be/cuq4smO_4Js">Illiac Suite, Experiment 3</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.026.png'/><br><b>Lejaren Hiller - computermusicblog.com</b></div>
+
+<p><a href="http://youtu.be/QyqiSbbwHIs">Illiac Suite, Experiment 4</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.016.png'/><br><b>Andrey Markov - wikipedia.org</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar4/seminar 4.021.png'/></div>
 
 <p><pre class='code prettyprint lang-sc'>Quarks.gui; //install MathLib
 
@@ -482,11 +506,181 @@ m = MarkovSetN.fill(100, Pseq([1, 2, 3, 4, Prand([5, 55, 555])], inf).asStream, 
 8.do { m.next([1,2]).postln };
 8.do { m.next([3,4]).postln };
 8.do { m.next([4,5]).postln };</pre>
-<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.036.png'/><br><b>David Cope - alchetron.com</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.008.png'/><br><b>Robot reading - royalsociety.org</b></div>
+
+<p><strong>MAIA Markov algorithm by Tom Collins</strong>
+<p><a href="https://maia-suggest-2020.glitch.me">MAIA Suggest! 2020</a>
+<p><a href="https://maia-suggest-2021.glitch.me">MAIA Suggest! 2021</a>
+<p><a href="https://rss.onlinelibrary.wiley.com/doi/pdf/10.1111/j.1740-9713.2011.00519.x">Chopin, mazurkas and Markov: Making Music in style with statistics</a>
+<p><a href="https://www.jcms.org.uk/article/id/510/">Computer-Generated Stylistic Compositions with Long-Term Repetitive and Phrasal Structure</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.036.png'/><br><b>David Cope - alchetron.com</b></div>
 
 <p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.037.png'/></div>
 
-<p><pre class='code prettyprint lang-sc'>"open http://youtu.be/yFImmDsNGdE?t=45s".unixCmd; //Tech Closeup TV
-"open http://youtu.be/t6WeiyvAiYQ".unixCmd; //Chopin style
-"open http://youtu.be/R-_9zSSQK3o".unixCmd; //Joplin style</pre>
-<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Machine Learning.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Machine Learning.schelp</a><br>link::Cyborg/Seminars/Machine Learning::<br>sc version: 3.8.0</div></div></body></html>
+<p><a href="http://youtu.be/yFImmDsNGdE?t=45s">David Cope in Tech Closeup TV</a>
+<p><a href="https://youtu.be/PczDLl92vlc">Bach Chorale by EMMY</a>
+<p><a href="http://youtu.be/t6WeiyvAiYQ">EMMY does Chopin style</a>
+<p><a href="http://youtu.be/R-_9zSSQK3o">EMMY does Joplin style</a>
+<p><a href="http://artsites.ucsc.edu/faculty/cope/5000.html">5000 MIDI Files by EMMY</a><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.009.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.010.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.011.png'/><br><b>Chorale by EMMY</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.012.png'/><br><b>Multipolar Neuron - wikipedia.org</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.013.png'/><br><b>An Artificial Neural Network - wikipedia.org</b></div>
+<div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.014.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.015.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.016.png'/></div>
+
+<p><a href="https://youtu.be/bfmFfD2RIcg">Neural Network In 5 Minutes</a><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.017.png'/></div>
+
+<p><div class='image'><a href="./../../Regression vs Classification - sharpsightlabs.com"><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.018.png'/></a><br><b></b></div>
+
+<p><a href="http://www.wekinator.org/downloads/">Download Wekinator</a>
+<p><strong>Classification Example</strong><pre class='code prettyprint lang-sc'>//////////////////////////SIMPLE SENDER//////////////////////////
+/////
+///// Use this block to send data (inputs) to Wekinator
+///// Run Wekinator with 2 inputs to receive this data
+/////
+/////////////////////////////////////////////////////////////////
+(
+//place cursor here and use shift cmd + return to execute
+//variables declared here
+var sender, sl, ix, iy;
+//set up the sender
+sender = NetAddr.new("127.0.0.1", 6448);
+w = Window.new("Wekinator test", 400@400).front;
+sl = Slider2D.new(w, Rect(25, 25, 350,350));
+sl.action =
+{
+    |val|
+    ix = val.x;
+    iy = 1.0 - val.y;
+    sender.sendMsg("/wek/inputs", ix, iy); //send the inputs
+}
+)
+///////////////////////SIMPLE RECIEVER///////////////////
+//
+// Use this block to get diffrent patters with 5 classification labels from Wekinator
+// Place cursor in ( ) below and use cmd + return to execute the synth
+// make sure the server is booted before running
+// use cmd + . to stop the synth
+//
+// Run wekinator up with one output and sending to port 57120
+// Select 5 classes
+////////////////////////////////////////////////////////////////
+(
+var synth, responder;
+Pdef(\weki).play;
+Pdef(\weki).quant = 4;
+~receiver.free; //free the old reciever if it already exists
+~receiver = NetAddr.new("127.0.0.1", 57120);    // create the NetAddr ... only the language port 57120 actually works
+~responder.free; //if there is an old responder ... then free it first
+~responder = OSCFunc(
+    { | msg |
+        var specs = Array.newClear(5);
+        msg.postln;
+        case
+        {msg[1] == 1} {
+            Pdef(\weki, Pbind(\degree, Pseq((0..7).scramble, inf), \dur, 0.2,\scale, Scale.major));
+    }
+        {msg[1] == 2} {
+            Pdef(\weki, Pbind(\degree, Pseq((0..7).scramble, inf), \dur, 0.2, \scale, Scale.minor));
+        }
+        {msg[1] == 3} {
+            Pdef(\weki, Pbind(\degree, Pseq((0..7).reverse, inf), \dur, 0.05, \scale, Scale.minor));
+        }
+        {msg[1] == 4} {
+            Pdef(\weki, Pbind(\degree, Pseq([0,\rest,0,\rest, 2, 7, 7, 7], inf), \dur, 0.2, \scale, Scale.major));
+        }
+        {msg[1] == 5} {
+            Pdef(\weki, Pbind(\degree, Pseq([0,0,0,\rest, 2, 7, 7, 7], inf), \dur, 0.2, \scale, Scale.minor));
+        };
+    },
+'/wek/outputs');
+)</pre>
+
+<p><strong>Regression Example</strong><pre class='code prettyprint lang-sc'>//////////////////////////SIMPLE SENDER//////////////////////////
+/////
+///// Use this block to send data (inputs) to Wekinator
+///// Run Wekinator with 2 inputs to receive this data
+/////
+/////////////////////////////////////////////////////////////////
+(
+//place cursor here and use shift cmd + return to execute
+//variables declared here
+var sender, sl, ix, iy;
+//set up the sender
+sender = NetAddr.new("127.0.0.1", 6448);
+w = Window.new("Wekinator test", 400@400).front;
+sl = Slider2D.new(w, Rect(25, 25, 350,350));
+sl.action =
+{
+    |val|
+    ix = val.x;
+    iy = 1.0 - val.y;
+    sender.sendMsg("/wek/inputs", ix, iy); //send the inputs
+}
+)
+///////////////////////SIMPLE RECIEVER///////////////////
+//
+// Use this block to get synth control from Wekinator
+// Place cursor in ( ) below and use cmd + return to execute the synth
+// make sure the server is booted before running
+// use cmd + . to stop the synth
+//
+// Run wekinator up with five continuous outputs and sending to port 57120
+//
+////////////////////////////////////////////////////////////////
+(
+var synth, responder;
+synth = SynthDef("WekiSynth",
+    {
+    |carFreq = 440, carAmp = 0.2, modFreq = 20, modAmp = 50, panFreq = 0.5|
+    var sig, mod, pan;
+    modAmp = min(carFreq * 0.95, modAmp);
+    mod = Saw.kr(modFreq, modAmp);
+    sig = SinOsc.ar(carFreq + mod,0,carAmp);
+    pan = SinOsc.kr(panFreq, 0,0.75);
+    sig = Pan2.ar(sig, pan);
+    Out.ar(0, sig);
+    }
+).play;
+~receiver.free; //free the old reciever if it already exists
+~receiver = NetAddr.new("127.0.0.1", 57120);    // create the NetAddr ... only the language port 57120 actually works
+~responder.free; //if there is an old responder ... then free it first
+~responder = OSCFunc(
+    { | msg |
+        var specs = Array.newClear(5);
+        msg.postln;
+        specs[0] =  ControlSpec(100, 1000,\exp);
+        specs[1] =  ControlSpec(0, 0.5,\lin);
+        specs[2] = ControlSpec(0.2, 200,\lin);
+        specs[3] = ControlSpec(20, 1000,\lin);
+        specs[4] = ControlSpec(0.1, 20,\exp);
+        synth.set(\carFreq, specs[0].map(msg[1]));
+        synth.set(\carAmp, specs[1].map(msg[2]));
+        synth.set(\modFreq, specs[2].map(msg[3]));
+        synth.set(\modAmp, specs[3].map(msg[4]));
+        synth.set(\panFreq, specs[4].map(msg[5]));
+    },
+'/wek/outputs');
+)</pre>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar8/seminar8.019.png'/></div>
+
+<p><a href="https://magenta.tensorflow.org/demos/">Google Magenta</a>
+<p><a href="https://magenta.tensorflow.org/studio">Magenta Studio</a>
+<p><a href="https://magenta.github.io/listen-to-transformer/">Transformer</a>
+<p><a href="https://boomy.com/">Boomy</a>
+<p><a href="https://www.aiva.ai/">Aiva</a>
+<p><a href="https://dadabots.com/">Dadabots</a>
+<p><a href="https://www.youtube.com/c/dadabots_official">Dadabots Youtube Channel</a>
+<p><a href="https://theselyricsdonotexist.com/">These Lyrics Do Not Exist - lyrics</a>
+<p><a href="https://app.wombo.art/">Dream App - cover art</a>
+<p><a href="https://dreamtonics.com/en/synthesizerv/">Dreamtonics - singing voice synthesis</a>
+<p><a href="https://arxiv.org/pdf/2110.02511.pdf">A Survey on Recent Deep Learning-driven Singing Voice Synthesis Systems</a>
+<p><a href="https://ai-circus.glitch.me/">Circus by The Elephants and The - 2021 submission for AI Song Contest by York staff and students</a>
+<p><a href="https://eprints.whiterose.ac.uk/173344/1/YinReubenStepneyCollins_EvoMUSART2021.pdf">“A Good Algorithm Does Not Steal – It Imitates”: The Originality Report as a Means of Measuring When a Music Generation Algorithm Copies Too Much</a><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Machine Learning.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Machine Learning.schelp</a><br>link::Cyborg/Seminars/Machine Learning::<br>sc version: 3.8.0</div></div></body></html>
