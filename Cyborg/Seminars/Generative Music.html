@@ -1,0 +1,229 @@
+<html><head><title>Generative Music</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider CYBORG/SEMINARS (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/Cyborg'>Tutorials/Cyborg</a></div>
+<h1>Generative Music</h1>
+<div id='summary'>Cyborg Music</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../Cyborg.html">Cyborg Music</a>, <a href="./../../Cyborg/Seminars/Computation and Music.html">Computation and Music</a>, <a href="./../../Cyborg/Seminars/Creativity and Music.html">Creativity and Music</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'></ul></div><div class='image'><img src='http://www.squib-box.com/fr/cyborg/seminars/seminar3/seminar3.001.png'/><br><b>AI-Da</b></div>
+
+<p><a href="https://time.com/5607191/robot-artist-ai-da-artificial-intelligence-creativity/">Time article about AI-Da - time.com</a>
+<p><a href="https://youtu.be/VCVgNDdlH4A">The Artist in the Machine?</a><a href="https://youtu.be/XaZJG7jiRak">TED talk by AI-Da</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.001.png'/><br><b>Johann Wolfgang von Goethe - wikipedia.org</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.002.png'/><br><b>In Handbook of Research on Creativity, 2013</b></div>
+
+<p><pre class='code prettyprint lang-sc'>(
+{var n;
+n=10;
+Resonz.ar(
+Mix.arFill(n,{
+var freq, numcps;
+freq= rrand(50,560.3);
+numcps= rrand(2,20);
+Pan2.ar(Gendy1.ar(6.rand,6.rand,1.0.rand,1.0.rand,freq ,freq, 1.0.rand, 1.0.rand, numcps, SinOsc.kr(exprand(0.02,0.2), 0, numcps/2, numcps/2), 0.5/(n.sqrt)), 1.0.rand2)
+})
+,MouseX.kr(100,2000), MouseY.kr(0.01,1.0))
+;
+}.play
+)</pre>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.003.png'/><br><b>Brian Eno: 77 Million Paintings</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.004.png'/><br><b>Brian Eno: 77 Million Paintings</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.005.png'/><br><b>Brian Eno: 77 Million Paintings</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.006.png'/><br><b>Brian Eno: 77 Million Paintings</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.007.png'/><br><b>In Brian Eno, Visual Music, C. Scoates, 2013</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.008.png'/><br><b>Generative Systems and Gardening</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.009.png'/><br><b>In The Cambridge Companion to Electronic Music, 2007</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.010.png'/></div>
+
+<p><a href="https://youtu.be/co9Q5BZDunI">Brian Eno, Atmospheric Lightness</a><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.011.png'/><br><b>Koan Pro and Generative Music 1 - intermorphic.com, iomoio.com</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.012.png'/></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.013.png'/><br><b>intermorphic.com/sseyo/koan/generativemusic1/</b></div>
+
+<p><pre class='code prettyprint lang-sc'>(
+{var a, c, d, s, z, y;
+d = 6;
+c = 5;
+a = 4;
+    s = Mix.ar(Array.fill(d, { Resonz.ar(Dust.ar(2/d, 50), 200 + 3000.0.rand, 0.003)}) );
+    z = DelayN.ar(s, 0.048);
+    y = Mix.ar(CombL.ar(z, 0.1, LFNoise1.kr(Array.fill(c,{0.1.rand}), 0.04, 0.05), 15));
+    a.do({ y = AllpassN.ar(y, 0.050, [0.050.rand,0.050.rand], 1) });
+    s+(0.2*y)
+}.play
+)</pre>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.014.png'/><br><b>Wind Chimes - ghar360.com</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.015.png'/><br><b>intermorphic.com/sseyo/koan/generativemusic1/</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.016.png'/><br><b>intermorphic.com/sseyo/koan/generativemusic1/</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.017.png'/><br><b>Gramophone - emiarchivetrust.org</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.018.png'/><br><b>intermorphic.com/sseyo/koan/generativemusic1/</b></div>
+
+<p><pre class='code prettyprint lang-sc'>//Generative remix by Nick Collins (evaluate each section of code):
+b = Buffer.loadDialog(s); //you need to change the path to a soundfile in your computer
+
+(
+~tempo = 95; //change to bpm of track
+~signature = 4;
+~barlength= ~tempo/120;
+~spb= (~barlength/~signature);
+~bps= (~spb).reciprocal;
+
+~length= b.numFrames/44100.0;
+
+~bars= (~length/~barlength).round.asInteger;
+
+~framesperbar= ~barlength*44100.0;
+
+SynthDef(\stepplaybuf2,{arg bufnum=0,outbus=0,rate=1,startPos=0,dur=0.1,atk=0.005, rel=0.05, curve=0;
+var playbuf, env;
+playbuf= PlayBuf.ar(2,bufnum,BufRateScale.kr(bufnum)*rate,1,startPos,1);
+env= EnvGen.ar(Env.linen(atk,(dur-atk-rel),rel, 1.0, curve),doneAction:2);
+Out.ar(outbus,playbuf*env);
+}).send(s);
+
+SynthDef(\step15bass,{arg outbus=0,dur=0.2, index=2, modfreq=15;
+var playbuf;
+playbuf= LFTri.ar(SinOsc.ar(modfreq,0,modfreq*Line.kr(index,0,dur),(Line.kr(44+12,32,dur)).midicps),0, EnvGen.ar(Env([0,1,1,0],[0.001,dur*0.5,dur*0.5]),doneAction:2));
+
+Out.ar(outbus,Pan2.ar(playbuf,0));
+}).send(s);
+
+SynthDef(\step15fx1,{arg panrate1=15, panrate2=0.15, delay=0.01, decay=1.5876;
+var input;
+input= In.ar(0,2);
+input= Pan2.ar(input[0],SinOsc.ar(panrate1,0))+ Pan2.ar(input[1], SinOsc.ar(panrate2,0));
+Out.ar(0,EnvGen.ar(Env([0,0.5,0.5,0],[~barlength, 2*~barlength, ~barlength]),doneAction:2)*CombN.ar(input,~spb,delay, decay));
+}).send(s);
+
+SynthDef(\step15fx2,{arg amp=0.5;
+var input;
+input= In.ar(0,2);
+Out.ar(0,EnvGen.ar(Env([0,1,1,0]*amp,[0.001,~barlength,0.01]),doneAction:2)*Limiter.ar(LPF.ar(Rand(5,10)*input,500)));
+}).send(s);
+
+SynthDef(\step15fx3,{arg amp=0.1, wsize=0.05, ratio=1, pdisp=0.0, tdisp=0;
+var input;
+input= In.ar(0,2);
+ReplaceOut.ar(0,EnvGen.ar(Env([0,1,1,0]*amp,[0.001,~barlength,0.01]),doneAction:2)*PitchShift.ar(input, wsize, ratio, pdisp, tdisp));
+}).send(s);
+
+SynthDef(\step15limiter,{
+var input;
+input=In.ar(0,2);
+ReplaceOut.ar(0,Limiter.ar(FreeVerb.ar(input,0.2), 0.99,0.01));
+}).send(s);
+)
+
+(
+var group1, fxgroup;
+var patterns, pattnow;
+var barsdone=0;
+var count=[0,0,0];
+var combfx;
+group1= Group.new;
+fxgroup= Group.after(group1);
+Synth.tail(fxgroup, \step15limiter);
+patterns=[
+[[1,5.0]],
+[[2,2.5]],
+[[1,3.0],[1,2.0]],
+[[1,3.0],[1,2.0]],
+[[1,3.0],[4,0.5]],
+[[1,4.0],[4,0.25]],
+[[1,4.0],[3,0.3334]],
+[1,1.0].dup(5),
+[[1,1.5],[1,1.5],[2,1]],
+[[1,1.5],[1,1.5],[2,1]],
+[[1,1.5],[1,1.5],[2,1]],
+[[2,1],[3,1.5],[2,1]],
+[[2,1],[3,1.5],[2,1]],
+{var roll; roll= rrand(1,3)*5; [[1,3],[roll,1.0/roll]]},
+[3,0.33334].dup(5),
+{var rolls; rolls= Array.rand(5,3,15); rolls.collect{|val| [val,1.0/val]}}
+];
+t= {
+~bars.do { var pos, bassnow, longbass;
+if((0.05.coin),{
+s.sendBundle(s.latency, ["/s_new", \step15fx1, -1, 0, fxgroup.nodeID, \panrate1, 15, \panrate2, 0.15, \delay, [0.0096314826759936, 0.019262965351987,~spb*0.25, ~spb*0.5, ~spb].choose, \decay, [~spb, 1.5876].choose, \amp, [0.1,0.3,0.5,1.0].choose]);
+});
+if((0.1.coin),{
+s.sendBundle(s.latency, ["/s_new", \step15fx2, -1, 0, fxgroup.nodeID, \amp, [0.1,0.3,0.5,1.0].choose]);
+});
+if((0.05.coin),{
+s.sendBundle(s.latency, ["/s_new", \step15fx3, -1, 0, fxgroup.nodeID, \amp, [0.3,0.5,1.0].choose, \wsize, [0.01,0.05,0.1].choose, \ratio,[1,2,8,0.25,exprand(0.25,8)].choose, \pdisp, [0.0,rrand(0.0,2.0)].choose, \tdisp, [0.0,rrand(0.0,0.1)].choose]);
+});
+([1,2,3].wchoose([0.95,0.03,0.02])).do {|k|
+{
+pattnow= patterns.choose.value;
+pattnow.postln;
+bassnow=0.3.coin;
+longbass=0.3.coin;
+pos=0.0;
+    if((0.15.coin) &amp;&amp; (barsdone&gt;10),{count[k]=rrand(1,3)});
+    if(count[k]&gt;0,{pattnow=[[1,5.0]]; count[k]=count[k]-1;});
+    pattnow.do{|cuts|
+    var offset, dur, cutlength;
+    var barpos;
+    cuts.postln;
+    barpos= rrand(max(0,barsdone-10),(barsdone+10).min(~bars-1));
+    if(0.4.coin,{barpos= barsdone;});
+    if(0.05.coin &amp;&amp; (barpos&gt;50),{barpos= rrand(0,~bars-1);});
+    if(count[k]&gt;0,{if(0.9.coin,{barpos= barsdone;}); });
+    offset= ((barpos)*~framesperbar) + (if(0.7.coin,0,{(pos*~spb*44100.0)}));
+    dur= cuts[1];
+    cutlength= if(0.9.coin,1,{if(0.8.coin,2,0.25)})*dur*~spb;
+    cuts[0].do{
+    s.sendBundle(s.latency, ["/s_new", \stepplaybuf2, -1, 0, group1.nodeID, \out, 0, \bufnum, b.bufnum, \rate, 1, \startPos,offset,\dur, cutlength]);
+    if(bassnow, {
+    s.sendBundle(s.latency, ["/s_new", \step15bass, -1, 0, group1.nodeID, \out, 0, \dur, if(longbass,cutlength,0.2)]);
+    });
+    pos=pos+dur;
+    cutlength.wait;
+    };
+    }
+}.fork;
+};
+barsdone= barsdone+1;
+~barlength.wait;
+}
+}.fork
+)
+
+t.stop;
+b.free;</pre>
+<div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.038.png'/><br><b>Generative Music 1 at the Science Museum - wikipedia.org</b></div>
+
+<p><div class='image'><img src='http://www.squib-box.com/fr/computerdotplay/seminars/seminar2/seminar2.039.png'/></div>
+
+<p><a href="https://youtu.be/fD2IFSA7Koc">Brian Eno, I Dormienti</a><div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Generative Music.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/Cyborg/HelpSource/Cyborg/Seminars/Generative Music.schelp</a><br>link::Cyborg/Seminars/Generative Music::<br>sc version: 3.8.0</div></div></body></html>
