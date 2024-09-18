@@ -1,0 +1,441 @@
+<html><head><title>Interfacing</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider COMPUTERDOTPLAY/PRACTICALS (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>Interfacing</h1>
+<div id='summary'>ComputerDotPlay</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../ComputerDotPlay.html">ComputerDotPlay</a>, <a href="./../../ComputerDotPlay/Practicals/Playing with UGens 2.html">Playing with UGens 2</a>, <a href="./../../ComputerDotPlay/Lectures/Programming Concepts 2">Programming Concepts 2</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#MIDIIn'>MIDIIn</a></li>
+<ul class='toc'><li class='toc2'><a href='#Receiving%20MIDIIn%20messages'>Receiving MIDIIn messages</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Sending%20MIDI%20values%20to%20a%20Ndef'>Sending MIDI values to a Ndef</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Human%20Input%20Devices%20(HID)'>Human Input Devices (HID)</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Open%20Sound%20Control%20(OSC)'>Open Sound Control (OSC)</a></li>
+<ul class='toc'><li class='toc2'><a href='#Sending%20OSC%20messages'>Sending OSC messages</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#SendTrig'>SendTrig</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Exercises'>Exercises</a></li>
+<ul class='toc'></ul><li class='toc1'><a href='#Keyboard%20and%20Mouse'>Keyboard and Mouse</a></li>
+<ul class='toc'><li class='toc2'><a href='#Triggering%20from%20the%20computer%20keyboard:'>Triggering from the computer keyboard:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Limiting%20interaction%20with%20Mouse'>Limiting interaction with Mouse</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Mouse%20as%20Trigger'>Mouse as Trigger</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Triggering%20strings'>Triggering strings</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='MIDIIn'>MIDIIn</a></h2>
+
+<p><code class='code prettyprint lang-sc'>MIDIIn</code> receives messages.
+<p>Initiating the MIDI client and connecting all MIDI equipment:<pre class='code prettyprint lang-sc'>MIDIIn.connectAll;</pre>
+<h3><a class='anchor' name='Receiving%20MIDIIn%20messages'>Receiving MIDIIn messages</a></h3>
+
+<p>The way of receiving MIDI inputs is if they respond to a function, the function is evaluated the moment the MIDI message is detected. A function is assigned to one of the following messages:<pre class='code prettyprint lang-sc'>MIDIIn.connectAll
+
+MIDIdef.cc(\test1, {arg ...args; args.postln}); // all cc vales
+MIDIdef.cc(\test1, {arg ...args; args.postln}, 1); // match cc 1
+MIDIdef.cc(\test2, {arg ...args; args.postln}, 1, 1); // match cc1, chan 1
+MIDIdef.cc(\test3, {arg ...args; args.postln}, (1..10)); // match cc 1-10
+MIDIdef.noteOn(\test4, {arg ...args; args.postln}); // match any noteOn
+
+MIDIIn.doNoteOnAction(1, 1, 64, 64); // spoof a note on
+MIDIIn.doControlAction(1, 1, 1, 64); // spoof a cc
+MIDIIn.doControlAction(1, 1, 9, 64);
+MIDIIn.doControlAction(1, 10, 1, 64);
+
+MIDIdef.noteOn(\testOn, {arg ...args; args.postln}); // all noteOn vales
+MIDIdef.noteOff(\testOff, {arg ...args; args.postln}); // all noteOff vales
+MIDIdef.noteOn(\testOn).free;
+MIDIdef.noteOff(\testOff).free;
+
+MIDIdef.noteOn(\testOn, {arg ...args; args.postln}, 1); // match noteOn 1
+MIDIdef.noteOn(\testOn).free;
+
+MIDIdef(\test1).free; // free one def
+MIDIdef.freeAll; // free all registered MIDIdefs</pre>
+<h3><a class='anchor' name='Sending%20MIDI%20values%20to%20a%20Ndef'>Sending MIDI values to a Ndef</a></h3>
+<pre class='code prettyprint lang-sc'>Ndef(\theremin).play;
+
+Ndef(\theremin).fadeTime = 1;
+
+(
+Ndef(\theremin, {arg freq=440, amp=0.3, pos=0;
+    var signal;
+    signal = SinOsc.ar(freq.lag(0.1), 0, amp);
+    Pan2.ar(signal, pos);
+});
+)
+
+Ndef(\theremin).set(\freq, 300);
+
+(
+MIDIdef.cc(\freqs, {arg ...args; "freq: ".post;
+    Ndef(\theremin).set(\freq, args[0].linexp(0,127,100,5000).postln);
+    }, 16); //maps to cc number 16
+MIDIdef.cc(\amps, {arg ...args; "amp: ".post;
+    Ndef(\theremin).set(\amp, args[0].linlin(0,127,0,1.0).postln);
+    }, 19); //maps to cc number 19
+MIDIdef.cc(\pos, {arg ...args; "pos: ".post;
+    Ndef(\theremin).set(\pos, args[0].linlin(0,127,-1,1.0).postln);
+    }, 18); //maps to cc number 18
+)
+
+//new ndef
+(
+Ndef(\theremin, {arg freq=440, amp=0.3, pos=0, cutFreq=1000;
+    var signal;
+    signal = Pulse.ar(freq.lag(0.1), 0.5, amp);
+    signal = LPF.ar(signal, cutFreq);
+    Pan2.ar(signal, pos);
+});
+)
+
+(
+MIDIdef.cc(\cutFreq, {arg ...args; "cutFreq: ".post;
+    Ndef(\theremin).set(\cutFreq, args[0].linexp(0,127,20,10000).postln);
+    }, 17);
+)
+
+MIDIIn.doControlAction(num: 17, val: 64); // spoof a cc (arg src, chan, num, val)
+
+MIDIdef.all
+MIDIdef.freeAll;
+Ndef.clear</pre>
+<h2><a class='anchor' name='Human%20Input%20Devices%20(HID)'>Human Input Devices (HID)</a></h2>
+
+<p>Human input devices can be used as controllers for making music. In SuperCollider the <code class='code prettyprint lang-sc'>HID</code> and <code class='code prettyprint lang-sc'>HIDdef</code> classes handle HIDs.<pre class='code prettyprint lang-sc'>HID.findAvailable; // check which devices are attached
+HID.postAvailable; // check which devices are attached</pre>
+
+<p>When you find the device you want to use, look at its IDs and copy the first two numbers following "IDs".<pre class='code prettyprint lang-sc'>~myhid = HID.open( 9571, 1397 ); //IDs: open my game pad
+
+//or
+HID.postAvailable;
+~myhid = HID.openAt(1); // open by index
+
+~myhid.elements.do{|item| item.postln}; //post elements
+
+HID.debug = true; //to post input
+HID.debug = false; //stop posting
+
+~myhid.postUsages;
+~myhid.elements.do{|item| item.postln };
+
+
+HIDdef.element(\try, {|...args| args.postln;}); //HIDdef for all elements
+HIDdef.element(\try, {|...args| args;});
+
+HIDdef.element(\try, {|...args| if(args[4] != 15, {args.copyRange(0,4).postln }); });
+HIDdef.element(\try, {|...args| if(args[4] != 15, {args.postln }); });
+
+
+HIDdef.usage(\usage, {|...args| args.postln});
+HIDdef.usage(\usage, {|...args| args.postln}, [\b1, \b2]);
+
+
+~myhid.close;
+HID.closeAll;</pre>
+<h2><a class='anchor' name='Open%20Sound%20Control%20(OSC)'>Open Sound Control (OSC)</a></h2>
+
+<p><code class='code prettyprint lang-sc'>OSC</code> is a communication protocol used for sending information across a computer network. It is promoted as the successor to MIDI (with greatly increased bandwidth and user-customisable representations), and is supported by most modern music software.
+<p>It is the lifeblood of SuperCollider since all communication from the language application to the localhost server uses OSC! You may also send messages to any other SuperCollider Servers for which you have an IP location. So SuperCollider is immediately equipped for network music.
+<p>You can also use it to communicate with other computers or/and applications. You can use TouchOSC in your phone or other applications like Max/MSP, PD or Processing to make the applications talk to each other.
+<p>First, let's use the iPad and send OSC messages from TouchOSC to SuperCollider
+<p>Make sure you follow these steps:
+<p>1. Make sure both your computer and iPad are connected in the same network.<div class='note'><span class='notelabel'>NOTE:</span> You can make your own 'ad-hoc' network if necessary. On Mac go to Wi-Fi and "Create Network"</div>
+<p>2. Look at the IP address on your computer. You should be able to see it on your network settings. If you are on Mac, try running this unix command:<pre class='code prettyprint lang-sc'>"ipconfig getifaddr en0 &amp; ipconfig getifaddr en1".unixCmdGetStdOut;</pre>
+
+<p>3. In TouchOSC, go to the settings, and make sure you write the computer IP address where it says: Host.
+<p>4. In TouchOSC, where it says Port (outgoing) you should write the number that shows up when you evaluate this code:<pre class='code prettyprint lang-sc'>NetAddr.langPort;</pre>
+
+<p><div class='note'><span class='notelabel'>NOTE:</span> This is SuperCollider's language port number and usually (but not always!) it is 57120.</div>
+<p>5. Once you're done, choose a nice TouchOSC interface (you can even make your own!).<pre class='code prettyprint lang-sc'>Computer.url("http://hexler.net/software/touchosc"); //check the TouchOSC editor!</pre>
+
+<p>6. Now, let's start receiving some OSC information!<pre class='code prettyprint lang-sc'>//this will post all incoming OSC messages
+(
+f = { |msg, time, addr|
+    if(msg[0] != '/status.reply') {
+        "time: % sender: %\nmessage: %\n".postf(time, addr, msg);
+    }
+};
+thisProcess.addOSCRecvFunc(f);
+);
+
+// stop posting.
+thisProcess.removeOSCRecvFunc(f);
+
+//if you get nothing try opening the port (this is usually not necessary)
+thisProcess.openUDPPort(57120);
+
+//now let's filter the accelerometer data to be able to see other messages
+(
+f = { |msg, time, addr|
+    if(msg[0] != '/status.reply') {
+        //this filters the accelerometer data:
+        if(msg[0] != '/accxyz', {
+        "time: % sender: %\nmessage: %\n".postf(time, addr, msg);
+        });
+    }
+};
+thisProcess.addOSCRecvFunc(f);
+);
+
+// stop posting.
+thisProcess.removeOSCRecvFunc(f);</pre>
+
+<p>7. Use <code class='code prettyprint lang-sc'>OSCdef</code> for mapping OSC information. <code class='code prettyprint lang-sc'>OSCdef</code> is the standard way of doing it - it works like <code class='code prettyprint lang-sc'>MIDIdef</code> or <code class='code prettyprint lang-sc'>HIDdef</code>, meaning you can change its contents as you go. You will need to give a specific key (you decide on the name) and limit the path (matching the ones you want to use) for each <code class='code prettyprint lang-sc'>OSCdef</code>.<pre class='code prettyprint lang-sc'>OSCdef(\fader1, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderA'); //key, func, path
+OSCdef(\fader2, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderB');
+OSCdef(\fader3, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderC');
+OSCdef(\fader4, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderD');
+
+OSCdef(\button1,  { arg msg, time, addr, recvPort; msg.postln}, '/toggleA_1');
+OSCdef(\button2,  { arg msg, time, addr, recvPort; msg.postln}, '/toggleA_2');
+
+OSCdef.freeAll;</pre>
+
+<p><div class='warning'><span class='warninglabel'>WARNING:</span> You can skip step 6 if you have already mapped your TouchOSC interface and you are ready to go!</div><h3><a class='anchor' name='Sending%20OSC%20messages'>Sending OSC messages</a></h3>
+
+<p>So far we have only been receiving OSC messages.
+<p>To send general OSC to a known IP we use the <code class='code prettyprint lang-sc'>NetAddr</code> class:
+<p>Here, we are talking directly to the server:<pre class='code prettyprint lang-sc'>(
+var n, id;
+//loopback address is 127.0.0.1- try substituting the IP address of another user's machine!!
+n=NetAddr("127.0.0.1", 57110); //57110 is the port number that is the standard number used by the Server
+id=s.nextNodeID.postln;
+n.sendMsg("s_new",\default,id,0,0);   //sendMsg works out the correct OSC message for you
+SystemClock.sched(1.0,{n.sendMsg("n_free",id); });
+)</pre>
+
+<p>Now, we are going to send and receive messages within SuperCollider.<div class='note'><span class='notelabel'>NOTE:</span> Even though we are now just sending OSC messages from and to SuperCollider, remember that you can send OSC messages from other applications like Max or Pd!</div><pre class='code prettyprint lang-sc'>//OSCdef to receive OSC messages
+(
+OSCdef(\news, { arg msg, time, addr, recvPort; [time, msg, addr, recvPort].postln;
+    msg[1].postln;
+    if(msg[1].asSymbol == '/osc', { {SinOsc.ar(400)}.play });
+}, '/badnews');
+)
+
+n = NetAddr("localhost", 57120); // 57120 is sclang default port.
+//"localhost" give the local IP address
+
+n = NetAddr("localhost", NetAddr.langPort);  //sometimes it changes so better use this
+
+//limit OSC messages to a specific port
+(
+OSCdef(\goodnews, { arg msg, time, addr, recvPort;
+    [time, msg, addr, recvPort].postln }, '/good/news');
+)
+
+n.sendMsg("/badnews", "from", "SuperCollider");
+n.sendMsg("/good/news", "you", "monkey");
+
+n.disconnect;</pre>
+
+<p>If you want to send messages to other computers, you need to know their IP address and portnumber (probabily SC portnumber if sending/receiving messages from SC!):<pre class='code prettyprint lang-sc'>n = NetAddr("192.168.0.2", 57120); //change IP to the computer you want to send
+// 57120 is sclang default port
+
+//in computer 2, make sure you evaluate this:
+(
+OSCdef(\goodnews, { arg msg, time, addr, recvPort;
+    [time, msg, addr, recvPort].postln }, '/good/news');
+)
+
+n.sendMsg("/good/news", "from", "SuperCollider");
+n.sendMsg("/good/news", "you", "monkey");
+
+OSCdef.freeAll;</pre>
+<h3><a class='anchor' name='SendTrig'>SendTrig</a></h3>
+
+<p>UGen to send triggered OSC messages from the server through OSC messages.<pre class='code prettyprint lang-sc'>(
+{SendTrig.kr(Impulse.kr(MouseX.kr(1,50)),0,SinOsc.ar(MouseX.kr(1,100),
+    0,MouseY.kr(1,4.0)*300,400*MouseY.kr(1,4.0)));
+}.play;
+)
+
+OSCdef(\sendTrig, { arg msg, time, addr, recvPort; msg.postln }, 'tr');
+
+OSCdef(\sendTrig, { arg msg, time, addr, recvPort; msg[3].cpsmidi.round(1).postln }, 'tr');
+
+MIDIIn.connectAll;
+
+m = MIDIOut(0);
+m.latency = 0.01;
+m.noteOn(0, 60, 60);
+m.noteOff(0, 60, 60);
+
+(
+OSCdef(\sendTrig, { arg msg, time, addr, recvPort;
+    {
+    m.noteOn(0, msg[3].cpsmidi.round(1).postln, 60);
+    0.1.yield;
+    m.noteOff(0, msg[3].cpsmidi.round(1).postln, 60);
+     }.fork
+}, 'tr');
+)
+
+(
+{SendTrig.kr(Onsets.kr(FFT(LocalBuf(1,512), SoundIn.ar(0)),
+    MouseX.kr(0,1), \rcomplex),0,1)}.play;
+)
+
+(
+OSCdef(\sendTrig, { arg msg, time, addr, recvPort;
+    var randNote;
+    randNote = rrand(30,100);
+    {m.noteOn(0, randNote, 60);
+        0.1.yield;
+    m.noteOff(0, randNote, 60);}.fork
+}, 'tr');
+)</pre>
+<h2><a class='anchor' name='Exercises'>Exercises</a></h2>
+<ol>
+<li>Select at least 2 types of devices (MIDI, HID, OSC) to interface with SuperCollider (for example, an iPad and a game controller)<li>Connect the devices and make sure you are receiving incoming data<li>Map the values to a set of Ndefs, SynthDef and/or Patterns.</ol>
+<div class='note'><span class='notelabel'>NOTE:</span> You can use the sounds, effects, etc., from the following examples: <a href="./../../ComputerDotPlay/Code Examples/Simple FX.html">Simple FX</a>, <a href="./../../ComputerDotPlay/Code Examples/Synth Fun.html">Synth Fun</a></div><h2><a class='anchor' name='Keyboard%20and%20Mouse'>Keyboard and Mouse</a></h2>
+<h3><a class='anchor' name='Triggering%20from%20the%20computer%20keyboard:'>Triggering from the computer keyboard:</a></h3>
+
+<p>A <code class='code prettyprint lang-sc'>SynthDef</code>:<pre class='code prettyprint lang-sc'>(
+SynthDef("SineGrain", {
+    |out = 0, freq, amp = 1, decay = 0.01|
+    var signal;
+    signal = SinOsc.ar(freq, mul: amp) *
+            EnvGen.kr(Env.perc(0.001,decay,0.2),1,doneAction: 2);
+    signal = Pan2.ar(signal, Rand(-1.0,1.0));//random pan
+    Out.ar(out, signal)
+}).send(s);
+)
+
+Synth(\SineGrain, [\freq,116.midicps])</pre>
+
+<p>Windows of text correspond to the Document class. For this class a function can be assigned such that a new instance of a Synth is evaluated when the keys are typed within the <code class='code prettyprint lang-sc'>ScIDE</code> document. The document we are using is: <code class='code prettyprint lang-sc'>Document.current</code>.
+<p>The function for current document uses ASCII numbers (each key has an ASCII number) to select the frequency of the Synth.<pre class='code prettyprint lang-sc'>//first, copy this piece of code into the ScIDE document
+//now start control with keyboard
+(
+Document.current
+    .keyDownAction_({|doc,key,modifiers,num|
+    [doc,key,modifiers,num].postln;
+    Synth(\SineGrain,[\freq, num.midicps])
+  });
+)</pre>
+
+<p>Writing in this window, produces small grains with the frequencies of the key numbers that are pressed.<pre class='code prettyprint lang-sc'>//turn off the keyboard action
+Document.current.keyDownAction_(nil);</pre>
+
+<p>If you don't want to use the current ScIDE Document. You can create a GUI <code class='code prettyprint lang-sc'>Window</code> and use the <code class='code prettyprint lang-sc'>TextField</code> class. All <code class='code prettyprint lang-sc'>View</code> GUI classes respond to the <code class='code prettyprint lang-sc'>.keyDownAction</code> message.<pre class='code prettyprint lang-sc'>(
+w = Window.new("Make some noise: type here", Rect(200,200,400,40)).front;
+a = TextField(w, Rect(0, 0, w.bounds.width, 20));
+a.keyDownAction_({|doc,key,modifiers,num|
+    [doc,key,modifiers,num].postln;
+    Synth(\SineGrain,[\freq, num.midicps])
+  });
+)</pre>
+<h3><a class='anchor' name='Limiting%20interaction%20with%20Mouse'>Limiting interaction with Mouse</a></h3>
+
+<p><code class='code prettyprint lang-sc'>MouseX, MouseY</code> produce continuous values for control parameters.<pre class='code prettyprint lang-sc'>    {SinOsc.ar(MouseX.kr(100,1000))}.play</pre>
+
+<p>If discreet values are desired, use Index to read mouse values from a table in a buffer at the server.<pre class='code prettyprint lang-sc'>Index(bufnum, in, mul, add)
+
+//assigns buffers and fills them with desired values (that will be read with an index)
+(
+t = [200,300,400,500,600,700,800]; /// a table (of frequencies)
+b = Buffer(s,t.size,1); // server, size, number of channels
+s.listSendMsg(b.allocMsg(b.setnMsg(0,t))); // sends values to a buffer in the server
+)</pre>
+
+<p>The following methods are used to send values to the buffer:<pre class='code prettyprint lang-sc'>    allocMsg (completionMessage)</pre>
+
+<p>Needed to allocate the memory specified by Buffer. The completion message is evaluated after the allocation.<pre class='code prettyprint lang-sc'>setnMsg(start, values)</pre>
+
+<p>To allocate the values from the array to the buffer starting with the index specified by the start argument
+<p>The code below reads the values at the index.<div class='note'><span class='notelabel'>NOTE:</span> only the frequencies at the table will sound</div>
+<p><pre class='code prettyprint lang-sc'>(
+{ SinOsc.ar(Index.kr(b.bufnum, MouseX.kr(0,t.size)),
+            mul: 0.1)
+}.play
+)
+
+b.free;</pre>
+<h3><a class='anchor' name='Mouse%20as%20Trigger'>Mouse as Trigger</a></h3>
+
+<p>We’ve seen how MouseButton can be used as trigger. Another way of using the mouse as trigger is by establishing a threshold. More precisely, if the mouse is within an area in the screen, then it’s used as trigger.<pre class='code prettyprint lang-sc'>(
+{
+    var trigger, thisX, thisY;
+    thisX = MouseX.kr;
+    thisY = MouseY.kr;
+    trigger = if ((thisX &gt; 0.3) * (thisX &lt; 0.4) *
+                (thisY &gt; 0.4) * (thisY &lt; 0.5),
+                1,0);
+    WhiteNoise.ar(mul: 0.1 * trigger);
+}.play
+)</pre>
+<h3><a class='anchor' name='Triggering%20strings'>Triggering strings</a></h3>
+
+<p>McCartney has an example of “playing” strings with the mouse. This is an implementation of the Karplus-Strong algorithm. First, a simplified version:<pre class='code prettyprint lang-sc'>(
+//a string, triggered when the mouse crosses the middle of the screen
+{
+    var pitch, out, mousex;
+    pitch = 62;
+    out = { var trigger, pluck, period, string;
+          trigger = HPZ1.kr(MouseX.kr &gt; 0.5).abs;
+          pluck = PinkNoise.ar(Decay.kr(trigger, 0.05));
+          period = pitch.midicps.reciprocal;
+          string = CombL.ar(pluck,period, period, 4);
+          Pan2.ar(string, 0);
+        };
+    LPF.ar(out,12000);
+    LeakDC.ar(out);
+}.play
+)</pre>
+
+<p><ul>
+<li><code class='code prettyprint lang-sc'>HPZ1</code> two point differentiator<ul>
+<li><em>out(i) = 0.5 * (in(i) - in(i-1))</em></ul>
+
+<p><li><code class='code prettyprint lang-sc'>LeakDC</code> removes DC offset from a signal<li><code class='code prettyprint lang-sc'>Decay(in, decayTime)</code></ul>
+
+<p>Guitar strings played with mouse:<pre class='code prettyprint lang-sc'>(
+{
+    var pitch, out;
+    pitch = [ 52, 57, 62, 67, 71, 76 ];        // midi for: E A D G B E
+    out = Mix.fill(pitch.size, { | i |
+        var trigger, pluck, period, string;
+        trigger = HPZ1.kr(MouseX.kr &gt; (0.25 + (i * 0.1))).abs;
+        pluck = PinkNoise.ar(Decay.kr(trigger, 0.05));
+        period = pitch[i].midicps.reciprocal;
+        string = CombL.ar(pluck, period, period, 4);
+        Pan2.ar(string, i * 0.2 - 0.5);
+    });
+    LPF.ar(out, 12000);
+    LeakDC.ar(out);
+}.play;
+)</pre>
+
+<p>An instrument with more strings:<pre class='code prettyprint lang-sc'>(
+// adjusted so than they are randomly out of tune
+// num is the amount of strings
+{
+    var pitch, out, num = 30;
+    pitch = {rrand(52,76.0)}.dup(num).sort.postln;
+
+    out = Mix.fill(pitch.size, { | i |
+        var trigger, pluck, period, string;
+        trigger = HPZ1.kr(MouseX.kr &gt;
+                                 (linlin(i, 0,num-1,0.25,0.75))).abs;
+        pluck = PinkNoise.ar(Decay.kr(trigger, 0.05));
+        period = pitch[i].midicps.reciprocal;
+        string = CombL.ar(pluck, period, period, 4);
+        Pan2.ar(string, i * num.reciprocal - 0.5);
+    });
+    LPF.ar(out, 12000);
+    LeakDC.ar(out);
+}.play;
+)</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerDotPlay/HelpSource/ComputerDotPlay/Practicals/Interfacing.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerDotPlay/HelpSource/ComputerDotPlay/Practicals/Interfacing.schelp</a><br>link::ComputerDotPlay/Practicals/Interfacing::<br>sc version: 3.8.0</div></div></body></html>

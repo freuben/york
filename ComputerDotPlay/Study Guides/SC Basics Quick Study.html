@@ -1,0 +1,147 @@
+<html><head><title>SC Basics Quick Study</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider COMPUTERDOTPLAY/STUDY GUIDES (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>SC Basics Quick Study</h1>
+<div id='summary'>ComputerDotPlay</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../ComputerDotPlay.html">ComputerDotPlay</a>, <a href="./../../ComputerDotPlay/Practicals/Playing with UGens 2.html">Playing with UGens 2</a>, <a href="./../../ComputerDotPlay/Practicals/Programming Concepts 1.html">Programming Concepts 1</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Turn%20it%20on'>Turn it on</a></li>
+<ul class='toc'><li class='toc2'><a href='#Turning%20on%20the%20Server:'>Turning on the Server:</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Language'>Language</a></li>
+<ul class='toc'><li class='toc2'><a href='#Notation:'>Notation:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Brackets:'>Brackets:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Variables:'>Variables:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Functions:'>Functions:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#Collections:'>Collections:</a></li>
+<ul class='toc'></ul></ul><li class='toc1'><a href='#Server'>Server</a></li>
+<ul class='toc'><li class='toc2'><a href='#UGens:'>UGens:</a></li>
+<ul class='toc'></ul><li class='toc2'><a href='#SynthDef%20and%20Synth:'>SynthDef and Synth:</a></li>
+<ul class='toc'></ul></ul></ul></div><h2><a class='anchor' name='Turn%20it%20on'>Turn it on</a></h2>
+<h3><a class='anchor' name='Turning%20on%20the%20Server:'>Turning on the Server:</a></h3>
+<pre class='code prettyprint lang-sc'>s.boot;</pre>
+<div class='note'><span class='notelabel'>NOTE:</span> Or simply: <em>cmd + b</em></div><h2><a class='anchor' name='Language'>Language</a></h2>
+<h3><a class='anchor' name='Notation:'>Notation:</a></h3>
+
+<p>Receiver notation: <code class='code prettyprint lang-sc'>Object.message</code>
+<p>Functional notation: <code class='code prettyprint lang-sc'>Function(argument)</code>
+<p><strong>Examples</strong>:<div class='note'><span class='notelabel'>NOTE:</span> Remember: to stop sound use <em>cmd+.</em></div><pre class='code prettyprint lang-sc'>//this is a comment by the way!
+
+{SinOsc.ar(400,0,0.8)}.play; //receiver notation
+//is the same as:
+play({(ar(SinOsc, 400,0,0.8))}); //functional notation</pre>
+<h3><a class='anchor' name='Brackets:'>Brackets:</a></h3>
+<pre class='code prettyprint lang-sc'>() //to group expressions
+[] //collection
+{} //function</pre>
+<h3><a class='anchor' name='Variables:'>Variables:</a></h3>
+
+<p><strong>Local variables</strong> need to be declared and cannot be called outside the piece of code you are executing<pre class='code prettyprint lang-sc'>(
+var number, value;
+number = 2;
+value = 3;
+number * value;
+)</pre>
+
+<p><strong>Global Variables</strong>:
+<p>Letters <code class='code prettyprint lang-sc'>a-z</code> or <code class='code prettyprint lang-sc'>~word</code><pre class='code prettyprint lang-sc'>a = 2;
+b = 3;
+
+a+b
+
+this.clearAll //to clear variables in the interpreter
+
+~one = 1;
+~two = 2;
+
+~one+~two
+
+currentEnvironment.clear; //to clear variables in environment</pre>
+
+<p><h3><a class='anchor' name='Functions:'>Functions:</a></h3>
+<pre class='code prettyprint lang-sc'>~function = {arg a=3,b=1; var c=2; a+b-c }</pre>
+
+<p><strong>Arguments</strong> are like local variables (you have to declare them within the function you want them to work) but can be changed ones the function is declared.
+<p><strong>Local variables</strong> within a function are fixed - they cannot be changed ones the function is declared<pre class='code prettyprint lang-sc'>~function.value(b: 3)</pre>
+
+<p>To evaluate a function with the specified arguments, you have to use the <code class='code prettyprint lang-sc'>.value</code> message and then the arguments in brackets:<pre class='code prettyprint lang-sc'>~function.value(4,3);
+~function.value(1,13);
+
+~synth = {|a,b| {SinOsc.ar(a,0,b)}.play } //arguments can also be declared with "|" in between them
+~synth.value(400,0.5);
+~synth.value(800,0.2);</pre>
+<h3><a class='anchor' name='Collections:'>Collections:</a></h3>
+
+<p>Colletcions are lists of data (numbers, letters, functions, etc):<pre class='code prettyprint lang-sc'>a = [2, 'hello', {SinOsc.ar}]
+a[0];
+a[1];
+a[2].play;
+
+b = [1,2,3,4]; //you can manipulate the data inside collections very easly
+b+4
+b.scramble;
+b.reverse;
+b[2] = 'mama mia'
+b</pre>
+<h2><a class='anchor' name='Server'>Server</a></h2>
+<h3><a class='anchor' name='UGens:'>UGens:</a></h3>
+
+<p>Can be used for audio <code class='code prettyprint lang-sc'>.ar</code> or control <code class='code prettyprint lang-sc'>.kr</code>.<div class='warning'><span class='warninglabel'>WARNING:</span> They generate numbers very fast!</div>
+<p><pre class='code prettyprint lang-sc'>{SinOsc.ar(MouseX.kr(100,10000, 'exponential'),0, MouseY.kr(0.0,1.0))}.play</pre>
+
+<p>Here <code class='code prettyprint lang-sc'>SinOsc</code> and <code class='code prettyprint lang-sc'>MouseX</code> are UGens. <code class='code prettyprint lang-sc'>SinOsc</code> is <code class='code prettyprint lang-sc'>.ar</code> because its generating audio at sampling rate. <code class='code prettyprint lang-sc'>MouseX</code> is <code class='code prettyprint lang-sc'>.kr</code> because it's controlling the freq argument at control rate.<div class='note'><span class='notelabel'>NOTE:</span> There are lot's of UGens. Know them as they are your Synthesis Building Blocks!</div><h3><a class='anchor' name='SynthDef%20and%20Synth:'>SynthDef and Synth:</a></h3>
+<ul>
+<li>Before we have been generating sound by evaluating a function (that inludes UGens) with <code class='code prettyprint lang-sc'>.play</code><li>That function produces a temporal <code class='code prettyprint lang-sc'>Synth</code> (a synthesis patch)<li>It is also possible to produce Synths that are specified by a synthesis definition (a name for your patch) and then they can be saved to file, recalled, loaded to the server, etc</ul>
+
+<p>Basic SynthDef format:<pre class='code prettyprint lang-sc'>SynthDef("name", {Out.ar(busNumber, UGens)});</pre>
+
+<p>Same Synth as above but now in a <code class='code prettyprint lang-sc'>SynthDef</code> with the name <code class='code prettyprint lang-sc'>"SineMouse"</code>:<pre class='code prettyprint lang-sc'>(
+SynthDef("SineMouse", {arg out=0;
+var signal;
+signal = SinOsc.ar(MouseX.kr(100,10000, 'exponential'),0,0.2);
+Out.ar(out, signal);
+}).add;
+)</pre>
+
+<p>The message .send(s) sends this SynthDef to the server.
+<p>This creates an instance of the Synth:<pre class='code prettyprint lang-sc'>Synth("SineMouse");</pre>
+
+<p>Now let't try it with arguments:<pre class='code prettyprint lang-sc'>(
+SynthDef("SineArg", {arg freq=200,mul=0.5, out=0;
+var signal;
+signal = SinOsc.ar(freq,0,mul);
+Out.ar(out, signal);
+}).add;
+)</pre>
+
+<p>Basic Synth format:<pre class='code prettyprint lang-sc'>Synth("name", [\argument1, value1, \argument2, value2]);</pre>
+
+<p>If arguments are not specified, you will get the default arguments of the SynthDef:<pre class='code prettyprint lang-sc'>Synth("SineArg")</pre>
+
+<p>If you want to specify the arguments:<pre class='code prettyprint lang-sc'>Synth("SineArg", [\freq, 400, \mul, 0.1]);</pre>
+
+<p>More than 1 Synth at the same time:<pre class='code prettyprint lang-sc'>a = Synth("SineArg", [\freq, 400, \mul, 0.1]);
+b = Synth("SineArg", [\freq, 800, \mul, 0.1]);
+
+a.set(\freq, rrand(500,1000));
+b.set(\freq, rrand(200,2000))
+
+a.free;
+b.free;</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerDotPlay/HelpSource/ComputerDotPlay/Study Guides/SC Basics Quick Study.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerDotPlay/HelpSource/ComputerDotPlay/Study Guides/SC Basics Quick Study.schelp</a><br>link::ComputerDotPlay/Study Guides/SC Basics Quick Study::<br>sc version: 3.8.0</div></div></body></html>

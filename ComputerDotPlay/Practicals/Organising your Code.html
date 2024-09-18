@@ -1,0 +1,490 @@
+<html><head><title>Organising your Code</title>
+<link rel='stylesheet' href='./../../scdoc.css' type='text/css' />
+<link rel='stylesheet' href='./../../frontend.css' type='text/css' />
+<link rel='stylesheet' href='./../../custom.css' type='text/css' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<script src='./../../scdoc.js' type='text/javascript'></script>
+<script src='./../../docmap.js' type='text/javascript'></script>
+<script src='./../../prettify.js' type='text/javascript'></script>
+<script src='./../../lang-sc.js' type='text/javascript'></script>
+<script type='text/javascript'>var helpRoot='./../..';</script>
+</head>
+<ul id='menubar'></ul>
+<body onload='fixTOC();prettyPrint()'>
+<div class='contents'>
+<div class='header'>
+<div id='label'>SuperCollider COMPUTERDOTPLAY/PRACTICALS (extension)</div>
+<div id='categories'><a href='./../../Browse.html#Tutorials/ComputerDotPlay'>Tutorials/ComputerDotPlay</a></div>
+<h1>Organising your Code</h1>
+<div id='summary'>ComputerDotPlay</div>
+</div>
+<div class='subheader'>
+<div id='related'>See also: <a href="./../../ComputerDotPlay.html">ComputerDotPlay</a>, <a href="./../../ComputerDotPlay/Lectures/Digital Effects">Digital Effects</a>, <a href="./../../ComputerDotPlay/Practicals/Buses and Ndefs.html">Buses and Ndefs</a></div>
+</div>
+<div id='toc'>
+<ul class='toc'><li class='toc1'><a href='#Organising%20your%20code'>Organising your code</a></li>
+<ul class='toc'></ul></ul></div><h2><a class='anchor' name='Organising%20your%20code'>Organising your code</a></h2>
+
+<p>This is an example of how you should aim to organise your code for your final project. Study the code below carefully looking at the different components and sections of the program. Feel free to use this code or adjust it. The code runs through a routine that evaluates all of the different parts of the program - that way the computer will take care of evaluation so that everything is ready before you start performing! I advise you to use this as a template or model for organising your own code.<pre class='code prettyprint lang-sc'>(
+s.waitForBoot({ //boots server
+    //routine function (.fork) to evaluate your code:
+    {
+        //replace this with the paths for the buffers you want to use:
+        ~paths = [
+            "/Users/federicoreuben/Music/MastersExamples/01 15 Steps.wav",
+            "/Users/federicoreuben/Music/MastersExamples/1 Earth Intruders.aiff",
+            "/Users/federicoreuben/Music/MastersExamples/02 Bodysnatchers.wav",
+            "/Users/federicoreuben/Music/MastersExamples/2 Nicotine &amp; Gravy.aiff",
+            "/Users/federicoreuben/Music/MastersExamples/3 Sublation.aiff",
+            "/Users/federicoreuben/Music/MastersExamples/3 The Dull Flame Of Desire.aiff",
+            "/Users/federicoreuben/Music/MastersExamples/04 4 bit 9d api+e+6 [126.26].wav",
+            "/Users/federicoreuben/Music/MastersExamples/05 180db_ [130].wav"
+        ];
+        //load your buffers for playing sound files
+        ~buffers = [];
+        ~paths.do{|item|
+                    ~buffers = ~buffers.add(Buffer.read(s, item) );
+                s.sync; //wait for buffers to load
+        };
+        //your other buffers (for example for wavetables)
+        ~waveBuffer = Buffer.alloc(s, 4096, 1);
+        ~waveBuffer.sine1(1.0/(1,3..1000), true, true, true); //fill it up
+
+        s.sync; //wait for buffers to load
+
+        //your synthdefs for patterns:
+        SynthDef(\eightoeightkick,{|out= 0 freq = 440 bend = 0 amp = 0.1 ringtime=10.0
+                    reltime=1.0 dist = 0.1 pan=0.0|
+                    var impulse, filter, env;
+                    impulse = Impulse.ar(0);
+                    filter = Ringz.ar(impulse,XLine.ar((freq*bend.lag(0.1).midiratio),60,0.1),ringtime);
+                    env = Env.perc(0.001,reltime).kr(2);
+                    filter = (1.0-dist)*filter + (dist*(filter.distort));
+                    Out.ar(out,Pan2.ar(filter*env*amp,pan));
+            }).add;
+
+        SynthDef(\handclapsmash,{|out= 0 amp = 0.1 gate=1 cutoff= 12000 rq=0.5
+                    reltime=0.5 pan=0.0|
+                    var noise, filter, filterenv, env;
+                    noise = WhiteNoise.ar;
+                    filterenv = Env([0.0,1.0,0.3,0.0],[0.0,0.3,0.3]).kr;
+                    filter = BHiPass.ar(RLPF.ar(noise,cutoff*filterenv,rq),150);
+                    filter = BPeakEQ.ar(filter,440,1.0,8);
+                    filter = BPeakEQ.ar(filter,1200,1.0,14);
+                    env = Env.perc(0.005,reltime).kr(2);
+                    Out.ar(out,Pan2.ar(filter*env*amp,pan));
+         }).add;
+
+        SynthDef(\bassfoundation,{|out= 0 freq = 440 bend = 0 amp = 0.1 gate=1
+                    cutoff= 1000 rq=0.5 pan=0.0|
+                    var osc, filter, env, filterenv;
+                    osc = Saw.ar((freq*bend.lag(0.1).midiratio));
+                    filterenv = Env.adsr(0.0,0.5,0.2,0.2).kr(2,gate);
+                    filter =  RLPF.ar(osc,cutoff*filterenv+100,rq);
+                    env = Env.adsr(0.01,0.0,0.9,0.05).kr(2,gate);
+                    Out.ar(out,Pan2.ar(filter*env*amp*2,pan));
+        }).add;
+
+        SynthDef(\prophet5pwmstrings,{|out= 0 freq = 440 bend = 0 amp = 1.0 gate=1
+                    lforate = 10 lfowidth= 0.5 cutoff= 12000 rq=0.5 pan = 0.0|
+                    var lfo, pulse, filter, env;
+                    lfo = LFTri.kr(lforate*[1,1.01],Rand(0,2.0)!2);
+                    pulse = Pulse.ar((freq*bend.lag(0.1).midiratio)*[1,1.01],lfo*lfowidth+0.5);
+                    filter = RLPF.ar(pulse,cutoff,rq);
+                    env = Env.adsr(0.01,0.0,1.0,0.5).kr(2,gate);
+                    Out.ar(out,Pan2.ar(Mix(filter)*env*amp*0.5,pan));
+        }).add;
+
+        SynthDef(\bassfoundation,{|out= 0 freq = 440 bend = 0 amp = 0.1 gate=1
+                    cutoff= 1000 rq=0.5 pan=0.0|
+                    var osc, filter, env, filterenv;
+                    osc = Saw.ar((freq*bend.lag(0.1).midiratio));
+                    filterenv = Env.adsr(0.0,0.5,0.2,0.2).kr(2,gate);
+                    filter =  RLPF.ar(osc,cutoff*filterenv+100,rq);
+                    env = Env.adsr(0.01,0.0,0.9,0.05).kr(2,gate);
+                    Out.ar(out,Pan2.ar(filter*env*amp*2,pan));
+        }).add;
+
+        SynthDef(\plastickystrings,{|out= 0 freq = 440 bend = 0 amp = 0.1 gate=1
+                    lforate = 5900 lfowidth= 0.01 cutoff= 12000 rq=0.5 pan=0.0|
+                    var lfo, saw, filter, env;
+                    lfo = LFTri.ar(lforate,Rand(0,2.0));
+                    saw = Saw.ar((freq*bend.lag(0.1).midiratio)*(1.0+(lfowidth*lfo)),0.5);
+                    filter = BHiPass.ar(saw,(freq*bend.lag(0.1).midiratio),rq);     //or using cutoff
+                    env = Env.adsr(0.4,0.0,1.0,1.0).kr(2,gate);
+                    Out.ar(out,Pan2.ar(filter*env*amp,pan));
+         }).add;
+
+        //your synth functions for Ndefs
+
+        ~loopBuffer = {arg bufnum, rate=1, amp=0.5;
+                        PlayBuf.ar(2, bufnum, rate, loop: 1)*amp;
+        }; //loop stereo file and mix it
+
+        ~abstractBuffer = {arg bufnum, rate=1, amp=0.5, duration=10, lo=0.4, hi=2;
+                        var sig;
+                        sig = PlayBuf.ar(2, bufnum, LFNoise1.kr(rate).range(lo,hi),
+                Dust.kr(SinOsc.kr(rate).range(0.4,2)), TRand.kr(0, 44100*duration, Impulse.kr(rate)),
+                loop: 1);
+                        sig*amp;
+        }; //playing with playbuf
+
+        ~oscSynth = {arg bufnum=0, freq=200, amp=0.5, lfofreq=0.5, cutoffset=4, pan=0;
+                        var sig;
+                        sig = Osc.ar(bufnum, SinOsc.kr(freq, 0, SinOsc.ar(lfofreq).range(0,1)));
+                        sig = HPF.ar(sig, freq.lag(5)*cutoffset.lag(5));
+                        sig = Pan2.ar(sig, pan, amp);
+        };
+
+        s.sync;
+
+        //your paterns:
+
+        //drums
+        Pdefn(\kick,  Pseq([1,0,1,0,1,0, 1, 1, 1,0,1,0,1,0, 1, 0]*1, inf) );
+        Pdefn(\clap,  Pseq([0,1,0,1]*0.15, inf) );
+
+        // Pdefn(\bass,  Pseq((0..7).scramble, inf) );
+        Pdefn(\bassamp,  Pseq([1,0,1,0,1,1, 0, 1, 1,0,1,1,1,0, 1, 1]*0.2, inf) );
+
+        ~scamble = (0..7).scramble;
+        Pdef(\drums, Ppar([
+                        Pbind(\instrument, \eightoeightkick, \freq, 50.midicps, \dur, 0.25,
+                \amp, Pdefn(\kick) ),
+                        Pbind(\instrument, \handclapsmash, \dur, 0.25, \amp, Pdefn(\clap)),
+                        Pbind(\instrument, \bassfoundation, \degree, Pseq(~scamble, inf), \dur, 0.25,
+                \amp, Pdefn(\bassamp), \scale, Scale.mixolydian, \octave, 2, \ctranspose, 0)
+                ] );
+        );
+
+        //pad chords, melody
+        Pdefn(\chord1, Pseq([ [0,2,4], [-1,1,3] ], inf) );
+        Pdefn(\chord2, Pseq([ [3,7], [-1,1,3] ], inf) );
+        Pdefn(\prophet, Pdefn(\bass) );
+
+        Pdef(\pads, Ppar([
+                        Pbind(\instrument, \plastickystrings, \dur, 1, \amp, Pdefn(\clap)*1.25,
+                \degree, Pdefn(\chord1), \scale, Scale.mixolydian, \stretch, 2, \pan, -0.8 ),
+                        Pbind(\instrument, \plastickystrings, \dur, 1, \amp, Pdefn(\kick)*0.15,
+                \degree, Pdefn(\chord2), \scale, Scale.mixolydian, \stretch, 2, \octave, 6, \pan, 0.8),
+                        Pbind(\instrument, \prophet5pwmstrings, \degree, Pdefn(\prophet), \dur, 1,
+                \amp, 0.2, \scale, Scale.mixolydian, \ctranspose, 0)
+                ] );
+        );
+
+        Ndef.ar(\master, 2); //stereo ndef for master
+
+        ~chans = [\chan1, \chan2, \chan3, \chan4, \chan5]; //add more channels if necessary
+        ~chans.do{|item| Ndef.ar(item,2) };
+        ~ndefs = ~chans.collect{|item| Ndef(item) };
+
+        Ndef(\master, {arg amp=1;
+            var sig;
+                sig = ~ndefs.sum * amp;
+                sig = Compander.ar(sig, sig, 0.9, 1, 30, 0.001, 0.01).softclip //limiter
+        });
+
+        Ndef(\chan1, {arg amp=1;
+                var sig;
+                sig = Ndef.ar(\sound1); //key, numChans
+                //your effects
+            /*    sig = HPF.ar(sig, 440);
+                sig = FreeVerb.ar(sig);*/
+
+                sig = sig * amp;
+        });
+
+        Ndef(\chan2, {arg amp=1;
+                var sig;
+                sig = Ndef.ar(\sound2); //key, numChans
+                //your effects
+            /*    sig = HPF.ar(sig, 440);
+                sig = FreeVerb.ar(sig);*/
+
+                sig = sig * amp;
+        });
+
+        Ndef(\chan3, {arg amp=1;
+                var sig;
+                sig = Ndef.ar(\sound3); //key, numChans
+                //your effects
+            /*    sig = HPF.ar(sig, 440);
+                sig = FreeVerb.ar(sig);*/
+
+                sig = sig * amp;
+        });
+
+        Ndef(\chan4, {arg amp=1;
+                var sig;
+                sig = Ndef.ar(\sound4); //key, numChans
+                //your effects
+            /*    sig = HPF.ar(sig, 440);
+                sig = FreeVerb.ar(sig);*/
+
+                sig = sig * amp;
+        });
+
+        Ndef(\chan5, {arg amp=1;
+                var sig;
+                sig = Ndef.ar(\sound5); //key, numChans
+                //your effects
+            /*    sig = HPF.ar(sig, 440);
+                sig = FreeVerb.ar(sig);*/
+
+                sig = sig * amp;
+        });
+
+        //add more channels here if necessary
+
+        s.sync;
+
+        Ndef(\master).play;
+        Ndef.all[\localhost].fadeTime = 1; //set all fadeTimes in the server to 1
+
+        s.sync; //wait until Ndefs are playing
+
+        //your interfacing
+
+        //initiate midi
+        MIDIIn.connectAll;
+        //or HID
+        /*~myhid = HID.open( 9571, 1397 );*/
+
+        s.sync;
+
+        //get UID from device name
+        ~getUID = {arg device="Akai LPD8"; var srcID;
+            MIDIClient.sources.do{arg  item;
+                if(item.device == device, {
+                    srcID = item.uid;
+            }); };
+            if(srcID.isNil, {
+                "no device found".warn;
+            }, {
+                srcID});
+        };
+
+        //midi cc
+
+        MIDIdef.cc(\slider1, {arg ...args; "chan1: ".post;
+                            Ndef(\chan1).set(\amp,
+                                /*args.postln;*/
+                                args[0].linlin(0,127,0,1.0).postln  );
+            }, 19, srcID: ~getUID.("MIDI Mix");); //maps to cc number 19
+        MIDIdef.cc(\slider2, {arg ...args; "chan2: ".post;
+                            Ndef(\chan2).set(\amp, args[0].linlin(0,127,0,1.0).postln );
+            }, 23, srcID: ~getUID.("MIDI Mix");); //maps to cc number 23
+        MIDIdef.cc(\slider3, {arg ...args; "chan3: ".post;
+                     Ndef(\chan3).set(\amp,
+                                args[0].linlin(0,127,0,1.0).postln  );
+            }, 27, srcID: ~getUID.("MIDI Mix");); //maps to cc number 27
+        MIDIdef.cc(\slider4, {arg ...args; "chan4: ".post;
+                    Ndef(\chan4).set(\amp,
+                                args[0].linlin(0,127,0,1.0).postln  );
+            }, 31, srcID: ~getUID.("MIDI Mix");); //maps to cc number 31
+        MIDIdef.cc(\slider5, {arg ...args; "chan5: ".post;
+                            Ndef(\chan5).set(\amp,
+                            args[0].linlin(0,127,0,1.0).postln  );
+            }, 49, srcID: ~getUID.("MIDI Mix");); //etc
+        MIDIdef.cc(\masterslider, {arg ...args; "master: ".post;
+            Ndef(\master).set(\amp,
+                args[0].linlin(0,127,0,1.0).postln  );
+        }, 62, srcID: ~getUID.("MIDI Mix"););
+        MIDIdef.cc(\temposlider, {arg ...args; "tempo: ".post;
+            TempoClock.default.tempo = args[0].linlin(0,127,0.5,2.0).round(0.01).postln;
+        }, 61, srcID: ~getUID.("MIDI Mix"););
+
+        //midi note
+        s.sync;
+        //a sound to play on the midi keyboard
+        /*Ndef(\sound5, {|freq = 440 bend = 0 amp = 0 gate=1
+                lforate = 4.85 lfowidth= 0.5 cutoff= 2000 rq=0.5 pan = 0.0|
+                var pulse, filter, env;
+                pulse = Mix.ar(Pulse.ar((freq*bend.lag(0.1).midiratio)
+                    *[1,33.5.midiratio],[0.2,0.1],[0.7,0.3]));
+                env = Env.adsr(0.0,1.0,0.8,3.0).kr(2,gate);
+                filter = BLowPass4.ar(pulse,(cutoff)+200+(freq),rq);
+                Pan2.ar(Mix.ar(filter)*env*amp,pan);
+         });
+
+        //monophonic
+        MIDIdef.noteOn(\keysOn, {arg ...args; args.postln;
+                    Ndef(\sound5).spawn(extraArgs: [\freq, args[1].midicps, \gate, 1,
+        \amp, args[0].linlin(0,127,0,1)*0.7, \pan, args[1].linlin(0,127,-1,1)])
+                }, srcID: ~getUID.("Akai LPD8 Wireless"););
+
+        MIDIdef.noteOff(\keysOff, {arg ...args; args.postln;
+                                Ndef(\sound5).set(\gate, 0);
+                }, srcID: ~getUID.("Akai LPD8 Wireless"););*/
+
+        //polyphonic synth
+
+        MIDIdef.noteOn(\keysOn, {arg ...args;
+            var     freq, amp, pan;
+                        args.postln;
+
+                        freq = args[1].midicps;
+                        amp = args[0].linlin(0,127,0,1)*0.5;
+                        pan = args[1].linlin(0,127,-1,1);
+
+                        Ndef(\sound5).put([args[1]], {| bend = 0 gate=1
+                        lforate = 4.85 lfowidth= 0.5 cutoff= 2000 rq=0.5|
+                        var pulse, filter, env;
+                        pulse = Mix.ar(Pulse.ar((freq*bend.lag(0.1).midiratio)
+                                *[1,33.5.midiratio],[0.2,0.1],[0.7,0.3]));
+                        env = Env.adsr(0.0,1.0,0.8,3.0).kr(2,gate);
+                        filter = BLowPass4.ar(pulse,(cutoff)+200+(freq),rq);
+                        Pan2.ar(Mix.ar(filter)*env*amp,pan);
+             });
+
+                }, srcID: ~getUID.("Akai LPD8 Wireless"););
+
+        MIDIdef.noteOff(\keysOff, {arg ...args; args.postln;
+                        Ndef(\sound5).objects[args[1]].set(\gate, 0)
+
+                }, srcID: ~getUID.("Akai LPD8 Wireless"););
+
+
+        //buttons to trigger stuff
+        MIDIdef.noteOn(\buttons, {arg ...args;
+            case
+            {args[1] == 1} {
+                "sound 1 with random settings".postln;
+                Ndef(\sound1).set(\bufnum, ~buffers[rrand(0, ~buffers.size-1)].postln, \amp, 0.2);
+                Ndef(\sound1, ~abstractBuffer);
+                Ndef(\sound1).set(\rate, rrand(5,50), \duration, rrand(5,60), \lo, rrand(-0.6,10.1),
+                    \hi, rrand(-1.2,13.2));
+            }
+            {args[1] == 3} {
+                "stop sound 1".postln;
+                Ndef(\sound1).clear(2);
+            }
+            {args[1] == 4} {
+                "sound 2".postln;
+                Ndef(\sound2).set(\bufnum, ~waveBuffer, \lfofreq, [4, 8, 16].choose,
+                    \freq, (Scale.mixolydian.degrees+48).choose.midicps, \amp, 3,
+                    \cutoffset, [2,3,4,6,8].choose);
+                Ndef(\sound2, ~oscSynth);
+                Tdef(\bass, { inf.do{
+                    Ndef(\sound2).set(\bufnum, ~waveBuffer, \lfofreq, [4, 8, 16].choose,
+                        \freq, (Scale.mixolydian.degrees+48).choose.midicps, \amp, 3,
+                        \cutoffset, [2,3,4,6,8].choose);
+                    [4,8,2].choose.yield;
+                }
+                }).play;
+
+            }
+            {args[1] == 6} {
+                "stop sound 2".postln;
+                Ndef(\sound2).clear(2);
+                Tdef(\bass).stop;
+            }
+            {args[1] == 7} {
+                "start sound 3".postln;
+                //start playing drums
+                Ndef(\sound3).fadeTime = 1;
+                Ndef(\sound3, Pdef(\drums) );
+            }
+            {args[1] == 9} {
+                "stop sound 3".postln;
+                Ndef(\sound3).fadeTime = 3;
+                Ndef(\sound3, {});
+            }
+            {args[1] == 10} {
+                "start sound 4".postln;
+                //patterns into ndefs
+                Ndef(\sound4, Pdef(\pads) );
+            }
+            {args[1] == 12} {
+                "stop sound 4".postln;
+                Ndef(\sound4).clear(2);
+            }
+            {args[1] == 22} {
+                "squash the drums".postln;
+                Ndef(\chan3).fadeTime = 3;
+                //reverb and distortion on drums
+                Ndef(\chan3, {arg amp=1;
+                    var sig;
+                    sig = Ndef.ar(\sound3); //key, numChans
+                    //your effects
+                    sig = (sig * 4).distort;
+                    sig = FreeVerb.ar(sig, 0.8, 0.8, 0.5);
+                    sig = sig * amp;
+                });
+            }
+            {args[1] == 24} {
+                "normal drums".postln;
+                //drums back to normal
+                Ndef(\chan3).fadeTime = 5;
+                Ndef(\chan3, {arg amp=1;
+                    var sig;
+                    sig = Ndef.ar(\sound3); //key, numChans
+                    sig = sig * amp;
+                });
+            }
+            {args[1] == 25} {
+                "finish - clear all Ndefs".postln;
+                Ndef.clear(3);
+            }
+            {args[1] == 26} {
+                "my groove".postln;
+                Tdef(\sequence).stop;
+                //a groove with patterns
+                Pdefn(\kick,  Pseq([1,0,1,0,1,0, 1, 1, 1,0,1,0,1,1, 1, 0]*1, inf) );
+                Pdefn(\clap,  Pseq([0,1,1,0]*0.15, inf) );
+                Pdefn(\bassamp,  Pseq([1,0,1,0,0,1, 0, 1, 1,0,1,1,1,0, 1, 0]*0.2, inf) );
+            }
+            {args[1] == 27} {
+                "start sequencer".postln;
+                //8-step sequencer
+                ~clapPat = [0,0,0,0,0,0,0,0];
+                ~kickPat = [0,0,0,0,0,0,0,0];
+                ~bassPat = [0,0,0,0,0,0,0,0];
+                ~clapCCArr = [16, 20, 24, 28, 46, 50, 54, 58];
+                ~kickCCArr = [17, 21, 25, 29, 47, 51, 55, 59];
+                ~bassCCArr = [18, 22, 26, 30, 48, 52, 56, 60];
+                ~drumCCArr = [~clapCCArr, ~kickCCArr, ~bassCCArr];
+                ~drumPat = [~clapPat, ~kickPat, ~bassPat];
+                ~drumKeys = [\clap, \kick, \bassamp];
+                ~ampArr = [0.15,1,0.2];
+
+                ~drumKeys.do{|it, in|
+                    Pdefn(it,  Pseq(~drumPat[in]*0.15, inf) );
+                    ~drumCCArr[in].do{|item, index|
+                        var number = index+1;
+                        MIDIdef.cc(("knob" ++ (in+1) ++ "_" ++ number).asSymbol, {arg ...args;
+                            (~drumKeys[in] ++ " step " ++ number ++ ": ").post;
+                            ~drumPat[in][index] = args[0].linlin(0,127,0,1).postln;
+                        }, item);
+                    };
+
+                };
+
+                Tdef(\sequence,    {inf.do{
+                    ~drumPat.roundUp(1).postln;
+                    ~drumPat.do{|it, in|
+                        (Pdefn(~drumKeys[in],  Pseq(it*~ampArr[in], inf) ));
+                    };
+                    (0.25*8).yield
+                }
+                }).play;
+
+            }
+            ;
+        }, srcID: ~getUID.("MIDI Mix"););
+
+        //HID messages
+        /*HIDdef.element(\try, {|...args| args.postln;});*/
+
+        //osc messages
+        /*OSCdef(\fader1, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderA');
+        OSCdef(\fader2, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderB');
+        OSCdef(\fader3, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderC');
+        OSCdef(\fader4, { arg msg, time, addr, recvPort; msg.postln}, '/1/faderD');*/
+
+        "code loaded".postln;
+    }.fork;
+});
+
+)</pre>
+<div class='doclink'>helpfile source: <a href='file:///Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerDotPlay/HelpSource/ComputerDotPlay/Practicals/Organising your Code.schelp'>/Users/federicoreuben/Library/Application Support/SuperCollider/Extensions/ComputerDotPlay/HelpSource/ComputerDotPlay/Practicals/Organising your Code.schelp</a><br>link::ComputerDotPlay/Practicals/Organising your Code::<br>sc version: 3.8.0</div></div></body></html>
